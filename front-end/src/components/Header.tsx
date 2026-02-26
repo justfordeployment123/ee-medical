@@ -26,6 +26,7 @@ export const Header: React.FC = () => {
             <span>Mon - Fri: 9:00 am EST - 06:00 pm EST</span>
           </div>
           <div className="flex space-x-4 text-gray-400">
+            {/* Social links stay as standard 'a' tags for external routing */}
             <a href="#" className="hover:text-blue-600 transition-colors"><Facebook size={14} /></a>
             <a href="#" className="hover:text-blue-400 transition-colors"><Twitter size={14} /></a>
             <a href="#" className="hover:text-blue-700 transition-colors"><Linkedin size={14} /></a>
@@ -55,6 +56,7 @@ export const Header: React.FC = () => {
               <Mail className="text-blue-500 w-8 h-8" strokeWidth={1.5} />
               <div className="flex flex-col">
                 <span className="text-sm font-bold text-gray-900">Mail us for help:</span>
+                {/* Mailto stays as an standard 'a' tag */}
                 <a href="mailto:info@eemedicals.com" className="text-xs text-blue-600 font-medium hover:underline">info@eemedicals.com</a>
               </div>
             </div>
@@ -102,30 +104,30 @@ export const Header: React.FC = () => {
                     <div>
                       <h3 className="text-gray-900 font-bold uppercase mb-6 tracking-wider text-sm">Healthcare</h3>
                       <ul className="space-y-4">
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Handshake size={18} className="mr-3 text-gray-400" /> Reliability</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Lightbulb size={18} className="mr-3 text-gray-400" /> Six Sigma - Healthcare</a></li>
+                        <li><Link to="/reliability" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Handshake size={18} className="mr-3 text-gray-400" /> Reliability</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Lightbulb size={18} className="mr-3 text-gray-400" /> Six Sigma - Healthcare</Link></li>
                       </ul>
                     </div>
                     {/* Column 2 */}
                     <div>
                       <h3 className="text-gray-900 font-bold uppercase mb-6 tracking-wider text-sm">Quality Assurance</h3>
                       <ul className="space-y-4">
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Briefcase size={18} className="mr-3 text-gray-400" /> Medical Devices</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><ClipboardCheck size={18} className="mr-3 text-gray-400" /> Audits</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Handshake size={18} className="mr-3 text-gray-400" /> Reliability</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Cpu size={18} className="mr-3 text-gray-400" /> Quality Management System Regulation (QMSR)</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><ShieldCheck size={18} className="mr-3 text-gray-400" /> Quality Management System Implementation</a></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Briefcase size={18} className="mr-3 text-gray-400" /> Medical Devices</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><ClipboardCheck size={18} className="mr-3 text-gray-400" /> Audits</Link></li>
+                        <li><Link to="/reliability" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Handshake size={18} className="mr-3 text-gray-400" /> Reliability</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Cpu size={18} className="mr-3 text-gray-400" /> Quality Management System Regulation (QMSR)</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><ShieldCheck size={18} className="mr-3 text-gray-400" /> Quality Management System Implementation</Link></li>
                       </ul>
                     </div>
                     {/* Column 3 */}
                     <div>
                       <h3 className="text-gray-900 font-bold uppercase mb-6 tracking-wider text-sm">ISO</h3>
                       <ul className="space-y-4">
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><CheckCircle size={18} className="mr-3 text-gray-400" /> ISO 13485 Quality System Registration</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><ShieldAlert size={18} className="mr-3 text-gray-400" /> ISO 14971 Device Risk Management</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Heart size={18} className="mr-3 text-gray-400" /> ISO 9001 Quality Management System</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Target size={18} className="mr-3 text-gray-400" /> Free ISO 13485:2016 Gap Analysis Tool</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><History size={18} className="mr-3 text-gray-400" /> Free ISO 9001:2015 Gap Analysis Tool</a></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><CheckCircle size={18} className="mr-3 text-gray-400" /> ISO 13485 Quality System Registration</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><ShieldAlert size={18} className="mr-3 text-gray-400" /> ISO 14971 Device Risk Management</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Heart size={18} className="mr-3 text-gray-400" /> ISO 9001 Quality Management System</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Target size={18} className="mr-3 text-gray-400" /> Free ISO 13485:2016 Gap Analysis Tool</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><History size={18} className="mr-3 text-gray-400" /> Free ISO 9001:2015 Gap Analysis Tool</Link></li>
                       </ul>
                     </div>
                   </div>
@@ -143,32 +145,32 @@ export const Header: React.FC = () => {
                     <div>
                       <h3 className="text-gray-900 font-bold mb-6 text-sm pr-4">Mark Approval / Licensing / Compliance</h3>
                       <ul className="space-y-4">
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Globe size={18} className="mr-3 text-gray-400 shrink-0" /> CCC Mark Approval</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Globe size={18} className="mr-3 text-gray-400 shrink-0" /> CE Mark Approval</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><FileText size={18} className="mr-3 text-gray-400 shrink-0" /> EU MDR/IVDR Technical Documentation</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><ShieldCheck size={18} className="mr-3 text-gray-400 shrink-0" /> Post-market Compliance</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><ShieldAlert size={18} className="mr-3 text-gray-400 shrink-0" /> FDA 483 Warning Letter/Recalls and Remediation</a></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Globe size={18} className="mr-3 text-gray-400 shrink-0" /> CCC Mark Approval</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Globe size={18} className="mr-3 text-gray-400 shrink-0" /> CE Mark Approval</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><FileText size={18} className="mr-3 text-gray-400 shrink-0" /> EU MDR/IVDR Technical Documentation</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><ShieldCheck size={18} className="mr-3 text-gray-400 shrink-0" /> Post-market Compliance</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><ShieldAlert size={18} className="mr-3 text-gray-400 shrink-0" /> FDA 483 Warning Letter/Recalls and Remediation</Link></li>
                       </ul>
                     </div>
                     {/* Column 2 */}
                     <div>
                       <h3 className="text-gray-900 font-bold mb-6 text-sm pr-4">Medical Device and Diagnostics</h3>
                       <ul className="space-y-4">
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Settings size={18} className="mr-3 text-gray-400 shrink-0" /> Investigational Device Exemption (IDE)</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Heart size={18} className="mr-3 text-gray-400 shrink-0" /> Premarket Notification 510(k), DeNovo, PMA</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Building2 size={18} className="mr-3 text-gray-400 shrink-0" /> Establishment Registration</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><MapPin size={18} className="mr-3 text-gray-400 shrink-0" /> US Agent for Foreign Establishments</a></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Settings size={18} className="mr-3 text-gray-400 shrink-0" /> Investigational Device Exemption (IDE)</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Heart size={18} className="mr-3 text-gray-400 shrink-0" /> Premarket Notification 510(k), DeNovo, PMA</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Building2 size={18} className="mr-3 text-gray-400 shrink-0" /> Establishment Registration</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><MapPin size={18} className="mr-3 text-gray-400 shrink-0" /> US Agent for Foreign Establishments</Link></li>
                       </ul>
                     </div>
                     {/* Column 3 */}
                     <div>
                       <h3 className="text-gray-900 font-bold mb-6 text-sm pr-4">Drugs / Biologics / Pharmacovigilance</h3>
                       <ul className="space-y-4">
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Target size={18} className="mr-3 text-gray-400 shrink-0" /> Investigational New Drug (IND) Application</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Target size={18} className="mr-3 text-gray-400 shrink-0" /> New Drug Application(NDA)</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Target size={18} className="mr-3 text-gray-400 shrink-0" /> Abbreviated New Drug Application (ANDA)</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Target size={18} className="mr-3 text-gray-400 shrink-0" /> Biologics License Application (BLA)</a></li>
-                        <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Target size={18} className="mr-3 text-gray-400 shrink-0" /> Drug Master File (DMF) Submissions</a></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Target size={18} className="mr-3 text-gray-400 shrink-0" /> Investigational New Drug (IND) Application</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Target size={18} className="mr-3 text-gray-400 shrink-0" /> New Drug Application(NDA)</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Target size={18} className="mr-3 text-gray-400 shrink-0" /> Abbreviated New Drug Application (ANDA)</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Target size={18} className="mr-3 text-gray-400 shrink-0" /> Biologics License Application (BLA)</Link></li>
+                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Target size={18} className="mr-3 text-gray-400 shrink-0" /> Drug Master File (DMF) Submissions</Link></li>
                       </ul>
                     </div>
                   </div>
@@ -182,11 +184,11 @@ export const Header: React.FC = () => {
                 </button>
                 <div className="absolute left-0 top-full mt-0 w-96 bg-white shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-blue-500">
                   <ul className="flex flex-col py-6 px-4 space-y-4">
-                    <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><CheckCircle size={18} className="mr-3 text-gray-800 shrink-0" /> AI SaMD Regulatory Pathway Strategy</a></li>
-                    <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><CheckCircle size={18} className="mr-3 text-gray-800 shrink-0" /> AI FDA Readiness & Deficiency Risk Audit</a></li>
-                    <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><CheckCircle size={18} className="mr-3 text-gray-800 shrink-0" /> Predetermined Change Control Plan (PCCP) Authoring</a></li>
-                    <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><CheckCircle size={18} className="mr-3 text-gray-800 shrink-0" /> AI Design Controls & QMSR Integration</a></li>
-                    <li><a href="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><CheckCircle size={18} className="mr-3 text-gray-800 shrink-0" /> FDA Interaction & Defense Support</a></li>
+                    <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><CheckCircle size={18} className="mr-3 text-gray-800 shrink-0" /> AI SaMD Regulatory Pathway Strategy</Link></li>
+                    <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><CheckCircle size={18} className="mr-3 text-gray-800 shrink-0" /> AI FDA Readiness & Deficiency Risk Audit</Link></li>
+                    <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><CheckCircle size={18} className="mr-3 text-gray-800 shrink-0" /> Predetermined Change Control Plan (PCCP) Authoring</Link></li>
+                    <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><CheckCircle size={18} className="mr-3 text-gray-800 shrink-0" /> AI Design Controls & QMSR Integration</Link></li>
+                    <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><CheckCircle size={18} className="mr-3 text-gray-800 shrink-0" /> FDA Interaction & Defense Support</Link></li>
                   </ul>
                 </div>
               </li>
@@ -264,19 +266,19 @@ export const Header: React.FC = () => {
             <div className={`overflow-hidden transition-all duration-300 bg-gray-50 ${activeMobileDropdown === 'quality' ? 'max-h-250' : 'max-h-0'}`}>
               <ul className="flex flex-col py-2 px-8 text-sm text-gray-600 space-y-3 pb-4">
                 <li className="font-bold text-gray-800 pt-2">Healthcare</li>
-                <li><a href="#" className="hover:text-blue-600">Reliability</a></li>
-                <li><a href="#" className="hover:text-blue-600">Six Sigma - Healthcare</a></li>
+                <li><Link to="/reliability" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">Reliability</Link></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">Six Sigma - Healthcare</Link></li>
                 
                 <li className="font-bold text-gray-800 pt-2">Quality Assurance</li>
-                <li><a href="#" className="hover:text-blue-600">Medical Devices</a></li>
-                <li><a href="#" className="hover:text-blue-600">Audits</a></li>
-                <li><a href="#" className="hover:text-blue-600">QMSR Regulation</a></li>
-                <li><a href="#" className="hover:text-blue-600">QMS Implementation</a></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">Medical Devices</Link></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">Audits</Link></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">QMSR Regulation</Link></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">QMS Implementation</Link></li>
 
                 <li className="font-bold text-gray-800 pt-2">ISO</li>
-                <li><a href="#" className="hover:text-blue-600">ISO 13485 Registration</a></li>
-                <li><a href="#" className="hover:text-blue-600">ISO 14971 Device Risk Mgt</a></li>
-                <li><a href="#" className="hover:text-blue-600">ISO 9001 QMS</a></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">ISO 13485 Registration</Link></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">ISO 14971 Device Risk Mgt</Link></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">ISO 9001 QMS</Link></li>
               </ul>
             </div>
           </div>
@@ -293,17 +295,17 @@ export const Header: React.FC = () => {
             <div className={`overflow-hidden transition-all duration-300 bg-gray-50 ${activeMobileDropdown === 'regulatory' ? 'max-h-250' : 'max-h-0'}`}>
               <ul className="flex flex-col py-2 px-8 text-sm text-gray-600 space-y-3 pb-4">
                 <li className="font-bold text-gray-800 pt-2">Mark Approval & Compliance</li>
-                <li><a href="#" className="hover:text-blue-600">CE & CCC Mark Approval</a></li>
-                <li><a href="#" className="hover:text-blue-600">EU MDR/IVDR Documentation</a></li>
-                <li><a href="#" className="hover:text-blue-600">Post-market Compliance</a></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">CE & CCC Mark Approval</Link></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">EU MDR/IVDR Documentation</Link></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">Post-market Compliance</Link></li>
 
                 <li className="font-bold text-gray-800 pt-2">Medical Device & Diagnostics</li>
-                <li><a href="#" className="hover:text-blue-600">IDE & 510(k) Applications</a></li>
-                <li><a href="#" className="hover:text-blue-600">Establishment Registration</a></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">IDE & 510(k) Applications</Link></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">Establishment Registration</Link></li>
                 
                 <li className="font-bold text-gray-800 pt-2">Drugs & Biologics</li>
-                <li><a href="#" className="hover:text-blue-600">IND & NDA Applications</a></li>
-                <li><a href="#" className="hover:text-blue-600">BLA & DMF Submissions</a></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">IND & NDA Applications</Link></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">BLA & DMF Submissions</Link></li>
               </ul>
             </div>
           </div>
@@ -319,11 +321,11 @@ export const Header: React.FC = () => {
             </button>
             <div className={`overflow-hidden transition-all duration-300 bg-gray-50 ${activeMobileDropdown === 'ai' ? 'max-h-250' : 'max-h-0'}`}>
               <ul className="flex flex-col py-2 px-8 text-sm text-gray-600 space-y-3 pb-4">
-                <li><a href="#" className="hover:text-blue-600">AI SaMD Regulatory Pathway</a></li>
-                <li><a href="#" className="hover:text-blue-600">AI FDA Readiness & Risk Audit</a></li>
-                <li><a href="#" className="hover:text-blue-600">PCCP Authoring</a></li>
-                <li><a href="#" className="hover:text-blue-600">AI Design Controls & QMSR</a></li>
-                <li><a href="#" className="hover:text-blue-600">FDA Interaction & Defense</a></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">AI SaMD Regulatory Pathway</Link></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">AI FDA Readiness & Risk Audit</Link></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">PCCP Authoring</Link></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">AI Design Controls & QMSR</Link></li>
+                <li><Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600">FDA Interaction & Defense</Link></li>
               </ul>
             </div>
           </div>
