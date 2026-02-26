@@ -8,6 +8,8 @@ import { MedicalDevices } from "./pages/MedicalDevices";
 import { Audits } from "./pages/Audits";
 import { QualitySystemRegulation } from "./pages/QualitySystemRegulation";
 import { Iso9001Implementation } from "./pages/Iso9001Implementation";
+import { Iso13485 } from "./pages/Iso13485";
+import { Iso14971 } from "./pages/Iso14971";
 
 // Placeholder components for future pages
 const Software = () => <div className="p-20 text-center text-2xl">Software Page Coming Soon</div>;
@@ -31,7 +33,8 @@ function App() {
                     <Route path="/quality-assurance-audits" element={<Audits />} />
                     <Route path="/quality-system-regulation-qsr" element={<QualitySystemRegulation />} />
                     <Route path="/quality-management-system-implementation" element={<Iso9001Implementation />} />
-
+                    <Route path="/iso-13485-medical-quality-system-registration" element={<Iso13485 />} />
+                    <Route path="/iso-14971-medical-device-risk-management-for-medical-devices" element={<Iso14971 />} />
                     {/* Fallback route */}
                     <Route path="*" element={<NotFound />} />
                 </Routes>
