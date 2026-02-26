@@ -105,7 +105,7 @@ export const Header: React.FC = () => {
                       <h3 className="text-gray-900 font-bold uppercase mb-6 tracking-wider text-sm">Healthcare</h3>
                       <ul className="space-y-4">
                         <li><Link to="/reliability" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Handshake size={18} className="mr-3 text-gray-400" /> Reliability</Link></li>
-                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Lightbulb size={18} className="mr-3 text-gray-400" /> Six Sigma - Healthcare</Link></li>
+                        <li><Link to="/six-sigma-healthcare" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Lightbulb size={18} className="mr-3 text-gray-400" /> Six Sigma - Healthcare</Link></li>
                       </ul>
                     </div>
                     {/* Column 2 */}

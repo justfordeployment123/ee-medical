@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { Reliability } from "./pages/Reliability";
+import { SixSigmaHealthcare } from "./pages/SixSigmaHealthcare";
 
 // Placeholder components for future pages
 const Software = () => <div className="p-20 text-center text-2xl">Software Page Coming Soon</div>;
@@ -22,6 +23,7 @@ function App() {
                     
                     {/* Newly added Reliability route */}
                     <Route path="/reliability" element={<Reliability />} />
+                    <Route path="/six-sigma-healthcare" element={<SixSigmaHealthcare />} />
 
                     {/* Fallback route */}
                     <Route path="*" element={<NotFound />} />
