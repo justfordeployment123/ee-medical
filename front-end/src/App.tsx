@@ -12,9 +12,12 @@ import { Iso13485 } from "./pages/Iso13485";
 import { Iso14971 } from "./pages/Iso14971";
 import { Iso13485GapAnalysis } from "./pages/Iso13485GapAnalysis";
 import { Media } from "./pages/Media";
+import { Software } from "./pages/Software";
+import { CEMarkApproval } from "./pages/CEMarkApproval";
+import { CCCMarkApproval } from "./pages/CCCMarkApproval";
 
 // Placeholder components for future pages
-const Software = () => <div className="p-20 text-center text-2xl">Software Page Coming Soon</div>;
+// const Software = () => <div className="p-20 text-center text-2xl">Software Page Coming Soon</div>;
 const NotFound = () => <div className="p-20 text-center text-2xl text-red-600">404 - Page Not Found</div>;
 
 function App() {
@@ -39,6 +42,11 @@ function App() {
                     <Route path="/iso-14971-medical-device-risk-management-for-medical-devices" element={<Iso14971 />} />
                     <Route path="/free-iso-13485-2016-gap-analysis-tool" element={<Iso13485GapAnalysis />} />
                     <Route path="/media" element={<Media />} />
+                    <Route path="/software" element={<Software />} />
+                    <Route path="/healthcare-software-development" element={<Software />} />
+                    <Route path="/ccc-mark-approval" element={<CCCMarkApproval />} />
+                    <Route path="/ce-mark-approval" element={<CEMarkApproval />} />
+
                     {/* Fallback route */}
                     <Route path="*" element={<NotFound />} />
                 </Routes>
