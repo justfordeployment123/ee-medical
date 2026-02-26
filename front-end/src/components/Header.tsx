@@ -112,8 +112,8 @@ export const Header: React.FC = () => {
                     <div>
                       <h3 className="text-gray-900 font-bold uppercase mb-6 tracking-wider text-sm">Quality Assurance</h3>
                       <ul className="space-y-4">
-                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Briefcase size={18} className="mr-3 text-gray-400" /> Medical Devices</Link></li>
-                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><ClipboardCheck size={18} className="mr-3 text-gray-400" /> Audits</Link></li>
+                        <li><Link to="/medical-devices-quality-assurance" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Briefcase size={18} className="mr-3 text-gray-400" /> Medical Devices</Link></li>
+                        <li><Link to="/quality-assurance-audits" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><ClipboardCheck size={18} className="mr-3 text-gray-400" /> Audits</Link></li>
                         <li><Link to="/reliability" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Handshake size={18} className="mr-3 text-gray-400" /> Reliability</Link></li>
                         <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Cpu size={18} className="mr-3 text-gray-400" /> Quality Management System Regulation (QMSR)</Link></li>
                         <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><ShieldCheck size={18} className="mr-3 text-gray-400" /> Quality Management System Implementation</Link></li>
