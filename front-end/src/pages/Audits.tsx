@@ -111,7 +111,7 @@ export const Audits: React.FC = () => {
                                     "PS 9000:2016 Pharmaceutical Packaging"
                                 ].map((item, index) => (
                                     <li key={index} className="flex items-start">
-                                        <CheckCircle className="text-white fill-blue-500 w-[20px] h-[20px] mr-3 shrink-0 mt-0.5" />
+                                        <CheckCircle className="text-white fill-blue-500 w-5 h-5 mr-3 shrink-0 mt-0.5" />
                                         <span>{item}</span>
                                     </li>
                                 ))}
@@ -130,7 +130,7 @@ export const Audits: React.FC = () => {
                                     "ISO 17025 Testing & Calibration"
                                 ].map((item, index) => (
                                     <li key={index} className="flex items-start">
-                                        <CheckCircle className="text-white fill-blue-500 w-[20px] h-[20px] mr-3 shrink-0 mt-0.5" />
+                                        <CheckCircle className="text-white fill-blue-500 w-5 h-5 mr-3 shrink-0 mt-0.5" />
                                         <span>{item}</span>
                                     </li>
                                 ))}
@@ -150,7 +150,7 @@ export const Audits: React.FC = () => {
                                     "ISO 27001 Information Security"
                                 ].map((item, index) => (
                                     <li key={index} className="flex items-start">
-                                        <CheckCircle className="text-white fill-blue-500 w-[20px] h-[20px] mr-3 shrink-0 mt-0.5" />
+                                        <CheckCircle className="text-white fill-blue-500 w-5 h-5 mr-3 shrink-0 mt-0.5" />
                                         <span>{item}</span>
                                     </li>
                                 ))}

@@ -6,6 +6,8 @@ import { Reliability } from "./pages/Reliability";
 import { SixSigmaHealthcare } from "./pages/SixSigmaHealthcare";
 import { MedicalDevices } from "./pages/MedicalDevices";
 import { Audits } from "./pages/Audits";
+import { QualitySystemRegulation } from "./pages/QualitySystemRegulation";
+import { Iso9001Implementation } from "./pages/Iso9001Implementation";
 
 // Placeholder components for future pages
 const Software = () => <div className="p-20 text-center text-2xl">Software Page Coming Soon</div>;
@@ -27,6 +29,8 @@ function App() {
                     <Route path="/six-sigma-healthcare" element={<SixSigmaHealthcare />} />
                     <Route path="/medical-devices-quality-assurance" element={<MedicalDevices />} />
                     <Route path="/quality-assurance-audits" element={<Audits />} />
+                    <Route path="/quality-system-regulation-qsr" element={<QualitySystemRegulation />} />
+                    <Route path="/quality-management-system-implementation" element={<Iso9001Implementation />} />
 
                     {/* Fallback route */}
                     <Route path="*" element={<NotFound />} />
