@@ -126,7 +126,7 @@ export const Header: React.FC = () => {
                         <li><Link to="/iso-13485-medical-quality-system-registration" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><CheckCircle size={18} className="mr-3 text-gray-400" /> ISO 13485 Quality System Registration</Link></li>
                         <li><Link to="/iso-14971-medical-device-risk-management-for-medical-devices" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><ShieldAlert size={18} className="mr-3 text-gray-400" /> ISO 14971 Device Risk Management</Link></li>
                         <li><Link to="/quality-management-system-implementation" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Heart size={18} className="mr-3 text-gray-400" /> ISO 9001 Quality Management System</Link></li>
-                        <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Target size={18} className="mr-3 text-gray-400" /> Free ISO 13485:2016 Gap Analysis Tool</Link></li>
+                        <li><Link to="/free-iso-13485-2016-gap-analysis-tool" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><Target size={18} className="mr-3 text-gray-400" /> Free ISO 13485:2016 Gap Analysis Tool</Link></li>
                         <li><Link to="#" className="flex items-center text-gray-600 hover:text-blue-600 font-medium"><History size={18} className="mr-3 text-gray-400" /> Free ISO 9001:2015 Gap Analysis Tool</Link></li>
                       </ul>
                     </div>

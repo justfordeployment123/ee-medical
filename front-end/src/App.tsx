@@ -10,6 +10,7 @@ import { QualitySystemRegulation } from "./pages/QualitySystemRegulation";
 import { Iso9001Implementation } from "./pages/Iso9001Implementation";
 import { Iso13485 } from "./pages/Iso13485";
 import { Iso14971 } from "./pages/Iso14971";
+import { Iso13485GapAnalysis } from "./pages/Iso13485GapAnalysis";
 
 // Placeholder components for future pages
 const Software = () => <div className="p-20 text-center text-2xl">Software Page Coming Soon</div>;
@@ -35,6 +36,7 @@ function App() {
                     <Route path="/quality-management-system-implementation" element={<Iso9001Implementation />} />
                     <Route path="/iso-13485-medical-quality-system-registration" element={<Iso13485 />} />
                     <Route path="/iso-14971-medical-device-risk-management-for-medical-devices" element={<Iso14971 />} />
+                    <Route path="/free-iso-13485-2016-gap-analysis-tool" element={<Iso13485GapAnalysis />} />
                     {/* Fallback route */}
                     <Route path="*" element={<NotFound />} />
                 </Routes>
