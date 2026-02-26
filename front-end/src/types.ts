@@ -1,9 +1,9 @@
-// src/types.ts
 export interface ServiceType {
   id: string;
   title: string;
   description: string;
   link: string;
+  imageUrl: string; // <-- Added this field
 }
 
 export interface StatType {
