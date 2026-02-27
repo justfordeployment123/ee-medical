@@ -320,7 +320,7 @@ export const Header: React.FC = () => {
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="/us-agent-for-foreign-establishments" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link to="/fda-usa-agents-for-foreign-establishments" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                         <MapPin size={18} className="mr-3 text-gray-400 shrink-0" /> US Agent for Foreign
                                                         Establishments
                                                     </Link>
@@ -349,7 +349,7 @@ export const Header: React.FC = () => {
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link to="/biologics-license-application-bla-overview" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                         <Target size={18} className="mr-3 text-gray-400 shrink-0" /> Biologics License Application
                                                         (BLA)
                                                     </Link>

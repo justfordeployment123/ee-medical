@@ -23,6 +23,8 @@ import { Fda510kApplication } from "./pages/Fda510kApplication";
 import { AndaApplication } from "./pages/AndaApplication";
 import { NdaApplication } from "./pages/NdaApplication";
 import { IndApplication } from "./pages/IndApplication";
+import { FdaUsAgentForeign } from "./pages/FdaUsAgentForeign";
+import { BiologicsLicenseApplication } from "./pages/BiologicsLicenseApplication";
 
 // Placeholder components for future pages
 // const Software = () => <div className="p-20 text-center text-2xl">Software Page Coming Soon</div>;
@@ -59,10 +61,12 @@ function App() {
                     <Route path="/pre-ide-process" element={<PreIdeProcess />} />
                     <Route path="/fda-establishment-registration" element={<FdaEstablishmentRegistration />} />
                     <Route path="/fda-510k-application" element={<Fda510kApplication />} />
+                    <Route path="/fda-usa-agents-for-foreign-establishments" element={<FdaUsAgentForeign />} />
 
                     <Route path="/investigational-new-drug-ind-application" element={<IndApplication />} />
                     <Route path="/new-drug-application-overview" element={<NdaApplication />} />
                     <Route path="/abbreviated-new-drug-application-anda-submissions-overview" element={<AndaApplication />} />
+                    <Route path="/biologics-license-application-bla-overview" element={<BiologicsLicenseApplication />} />
                     {/* Fallback route */}
                     <Route path="*" element={<NotFound />} />
                 </Routes>
