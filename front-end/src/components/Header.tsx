@@ -419,18 +419,18 @@ export const Header: React.FC = () => {
                                 <div className="absolute left-0 top-full mt-0 w-96 bg-white shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-[#1a8fd1]">
                                     <ul className="flex flex-col py-6 px-4 space-y-4">
                                         <li>
-                                            <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                            <Link to="/ai-samd-pathway" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                 <CheckCircle size={18} className="mr-3 text-gray-500 shrink-0" /> AI SaMD Regulatory Pathway Strategy
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                            <Link to="/ai-fda-readiness" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                 <CheckCircle size={18} className="mr-3 text-gray-500 shrink-0" /> AI FDA Readiness & Deficiency Risk
                                                 Audit
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                            <Link to="/pccp-authoring" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                 <CheckCircle size={18} className="mr-3 text-gray-500 shrink-0" /> Predetermined Change Control Plan
                                                 (PCCP) Authoring
                                             </Link>
