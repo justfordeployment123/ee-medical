@@ -303,24 +303,24 @@ export const Header: React.FC = () => {
                                             <h3 className="text-gray-900 font-bold mb-6 text-sm pr-4">Medical Device and Diagnostics</h3>
                                             <ul className="space-y-4">
                                                 <li>
-                                                    <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link to="/pre-ide-process" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                         <Settings size={18} className="mr-3 text-gray-400 shrink-0" /> Investigational Device
                                                         Exemption (IDE)
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link to="/fda-510k-application" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                         <Heart size={18} className="mr-3 text-gray-400 shrink-0" /> Premarket Notification 510(k),
                                                         DeNovo, PMA
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link to="/fda-establishment-registration" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                         <Building2 size={18} className="mr-3 text-gray-400 shrink-0" /> Establishment Registration
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link to="/us-agent-for-foreign-establishments" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                         <MapPin size={18} className="mr-3 text-gray-400 shrink-0" /> US Agent for Foreign
                                                         Establishments
                                                     </Link>
@@ -332,18 +332,18 @@ export const Header: React.FC = () => {
                                             <h3 className="text-gray-900 font-bold mb-6 text-sm pr-4">Drugs / Biologics / Pharmacovigilance</h3>
                                             <ul className="space-y-4">
                                                 <li>
-                                                    <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link to="/investigational-new-drug-ind-application" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                         <Target size={18} className="mr-3 text-gray-400 shrink-0" /> Investigational New Drug (IND)
                                                         Application
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link to="/new-drug-application-overview" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                         <Target size={18} className="mr-3 text-gray-400 shrink-0" /> New Drug Application (NDA)
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link to="/abbreviated-new-drug-application-anda-submissions-overview" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                         <Target size={18} className="mr-3 text-gray-400 shrink-0" /> Abbreviated New Drug Application
                                                         (ANDA)
                                                     </Link>

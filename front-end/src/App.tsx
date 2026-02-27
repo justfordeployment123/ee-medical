@@ -17,6 +17,12 @@ import { CEMarkApproval } from "./pages/CEMarkApproval";
 import { CCCMarkApproval } from "./pages/CCCMarkApproval";
 import { PostmarketCompliance } from "./pages/PostmarketCompliance";
 import { Fda483Warning } from "./pages/Fda483Warning";
+import { PreIdeProcess } from "./pages/PreIdeProcess";
+import { FdaEstablishmentRegistration } from "./pages/FdaEstablishmentRegistration";
+import { Fda510kApplication } from "./pages/Fda510kApplication";
+import { AndaApplication } from "./pages/AndaApplication";
+import { NdaApplication } from "./pages/NdaApplication";
+import { IndApplication } from "./pages/IndApplication";
 
 // Placeholder components for future pages
 // const Software = () => <div className="p-20 text-center text-2xl">Software Page Coming Soon</div>;
@@ -50,7 +56,13 @@ function App() {
                     <Route path="/ce-mark-approval" element={<CEMarkApproval />} />
                     <Route path="/clinical-data-and-postmarket-compliance-under-the-mdr" element={<PostmarketCompliance />} />
                     <Route path="/fda-483-observations-warning-letters-recalls-remediation" element={<Fda483Warning />} />
+                    <Route path="/pre-ide-process" element={<PreIdeProcess />} />
+                    <Route path="/fda-establishment-registration" element={<FdaEstablishmentRegistration />} />
+                    <Route path="/fda-510k-application" element={<Fda510kApplication />} />
 
+                    <Route path="/investigational-new-drug-ind-application" element={<IndApplication />} />
+                    <Route path="/new-drug-application-overview" element={<NdaApplication />} />
+                    <Route path="/abbreviated-new-drug-application-anda-submissions-overview" element={<AndaApplication />} />
                     {/* Fallback route */}
                     <Route path="*" element={<NotFound />} />
                 </Routes>
