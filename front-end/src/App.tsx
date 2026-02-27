@@ -25,6 +25,8 @@ import { NdaApplication } from "./pages/NdaApplication";
 import { IndApplication } from "./pages/IndApplication";
 import { FdaUsAgentForeign } from "./pages/FdaUsAgentForeign";
 import { BiologicsLicenseApplication } from "./pages/BiologicsLicenseApplication";
+import { CmcServices } from "./pages/CmcServices";
+import { DrugMasterFile } from "./pages/DrugMasterFile";
 
 // Placeholder components for future pages
 // const Software = () => <div className="p-20 text-center text-2xl">Software Page Coming Soon</div>;
@@ -67,6 +69,11 @@ function App() {
                     <Route path="/new-drug-application-overview" element={<NdaApplication />} />
                     <Route path="/abbreviated-new-drug-application-anda-submissions-overview" element={<AndaApplication />} />
                     <Route path="/biologics-license-application-bla-overview" element={<BiologicsLicenseApplication />} />
+
+                    <Route path="/dmf" element={<DrugMasterFile />} />
+
+                    {/* Shortened Route for CMC Services */}
+                    <Route path="/cmc" element={<CmcServices />} />
                     {/* Fallback route */}
                     <Route path="*" element={<NotFound />} />
                 </Routes>

@@ -270,28 +270,43 @@ export const Header: React.FC = () => {
                                             <h3 className="text-gray-900 font-bold mb-6 text-sm pr-4">Mark Approval / Licensing / Compliance</h3>
                                             <ul className="space-y-4">
                                                 <li>
-                                                    <Link to="/ccc-mark-approval" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link
+                                                        to="/ccc-mark-approval"
+                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
+                                                    >
                                                         <Globe size={18} className="mr-3 text-gray-400 shrink-0" /> CCC Mark Approval
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="/ce-mark-approval" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link
+                                                        to="/ce-mark-approval"
+                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
+                                                    >
                                                         <Globe size={18} className="mr-3 text-gray-400 shrink-0" /> CE Mark Approval
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="/ce-mark-approval" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link
+                                                        to="/ce-mark-approval"
+                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
+                                                    >
                                                         <FileText size={18} className="mr-3 text-gray-400 shrink-0" /> EU MDR/IVDR Technical
                                                         Documentation
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="/clinical-data-and-postmarket-compliance-under-the-mdr" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link
+                                                        to="/clinical-data-and-postmarket-compliance-under-the-mdr"
+                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
+                                                    >
                                                         <ShieldCheck size={18} className="mr-3 text-gray-400 shrink-0" /> Post-market Compliance
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="/fda-483-observations-warning-letters-recalls-remediation" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link
+                                                        to="/fda-483-observations-warning-letters-recalls-remediation"
+                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
+                                                    >
                                                         <ShieldAlert size={18} className="mr-3 text-gray-400 shrink-0" /> FDA 483 Warning
                                                         Letter/Recalls and Remediation
                                                     </Link>
@@ -303,24 +318,36 @@ export const Header: React.FC = () => {
                                             <h3 className="text-gray-900 font-bold mb-6 text-sm pr-4">Medical Device and Diagnostics</h3>
                                             <ul className="space-y-4">
                                                 <li>
-                                                    <Link to="/pre-ide-process" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link
+                                                        to="/pre-ide-process"
+                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
+                                                    >
                                                         <Settings size={18} className="mr-3 text-gray-400 shrink-0" /> Investigational Device
                                                         Exemption (IDE)
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="/fda-510k-application" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link
+                                                        to="/fda-510k-application"
+                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
+                                                    >
                                                         <Heart size={18} className="mr-3 text-gray-400 shrink-0" /> Premarket Notification 510(k),
                                                         DeNovo, PMA
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="/fda-establishment-registration" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link
+                                                        to="/fda-establishment-registration"
+                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
+                                                    >
                                                         <Building2 size={18} className="mr-3 text-gray-400 shrink-0" /> Establishment Registration
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="/fda-usa-agents-for-foreign-establishments" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link
+                                                        to="/fda-usa-agents-for-foreign-establishments"
+                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
+                                                    >
                                                         <MapPin size={18} className="mr-3 text-gray-400 shrink-0" /> US Agent for Foreign
                                                         Establishments
                                                     </Link>
@@ -332,32 +359,50 @@ export const Header: React.FC = () => {
                                             <h3 className="text-gray-900 font-bold mb-6 text-sm pr-4">Drugs / Biologics / Pharmacovigilance</h3>
                                             <ul className="space-y-4">
                                                 <li>
-                                                    <Link to="/investigational-new-drug-ind-application" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link
+                                                        to="/investigational-new-drug-ind-application"
+                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
+                                                    >
                                                         <Target size={18} className="mr-3 text-gray-400 shrink-0" /> Investigational New Drug (IND)
                                                         Application
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="/new-drug-application-overview" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link
+                                                        to="/new-drug-application-overview"
+                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
+                                                    >
                                                         <Target size={18} className="mr-3 text-gray-400 shrink-0" /> New Drug Application (NDA)
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="/abbreviated-new-drug-application-anda-submissions-overview" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link
+                                                        to="/abbreviated-new-drug-application-anda-submissions-overview"
+                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
+                                                    >
                                                         <Target size={18} className="mr-3 text-gray-400 shrink-0" /> Abbreviated New Drug Application
                                                         (ANDA)
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="/biologics-license-application-bla-overview" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link
+                                                        to="/biologics-license-application-bla-overview"
+                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
+                                                    >
                                                         <Target size={18} className="mr-3 text-gray-400 shrink-0" /> Biologics License Application
                                                         (BLA)
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link to="/dmf" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                         <Target size={18} className="mr-3 text-gray-400 shrink-0" /> Drug Master File (DMF)
                                                         Submissions
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link to="/cmc" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                        <Target size={18} className="mr-3 text-gray-400 shrink-0" /> Chemisty, Manufacturing, and
+                                                        Controls
                                                     </Link>
                                                 </li>
                                             </ul>
