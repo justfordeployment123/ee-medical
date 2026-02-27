@@ -15,6 +15,8 @@ import { Media } from "./pages/Media";
 import { Software } from "./pages/Software";
 import { CEMarkApproval } from "./pages/CEMarkApproval";
 import { CCCMarkApproval } from "./pages/CCCMarkApproval";
+import { PostmarketCompliance } from "./pages/PostmarketCompliance";
+import { Fda483Warning } from "./pages/Fda483Warning";
 
 // Placeholder components for future pages
 // const Software = () => <div className="p-20 text-center text-2xl">Software Page Coming Soon</div>;
@@ -46,6 +48,8 @@ function App() {
                     <Route path="/healthcare-software-development" element={<Software />} />
                     <Route path="/ccc-mark-approval" element={<CCCMarkApproval />} />
                     <Route path="/ce-mark-approval" element={<CEMarkApproval />} />
+                    <Route path="/clinical-data-and-postmarket-compliance-under-the-mdr" element={<PostmarketCompliance />} />
+                    <Route path="/fda-483-observations-warning-letters-recalls-remediation" element={<Fda483Warning />} />
 
                     {/* Fallback route */}
                     <Route path="*" element={<NotFound />} />

@@ -286,12 +286,12 @@ export const Header: React.FC = () => {
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link to="/clinical-data-and-postmarket-compliance-under-the-mdr" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                         <ShieldCheck size={18} className="mr-3 text-gray-400 shrink-0" /> Post-market Compliance
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                                    <Link to="/fda-483-observations-warning-letters-recalls-remediation" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                         <ShieldAlert size={18} className="mr-3 text-gray-400 shrink-0" /> FDA 483 Warning
                                                         Letter/Recalls and Remediation
                                                     </Link>
