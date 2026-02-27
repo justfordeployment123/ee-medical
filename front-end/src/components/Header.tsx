@@ -436,13 +436,16 @@ export const Header: React.FC = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                            <Link
+                                                to="/ai-design-controls"
+                                                className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
+                                            >
                                                 <CheckCircle size={18} className="mr-3 text-gray-500 shrink-0" /> AI Design Controls & QMSR
                                                 Integration
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
+                                            <Link to="/fda-defense" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
                                                 <CheckCircle size={18} className="mr-3 text-gray-500 shrink-0" /> FDA Interaction & Defense Support
                                             </Link>
                                         </li>
@@ -549,44 +552,68 @@ export const Header: React.FC = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link to="/six-sigma-healthcare" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
                                         Six Sigma - Healthcare
                                     </Link>
                                 </li>
                                 <li className="font-bold text-gray-800 pt-2">Quality Assurance</li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link
+                                        to="/medical-devices-quality-assurance"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="hover:text-[#1a8fd1]"
+                                    >
                                         Medical Devices
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link to="/quality-assurance-audits" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
                                         Audits
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link
+                                        to="/quality-system-regulation-qsr"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="hover:text-[#1a8fd1]"
+                                    >
                                         QMSR Regulation
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link
+                                        to="/quality-management-system-implementation"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="hover:text-[#1a8fd1]"
+                                    >
                                         QMS Implementation
                                     </Link>
                                 </li>
                                 <li className="font-bold text-gray-800 pt-2">ISO</li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link
+                                        to="/iso-13485-medical-quality-system-registration"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="hover:text-[#1a8fd1]"
+                                    >
                                         ISO 13485 Registration
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link
+                                        to="/iso-14971-medical-device-risk-management-for-medical-devices"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="hover:text-[#1a8fd1]"
+                                    >
                                         ISO 14971 Device Risk Mgt
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link
+                                        to="/quality-management-system-implementation"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="hover:text-[#1a8fd1]"
+                                    >
                                         ISO 9001 QMS
                                     </Link>
                                 </li>
@@ -612,40 +639,70 @@ export const Header: React.FC = () => {
                             <ul className="flex flex-col py-2 px-8 text-sm text-gray-600 space-y-3 pb-4">
                                 <li className="font-bold text-gray-800 pt-2">Mark Approval & Compliance</li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        CE & CCC Mark Approval
+                                    <Link to="/ccc-mark-approval" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                        CCC Mark Approval
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link to="/ce-mark-approval" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
                                         EU MDR/IVDR Documentation
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link
+                                        to="/clinical-data-and-postmarket-compliance-under-the-mdr"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="hover:text-[#1a8fd1]"
+                                    >
                                         Post-market Compliance
                                     </Link>
                                 </li>
                                 <li className="font-bold text-gray-800 pt-2">Medical Device & Diagnostics</li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link to="/pre-ide-process" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
                                         IDE & 510(k) Applications
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link
+                                        to="/establishment-registration"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="hover:text-[#1a8fd1]"
+                                    >
                                         Establishment Registration
                                     </Link>
                                 </li>
                                 <li className="font-bold text-gray-800 pt-2">Drugs & Biologics</li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        IND & NDA Applications
+                                    <Link
+                                        to="/investigational-new-drug-ind-application"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="hover:text-[#1a8fd1]"
+                                    >
+                                        IND Applications
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        BLA & DMF Submissions
+                                    <Link
+                                        to="/new-drug-application-overview"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="hover:text-[#1a8fd1]"
+                                    >
+                                        NDA Applications
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/biologics-license-application-bla-overview"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="hover:text-[#1a8fd1]"
+                                    >
+                                        BLA Submissions
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/dmf" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                        DMF Submissions
                                     </Link>
                                 </li>
                             </ul>
@@ -669,27 +726,27 @@ export const Header: React.FC = () => {
                         >
                             <ul className="flex flex-col py-2 px-8 text-sm text-gray-600 space-y-3 pb-4">
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link to="/ai-samd-pathway" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
                                         AI SaMD Regulatory Pathway
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link to="/ai-fda-readiness" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
                                         AI FDA Readiness & Risk Audit
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link to="/pccp-authoring" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
                                         PCCP Authoring
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link to="/ai-design-controls" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
                                         AI Design Controls & QMSR
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
+                                    <Link to="/fda-defense" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
                                         FDA Interaction & Defense
                                     </Link>
                                 </li>

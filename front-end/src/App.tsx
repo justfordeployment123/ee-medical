@@ -30,6 +30,8 @@ import { DrugMasterFile } from "./pages/DrugMasterFile";
 import { AiFdaReadiness } from "./pages/AiFdaReadiness";
 import { AiSamdPathway } from "./pages/AiSamdPathway";
 import { PccpAuthoring } from "./pages/PccpAuthoring";
+import { FdaInteractionDefense } from "./pages/FdaInteractionDefense";
+import { AiDesignControls } from "./pages/AiDesignControls";
 
 // Placeholder components for future pages
 // const Software = () => <div className="p-20 text-center text-2xl">Software Page Coming Soon</div>;
@@ -81,6 +83,9 @@ function App() {
                     <Route path="/ai-samd-pathway" element={<AiSamdPathway />} />
                     <Route path="/ai-fda-readiness" element={<AiFdaReadiness />} />
                     <Route path="/pccp-authoring" element={<PccpAuthoring />} />
+
+                    <Route path="/ai-design-controls" element={<AiDesignControls />} />
+                    <Route path="/fda-defense" element={<FdaInteractionDefense />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
