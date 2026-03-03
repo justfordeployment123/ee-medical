@@ -24,3 +24,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local assets not needed in repo
+front-end/EandE logo (1).png

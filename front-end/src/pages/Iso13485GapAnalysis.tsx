@@ -231,7 +231,7 @@ export const Iso13485GapAnalysis: React.FC = () => {
                         value="Yes"
                         checked={formData[name] === "Yes"}
                         onChange={handleInputChange}
-                        className="w-4 h-4 accent-blue-600"
+                        className="w-4 h-4 accent-[#1a8fd1]"
                     />
                     <span className="text-sm text-gray-700">Yes</span>
                 </label>
@@ -242,7 +242,7 @@ export const Iso13485GapAnalysis: React.FC = () => {
                         value="No"
                         checked={formData[name] === "No"}
                         onChange={handleInputChange}
-                        className="w-4 h-4 accent-blue-600"
+                        className="w-4 h-4 accent-[#1a8fd1]"
                     />
                     <span className="text-sm text-gray-700">No</span>
                 </label>
@@ -268,7 +268,7 @@ export const Iso13485GapAnalysis: React.FC = () => {
                             </p>
                             <Link
                                 to="/"
-                                className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded hover:bg-blue-700 transition-colors"
+                                className="inline-block bg-brand-500 text-white font-semibold py-3 px-8 rounded-xl hover:bg-brand-400 transition-colors"
                             >
                                 Return to Home
                             </Link>
@@ -746,7 +746,7 @@ export const Iso13485GapAnalysis: React.FC = () => {
                                         {/* Step 6: Summary */}
                                         {currentStep === 6 && (
                                             <div className="max-h-125 overflow-y-auto pr-2 space-y-6">
-                                                <div className="bg-blue-50 border border-blue-200 text-blue-800 px-6 py-4 rounded">
+                                                <div className="bg-brand-50 border border-brand-200 text-brand-800 px-6 py-4 rounded-xl">
                                                     <p className="font-semibold text-lg mb-1">Ready to submit?</p>
                                                     <p className="text-sm">
                                                         Please review your contact information before submitting. One of our specialists will analyze
@@ -810,7 +810,7 @@ export const Iso13485GapAnalysis: React.FC = () => {
                                         <button
                                             type="button"
                                             onClick={nextStep}
-                                            className="flex items-center px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm transition-colors rounded-sm"
+                                            className="flex items-center px-6 py-2 bg-brand-500 hover:bg-brand-400 text-white font-bold text-sm transition-colors rounded-xl"
                                         >
                                             NEXT STEP <ArrowRight size={14} className="ml-2" />
                                         </button>

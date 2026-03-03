@@ -2,8 +2,12 @@ import React from 'react';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { Hero } from '../components/home/Hero';
-import { Services } from '../components/home/Services';
+import { ServicesTabs } from '../components/home/ServicesTabs';
+import { WhyChooseUs } from '../components/home/WhyChooseUs';
 import { Stats } from '../components/home/Stats';
+import { Industries } from '../components/home/Industries';
+import { FAQ } from '../components/home/FAQ';
+import { CTABanner } from '../components/home/CTABanner';
 import { Contact } from '../components/home/Contact';
 
 export const Home: React.FC = () => {
@@ -12,8 +16,12 @@ export const Home: React.FC = () => {
       <Header />
       <main className="grow">
         <Hero />
-        <Services />
+        <ServicesTabs />
+        <WhyChooseUs />
         <Stats />
+        <Industries />
+        <FAQ />
+        <CTABanner />
         <Contact />
       </main>
       <Footer />

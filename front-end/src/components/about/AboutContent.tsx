@@ -1,64 +1,158 @@
-import React from 'react';
-import { CheckCircle } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+    CheckCircle,
+    ArrowRight,
+    Award,
+    Users,
+    Briefcase,
+    ShieldCheck,
+    Target,
+    Globe,
+} from "lucide-react";
+
+const stats = [
+    { icon: Award, value: "32+", label: "Years Experience" },
+    { icon: Briefcase, value: "470+", label: "Projects Completed" },
+    { icon: Users, value: "63", label: "Expert Consultants" },
+];
+
+const capabilities = [
+    {
+        icon: ShieldCheck,
+        title: "FDA & Global Compliance",
+        text: "Proven track record with FDA, CE marking, and international regulatory bodies across 40+ countries.",
+    },
+    {
+        icon: Target,
+        title: "Quality Management Systems",
+        text: "Customized QMS implementation including ISO 13485, ISO 9001, and QMSR compliance.",
+    },
+    {
+        icon: Globe,
+        title: "Post-Market Surveillance",
+        text: "Dedicated support for clinical data management and post-market compliance under MDR/IVDR.",
+    },
+];
 
 export const AboutContent: React.FC = () => {
-  return (
-    <section className="py-20 px-4 md:px-8 bg-white">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        
-        {/* Left Side: Image */}
-        <div className="relative">
-          {/* Decorative background box (common in Consultio theme) */}
-          <div className="absolute top-6 -left-6 w-full h-full border-8 border-blue-50 z-0 hidden md:block rounded-lg"></div>
-          
-          <img 
-            src="https://demo.casethemes.net/consultio-agency/wp-content/uploads/2019/12/about1.png" 
-            alt="About E & E Medicals" 
-            className="w-full h-auto object-cover relative z-10"
-          />
-        </div>
+    return (
+        <section className="py-20 md:py-28 px-4 md:px-8 bg-white">
+            <div className="max-w-[1400px] mx-auto">
+                {/* Top: Image + Intro */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    {/* Left: Image with overlay stats */}
+                    <div className="relative">
+                        {/* Background accent */}
+                        <div className="absolute -inset-3 bg-gradient-to-br from-brand-100/60 to-brand-50/30 rounded-3xl -z-10" />
 
-        {/* Right Side: Text Content */}
-        <div>
-          <p className="text-blue-600 font-bold tracking-wider uppercase mb-3">About Us</p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            We are your trusted partners in <span className="text-blue-600">Regulatory Compliance</span>.
-          </h2>
-          
-          <p className="text-gray-600 mb-6 text-lg leading-relaxed">
-            E&E Medicals & Consulting is a premier regulatory affairs consulting firm dedicated to helping medical device, IVD, and pharmaceutical companies navigate the complex landscape of FDA and international regulations.
-          </p>
-          
-          <p className="text-gray-600 mb-8 leading-relaxed">
-            With over 32 years of combined experience, our experts provide strategic guidance, gap analysis, and hands-on implementation support to ensure your products reach the market safely and efficiently. We specialize in quality systems, 510(k) submissions, CE marking, and comprehensive compliance auditing.
-          </p>
+                        <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-navy-950/10">
+                            <img
+                                src="https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=1200&auto=format&fit=crop"
+                                alt="Medical device regulatory consulting team"
+                                className="w-full h-auto object-cover object-center"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-navy-950/30 via-transparent to-transparent" />
+                        </div>
 
-          {/* Feature List */}
-          <ul className="space-y-4 mb-10">
-            <li className="flex items-start">
-              <CheckCircle className="text-blue-600 mr-3 mt-1 shrink-0" size={20} />
-              <span className="text-gray-800 font-medium">Proven track record with FDA and international regulatory bodies.</span>
-            </li>
-            <li className="flex items-start">
-              <CheckCircle className="text-blue-600 mr-3 mt-1 shrink-0" size={20} />
-              <span className="text-gray-800 font-medium">Customized quality management systems (ISO 13485 & ISO 9001).</span>
-            </li>
-            <li className="flex items-start">
-              <CheckCircle className="text-blue-600 mr-3 mt-1 shrink-0" size={20} />
-              <span className="text-gray-800 font-medium">Dedicated support for clinical data and post-market compliance.</span>
-            </li>
-          </ul>
+                        {/* Floating stats bar */}
+                        <div className="absolute -bottom-8 left-4 right-4 md:left-6 md:right-6 bg-white rounded-2xl shadow-xl shadow-navy-950/8 border border-gray-100/80 p-4 md:p-5">
+                            <div className="grid grid-cols-3 divide-x divide-gray-100">
+                                {stats.map(({ icon: Icon, value, label }) => (
+                                    <div key={label} className="text-center px-2">
+                                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-50 to-brand-100 flex items-center justify-center mx-auto mb-2">
+                                            <Icon size={16} className="text-brand-500" />
+                                        </div>
+                                        <div className="text-xl md:text-2xl font-extrabold text-navy-900 font-display leading-none">
+                                            {value}
+                                        </div>
+                                        <div className="text-[10px] md:text-[11px] text-gray-500 font-semibold uppercase tracking-wide mt-0.5">
+                                            {label}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
 
-          {/* Call to Action Button */}
-          <a 
-            href="#contact" 
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-          >
-            Discover More
-          </a>
-        </div>
+                    {/* Right: Content */}
+                    <div className="lg:pl-4 pt-8 lg:pt-0">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 border border-brand-100 mb-6">
+                            <span className="w-1.5 h-1.5 rounded-full bg-brand-400 animate-pulse" />
+                            <span className="text-brand-600 text-xs font-bold uppercase tracking-wider">
+                                About Us
+                            </span>
+                        </div>
 
-      </div>
-    </section>
-  );
+                        <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-navy-900 mb-6 leading-[1.15]">
+                            Your trusted partners in{" "}
+                            <span className="gradient-text">Regulatory Compliance</span>{" "}
+                            & Quality Assurance.
+                        </h2>
+
+                        <p className="text-gray-600 text-lg leading-relaxed mb-5">
+                            E&E Medicals & Consulting is a premier regulatory affairs consulting
+                            firm dedicated to helping medical device, IVD, and pharmaceutical
+                            companies navigate the complex landscape of FDA and international
+                            regulations.
+                        </p>
+
+                        <p className="text-gray-500 leading-relaxed text-[15px] mb-8">
+                            With over 32 years of combined experience, our experts provide
+                            strategic guidance, gap analysis, and hands-on implementation support
+                            to ensure your products reach the market safely and efficiently.
+                        </p>
+
+                        {/* Checkmark list */}
+                        <ul className="space-y-3.5 mb-10">
+                            {[
+                                "End-to-end 510(k), PMA, and De Novo submissions.",
+                                "ISO 13485, ISO 14971, and QMSR implementation.",
+                                "CE marking, EU MDR/IVDR, and global market access.",
+                            ].map((item, i) => (
+                                <li key={i} className="flex items-start gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-green-50 border border-green-200 flex items-center justify-center shrink-0 mt-0.5">
+                                        <CheckCircle size={12} className="text-green-500" />
+                                    </div>
+                                    <span className="text-gray-700 font-medium text-[15px]">
+                                        {item}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <Link
+                            to="/about"
+                            className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-navy-900 hover:bg-navy-800 text-white font-bold rounded-xl shadow-lg shadow-navy-950/15 hover:shadow-navy-950/25 transition-all duration-300 hover:-translate-y-0.5"
+                        >
+                            Discover More
+                            <ArrowRight
+                                size={16}
+                                className="group-hover:translate-x-1 transition-transform"
+                            />
+                        </Link>
+                    </div>
+                </div>
+
+                {/* Bottom: Capability Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24 lg:mt-28">
+                    {capabilities.map(({ icon: Icon, title, text }, i) => (
+                        <div
+                            key={i}
+                            className="group relative bg-white border border-gray-100 rounded-2xl p-7 hover:shadow-xl hover:shadow-navy-950/5 hover:border-brand-100 transition-all duration-300 hover:-translate-y-1"
+                        >
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-50 to-brand-100 flex items-center justify-center mb-5 group-hover:from-brand-100 group-hover:to-brand-200 transition-colors duration-300">
+                                <Icon size={22} className="text-brand-500" />
+                            </div>
+                            <h3 className="font-display text-lg font-bold text-navy-900 mb-2.5">
+                                {title}
+                            </h3>
+                            <p className="text-gray-500 text-sm leading-relaxed">{text}</p>
+                            <div className="absolute bottom-0 left-7 right-7 h-0.5 bg-gradient-to-r from-brand-400 to-brand-500 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
 };

@@ -1,16 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import EandELogo from "../assets/EandE-logo.png";
 import {
     Phone,
     Mail,
     MapPin,
     Search,
     ChevronDown,
-    Clock,
-    Facebook,
-    Twitter,
-    Linkedin,
-    Youtube,
     X,
     Handshake,
     Lightbulb,
@@ -32,754 +28,334 @@ import {
 export const Header: React.FC = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeMobileDropdown, setActiveMobileDropdown] = useState<string | null>(null);
+    const [scrolled, setScrolled] = useState(false);
+    const location = useLocation();
+
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 20);
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+
+    useEffect(() => {
+        setIsMobileMenuOpen(false);
+        setActiveMobileDropdown(null);
+    }, [location.pathname]);
 
     const toggleMobileDropdown = (menu: string) => {
         setActiveMobileDropdown(activeMobileDropdown === menu ? null : menu);
     };
 
+    const navLinkClass = (isActive: boolean) =>
+        `relative flex items-center gap-1 py-2 px-3 text-[13px] font-medium rounded-lg transition-all duration-200 ${
+            isActive
+                ? "text-brand-600 bg-brand-50"
+                : "text-navy-800 hover:text-brand-600 hover:bg-gray-50"
+        }`;
+
     return (
         <>
             <header className="w-full flex flex-col z-40 relative">
-                {/* 1. Top Bar — blue background */}
-                <div className="bg-[#1a8fd1] text-white text-xs py-2 px-4 md:px-8 justify-between items-center hidden md:flex">
-                    <div className="flex items-center space-x-2 font-medium">
-                        <Clock size={14} className="text-white" />
-                        <span>Mon - Fri: 9:00 am EST - 06:00 pm EST</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                        {/* Divider */}
-                        <div className="w-px h-4 bg-white/40 mx-2" />
-                        <div className="flex space-x-3 text-white">
-                            <a href="#" className="hover:text-white/70 transition-colors">
-                                <Facebook size={14} />
-                            </a>
-                            <a href="#" className="hover:text-white/70 transition-colors">
-                                <Twitter size={14} />
-                            </a>
-                            <a href="#" className="hover:text-white/70 transition-colors">
-                                <Linkedin size={14} />
-                            </a>
-                            <a href="#" className="hover:text-white/70 transition-colors">
-                                <Youtube size={14} />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                {/* 2. Middle Bar — dark navy background with logo & contact */}
-                <div className="py-5 px-4 md:px-8 justify-between items-center bg-[#0d2340] hidden lg:flex ">
-                    <Link to="/" className="flex items-center">
-                        <img
-                            src="https://eemedicals.com/wp-content/uploads/2025/10/logo-new.jpg"
-                            alt="E & E Medicals"
-                            className="h-14 lg:h-16 w-auto object-contain"
-                        />
-                    </Link>
-
-                    <div className="flex space-x-10">
-                        <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 flex items-center justify-center">
-                                <Phone className="text-[#1a8fd1] w-7 h-7" strokeWidth={1.5} />
-                            </div>
-                            <div className="flex flex-col">
-                                <span className="text-sm font-bold text-white">Call Us: (678) 385-6106</span>
-                                <span className="text-xs text-gray-400 font-medium">(Mon - Fri)</span>
-                            </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 flex items-center justify-center">
-                                <Mail className="text-[#1a8fd1] w-7 h-7" strokeWidth={1.5} />
-                            </div>
-                            <div className="flex flex-col">
-                                <span className="text-sm font-bold text-white">Mail us for help:</span>
-                                <a href="mailto:info@eemedicals.com" className="text-xs text-[#1a8fd1] font-medium hover:underline">
-                                    info@eemedicals.com
-                                </a>
-                            </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 flex items-center justify-center">
-                                <MapPin className="text-[#1a8fd1] w-7 h-7" strokeWidth={1.5} />
-                            </div>
-                            <div className="flex flex-col">
-                                <span className="text-sm font-bold text-white">Enquiry Form:</span>
-                                <span className="text-xs text-gray-400 font-medium">Share Your Project</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* 3. Bottom Bar / Main Navigation — white background */}
-                <nav className="w-full bg-white text-gray-800 shadow-md sticky top-0 z-50">
-                    <div className="px-4 md:px-8 flex justify-between items-center max-w-7xl mx-auto relative">
-                        <div className="lg:hidden py-3">
-                            <Link to="/">
-                                <img
-                                    src="https://eemedicals.com/wp-content/uploads/2025/10/logo-new.jpg"
-                                    alt="E & E Medicals"
-                                    className="h-10 w-auto object-contain"
-                                />
-                            </Link>
-                        </div>
+                {/* Main Nav */}
+                <nav className={`w-full bg-white/95 backdrop-blur-md text-gray-800 sticky top-0 z-50 transition-all duration-300 ${scrolled ? "shadow-lg shadow-navy-950/8" : "border-b border-gray-100"}`}>
+                    <div className="px-4 md:px-8 flex items-center max-w-[1400px] mx-auto relative h-16 lg:h-[68px]">
+                        {/* Logo */}
+                        <Link to="/" className="shrink-0 mr-8">
+                            <img src={EandELogo} alt="E & E Medicals" className="h-11 lg:h-12 w-auto object-contain" />
+                        </Link>
 
                         {/* Desktop Menu */}
-                        <ul className="hidden lg:flex space-x-0 text-sm font-semibold w-full">
-                            <li>
-                                <Link to="/" className="block py-5 px-4 text-gray-700 hover:text-[#1a8fd1] transition-colors">
-                                    Home
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/about" className="block py-5 px-4 text-gray-700 hover:text-[#1a8fd1] transition-colors">
-                                    About Us
-                                </Link>
-                            </li>
+                        <ul className="hidden lg:flex items-center gap-1 flex-1">
+                            {[
+                                { to: "/", label: "Home" },
+                                { to: "/about", label: "About Us" },
+                            ].map(({ to, label }) => (
+                                <li key={to}>
+                                    <Link to={to} className={navLinkClass(location.pathname === to)}>
+                                        {label}
+                                    </Link>
+                                </li>
+                            ))}
 
                             {/* Mega Menu: Quality & Compliance */}
                             <li className="static group">
-                                <button className="flex items-center py-5 px-4 text-gray-700 hover:text-[#1a8fd1] transition-colors">
-                                    Quality & Compliance <ChevronDown size={14} className="ml-1" />
+                                <button className={`${navLinkClass(false)} cursor-pointer`}>
+                                    Quality & Compliance
+                                    <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
                                 </button>
-                                <div className="absolute left-0 w-full top-full bg-white shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-[#1a8fd1]">
-                                    <div className="max-w-7xl mx-auto py-10 px-8 grid grid-cols-3 gap-8">
-                                        {/* Column 1 */}
-                                        <div>
-                                            <h3 className="text-gray-900 font-bold uppercase mb-6 tracking-wider text-sm">Healthcare</h3>
-                                            <ul className="space-y-4">
-                                                <li>
-                                                    <Link
-                                                        to="/reliability"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Handshake size={18} className="mr-3 text-gray-400" /> Reliability
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/six-sigma-healthcare"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Lightbulb size={18} className="mr-3 text-gray-400" /> Six Sigma - Healthcare
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        {/* Column 2 */}
-                                        <div>
-                                            <h3 className="text-gray-900 font-bold uppercase mb-6 tracking-wider text-sm">Quality Assurance</h3>
-                                            <ul className="space-y-4">
-                                                <li>
-                                                    <Link
-                                                        to="/medical-devices-quality-assurance"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Briefcase size={18} className="mr-3 text-gray-400" /> Medical Devices
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/quality-assurance-audits"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <ClipboardCheck size={18} className="mr-3 text-gray-400" /> Audits
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/reliability"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Handshake size={18} className="mr-3 text-gray-400" /> Reliability
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/quality-system-regulation-qsr"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Cpu size={18} className="mr-3 text-gray-400" /> Quality Management System Regulation (QMSR)
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/quality-management-system-implementation"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <ShieldCheck size={18} className="mr-3 text-gray-400" /> Quality Management System
-                                                        Implementation
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        {/* Column 3 */}
-                                        <div>
-                                            <h3 className="text-gray-900 font-bold uppercase mb-6 tracking-wider text-sm">ISO</h3>
-                                            <ul className="space-y-4">
-                                                <li>
-                                                    <Link
-                                                        to="/iso-13485-medical-quality-system-registration"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <CheckCircle size={18} className="mr-3 text-gray-400" /> ISO 13485 Quality System Registration
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/iso-14971-medical-device-risk-management-for-medical-devices"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <ShieldAlert size={18} className="mr-3 text-gray-400" /> ISO 14971 Device Risk Management
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/quality-management-system-implementation"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Heart size={18} className="mr-3 text-gray-400" /> ISO 9001 Quality Management System
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/free-iso-13485-2016-gap-analysis-tool"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Target size={18} className="mr-3 text-gray-400" /> Free ISO 13485:2016 Gap Analysis Tool
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="#" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
-                                                        <History size={18} className="mr-3 text-gray-400" /> Free ISO 9001:2015 Gap Analysis Tool
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                <div className="absolute left-0 w-full top-full bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500">
+                                    <div className="max-w-[1400px] mx-auto py-10 px-8 grid grid-cols-3 gap-10">
+                                        <MegaColumn title="Healthcare" items={[
+                                            { to: "/reliability", icon: Handshake, label: "Reliability" },
+                                            { to: "/six-sigma-healthcare", icon: Lightbulb, label: "Six Sigma - Healthcare" },
+                                        ]} />
+                                        <MegaColumn title="Quality Assurance" items={[
+                                            { to: "/medical-devices-quality-assurance", icon: Briefcase, label: "Medical Devices" },
+                                            { to: "/quality-assurance-audits", icon: ClipboardCheck, label: "Audits" },
+                                            { to: "/quality-system-regulation-qsr", icon: Cpu, label: "Quality Management System Regulation" },
+                                            { to: "/quality-management-system-implementation", icon: ShieldCheck, label: "QMS Implementation" },
+                                        ]} />
+                                        <MegaColumn title="ISO Standards" items={[
+                                            { to: "/iso-13485-medical-quality-system-registration", icon: CheckCircle, label: "ISO 13485 Quality System" },
+                                            { to: "/iso-14971-medical-device-risk-management-for-medical-devices", icon: ShieldAlert, label: "ISO 14971 Risk Management" },
+                                            { to: "/quality-management-system-implementation", icon: Heart, label: "ISO 9001 Quality Management" },
+                                            { to: "/free-iso-13485-2016-gap-analysis-tool", icon: Target, label: "Free ISO 13485 Gap Analysis" },
+                                            { to: "#", icon: History, label: "Free ISO 9001:2015 Gap Analysis" },
+                                        ]} />
                                     </div>
                                 </div>
                             </li>
 
                             {/* Mega Menu: Regulatory Operations */}
                             <li className="static group">
-                                <button className="flex items-center py-5 px-4 text-gray-700 hover:text-[#1a8fd1] transition-colors">
-                                    Regulatory Operations <ChevronDown size={14} className="ml-1" />
+                                <button className={`${navLinkClass(false)} cursor-pointer`}>
+                                    Regulatory Operations
+                                    <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
                                 </button>
-                                <div className="absolute left-0 w-full top-full bg-white shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-[#1a8fd1]">
-                                    <div className="max-w-7xl mx-auto py-10 px-8 grid grid-cols-3 gap-8">
-                                        {/* Column 1 */}
-                                        <div>
-                                            <h3 className="text-gray-900 font-bold mb-6 text-sm pr-4">Mark Approval / Licensing / Compliance</h3>
-                                            <ul className="space-y-4">
-                                                <li>
-                                                    <Link
-                                                        to="/ccc-mark-approval"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Globe size={18} className="mr-3 text-gray-400 shrink-0" /> CCC Mark Approval
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/ce-mark-approval"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Globe size={18} className="mr-3 text-gray-400 shrink-0" /> CE Mark Approval
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/ce-mark-approval"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <FileText size={18} className="mr-3 text-gray-400 shrink-0" /> EU MDR/IVDR Technical
-                                                        Documentation
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/clinical-data-and-postmarket-compliance-under-the-mdr"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <ShieldCheck size={18} className="mr-3 text-gray-400 shrink-0" /> Post-market Compliance
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/fda-483-observations-warning-letters-recalls-remediation"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <ShieldAlert size={18} className="mr-3 text-gray-400 shrink-0" /> FDA 483 Warning
-                                                        Letter/Recalls and Remediation
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        {/* Column 2 */}
-                                        <div>
-                                            <h3 className="text-gray-900 font-bold mb-6 text-sm pr-4">Medical Device and Diagnostics</h3>
-                                            <ul className="space-y-4">
-                                                <li>
-                                                    <Link
-                                                        to="/pre-ide-process"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Settings size={18} className="mr-3 text-gray-400 shrink-0" /> Investigational Device
-                                                        Exemption (IDE)
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/fda-510k-application"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Heart size={18} className="mr-3 text-gray-400 shrink-0" /> Premarket Notification 510(k),
-                                                        DeNovo, PMA
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/fda-establishment-registration"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Building2 size={18} className="mr-3 text-gray-400 shrink-0" /> Establishment Registration
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/fda-usa-agents-for-foreign-establishments"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <MapPin size={18} className="mr-3 text-gray-400 shrink-0" /> US Agent for Foreign
-                                                        Establishments
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        {/* Column 3 */}
-                                        <div>
-                                            <h3 className="text-gray-900 font-bold mb-6 text-sm pr-4">Drugs / Biologics / Pharmacovigilance</h3>
-                                            <ul className="space-y-4">
-                                                <li>
-                                                    <Link
-                                                        to="/investigational-new-drug-ind-application"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Target size={18} className="mr-3 text-gray-400 shrink-0" /> Investigational New Drug (IND)
-                                                        Application
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/new-drug-application-overview"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Target size={18} className="mr-3 text-gray-400 shrink-0" /> New Drug Application (NDA)
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/abbreviated-new-drug-application-anda-submissions-overview"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Target size={18} className="mr-3 text-gray-400 shrink-0" /> Abbreviated New Drug Application
-                                                        (ANDA)
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/biologics-license-application-bla-overview"
-                                                        className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                                    >
-                                                        <Target size={18} className="mr-3 text-gray-400 shrink-0" /> Biologics License Application
-                                                        (BLA)
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="/dmf" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
-                                                        <Target size={18} className="mr-3 text-gray-400 shrink-0" /> Drug Master File (DMF)
-                                                        Submissions
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="/cmc" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
-                                                        <Target size={18} className="mr-3 text-gray-400 shrink-0" /> Chemisty, Manufacturing, and
-                                                        Controls
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                <div className="absolute left-0 w-full top-full bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500">
+                                    <div className="max-w-[1400px] mx-auto py-10 px-8 grid grid-cols-3 gap-10">
+                                        <MegaColumn title="Mark Approval & Compliance" items={[
+                                            { to: "/ccc-mark-approval", icon: Globe, label: "CCC Mark Approval" },
+                                            { to: "/ce-mark-approval", icon: Globe, label: "CE Mark Approval" },
+                                            { to: "/ce-mark-approval", icon: FileText, label: "EU MDR/IVDR Technical Docs" },
+                                            { to: "/clinical-data-and-postmarket-compliance-under-the-mdr", icon: ShieldCheck, label: "Post-market Compliance" },
+                                            { to: "/fda-483-observations-warning-letters-recalls-remediation", icon: ShieldAlert, label: "FDA 483 / Warning Letters" },
+                                        ]} />
+                                        <MegaColumn title="Medical Device & Diagnostics" items={[
+                                            { to: "/pre-ide-process", icon: Settings, label: "Investigational Device Exemption (IDE)" },
+                                            { to: "/fda-510k-application", icon: Heart, label: "510(k), De Novo, PMA" },
+                                            { to: "/fda-establishment-registration", icon: Building2, label: "Establishment Registration" },
+                                            { to: "/fda-usa-agents-for-foreign-establishments", icon: MapPin, label: "US Agent for Foreign Establishments" },
+                                        ]} />
+                                        <MegaColumn title="Drugs / Biologics / Pharmacovigilance" items={[
+                                            { to: "/investigational-new-drug-ind-application", icon: Target, label: "IND Application" },
+                                            { to: "/new-drug-application-overview", icon: Target, label: "New Drug Application (NDA)" },
+                                            { to: "/abbreviated-new-drug-application-anda-submissions-overview", icon: Target, label: "ANDA Submissions" },
+                                            { to: "/biologics-license-application-bla-overview", icon: Target, label: "Biologics License (BLA)" },
+                                            { to: "/dmf", icon: Target, label: "Drug Master File (DMF)" },
+                                            { to: "/cmc", icon: Target, label: "CMC Services" },
+                                        ]} />
                                     </div>
                                 </div>
                             </li>
 
-                            {/* Standard Dropdown: AI-Enabled Regulatory */}
+                            {/* AI-Enabled Regulatory */}
                             <li className="relative group">
-                                <button className="flex items-center py-5 px-4 text-gray-700 hover:text-[#1a8fd1] transition-colors">
-                                    AI-Enabled Regulatory <ChevronDown size={14} className="ml-1" />
+                                <button className={`${navLinkClass(false)} cursor-pointer`}>
+                                    AI-Enabled Regulatory
+                                    <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
                                 </button>
-                                <div className="absolute left-0 top-full mt-0 w-96 bg-white shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-[#1a8fd1]">
-                                    <ul className="flex flex-col py-6 px-4 space-y-4">
-                                        <li>
-                                            <Link to="/ai-samd-pathway" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
-                                                <CheckCircle size={18} className="mr-3 text-gray-500 shrink-0" /> AI SaMD Regulatory Pathway Strategy
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/ai-fda-readiness" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
-                                                <CheckCircle size={18} className="mr-3 text-gray-500 shrink-0" /> AI FDA Readiness & Deficiency Risk
-                                                Audit
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/pccp-authoring" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
-                                                <CheckCircle size={18} className="mr-3 text-gray-500 shrink-0" /> Predetermined Change Control Plan
-                                                (PCCP) Authoring
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link
-                                                to="/ai-design-controls"
-                                                className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium"
-                                            >
-                                                <CheckCircle size={18} className="mr-3 text-gray-500 shrink-0" /> AI Design Controls & QMSR
-                                                Integration
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/fda-defense" className="flex items-center text-gray-600 hover:text-[#1a8fd1] font-medium">
-                                                <CheckCircle size={18} className="mr-3 text-gray-500 shrink-0" /> FDA Interaction & Defense Support
-                                            </Link>
-                                        </li>
+                                <div className="absolute left-0 top-full w-[380px] bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500 rounded-b-xl overflow-hidden">
+                                    <ul className="py-2">
+                                        {[
+                                            { to: "/ai-samd-pathway", label: "AI SaMD Regulatory Pathway" },
+                                            { to: "/ai-fda-readiness", label: "AI FDA Readiness & Risk Audit" },
+                                            { to: "/pccp-authoring", label: "PCCP Authoring" },
+                                            { to: "/ai-design-controls", label: "AI Design Controls & QMSR" },
+                                            { to: "/fda-defense", label: "FDA Interaction & Defense" },
+                                        ].map(({ to, label }) => (
+                                            <li key={to}>
+                                                <Link to={to} className="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-600 hover:text-brand-600 hover:bg-brand-50 font-medium transition-all duration-200">
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-brand-400" />
+                                                    {label}
+                                                </Link>
+                                            </li>
+                                        ))}
                                     </ul>
                                 </div>
                             </li>
 
                             <li>
-                                <Link to="/media" className="block py-5 px-4 text-gray-700 hover:text-[#1a8fd1] transition-colors">
+                                <Link to="/media" className={navLinkClass(location.pathname === "/media")}>
                                     Media
-                                </Link>
-                            </li>
-
-                            {/* "Software" — highlighted in blue as shown in screenshot */}
-                            <li>
-                                <Link to="/software" className="block py-5 px-4 text-[#1a8fd1] font-bold hover:text-[#1278b5] transition-colors">
-                                    Software
                                 </Link>
                             </li>
                         </ul>
 
-                        {/* Vertical Divider + Search Icon (Desktop) */}
-                        <div className="hidden lg:flex items-center self-stretch ml-auto">
-                            <div className="w-px h-8 bg-gray-200 mx-2" />
-                            <div className="py-5 px-4 cursor-pointer text-gray-500 hover:text-[#1a8fd1] transition-colors">
-                                <Search size={18} />
-                            </div>
+                        {/* Right side: Software button + Search */}
+                        <div className="hidden lg:flex items-center gap-3 ml-auto">
+                            <Link
+                                to="/software"
+                                className="inline-flex items-center gap-1.5 bg-navy-900 text-white px-5 py-2 rounded-lg text-[13px] font-semibold hover:bg-navy-800 hover:shadow-lg hover:shadow-navy-950/20 transition-all duration-300 hover:-translate-y-0.5"
+                            >
+                                Software
+                            </Link>
+                            <div className="w-px h-5 bg-gray-200" />
+                            <button className="p-2 rounded-lg text-gray-400 hover:text-brand-600 hover:bg-gray-50 transition-all duration-200">
+                                <Search size={17} />
+                            </button>
                         </div>
 
-                        {/* Mobile Menu Toggle Button */}
+                        {/* Mobile Toggle */}
                         <button
-                            className="lg:hidden flex items-center p-2 focus:outline-none text-gray-700"
+                            className="lg:hidden flex flex-col justify-center items-center gap-1.5 p-2 ml-auto focus:outline-none"
                             onClick={() => setIsMobileMenuOpen(true)}
                         >
-                            <div className="space-y-1.5">
-                                <span className="block w-6 h-0.5 bg-gray-700"></span>
-                                <span className="block w-6 h-0.5 bg-gray-700"></span>
-                                <span className="block w-6 h-0.5 bg-gray-700"></span>
-                            </div>
+                            <span className="block w-5 h-0.5 bg-navy-800 rounded-full" />
+                            <span className="block w-5 h-0.5 bg-navy-800 rounded-full" />
+                            <span className="block w-3.5 h-0.5 bg-navy-800 rounded-full" />
                         </button>
                     </div>
                 </nav>
             </header>
 
-            {/* --- MOBILE SIDEBAR SLIDE-IN --- */}
+            {/* Mobile Overlay */}
             <div
-                className={`fixed inset-0 bg-black/60 z-60 transition-opacity duration-300 lg:hidden ${isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
+                className={`fixed inset-0 bg-navy-950/60 backdrop-blur-sm z-[60] transition-opacity duration-300 lg:hidden ${isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
                 onClick={() => setIsMobileMenuOpen(false)}
-            ></div>
+            />
 
-            <div
-                className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-70 shadow-2xl transform transition-transform duration-300 ease-in-out lg:hidden overflow-y-auto flex flex-col ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}
-            >
-                <div className="flex justify-between items-center p-4 border-b border-gray-100 bg-[#0d2340]">
-                    <img
-                        src="https://eemedicals.com/wp-content/uploads/2025/10/logo-new.jpg"
-                        alt="E & E Medicals"
-                        className="h-10 w-auto object-contain"
-                    />
-                    <button
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="p-2 text-white hover:text-red-400 transition-colors bg-white/10 rounded-full"
-                    >
-                        <X size={20} />
+            {/* Mobile Sidebar */}
+            <div className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-[70] shadow-2xl transform transition-transform duration-300 ease-out lg:hidden overflow-y-auto flex flex-col ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
+                <div className="flex justify-between items-center p-4 border-b border-gray-100 bg-gradient-to-r from-navy-950 to-navy-800">
+                    <img src={EandELogo} alt="E & E Medicals" className="h-10 w-auto object-contain" />
+                    <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-white hover:text-red-400 transition-colors bg-white/10 rounded-full">
+                        <X size={18} />
                     </button>
                 </div>
 
-                <div className="flex flex-col py-4">
-                    <Link
-                        to="/"
-                        className="px-6 py-3 text-gray-800 font-semibold hover:text-[#1a8fd1] border-b border-gray-100"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                        Home
-                    </Link>
-                    <Link
-                        to="/about"
-                        className="px-6 py-3 text-gray-800 font-semibold hover:text-[#1a8fd1] border-b border-gray-100"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                        About Us
-                    </Link>
+                <div className="flex flex-col py-2">
+                    <MobileLink to="/" label="Home" onClick={() => setIsMobileMenuOpen(false)} />
+                    <MobileLink to="/about" label="About Us" onClick={() => setIsMobileMenuOpen(false)} />
 
-                    {/* Accordion: Quality & Compliance */}
-                    <div className="border-b border-gray-100">
-                        <button
-                            className="w-full px-6 py-3 flex justify-between items-center text-gray-800 font-semibold hover:text-[#1a8fd1]"
-                            onClick={() => toggleMobileDropdown("quality")}
-                        >
-                            Quality & Compliance
-                            <ChevronDown
-                                size={18}
-                                className={`transform transition-transform ${activeMobileDropdown === "quality" ? "rotate-180 text-[#1a8fd1]" : ""}`}
-                            />
-                        </button>
-                        <div
-                            className={`overflow-hidden transition-all duration-300 bg-gray-50 ${activeMobileDropdown === "quality" ? "max-h-150" : "max-h-0"}`}
-                        >
-                            <ul className="flex flex-col py-2 px-8 text-sm text-gray-600 space-y-3 pb-4">
-                                <li className="font-bold text-gray-800 pt-2">Healthcare</li>
-                                <li>
-                                    <Link to="/reliability" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        Reliability
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/six-sigma-healthcare" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        Six Sigma - Healthcare
-                                    </Link>
-                                </li>
-                                <li className="font-bold text-gray-800 pt-2">Quality Assurance</li>
-                                <li>
-                                    <Link
-                                        to="/medical-devices-quality-assurance"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="hover:text-[#1a8fd1]"
-                                    >
-                                        Medical Devices
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/quality-assurance-audits" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        Audits
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/quality-system-regulation-qsr"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="hover:text-[#1a8fd1]"
-                                    >
-                                        QMSR Regulation
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/quality-management-system-implementation"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="hover:text-[#1a8fd1]"
-                                    >
-                                        QMS Implementation
-                                    </Link>
-                                </li>
-                                <li className="font-bold text-gray-800 pt-2">ISO</li>
-                                <li>
-                                    <Link
-                                        to="/iso-13485-medical-quality-system-registration"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="hover:text-[#1a8fd1]"
-                                    >
-                                        ISO 13485 Registration
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/iso-14971-medical-device-risk-management-for-medical-devices"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="hover:text-[#1a8fd1]"
-                                    >
-                                        ISO 14971 Device Risk Mgt
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/quality-management-system-implementation"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="hover:text-[#1a8fd1]"
-                                    >
-                                        ISO 9001 QMS
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <MobileAccordion
+                        label="Quality & Compliance"
+                        isOpen={activeMobileDropdown === "quality"}
+                        onToggle={() => toggleMobileDropdown("quality")}
+                        items={[
+                            { heading: "Healthcare" },
+                            { to: "/reliability", label: "Reliability" },
+                            { to: "/six-sigma-healthcare", label: "Six Sigma - Healthcare" },
+                            { heading: "Quality Assurance" },
+                            { to: "/medical-devices-quality-assurance", label: "Medical Devices" },
+                            { to: "/quality-assurance-audits", label: "Audits" },
+                            { to: "/quality-system-regulation-qsr", label: "QMSR Regulation" },
+                            { to: "/quality-management-system-implementation", label: "QMS Implementation" },
+                            { heading: "ISO Standards" },
+                            { to: "/iso-13485-medical-quality-system-registration", label: "ISO 13485" },
+                            { to: "/iso-14971-medical-device-risk-management-for-medical-devices", label: "ISO 14971" },
+                            { to: "/quality-management-system-implementation", label: "ISO 9001 QMS" },
+                        ]}
+                        onClose={() => setIsMobileMenuOpen(false)}
+                    />
 
-                    {/* Accordion: Regulatory Operations */}
-                    <div className="border-b border-gray-100">
-                        <button
-                            className="w-full px-6 py-3 flex justify-between items-center text-gray-800 font-semibold hover:text-[#1a8fd1]"
-                            onClick={() => toggleMobileDropdown("regulatory")}
-                        >
-                            Regulatory Operations
-                            <ChevronDown
-                                size={18}
-                                className={`transform transition-transform ${activeMobileDropdown === "regulatory" ? "rotate-180 text-[#1a8fd1]" : ""}`}
-                            />
-                        </button>
-                        <div
-                            className={`overflow-hidden transition-all duration-300 bg-gray-50 ${activeMobileDropdown === "regulatory" ? "max-h-150" : "max-h-0"}`}
-                        >
-                            <ul className="flex flex-col py-2 px-8 text-sm text-gray-600 space-y-3 pb-4">
-                                <li className="font-bold text-gray-800 pt-2">Mark Approval & Compliance</li>
-                                <li>
-                                    <Link to="/ccc-mark-approval" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        CCC Mark Approval
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/ce-mark-approval" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        EU MDR/IVDR Documentation
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/clinical-data-and-postmarket-compliance-under-the-mdr"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="hover:text-[#1a8fd1]"
-                                    >
-                                        Post-market Compliance
-                                    </Link>
-                                </li>
-                                <li className="font-bold text-gray-800 pt-2">Medical Device & Diagnostics</li>
-                                <li>
-                                    <Link to="/pre-ide-process" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        IDE & 510(k) Applications
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/establishment-registration"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="hover:text-[#1a8fd1]"
-                                    >
-                                        Establishment Registration
-                                    </Link>
-                                </li>
-                                <li className="font-bold text-gray-800 pt-2">Drugs & Biologics</li>
-                                <li>
-                                    <Link
-                                        to="/investigational-new-drug-ind-application"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="hover:text-[#1a8fd1]"
-                                    >
-                                        IND Applications
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/new-drug-application-overview"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="hover:text-[#1a8fd1]"
-                                    >
-                                        NDA Applications
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        to="/biologics-license-application-bla-overview"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="hover:text-[#1a8fd1]"
-                                    >
-                                        BLA Submissions
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/dmf" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        DMF Submissions
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <MobileAccordion
+                        label="Regulatory Operations"
+                        isOpen={activeMobileDropdown === "regulatory"}
+                        onToggle={() => toggleMobileDropdown("regulatory")}
+                        items={[
+                            { heading: "Mark Approval & Compliance" },
+                            { to: "/ccc-mark-approval", label: "CCC Mark Approval" },
+                            { to: "/ce-mark-approval", label: "CE Mark / EU MDR" },
+                            { to: "/clinical-data-and-postmarket-compliance-under-the-mdr", label: "Post-market Compliance" },
+                            { heading: "Medical Device & Diagnostics" },
+                            { to: "/pre-ide-process", label: "IDE Process" },
+                            { to: "/fda-510k-application", label: "510(k) / PMA" },
+                            { to: "/fda-establishment-registration", label: "Establishment Registration" },
+                            { heading: "Drugs & Biologics" },
+                            { to: "/investigational-new-drug-ind-application", label: "IND Applications" },
+                            { to: "/new-drug-application-overview", label: "NDA Applications" },
+                            { to: "/biologics-license-application-bla-overview", label: "BLA Submissions" },
+                            { to: "/dmf", label: "DMF Submissions" },
+                        ]}
+                        onClose={() => setIsMobileMenuOpen(false)}
+                    />
 
-                    {/* Accordion: AI-Enabled Regulatory */}
-                    <div className="border-b border-gray-100">
-                        <button
-                            className="w-full px-6 py-3 flex justify-between items-center text-gray-800 font-semibold hover:text-[#1a8fd1]"
-                            onClick={() => toggleMobileDropdown("ai")}
-                        >
-                            AI-Enabled Regulatory
-                            <ChevronDown
-                                size={18}
-                                className={`transform transition-transform ${activeMobileDropdown === "ai" ? "rotate-180 text-[#1a8fd1]" : ""}`}
-                            />
-                        </button>
-                        <div
-                            className={`overflow-hidden transition-all duration-300 bg-gray-50 ${activeMobileDropdown === "ai" ? "max-h-100" : "max-h-0"}`}
-                        >
-                            <ul className="flex flex-col py-2 px-8 text-sm text-gray-600 space-y-3 pb-4">
-                                <li>
-                                    <Link to="/ai-samd-pathway" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        AI SaMD Regulatory Pathway
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/ai-fda-readiness" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        AI FDA Readiness & Risk Audit
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/pccp-authoring" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        PCCP Authoring
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/ai-design-controls" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        AI Design Controls & QMSR
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/fda-defense" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#1a8fd1]">
-                                        FDA Interaction & Defense
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <MobileAccordion
+                        label="AI-Enabled Regulatory"
+                        isOpen={activeMobileDropdown === "ai"}
+                        onToggle={() => toggleMobileDropdown("ai")}
+                        items={[
+                            { to: "/ai-samd-pathway", label: "AI SaMD Pathway" },
+                            { to: "/ai-fda-readiness", label: "AI FDA Readiness" },
+                            { to: "/pccp-authoring", label: "PCCP Authoring" },
+                            { to: "/ai-design-controls", label: "AI Design Controls" },
+                            { to: "/fda-defense", label: "FDA Defense" },
+                        ]}
+                        onClose={() => setIsMobileMenuOpen(false)}
+                    />
 
-                    <Link
-                        to="/media"
-                        className="px-6 py-3 text-gray-800 font-semibold hover:text-[#1a8fd1] border-b border-gray-100"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                        Media
-                    </Link>
-                    <Link
-                        to="/software"
-                        className="px-6 py-3 text-[#1a8fd1] font-bold border-b border-gray-100"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                        Software
-                    </Link>
+                    <MobileLink to="/media" label="Media" onClick={() => setIsMobileMenuOpen(false)} />
+                    <MobileLink to="/software" label="Software" onClick={() => setIsMobileMenuOpen(false)} highlight />
                 </div>
 
-                <div className="mt-auto p-6 bg-[#0d2340]">
-                    <p className="text-sm font-bold text-white mb-2">Need help?</p>
-                    <div className="flex items-center text-[#1a8fd1] text-sm mb-2">
-                        <Phone size={16} className="mr-2" /> (678) 385-6106
+                <div className="mt-auto p-6 bg-gradient-to-br from-navy-950 to-navy-800">
+                    <p className="text-sm font-bold text-white mb-3">Need help?</p>
+                    <div className="flex items-center text-brand-400 text-sm mb-2 gap-2">
+                        <Phone size={14} /> (678) 385-6106
                     </div>
-                    <div className="flex items-center text-[#1a8fd1] text-sm">
-                        <Mail size={16} className="mr-2" /> info@eemedicals.com
+                    <div className="flex items-center text-brand-400 text-sm gap-2">
+                        <Mail size={14} /> info@eemedicals.com
                     </div>
                 </div>
             </div>
         </>
     );
 };
+
+/* --- Sub-components --- */
+
+function MegaColumn({ title, items }: { title: string; items: { to: string; icon: React.ElementType; label: string }[] }) {
+    return (
+        <div>
+            <h3 className="text-navy-900 font-bold uppercase mb-5 tracking-wider text-xs flex items-center gap-2">
+                <span className="w-6 h-0.5 bg-brand-500 rounded-full" />
+                {title}
+            </h3>
+            <ul className="space-y-1">
+                {items.map(({ to, icon: Icon, label }) => (
+                    <li key={to + label}>
+                        <Link to={to} className="flex items-center gap-3 py-2 px-2 -mx-2 rounded-lg text-gray-600 hover:text-brand-600 hover:bg-brand-50 font-medium transition-all duration-200 text-sm">
+                            <Icon size={16} className="text-gray-400 group-hover/link:text-brand-500 shrink-0" />
+                            {label}
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+function MobileLink({ to, label, onClick, highlight }: { to: string; label: string; onClick: () => void; highlight?: boolean }) {
+    return (
+        <Link
+            to={to}
+            className={`px-6 py-3.5 font-semibold border-b border-gray-50 transition-colors ${highlight ? "text-brand-500 font-bold" : "text-navy-800 hover:text-brand-500"}`}
+            onClick={onClick}
+        >
+            {label}
+        </Link>
+    );
+}
+
+function MobileAccordion({ label, isOpen, onToggle, items, onClose }: {
+    label: string;
+    isOpen: boolean;
+    onToggle: () => void;
+    items: ({ heading?: string; to?: string; label?: string })[];
+    onClose: () => void;
+}) {
+    return (
+        <div className="border-b border-gray-50">
+            <button className="w-full px-6 py-3.5 flex justify-between items-center text-navy-800 font-semibold hover:text-brand-500 transition-colors" onClick={onToggle}>
+                {label}
+                <ChevronDown size={16} className={`transition-transform duration-200 ${isOpen ? "rotate-180 text-brand-500" : ""}`} />
+            </button>
+            <div className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-[600px]" : "max-h-0"}`}>
+                <ul className="flex flex-col py-2 px-6 text-sm text-gray-600 space-y-1 pb-4 bg-gray-50/50">
+                    {items.map((item, i) =>
+                        item.heading ? (
+                            <li key={i} className="font-bold text-navy-800 pt-3 pb-1 text-xs uppercase tracking-wider">{item.heading}</li>
+                        ) : (
+                            <li key={i}>
+                                <Link to={item.to!} onClick={onClose} className="block py-2 px-3 rounded-lg hover:text-brand-500 hover:bg-white transition-all">
+                                    {item.label}
+                                </Link>
+                            </li>
+                        )
+                    )}
+                </ul>
+            </div>
+        </div>
+    );
+}

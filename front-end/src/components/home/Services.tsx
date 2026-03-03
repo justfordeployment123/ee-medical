@@ -1,121 +1,131 @@
-import React from 'react';
-import { ArrowRight } from 'lucide-react';
-import type { ServiceType } from '../../types';
+import React from "react";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import type { ServiceType } from "../../types";
 
 const servicesData: ServiceType[] = [
-  { 
-    id: '1', 
-    title: 'Reliability', 
-    description: 'E&E Medicals helps you carry design reviews to spot any major issues that will create obstacles to compliance testing. Our reliability experts design a test plan for you that ensures your design will last to your expectations in the real world.', 
-    link: 'https://eemedicals.com/service/reliability/',
-    imageUrl: 'https://eemedicals.com/wp-content/uploads/2020/03/reliability.jpg'
-  },
-  { 
-    id: '2', 
-    title: 'FDA Application', 
-    description: 'E&E Medicals assist during the process of submitting applications for class I, II, III medical devices. Our qualified team of experts shall submit FDA medical device regulatory documents for U.S. and international clients.', 
-    link: 'https://eemedicals.com/service/how-to-get-fda-approval-and-clearance-to-fda-510k-pma-de-novo-for-medical-devices/',
-    imageUrl: 'https://eemedicals.com/wp-content/uploads/2021/11/fda_application.jpg'
-  },
-  { 
-    id: '3', 
-    title: 'Six Sigma Healthcare', 
-    description: 'E&E Medicals offers a very unique Six Sigma program that is designed for the Healthcare industry. It is based on the DMAIC model - Define, Measure, Analyze, Improve, and Control. We fully customize each application to meet the challenges.', 
-    link: 'https://eemedicals.com/service/six-sigma-healthcare/',
-    imageUrl: 'https://eemedicals.com/wp-content/uploads/2021/11/six-sigma.jpg'
-  },
-  { 
-    id: '4', 
-    title: 'Quality System Regulation (QSR)', 
-    description: 'E&E Medicals helps define the medical device establishment registration requirements, guide through the electronic establishment registration and medical device listing process, which uses the FURLS.', 
-    link: 'https://eemedicals.com/service/quality-system-regulation-qsr/',
-    imageUrl: 'https://eemedicals.com/wp-content/uploads/2021/11/qa.jpg'
-  },
-  { 
-    id: '5', 
-    title: 'EU MDR Technical Documentation', 
-    description: "Our expert's review device design, risk analysis, clinical evaluation, testing reports, post-market surveillance, labeling, and other required areas. Gap analysis is carried out to ease the transition in the required areas.", 
-    link: 'https://eemedicals.com/service/how-to-start-eu-mdr-technical-documentation/',
-    imageUrl: 'https://eemedicals.com/wp-content/uploads/2021/11/eu-mdr-gap.jpg'
-  },
-  { 
-    id: '6', 
-    title: 'Quality Management System Implementation', 
-    description: 'The quality management experts at E&E Medicals develop and implement quality systems for companies approved by FDA. We help in designing smart Quality Management Systems that streamline business demands.', 
-    link: 'https://eemedicals.com/service/iso-9001-quality-management-system-implementation/',
-    imageUrl: 'https://eemedicals.com/wp-content/uploads/2021/11/qms-1.jpg'
-  },
-  { 
-    id: '7', 
-    title: 'FDA 483 Observations', 
-    description: 'Medical device or IVD manufacturers want to avoid Form 483 or Warning Letter from the US Food and Drug Administration. We help in responding to FDA 483 Observations and Warning Letters through corrective actions.', 
-    link: 'https://eemedicals.com/service/fda-483-observations-warning-letters-recalls-remediation/',
-    imageUrl: 'https://eemedicals.com/wp-content/uploads/2021/11/fda-483-1.jpg'
-  },
-  { 
-    id: '8', 
-    title: 'ISO 13485 Medical Quality System', 
-    description: 'ISO 13485 is an international standard adapted to meet the requirements of the medical device industry and it addresses most FDA requirements (21CFR820). We assist in the end-to-end processes to ensure full compliance.', 
-    link: 'https://eemedicals.com/service/iso-13485-medical-quality-system-registration-for-medical-devices/',
-    imageUrl: 'https://eemedicals.com/wp-content/uploads/2021/11/iso-13485-1.jpg'
-  },
-  { 
-    id: '9', 
-    title: 'FDA United States Agent', 
-    description: 'The United States FDA require all medical devices, IVD and pharmaceutical companies not located in the United States to appoint a registered US FDA Agent. E&E Medicals shall represent as US Agent in assisting communication.', 
-    link: 'https://eemedicals.com/service/fda-united-states-agent-for-foreign-establishments/',
-    imageUrl: 'https://eemedicals.com/wp-content/uploads/2021/11/fda-us-agent.jpg'
-  }
+    {
+        id: "1",
+        title: "Reliability",
+        description: "Design reviews to spot compliance obstacles. Our reliability experts create test plans ensuring your device meets real-world expectations.",
+        link: "/reliability",
+        imageUrl: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?q=80&w=800&auto=format&fit=crop",
+    },
+    {
+        id: "2",
+        title: "FDA Application",
+        description: "Expert submission of regulatory documents for Class I, II, III medical devices for U.S. and international clients.",
+        link: "/fda-510k-application",
+        imageUrl: "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?q=80&w=800&auto=format&fit=crop",
+    },
+    {
+        id: "3",
+        title: "Six Sigma Healthcare",
+        description: "A unique Six Sigma program designed for the Healthcare industry based on the DMAIC model, fully customized to your challenges.",
+        link: "/six-sigma-healthcare",
+        imageUrl: "https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=800&auto=format&fit=crop",
+    },
+    {
+        id: "4",
+        title: "Quality System Regulation",
+        description: "Guidance through electronic establishment registration and medical device listing using the FURLS platform.",
+        link: "/quality-system-regulation-qsr",
+        imageUrl: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=800&auto=format&fit=crop",
+    },
+    {
+        id: "5",
+        title: "EU MDR Technical Docs",
+        description: "Review of device design, risk analysis, clinical evaluation, testing reports, post-market surveillance, and labeling.",
+        link: "/ce-mark-approval",
+        imageUrl: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?q=80&w=800&auto=format&fit=crop",
+    },
+    {
+        id: "6",
+        title: "QMS Implementation",
+        description: "Design and implement smart Quality Management Systems that streamline your business demands and FDA approval.",
+        link: "/quality-management-system-implementation",
+        imageUrl: "https://images.unsplash.com/photo-1576671081837-49000212a370?q=80&w=800&auto=format&fit=crop",
+    },
+    {
+        id: "7",
+        title: "FDA 483 Observations",
+        description: "Expert response to FDA 483 Observations and Warning Letters through comprehensive corrective action plans.",
+        link: "/fda-483-observations-warning-letters-recalls-remediation",
+        imageUrl: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800&auto=format&fit=crop",
+    },
+    {
+        id: "8",
+        title: "ISO 13485 Medical Quality",
+        description: "End-to-end ISO 13485 compliance processes addressing FDA requirements (21CFR820) for medical devices.",
+        link: "/iso-13485-medical-quality-system-registration",
+        imageUrl: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?q=80&w=800&auto=format&fit=crop",
+    },
+    {
+        id: "9",
+        title: "FDA United States Agent",
+        description: "Representation as US Agent for foreign medical device, IVD, and pharmaceutical companies requiring FDA registration.",
+        link: "/fda-usa-agents-for-foreign-establishments",
+        imageUrl: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop",
+    },
 ];
 
 export const Services: React.FC = () => {
-  return (
-    <section className="py-20 px-4 md:px-8 bg-gray-50">
-      {/* Using grid layout to match the Masonry feel.
-        Cols: 1 on mobile, 2 on tablet, 3 on large screens
-      */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {servicesData.map((service) => (
-          <div 
-            key={service.id} 
-            className="bg-white rounded-lg overflow-hidden shadow-lg border border-gray-100 transition-transform hover:-translate-y-2 hover:shadow-xl duration-300 flex flex-col"
-          >
-            {/* Image Container */}
-            <div className="w-full h-56 overflow-hidden">
-              <a href={service.link}>
-                <img 
-                  src={service.imageUrl} 
-                  alt={service.title} 
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                />
-              </a>
+    return (
+        <section className="py-24 px-4 md:px-8 bg-slate-50">
+            <div className="max-w-[1400px] mx-auto">
+                {/* Section Header */}
+                <div className="text-center mb-16 max-w-3xl mx-auto">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 border border-brand-100 mb-6">
+                        <span className="text-brand-600 text-sm font-semibold">Our Expertise</span>
+                    </div>
+                    <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-navy-900 mb-5">
+                        Comprehensive Regulatory{" "}
+                        <span className="gradient-text">Services</span>
+                    </h2>
+                    <p className="text-gray-500 text-lg leading-relaxed">
+                        From FDA submissions to ISO implementations, we provide end-to-end regulatory consulting for medical device and pharmaceutical companies worldwide.
+                    </p>
+                </div>
+
+                {/* Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+                    {servicesData.map((service, index) => (
+                        <Link
+                            key={service.id}
+                            to={service.link}
+                            className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-gray-100 hover:border-brand-200 transition-all duration-500 flex flex-col"
+                            style={{ animationDelay: `${index * 80}ms` }}
+                        >
+                            {/* Image */}
+                            <div className="relative w-full aspect-[16/10] overflow-hidden">
+                                <img
+                                    src={service.imageUrl}
+                                    alt={service.title}
+                                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                <div className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 shadow-lg">
+                                    <ArrowRight size={14} className="text-brand-500" />
+                                </div>
+                            </div>
+
+                            {/* Content */}
+                            <div className="p-6 flex flex-col grow">
+                                <h3 className="text-lg font-bold text-navy-900 mb-2 group-hover:text-brand-600 transition-colors duration-300 font-display">
+                                    {service.title}
+                                </h3>
+                                <p className="text-gray-500 text-sm leading-relaxed grow mb-4">
+                                    {service.description}
+                                </p>
+                                <div className="flex items-center gap-1.5 text-brand-500 font-semibold text-sm">
+                                    <span>Learn more</span>
+                                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
+                                </div>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
             </div>
-            
-            {/* Content Container */}
-            <div className="p-6 flex flex-col grow">
-              <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">
-                <a href={service.link} className="hover:text-blue-600 transition-colors">
-                  {service.title}
-                </a>
-              </h3>
-              <p className="text-gray-600 mb-6 grow text-sm leading-relaxed">
-                {service.description}
-              </p>
-              
-              {/* Read More Link */}
-              <div className="mt-auto">
-                <a 
-                  href={service.link} 
-                  className="inline-flex items-center text-blue-600 font-bold text-sm uppercase tracking-wide hover:text-blue-800 transition-colors group"
-                >
-                  Read more 
-                  <ArrowRight size={16} className="ml-2 transform group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+        </section>
+    );
 };

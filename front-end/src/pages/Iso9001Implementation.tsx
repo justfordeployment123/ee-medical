@@ -2,91 +2,80 @@ import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import {
+    InnerContent,
+    SectionHeading,
+    FeatureList,
+    HeroImage,
+    Section,
+    InfoBox,
+    PageCTA,
+} from "../components/shared/InnerPage";
+
+const sopItems = [
+    "Production and Process Control",
+    "Management Review",
+    "Quality Manual",
+    "Design, Purchasing, Document Control",
+    "Device Master and Device History Records",
+    "Internal Audits",
+    "Complaint Handling",
+    "Corrective and Preventive Actions (CAPA)",
+    "Risk Management",
+    "Storage and Distribution",
+    "Personnel and Training",
+];
+
+const whyItems = [
+    "Achieve ISO Certification with a dedicated, expert consultant guiding you from start to finish",
+    "Available for multiple standards (ISO 9001, ISO 13485, ISO 14971)",
+    "Online training and support options are available",
+];
 
 export const Iso9001Implementation: React.FC = () => {
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
 
-            <main className="grow pb-24">
+            <main className="grow">
                 <PageHeader
                     title="ISO 9001 Quality Management System Implementation"
                     breadcrumb="ISO 9001 Quality Management System Implementation"
                 />
 
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 space-y-20">
-                    {/* Hero Image */}
-                    <div className="w-full">
-                        <img
-                            src="https://eemedicals.com/wp-content/uploads/2021/11/quality-management-system-qms-implementation-900x313.jpeg"
-                            alt="ISO 9001 Quality Management System Implementation"
-                            className="w-full h-auto object-cover rounded-md shadow-sm"
-                        />
-                    </div>
+                <InnerContent>
+                    <HeroImage
+                        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1400"
+                        alt="ISO 9001 quality management system implementation team"
+                        label="ISO 9001 Implementation"
+                    />
 
-                    {/* --- SECTION 1: Implementation Overview --- */}
-                    <section>
-                        <div className="flex items-center mb-8 md:mb-10">
-                            <span className="w-10 md:w-12 h-1 bg-blue-500 mr-4 md:mr-6 block shrink-0"></span>
-                            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
-                                ISO 9001 Quality Management System (QMS) Implementation
-                            </h2>
-                        </div>
-
-                        <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-6">
+                    <Section>
+                        <SectionHeading badge="ISO 9001" title="ISO 9001 Quality Management System (QMS) Implementation" />
+                        <div className="space-y-6 text-gray-700 leading-relaxed text-[15px] md:text-base">
                             <p>
-                                E & E Medicals and Consulting’s quality management experts have been developing and implementing quality systems
+                                E & E Medicals and Consulting's quality management experts have been developing and implementing quality systems
                                 including ISO 9001 quality management system in companies attempting their first products approved by the FDA. We help
                                 in designing smart QMS that streamline business demands and increase practical time usage on quality management. E & E
                                 Medicals and Consulting shall implement a complete 21 CFR 820 and ISO 13485:2016 quality management system. Depending
                                 on the available resources, implementation could be paper-based or electronic-based.
                             </p>
-
-                            <p className="font-semibold text-gray-900">
+                            <p className="font-semibold text-navy-900">
                                 We shall help in developing Standard Operating Procedures (SOP) and documentation:
                             </p>
-
-                            {/* SOP List Grid */}
-                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 pt-2">
-                                {[
-                                    "Production and Process Control",
-                                    "Management Review",
-                                    "Quality Manual",
-                                    "Design, Purchasing, Document Control",
-                                    "Device Master and Device History Records",
-                                    "Internal Audits",
-                                    "Complaint Handling",
-                                    "Corrective and Preventive Actions (CAPA)",
-                                    "Risk Management",
-                                    "Storage and Distribution",
-                                    "Personnel and Training",
-                                ].map((item, index) => (
-                                    <li key={index} className="flex items-start">
-                                        <CheckCircle className="text-white fill-blue-500 w-5.5 h-5.5 mr-3 shrink-0 mt-0.5" />
-                                        <span>{item}</span>
-                                    </li>
-                                ))}
-                            </ul>
+                            <FeatureList items={sopItems} columns={2} />
                         </div>
-                    </section>
+                    </Section>
 
-                    {/* --- SECTION 2: Why E&E Medicals --- */}
-                    <section>
-                        <div className="flex items-center mb-8 md:mb-10">
-                            <span className="w-10 md:w-12 h-1 bg-blue-500 mr-4 md:mr-6 block shrink-0"></span>
-                            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">Why E & E Medicals and Consulting?</h2>
-                        </div>
-
-                        <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-6">
-                            <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mb-8">
+                    <Section>
+                        <SectionHeading badge="Why E&E" title="Why E & E Medicals and Consulting?" />
+                        <div className="space-y-6 text-gray-700 leading-relaxed text-[15px] md:text-base">
+                            <InfoBox variant="brand">
                                 <p className="text-xl font-medium text-gray-900">
-                                    We work with small companies and startups in achieving ISO Certification in a simple, affordable, and speedy
-                                    process.
+                                    We work with small companies and startups in achieving ISO Certification in a simple, affordable, and speedy process.
                                 </p>
-                            </div>
-
+                            </InfoBox>
                             <p>
                                 Our consultants help small businesses achieve ISO 9001 quality management system (QMS) certification and provide all
                                 training tools that are necessary to sustain their certification. We walk companies through each stages of the ISO
@@ -97,32 +86,20 @@ export const Iso9001Implementation: React.FC = () => {
                                 within an adequate amount of time in just four simple phases, namely: Planning, Implementation, Review, and
                                 Certification.
                             </p>
-
                             <p>ISO 9001 is achievable by small businesses with our expert consultants and our online training portal.</p>
-
-                            <p className="font-semibold text-gray-900 pt-4">
+                            <p className="font-semibold text-navy-900 pt-2">
                                 Click here to{" "}
-                                <Link to="#" className="text-blue-500 hover:text-blue-600 hover:underline">
+                                <Link to="#" className="text-brand-500 hover:text-brand-600 hover:underline">
                                     find out your level of compliance with ISO 9001
                                 </Link>
                                 .
                             </p>
-
-                            <ul className="space-y-4 pt-2">
-                                {[
-                                    "Achieve ISO Certification with a dedicated, expert consultant guiding you from start to finish",
-                                    "Available for multiple standards (ISO 9001, ISO 13485, ISO 14971)",
-                                    "Online training and support options are available",
-                                ].map((item, index) => (
-                                    <li key={index} className="flex items-start">
-                                        <CheckCircle className="text-white fill-blue-500 w-5.5 h-5.5 mr-3 shrink-0 mt-0.5" />
-                                        <span>{item}</span>
-                                    </li>
-                                ))}
-                            </ul>
+                            <FeatureList items={whyItems} />
                         </div>
-                    </section>
-                </div>
+                    </Section>
+
+                    <PageCTA />
+                </InnerContent>
             </main>
 
             <Footer />

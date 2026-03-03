@@ -2,85 +2,78 @@ import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import {
+    InnerContent,
+    SectionHeading,
+    FeatureList,
+    HeroImage,
+    Section,
+    InfoBox,
+    PageCTA,
+} from "../components/shared/InnerPage";
+
+const deliverables = [
+    "AI-specific Design History File (DHF)",
+    "Training/test dataset governance SOPs",
+    "Bias, fairness, and representativeness controls",
+    "Software V&V framework (AI-specific)",
+    "Traceability matrix (requirements → model → clinical claims)",
+];
 
 export const AiDesignControls: React.FC = () => {
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
 
-            <main className="grow pb-24">
-                <PageHeader 
-                    title="AI Design Controls & QMSR Integration" 
-                    breadcrumb="AI Design Controls" 
+            <main className="grow">
+                <PageHeader
+                    title="AI Design Controls & QMSR Integration"
+                    breadcrumb="AI Design Controls"
                 />
 
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 space-y-16">
-                    
-                    {/* --- SECTION 1: Overview --- */}
-                    <section>
-                        <div className="flex items-center mb-8 md:mb-10">
-                            <span className="w-10 md:w-12 h-1 bg-blue-500 mr-4 md:mr-6 block shrink-0"></span>
-                            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">QMS Integration for AI/ML</h2>
-                        </div>
-
-                        <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-6">
-                            <p>
+                <InnerContent>
+                    <HeroImage
+                        src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=1400"
+                        alt="AI design controls QMSR integration medical device"
+                        label="AI Design Controls"
+                    />
+                    <Section>
+                        <SectionHeading badge="AI/ML Compliance" title="QMS Integration for AI/ML" />
+                        <div className="space-y-6">
+                            <p className="text-gray-700 leading-relaxed">
                                 We integrate AI/ML-specific design controls into an existing medical device QMS so that AI-enabled products (including AI SaMD and AI components embedded in hardware systems) are developed, verified and validated, released, and maintained in compliance with FDA 21 CFR 820 (and the QMSR transition principles) and ISO 13485, while remaining scalable for iterative model updates.
                             </p>
-                            <p className="text-lg pt-2">
-                                <strong className="text-gray-900">Purpose:</strong> Make AI design controls inspection-ready.
+                            <p className="text-gray-700 leading-relaxed">
+                                <strong className="text-navy-900">Purpose:</strong> Make AI design controls inspection-ready.
                             </p>
                         </div>
-                    </section>
+                    </Section>
 
-                    {/* --- SECTION 2: Deliverables --- */}
-                    <section className="pt-4">
-                        <div className="flex items-center mb-8">
-                            <span className="w-8 h-1 bg-blue-500 mr-4 block shrink-0"></span>
-                            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
-                                Deliverables & Engagement
-                            </h2>
-                        </div>
-
+                    <Section>
+                        <SectionHeading badge="Deliverables" title="Deliverables & Engagement" />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                             <div>
-                                <h3 className="text-xl font-semibold text-gray-900 mb-6">What You Receive</h3>
-                                <ul className="space-y-4 text-gray-700">
-                                    {[
-                                        "AI-specific Design History File (DHF)",
-                                        "Training/test dataset governance SOPs",
-                                        "Bias, fairness, and representativeness controls",
-                                        "Software V&V framework (AI-specific)",
-                                        "Traceability matrix (requirements → model → clinical claims)"
-                                    ].map((item, idx) => (
-                                        <li key={idx} className="flex items-start">
-                                            <CheckCircle className="text-blue-500 w-5 h-5 mr-3 shrink-0 mt-0.5" />
-                                            <span>{item}</span>
-                                        </li>
-                                    ))}
-                                </ul>
+                                <h3 className="font-display text-xl font-semibold text-navy-900 mb-6">What You Receive</h3>
+                                <FeatureList items={deliverables} />
                             </div>
-                            
-                            <div className="flex flex-col justify-center">
-                                <div className="mb-6">
-                                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Duration</h3>
-                                    <p className="text-gray-700 text-lg">6–10 weeks</p>
-                                </div>
-                                <div className="mt-4">
-                                    <p className="font-medium text-gray-900">
-                                        For more details, submit your details at{" "}
-                                        <Link to="/contact" className="text-blue-600 hover:underline">
-                                            our contact form
-                                        </Link>.
-                                    </p>
-                                </div>
+                            <div className="flex flex-col gap-6 justify-center">
+                                <InfoBox variant="light">
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Duration</p>
+                                    <p className="text-2xl font-extrabold text-navy-900 font-display">6–10 weeks</p>
+                                </InfoBox>
+                                <p className="font-medium text-gray-700">
+                                    For more details, submit your details at{" "}
+                                    <Link to="/contact" className="text-brand-600 hover:underline font-semibold">
+                                        our contact form
+                                    </Link>.
+                                </p>
                             </div>
                         </div>
-                    </section>
+                    </Section>
 
-                </div>
+                    <PageCTA />
+                </InnerContent>
             </main>
 
             <Footer />

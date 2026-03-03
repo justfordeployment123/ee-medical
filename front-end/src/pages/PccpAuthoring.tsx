@@ -2,89 +2,81 @@ import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import {
+    InnerContent,
+    SectionHeading,
+    FeatureList,
+    HeroImage,
+    Section,
+    InfoBox,
+    PageCTA,
+} from "../components/shared/InnerPage";
+
+const deliverables = [
+    "SaMD change taxonomy (locked vs adaptive)",
+    "Algorithm Change Protocol (ACP)",
+    "Model update validation plan",
+    "Drift monitoring & acceptance thresholds",
+    "FDA-acceptable PCCP narrative",
+];
 
 export const PccpAuthoring: React.FC = () => {
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
 
-            <main className="grow pb-24">
-                <PageHeader 
-                    title="Predetermined Change Control Plan (PCCP) Authoring" 
-                    breadcrumb="PCCP Authoring" 
+            <main className="grow">
+                <PageHeader
+                    title="Predetermined Change Control Plan (PCCP) Authoring"
+                    breadcrumb="PCCP Authoring"
                 />
 
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 space-y-16">
-                    
-                    {/* --- SECTION 1: Overview --- */}
-                    <section>
-                        <div className="flex items-center mb-8 md:mb-10">
-                            <span className="w-10 md:w-12 h-1 bg-blue-500 mr-4 md:mr-6 block shrink-0"></span>
-                            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">PCCP Framework</h2>
-                        </div>
-
-                        <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-6">
-                            <p>
+                <InnerContent>
+                    <HeroImage
+                        src="https://images.unsplash.com/photo-1555255707-c07966088b7b?q=80&w=1400"
+                        alt="Predetermined change control plan software development"
+                        label="PCCP Authoring"
+                    />
+                    <Section>
+                        <SectionHeading badge="Regulatory Strategy" title="PCCP Framework" />
+                        <div className="space-y-6">
+                            <p className="text-gray-700 leading-relaxed">
                                 We prepare a Predetermined Change Control Plan (PCCP) that defines a structured, prospective framework for managing anticipated changes to a regulated product, process, or system following regulatory authorization. The purpose of this PCCP is to ensure predefined changes are implemented in a controlled, transparent, and compliant manner without compromising product quality, safety, or effectiveness, while maintaining regulatory compliance and oversight.
                             </p>
-                            
-                            <p>
+                            <p className="text-gray-700 leading-relaxed">
                                 The PCCP establishes boundaries, controls, and governance mechanisms to execute, verify, document, and approve changes. Changes executed under this PCCP are limited to those explicitly defined herein and are subject to risk-based assessment and predefined acceptance criteria.
                             </p>
-                            <p className="text-lg pt-2">
-                                <strong className="text-gray-900">Purpose:</strong> Enable post-approval AI updates without re-submission failure.
+                            <p className="text-gray-700 leading-relaxed">
+                                <strong className="text-navy-900">Purpose:</strong> Enable post-approval AI updates without re-submission failure.
                             </p>
                         </div>
-                    </section>
+                    </Section>
 
-                    {/* --- SECTION 2: Deliverables --- */}
-                    <section className="pt-8">
-                        <div className="flex items-center mb-8">
-                            <span className="w-8 h-1 bg-blue-500 mr-4 block shrink-0"></span>
-                            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
-                                Deliverables & Engagement
-                            </h2>
-                        </div>
-
+                    <Section>
+                        <SectionHeading badge="Deliverables" title="Deliverables & Engagement" />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                             <div>
-                                <h3 className="text-xl font-semibold text-gray-900 mb-6">What You Receive</h3>
-                                <ul className="space-y-4 text-gray-700">
-                                    {[
-                                        "SaMD change taxonomy (locked vs adaptive)",
-                                        "Algorithm Change Protocol (ACP)",
-                                        "Model update validation plan",
-                                        "Drift monitoring & acceptance thresholds",
-                                        "FDA-acceptable PCCP narrative"
-                                    ].map((item, idx) => (
-                                        <li key={idx} className="flex items-start">
-                                            <CheckCircle className="text-blue-500 w-5 h-5 mr-3 shrink-0 mt-0.5" />
-                                            <span>{item}</span>
-                                        </li>
-                                    ))}
-                                </ul>
+                                <h3 className="font-display text-xl font-semibold text-navy-900 mb-6">What You Receive</h3>
+                                <FeatureList items={deliverables} />
                             </div>
-                            
-                            <div className="flex flex-col justify-center">
-                                <div className="mb-6">
-                                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Duration</h3>
-                                    <p className="text-gray-700 text-lg">4–8 weeks</p>
-                                </div>
-                                <div className="mt-4">
-                                    <p className="font-medium text-gray-900">
-                                        For more details, submit your details at{" "}
-                                        <Link to="/contact" className="text-blue-600 hover:underline">
-                                            our contact form
-                                        </Link>.
-                                    </p>
-                                </div>
+                            <div className="flex flex-col gap-6 justify-center">
+                                <InfoBox variant="light">
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Duration</p>
+                                    <p className="text-2xl font-extrabold text-navy-900 font-display">4–8 weeks</p>
+                                </InfoBox>
+                                <p className="font-medium text-gray-700">
+                                    For more details, submit your details at{" "}
+                                    <Link to="/contact" className="text-brand-600 hover:underline font-semibold">
+                                        our contact form
+                                    </Link>.
+                                </p>
                             </div>
                         </div>
-                    </section>
+                    </Section>
 
-                </div>
+                    <PageCTA />
+                </InnerContent>
             </main>
 
             <Footer />
