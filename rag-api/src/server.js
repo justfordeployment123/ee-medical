@@ -22,6 +22,24 @@ let kbReady = false;
 // Curated FAQ-style chunks to boost common questions
 const faqChunks = [
   {
+    id: "faq-greeting",
+    title: "FAQ – Greetings",
+    url: "/",
+    tags: ["faq", "hi", "hello", "greeting"],
+    content:
+      "Q: Hi / Hello / Hey\n" +
+      "A: Hello! I'm the E&E Medicals assistant. I can help answer questions about our regulatory services, medical device and drug regulations, AI-enabled compliance, FDA pathways, EU MDR, CE/CCC marks, and related topics based on our website. What would you like to know?"
+  },
+  {
+    id: "faq-medical-devices-types",
+    title: "FAQ – Types of Medical Devices E&E Helps With",
+    url: "/ai-regulatory-strategy",
+    tags: ["faq", "medical devices", "which devices", "what devices", "device types"],
+    content:
+      "Q: What medical devices does E&E Medicals work with? Which types of medical devices?\n" +
+      "A: E&E Medicals is a regulatory consulting firm—we don't manufacture or 'use' medical devices. We help clients bring theirs to market. We work with: AI imaging and diagnostic tools, digital diagnostics (SaMD), remote monitoring platforms, AI-enabled medical devices, Class I/II/III devices, IVDs, and MedTech scale-ups. We provide regulatory strategy, FDA 510(k)/PMA/De Novo support, EU MDR/IVDR compliance, and AI Act alignment. For specifics, contact info@eemedicals.com."
+  },
+  {
     id: "faq-ai-services",
     title: "FAQ – AI Regulatory Services",
     url: "/ai-regulatory-strategy",
@@ -49,6 +67,16 @@ const faqChunks = [
       "A: E&E Medicals works with AI imaging companies, digital diagnostics developers, remote monitoring platforms, MedTech scale-ups, and drug and biologics sponsors seeking IND, NDA, ANDA, BLA, CE or CCC marks, as well as manufacturers facing FDA 483 observations, warning letters, or MDR post-market requirements."
   }
 ];
+
+// Fallback scope chunk used when retrieval scores are weak
+const scopeChunk = {
+  id: "scope-about-ee",
+  title: "About E&E Medicals",
+  url: "/about",
+  tags: ["about", "scope"],
+  content:
+    "E&E Medicals & Consulting is a global regulatory intelligence partner for AI-enabled medical technologies and life sciences. We provide regulatory strategy, FDA pathways (510(k), PMA, De Novo), EU MDR/IVDR, AI Act compliance, CE and CCC mark support, quality systems (QMSR, ISO 13485), and audits. For detailed inquiries, contact info@eemedicals.com."
+};
 
 function buildPrompt(query, history, docs) {
   const historyText =
@@ -259,16 +287,23 @@ app.post("/api/rag", async (req, res) => {
     const [queryEmbedding] = await embedTexts([query]);
 
     // Score all chunks by cosine similarity
-    const scoredChunks = vectorIndex
+    const scored = vectorIndex
       .map(({ embedding, chunk }) => ({
         chunk,
         score: cosineSimilarity(queryEmbedding, embedding)
       }))
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 6) // top 6 chunks
-      .map((x) => x.chunk);
+      .sort((a, b) => b.score - a.score);
 
-    const prompt = buildPrompt(query, history, scoredChunks);
+    const topScore = scored[0]?.score ?? 0;
+    const SIMILARITY_THRESHOLD = 0.48;
+
+    // Use top 6 chunks; if best match is weak, prepend scope so the model has useful context
+    let chunks = scored.slice(0, 6).map((x) => x.chunk);
+    if (topScore < SIMILARITY_THRESHOLD) {
+      chunks = [scopeChunk, ...chunks.slice(0, 5)];
+    }
+
+    const prompt = buildPrompt(query, history, chunks);
     const result = await callOpenAi(prompt);
 
     res.json(result);
