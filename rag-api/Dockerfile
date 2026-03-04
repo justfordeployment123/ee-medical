@@ -1,19 +1,13 @@
-# RAG API - expects build context = repo root (parent of rag-api/)
+# RAG API - build context = rag-api/
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy and install rag-api dependencies
-COPY rag-api/package*.json rag-api/
-RUN cd rag-api && npm ci --omit=dev
+COPY package*.json ./
+RUN npm ci --omit=dev
 
-# Copy rag-api source
-COPY rag-api/src rag-api/src
-
-# Copy front-end pages into expected location for knowledge base
-COPY front-end/src/pages front-end/src/pages
-
-WORKDIR /app/rag-api
+COPY src ./src
+COPY kb-pages ./kb-pages
 
 ENV NODE_ENV=production
 ENV PORT=4000

@@ -5,12 +5,21 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { existsSync } from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const projectRoot = path.resolve(__dirname, "..", "..");
-const pagesDir = path.join(projectRoot, "front-end", "src", "pages");
+// Docker: kb-pages (relative to cwd). Local dev: ../front-end/src/pages.
+const kbPagesPath = path.join(process.cwd(), "kb-pages");
+const frontEndPagesPath = path.join(projectRoot, "front-end", "src", "pages");
+
+const pagesDir = process.env.PAGES_DIR
+  ? process.env.PAGES_DIR
+  : existsSync(kbPagesPath)
+    ? kbPagesPath
+    : frontEndPagesPath;
 
 // Optional tags for better retrieval weighting on key pages.
 // Keys are TSX file base names (without extension).

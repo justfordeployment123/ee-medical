@@ -1,5 +1,5 @@
 import React from "react";
-import { MapPin, Mail, Phone, Clock, ArrowRight, Send } from "lucide-react";
+import { MapPin, Mail, Phone, Clock, Send } from "lucide-react";
 
 export const Contact: React.FC = () => {
     return (
