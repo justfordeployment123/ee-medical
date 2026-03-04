@@ -1,0 +1,8 @@
+node_modules
+.git
+.env*
+*.md
+.DS_Store
+front-end/node_modules
+front-end/dist
+rag-api/node_modules

@@ -13,6 +13,7 @@ import { Iso14971 } from "./pages/Iso14971";
 import { Iso13485GapAnalysis } from "./pages/Iso13485GapAnalysis";
 import { Media } from "./pages/Media";
 import { Software } from "./pages/Software";
+import { Careers } from "./pages/Careers";
 import { CEMarkApproval } from "./pages/CEMarkApproval";
 import { CCCMarkApproval } from "./pages/CCCMarkApproval";
 import { PostmarketCompliance } from "./pages/PostmarketCompliance";
@@ -29,9 +30,11 @@ import { CmcServices } from "./pages/CmcServices";
 import { DrugMasterFile } from "./pages/DrugMasterFile";
 import { AiFdaReadiness } from "./pages/AiFdaReadiness";
 import { AiSamdPathway } from "./pages/AiSamdPathway";
+import { AiRegulatoryStrategy } from "./pages/AiRegulatoryStrategy";
 import { PccpAuthoring } from "./pages/PccpAuthoring";
 import { FdaInteractionDefense } from "./pages/FdaInteractionDefense";
 import { AiDesignControls } from "./pages/AiDesignControls";
+import { AiAssistantWidget } from "./components/AiAssistantWidget";
 
 // Placeholder components for future pages
 // const Software = () => <div className="p-20 text-center text-2xl">Software Page Coming Soon</div>;
@@ -59,6 +62,7 @@ function App() {
                     <Route path="/iso-14971-medical-device-risk-management-for-medical-devices" element={<Iso14971 />} />
                     <Route path="/free-iso-13485-2016-gap-analysis-tool" element={<Iso13485GapAnalysis />} />
                     <Route path="/media" element={<Media />} />
+                    <Route path="/careers" element={<Careers />} />
                     <Route path="/software" element={<Software />} />
                     <Route path="/healthcare-software-development" element={<Software />} />
                     <Route path="/ccc-mark-approval" element={<CCCMarkApproval />} />
@@ -81,6 +85,7 @@ function App() {
                     {/* Fallback route */}
 
                     <Route path="/ai-samd-pathway" element={<AiSamdPathway />} />
+                    <Route path="/ai-regulatory-strategy" element={<AiRegulatoryStrategy />} />
                     <Route path="/ai-fda-readiness" element={<AiFdaReadiness />} />
                     <Route path="/pccp-authoring" element={<PccpAuthoring />} />
 
@@ -88,6 +93,9 @@ function App() {
                     <Route path="/fda-defense" element={<FdaInteractionDefense />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
+
+                {/* Global AI assistant widget */}
+                <AiAssistantWidget />
             </div>
         </Router>
     );

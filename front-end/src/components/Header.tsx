@@ -69,6 +69,7 @@ export const Header: React.FC = () => {
                             {[
                                 { to: "/", label: "Home" },
                                 { to: "/about", label: "About Us" },
+                                { to: "/careers", label: "Careers" },
                             ].map(({ to, label }) => (
                                 <li key={to}>
                                     <Link to={to} className={navLinkClass(location.pathname === to)}>
@@ -145,9 +146,10 @@ export const Header: React.FC = () => {
                                     AI-Enabled Regulatory
                                     <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
                                 </button>
-                                <div className="absolute left-0 top-full w-[380px] bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500 rounded-b-xl overflow-hidden">
+                                <div className="absolute left-0 top-full w-[360px] bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500 rounded-b-xl overflow-hidden">
                                     <ul className="py-2">
                                         {[
+                                            { to: "/ai-regulatory-strategy", label: "AI Regulatory Strategy" },
                                             { to: "/ai-samd-pathway", label: "AI SaMD Regulatory Pathway" },
                                             { to: "/ai-fda-readiness", label: "AI FDA Readiness & Risk Audit" },
                                             { to: "/pccp-authoring", label: "PCCP Authoring" },
@@ -217,6 +219,7 @@ export const Header: React.FC = () => {
                 <div className="flex flex-col py-2">
                     <MobileLink to="/" label="Home" onClick={() => setIsMobileMenuOpen(false)} />
                     <MobileLink to="/about" label="About Us" onClick={() => setIsMobileMenuOpen(false)} />
+                    <MobileLink to="/careers" label="Careers" onClick={() => setIsMobileMenuOpen(false)} />
 
                     <MobileAccordion
                         label="Quality & Compliance"
@@ -266,6 +269,7 @@ export const Header: React.FC = () => {
                         isOpen={activeMobileDropdown === "ai"}
                         onToggle={() => toggleMobileDropdown("ai")}
                         items={[
+                            { to: "/ai-regulatory-strategy", label: "AI Regulatory Strategy" },
                             { to: "/ai-samd-pathway", label: "AI SaMD Pathway" },
                             { to: "/ai-fda-readiness", label: "AI FDA Readiness" },
                             { to: "/pccp-authoring", label: "PCCP Authoring" },
