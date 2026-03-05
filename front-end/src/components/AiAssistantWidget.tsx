@@ -7,7 +7,6 @@ import {
     STAGE_OPTIONS,
     MARKET_OPTIONS,
     TIMING_OPTIONS,
-    CTA_OPTIONS,
     PROPOSAL_OPTIONS,
     PRODUCT_PATH_QUESTIONS,
     SAMD_WELLNESS_QUESTION,
@@ -15,9 +14,7 @@ import {
     getCtaOptionsForProduct,
     INTAKE_CONTACT_MSG,
     HANDOFF_MESSAGE,
-    TRIAGE_OFFER_MESSAGE,
     type FlowSession,
-    type ProductType,
     shouldOfferTriage,
     shouldHandoffToHuman,
 } from "../config/chatFlow";
