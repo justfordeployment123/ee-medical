@@ -78,6 +78,13 @@ export const Hero: React.FC = () => {
                                     className="group-hover:translate-x-1 transition-transform"
                                 />
                             </Link>
+                            <button
+                                type="button"
+                                onClick={() => window.dispatchEvent(new CustomEvent("openAiRegulatoryAdvisor"))}
+                                className="group inline-flex items-center gap-2.5 px-8 py-4 bg-white/[0.06] hover:bg-white/[0.12] text-white font-bold rounded-xl border border-white/[0.12] hover:border-white/25 transition-all duration-300 backdrop-blur-sm text-[15px]"
+                            >
+                                Check my FDA pathway (AI)
+                            </button>
                             <Link
                                 to="/software"
                                 className="group inline-flex items-center gap-2.5 px-8 py-4 bg-white/[0.06] hover:bg-white/[0.12] text-white font-bold rounded-xl border border-white/[0.12] hover:border-white/25 transition-all duration-300 backdrop-blur-sm text-[15px]"
