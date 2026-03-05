@@ -500,7 +500,7 @@ export const AiAssistantWidget: React.FC = () => {
                                         className={`max-w-[85%] rounded-2xl px-3 py-2 text-xs leading-relaxed ${
                                             m.role === "user"
                                                 ? "bg-brand-500 text-white rounded-br-sm"
-                                                : "bg-slate-50 text-gray-800 border border-gray-100 rounded-bl-sm"
+                                                : "bg-slate-50 text-gray-800 border border-gray-100 rounded-bl-sm whitespace-pre-wrap"
                                         }`}
                                     >
                                         {m.content}

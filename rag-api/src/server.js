@@ -201,13 +201,27 @@ ${session.productPathAnswers && Object.keys(session.productPathAnswers).length ?
 HANDOFF: If productPathAnswers indicate high-risk (diagnosis=yes, invasion=implantable, adaptive=adaptive, IVD diagnosis/therapy), recommend connecting with a regulatory lead and share info@eemedicals.com.
 
 REQUIRED OUTPUT FORMAT when intake context is present:
-1) Summary (2-4 bullets)
-2) Likely regulatory status (Device vs Non-device) and why
-3) Likely pathway (510k/De Novo/PMA/wellness) with conditions
-4) Evidence & documentation checklist (bullets, tailored)
-5) Key risks/pitfalls (2-4 bullets)
-6) Next best actions (2-4 bullets)
-7) Call-to-action: offer pathway memo / strategy call / proposal — info@eemedicals.com
+Use indentation and bullets—do NOT use markdown headers (no #, ##, ###).
+Structure with numbered sections and indented bullet points. Example format:
+
+1. Summary:
+   • Bullet one
+   • Bullet two
+2. Likely Regulatory Status:
+   • Device or Non-device and why
+3. Likely Pathway:
+   • 510(k) / De Novo / PMA / wellness, with conditions
+4. Evidence & Documentation Checklist:
+   • Item one
+   • Item two
+5. Key Risks/Pitfalls:
+   • Risk one
+   • Risk two
+6. Next Best Actions:
+   • Action one
+   • Action two
+7. Call-to-Action:
+   Would you like [Generate pathway summary] [Book a strategy call] [Request a proposal]? Contact info@eemedicals.com
 `
       : "";
 
@@ -235,6 +249,7 @@ Core behaviors:
 5. If the answer is not supported by context, say you don't have enough information and suggest contacting info@eemedicals.com.
 6. Do NOT provide personal medical advice, treatment recommendations, or legal advice.
 7. Keep answers concise, structured, professional. Position E&E as the regulatory authority.
+8. Format responses with indentation and bullet points (•). Do NOT use markdown headers (#, ##, ###).
 
 Website context:
 ----------------
