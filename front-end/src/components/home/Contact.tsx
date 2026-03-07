@@ -16,7 +16,7 @@ export const Contact: React.FC = () => {
                         We'd <span className="gradient-text">Love</span> to Hear
                         From You
                     </h2>
-                    <p className="text-gray-500 text-lg leading-relaxed">
+                    <p className="text-gray-700 text-lg leading-relaxed font-medium">
                         Have questions about regulatory compliance? Our team of
                         experts is ready to help.
                     </p>
@@ -35,7 +35,7 @@ export const Contact: React.FC = () => {
                             <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-navy-900/30 to-transparent" />
                             <div className="absolute bottom-4 left-5">
                                 <p className="text-white font-display font-bold text-sm">Atlanta, Georgia</p>
-                                <p className="text-gray-300 text-xs">Global Headquarters</p>
+                                <p className="text-gray-200 text-sm font-medium">Global Headquarters</p>
                             </div>
                         </div>
                         {[
@@ -81,7 +81,7 @@ export const Contact: React.FC = () => {
                                     />
                                 </div>
                                 <div>
-                                    <h3 className="text-sm font-bold text-navy-900 mb-1">
+                                    <h3 className="text-base font-bold text-navy-900 mb-1">
                                         {title}
                                     </h3>
                                     {lines.map((line, i) =>
@@ -96,7 +96,7 @@ export const Contact: React.FC = () => {
                                         ) : (
                                             <p
                                                 key={i}
-                                                className="text-sm text-gray-500"
+                                                className="text-base text-gray-700 font-medium"
                                             >
                                                 {line}
                                             </p>
@@ -113,7 +113,7 @@ export const Contact: React.FC = () => {
                             <h3 className="font-display text-xl font-bold text-navy-900 mb-1.5">
                                 Send us a message
                             </h3>
-                            <p className="text-sm text-gray-400 mb-8">
+                            <p className="text-base text-gray-700 font-medium mb-8">
                                 Fill out the form below and we'll get back to you
                                 within 24 hours.
                             </p>

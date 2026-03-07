@@ -78,7 +78,7 @@ export const AiRegulatoryStrategy: React.FC = () => {
                             badge="AI-Enabled Regulatory"
                             title="Global Regulatory Intelligence for AI-Enabled Medical Technologies"
                         />
-                        <div className="space-y-5 text-gray-700 leading-relaxed">
+                        <div className="space-y-5 text-gray-800 leading-relaxed">
                             <p>
                                 E&amp;E Medicals &amp; Consulting is a{" "}
                                 <strong className="text-navy-900">global regulatory intelligence partner</strong> for AI-enabled medical technologies.
@@ -100,12 +100,14 @@ export const AiRegulatoryStrategy: React.FC = () => {
                         imageSrc={aiImage}
                         imageAlt="AI imaging, digital diagnostics, and remote monitoring platforms"
                         label="AI Imaging, Diagnostics & Remote Monitoring"
+                        imageFit="contain"
+                        minImageHeight="min-h-[320px] lg:min-h-[480px]"
                     >
                         <SectionHeading
                             badge="Regulatory Services"
                             title="Regulatory Services for AI Medical Devices Sold in the US or Europe"
                         />
-                        <div className="space-y-8 text-gray-700 leading-relaxed">
+                        <div className="space-y-8 text-gray-800 leading-relaxed">
                             <p>
                                 If your medical device includes <strong className="text-navy-900">AI-enabled software</strong>, E&amp;E Medicals helps you
                                 coordinate compliance across the European AI Act, EU MDR/IVDR, and US FDA expectations so you can scale globally without

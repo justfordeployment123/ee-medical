@@ -47,7 +47,7 @@ export const Hero: React.FC = () => {
                         <div className="animate-fade-in-up">
                             <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-brand-500/10 border border-brand-500/20 mb-8 backdrop-blur-sm">
                                 <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                                <span className="text-brand-300 text-sm font-semibold tracking-wide">
+                                <span className="text-brand-300 text-base font-bold tracking-wide">
                                     Trusted by 470+ Companies Worldwide
                                 </span>
                             </div>
@@ -61,7 +61,7 @@ export const Hero: React.FC = () => {
                             <span className="text-white/90">With Precision</span>
                         </h1>
 
-                        <p className="animate-fade-in-up delay-200 text-lg md:text-xl text-gray-400 leading-relaxed mb-10 max-w-xl">
+                        <p className="animate-fade-in-up delay-200 text-lg md:text-xl text-gray-300 leading-relaxed mb-10 max-w-xl font-medium">
                             Expert consulting for medical device compliance, quality
                             management systems, and regulatory submissions. Over 32 years
                             positioning clients at the forefront of healthcare innovation.

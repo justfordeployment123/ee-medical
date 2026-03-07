@@ -19,15 +19,57 @@
   --color-brand-900: #062f49;
 }
 
+/* Resolution and viewport */
 html {
   scroll-behavior: smooth;
+  /* Slightly larger base font for readability: 16px on small, up to 18px on large */
+  font-size: clamp(16px, 1rem + 0.35vw, 18px);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 body {
   font-family: var(--font-sans);
+  font-weight: 500;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Responsive images: prevent overflow and improve scaling on high-DPI */
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+/* Photos and cover/contain images: let browser choose best rendering */
+img.object-cover,
+img.object-contain {
+  image-rendering: auto;
+}
+/* Logos and icons: sharper edges when scaled */
+img.img-crisp {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Brighter text site-wide: reduce faint gray so body copy is easier to read (overrides Tailwind) */
+.text-gray-500 {
+  color: #374151 !important;
+}
+.text-gray-600 {
+  color: #1f2937 !important;
+}
+.text-gray-700 {
+  color: #1f2937 !important;
 }
 
 /* Scrollbar */

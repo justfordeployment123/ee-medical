@@ -34,13 +34,13 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, breadcrumb }) => 
             {/* Content */}
             <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
                 {/* Breadcrumb */}
-                <div className="animate-fade-in-up inline-flex items-center gap-1.5 text-sm font-medium bg-white/[0.06] border border-white/[0.1] rounded-full px-4 py-2 mb-6">
-                    <Link to="/" className="flex items-center gap-1 text-gray-400 hover:text-brand-400 transition-colors">
-                        <Home size={13} />
+                <div className="animate-fade-in-up inline-flex items-center gap-1.5 text-base font-semibold bg-white/[0.06] border border-white/[0.1] rounded-full px-4 py-2 mb-6">
+                    <Link to="/" className="flex items-center gap-1 text-gray-300 hover:text-brand-300 transition-colors">
+                        <Home size={14} />
                         <span>Home</span>
                     </Link>
-                    <ChevronRight size={13} className="text-gray-600" />
-                    <span className="text-brand-400 font-semibold">{breadcrumb}</span>
+                    <ChevronRight size={14} className="text-gray-400" />
+                    <span className="text-brand-300 font-bold">{breadcrumb}</span>
                 </div>
 
                 {/* Title */}

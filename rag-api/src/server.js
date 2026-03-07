@@ -1,9 +1,18 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import nodemailer from "nodemailer";
 import { loadKnowledgeBase } from "./knowledgeBase.js";
 
 dotenv.config();
+
+// Email config (optional; if not set, leads are logged only)
+const smtpHost = process.env.SMTP_HOST;
+const smtpPort = process.env.SMTP_PORT || 587;
+const smtpUser = process.env.SMTP_USER;
+const smtpPass = process.env.SMTP_PASS;
+const emailFrom = process.env.EMAIL_FROM || "noreply@eemedicals.com";
+const emailEnabled = !!(smtpHost && smtpUser && smtpPass);
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -467,14 +476,97 @@ app.post("/api/rag", async (req, res) => {
   }
 });
 
-app.post("/api/lead", (req, res) => {
+// Email content templates (per document: "Where should I send it?" / "Email this pathway summary")
+const EMAIL_510K_CHECKLIST = `
+510(k) Readiness Checklist – E&E Medicals
+
+Key documentation for a 510(k) submission:
+
+• Device description (FDA format)
+• Substantial equivalence comparison to predicate device
+• Risk management (ISO 14971)
+• Verification and validation (V&V)
+• Software documentation (if applicable, e.g., IEC 62304)
+• Clinical evaluation (if required)
+• Labeling and instructions for use
+• Summary and full 510(k) in FDA format
+
+E&E Medicals provides gap analysis and prepares all 21 sections. For a regulatory strategy call or proposal, contact info@eemedicals.com.
+`.trim();
+
+const EMAIL_SAMD_CHECKLIST = `
+AI/ML SaMD Evidence Checklist – E&E Medicals
+
+Key evidence for SaMD regulatory clearance:
+
+• Software lifecycle (IEC 62304)
+• Risk management (ISO 14971)
+• Clinical/analytical validation
+• Cybersecurity documentation
+• Human factors / usability
+• AI performance (bias, robustness, generalizability)
+• PCCP (Predetermined Change Control Plan) if applicable
+
+For FDA Pre-Sub planning or full submission support, contact info@eemedicals.com.
+`.trim();
+
+async function sendLeadEmail({ to, name, requestType, pathwaySummaryText }) {
+  if (!emailEnabled) return;
+
+  const transporter = nodemailer.createTransport({
+    host: smtpHost,
+    port: Number(smtpPort),
+    secure: smtpPort === "465",
+    auth: { user: smtpUser, pass: smtpPass }
+  });
+
+  let subject, body;
+  if (requestType === "510k_checklist") {
+    subject = "Your 510(k) Readiness Checklist from E&E Medicals";
+    body = EMAIL_510K_CHECKLIST;
+  } else if (requestType === "samd_checklist") {
+    subject = "Your AI/ML SaMD Evidence Checklist from E&E Medicals";
+    body = EMAIL_SAMD_CHECKLIST;
+  } else {
+    subject = "Your Regulatory Pathway Summary from E&E Medicals";
+    body =
+      pathwaySummaryText && pathwaySummaryText.trim()
+        ? pathwaySummaryText.trim()
+        : "Thank you for your interest. Our regulatory team will review your information and be in touch with next steps. For immediate assistance, contact info@eemedicals.com.";
+  }
+
+  const greeting = name && name.trim() ? `Dear ${name.trim()},\n\n` : "";
+  const fullBody = `${greeting}${body}\n\n—\nE&E Medicals Regulatory Consulting\ninfo@eemedicals.com`;
+
+  await transporter.sendMail({
+    from: emailFrom,
+    to: to.trim(),
+    subject,
+    text: fullBody
+  });
+}
+
+app.post("/api/lead", async (req, res) => {
   try {
-    const { email, name, company, role, deviceDescription, website, productType, stage, markets, timing, requestType } = req.body || {};
+    const {
+      email,
+      name,
+      company,
+      role,
+      deviceDescription,
+      website,
+      productType,
+      stage,
+      markets,
+      timing,
+      requestType,
+      pathwaySummaryText
+    } = req.body || {};
     if (!email || typeof email !== "string") {
       return res.status(400).json({ error: "Missing 'email'." });
     }
-    // Log lead for now; can integrate HubSpot/Salesforce/Apollo later
-    console.log("[LEAD]", {
+
+    const lead = {
       email: email.trim(),
       name: (name || "").trim(),
       company: (company || "").trim(),
@@ -487,7 +579,27 @@ app.post("/api/lead", (req, res) => {
       timing: timing || null,
       requestType: requestType || null,
       timestamp: new Date().toISOString()
-    });
+    };
+    console.log("[LEAD]", lead);
+
+    // Send email per document: "Where should I send it?" / "Email this pathway summary"
+    if (emailEnabled) {
+      try {
+        await sendLeadEmail({
+          to: lead.email,
+          name: lead.name,
+          requestType: lead.requestType || "pathway_summary",
+          pathwaySummaryText: pathwaySummaryText || ""
+        });
+        console.log("[LEAD] Email sent to", lead.email);
+      } catch (mailErr) {
+        console.error("[LEAD] Email failed:", mailErr);
+        // Still return success; lead was captured
+      }
+    } else {
+      console.log("[LEAD] Email disabled (configure SMTP_HOST, SMTP_USER, SMTP_PASS)");
+    }
+
     res.json({ ok: true, message: "Thank you. We'll be in touch shortly." });
   } catch (err) {
     console.error(err);

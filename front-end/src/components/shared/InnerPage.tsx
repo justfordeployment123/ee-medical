@@ -15,7 +15,7 @@ export const SectionHeading: React.FC<{
 }> = ({ badge, title, subtitle, centered }) => (
     <div className={`mb-10 ${centered ? "text-center" : ""}`}>
         {badge && (
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-100 text-brand-600 text-sm font-bold uppercase tracking-wider mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
                 {badge}
             </span>
@@ -27,7 +27,7 @@ export const SectionHeading: React.FC<{
             </h2>
         </div>
         {subtitle && (
-            <p className="text-gray-500 mt-4 leading-relaxed text-[15px] max-w-3xl">
+            <p className="text-gray-700 mt-4 leading-relaxed text-base font-medium max-w-3xl">
                 {subtitle}
             </p>
         )}
@@ -63,7 +63,7 @@ export const FeatureList: React.FC<{
                     <CheckCircle size={12} className="text-brand-500" />
                 </div>
                 <span
-                    className="text-gray-700 text-[14px] leading-relaxed"
+                    className="text-gray-800 text-[15px] leading-relaxed font-medium"
                     dangerouslySetInnerHTML={{ __html: item }}
                 />
             </li>
@@ -85,7 +85,7 @@ export const BulletList: React.FC<{
         } ${className}`}
     >
         {items.map((item, i) => (
-            <li key={i} className="flex items-start gap-2.5 text-gray-600 text-[14px]">
+            <li key={i} className="flex items-start gap-2.5 text-gray-800 text-[15px] font-medium">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-500 shrink-0 mt-2" />
                 <span dangerouslySetInnerHTML={{ __html: item }} />
             </li>
@@ -100,10 +100,10 @@ export const InfoBox: React.FC<{
     className?: string;
 }> = ({ variant = "light", children, className = "" }) => {
     const styles = {
-        light: "bg-slate-50 border border-gray-200 text-gray-700",
-        dark: "bg-navy-900 border border-navy-800 text-white",
-        brand: "bg-brand-50 border-l-4 border-brand-500 text-gray-800",
-        warning: "bg-amber-50 border-l-4 border-amber-400 text-gray-800",
+        light: "bg-slate-50 border border-gray-200 text-gray-800 font-medium",
+        dark: "bg-navy-900 border border-navy-800 text-white font-medium",
+        brand: "bg-brand-50 border-l-4 border-brand-500 text-gray-900 font-medium",
+        warning: "bg-amber-50 border-l-4 border-amber-400 text-gray-900 font-medium",
     };
     return (
         <div className={`rounded-xl p-6 md:p-8 ${styles[variant]} ${className}`}>
@@ -131,7 +131,7 @@ export const ProcessSteps: React.FC<{
                     <h4 className="font-bold text-navy-900 text-[15px] mb-1.5">
                         {step.title}
                     </h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <p className="text-gray-800 text-base leading-relaxed font-medium">
                         {step.description}
                     </p>
                 </div>
@@ -160,7 +160,7 @@ export const ServiceCard: React.FC<{
             <h4 className="font-display font-bold text-navy-900 mb-2 text-[15px] group-hover:text-brand-600 transition-colors">
                 {title}
             </h4>
-            <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
+            <p className="text-gray-700 text-base leading-relaxed font-medium">{description}</p>
         </div>
     );
     return to ? (
@@ -183,7 +183,7 @@ export const StatStrip: React.FC<{
                 <div className="text-3xl font-extrabold text-white font-display mb-1">
                     {s.value}
                 </div>
-                <div className="text-xs text-gray-400 font-semibold uppercase tracking-wider">
+                <div className="text-sm text-gray-300 font-bold uppercase tracking-wider">
                     {s.label}
                 </div>
             </div>
@@ -221,7 +221,7 @@ export const PageCTA: React.FC<{
                 <h3 className="font-display text-xl md:text-2xl font-extrabold text-white mb-2">
                     {title}
                 </h3>
-                <p className="text-gray-400 text-sm">{subtitle}</p>
+                <p className="text-gray-200 text-base font-medium">{subtitle}</p>
             </div>
             <div className="flex flex-wrap gap-3 shrink-0">
                 {linkTo ? (
@@ -242,10 +242,10 @@ export const PageCTA: React.FC<{
                     </a>
                 )}
                 <a
-                    href="tel:+16783856106"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-white/[0.06] text-white font-bold rounded-xl border border-white/[0.12] hover:bg-white/[0.12] transition-all duration-300 text-sm whitespace-nowrap"
+                    href="tel:+16788159233"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-white/[0.06] text-white font-bold rounded-xl border border-white/[0.12] hover:bg-white/[0.12] transition-all duration-300 text-base whitespace-nowrap"
                 >
-                    Call (678) 385-6106
+                    Call +1 (678) 815-9233
                 </a>
             </div>
         </div>
@@ -286,19 +286,21 @@ export const SplitSection: React.FC<{
     dark?: boolean;
     children: React.ReactNode;
     minImageHeight?: string;
-}> = ({ imageSrc, imageAlt, imageRight = false, label, dark, children, minImageHeight = "min-h-[280px] lg:min-h-[380px]" }) => (
+    /** 'cover' crops to fill; 'contain' shows the full picture */
+    imageFit?: "cover" | "contain";
+}> = ({ imageSrc, imageAlt, imageRight = false, label, dark, children, minImageHeight = "min-h-[280px] lg:min-h-[380px]", imageFit = "cover" }) => (
     <div className={`rounded-2xl overflow-hidden border ${dark ? "bg-navy-900 border-navy-800" : "bg-slate-50 border-gray-100"}`}>
         <div className="grid grid-cols-1 lg:grid-cols-2">
-            <div className={`relative overflow-hidden ${minImageHeight} group ${imageRight ? "lg:order-2" : "lg:order-1"}`}>
+            <div className={`relative overflow-hidden ${minImageHeight} group ${imageRight ? "lg:order-2" : "lg:order-1"} ${imageFit === "contain" ? "bg-navy-950" : ""}`}>
                 <img
                     src={imageSrc}
                     alt={imageAlt}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                    className={`absolute inset-0 w-full h-full transition-transform duration-700 ${imageFit === "contain" ? "object-contain object-center group-hover:scale-[1.02]" : "object-cover group-hover:scale-[1.04]"}`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-navy-950/20 to-navy-950/5" />
+                <div className="absolute inset-0 bg-gradient-to-br from-navy-950/20 to-navy-950/5 pointer-events-none" />
                 {label && (
                     <div className="absolute bottom-4 left-4">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-500/90 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-wider shadow-lg">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-500/90 backdrop-blur-sm text-white text-sm font-bold uppercase tracking-wider shadow-lg">
                             {label}
                         </span>
                     </div>

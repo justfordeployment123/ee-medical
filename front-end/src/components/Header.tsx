@@ -47,7 +47,7 @@ export const Header: React.FC = () => {
     };
 
     const navLinkClass = (isActive: boolean) =>
-        `relative flex items-center gap-1 py-2 px-3 text-[13px] font-medium rounded-lg transition-all duration-200 ${
+        `relative flex items-center gap-1 py-2 px-3 text-sm font-semibold rounded-lg transition-all duration-200 ${
             isActive
                 ? "text-brand-600 bg-brand-50"
                 : "text-navy-800 hover:text-brand-600 hover:bg-gray-50"
@@ -56,12 +56,32 @@ export const Header: React.FC = () => {
     return (
         <>
             <header className="w-full flex flex-col z-40 relative">
+                {/* Top bar: Telephone, Email, Enquiry Form – always visible */}
+                <div className="w-full bg-navy-900 border-b border-navy-800">
+                    <div className="px-4 md:px-8 flex flex-wrap items-center justify-center lg:justify-end gap-4 lg:gap-6 max-w-[1400px] mx-auto py-2.5 text-sm font-semibold">
+                        <a href="tel:+16788159233" className="flex items-center gap-2 text-gray-200 hover:text-white transition-colors whitespace-nowrap">
+                            <Phone size={14} />
+                            Call Us: +1 (678) 815-9233
+                        </a>
+                        <span className="hidden lg:inline text-navy-600">|</span>
+                        <a href="mailto:info@eemedicals.com" className="flex items-center gap-2 text-gray-200 hover:text-white transition-colors whitespace-nowrap">
+                            <Mail size={14} />
+                            Mail us for help: info@eemedicals.com
+                        </a>
+                        <span className="hidden lg:inline text-navy-600">|</span>
+                        <Link to="/share-your-project" className="flex items-center gap-2 text-brand-300 hover:text-brand-200 transition-colors whitespace-nowrap font-bold">
+                            <FileText size={14} />
+                            Enquiry Form – Share Your Project
+                        </Link>
+                    </div>
+                </div>
+
                 {/* Main Nav */}
                 <nav className={`w-full bg-white/95 backdrop-blur-md text-gray-800 sticky top-0 z-50 transition-all duration-300 ${scrolled ? "shadow-lg shadow-navy-950/8" : "border-b border-gray-100"}`}>
                     <div className="px-4 md:px-8 flex items-center max-w-[1400px] mx-auto relative h-16 lg:h-[68px]">
                         {/* Logo */}
                         <Link to="/" className="shrink-0 mr-8">
-                            <img src={EandELogo} alt="E & E Medicals" className="h-11 lg:h-12 w-auto object-contain" />
+                            <img src={EandELogo} alt="E & E Medicals" className="h-11 lg:h-12 w-auto object-contain img-crisp" />
                         </Link>
 
                         {/* Desktop Menu */}
@@ -157,12 +177,57 @@ export const Header: React.FC = () => {
                                             { to: "/fda-defense", label: "FDA Interaction & Defense" },
                                         ].map(({ to, label }) => (
                                             <li key={to}>
-                                                <Link to={to} className="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-600 hover:text-brand-600 hover:bg-brand-50 font-medium transition-all duration-200">
+                                                <Link to={to} className="flex items-center gap-3 px-5 py-2.5 text-base text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200">
                                                     <div className="w-1.5 h-1.5 rounded-full bg-brand-400" />
                                                     {label}
                                                 </Link>
                                             </li>
                                         ))}
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a
+                                    href="http://206.162.244.134:4040/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={navLinkClass(false)}
+                                >
+                                    Medical Supplies Store
+                                </a>
+                            </li>
+
+                            {/* Wellness/Telehealth Apps dropdown */}
+                            <li className="relative group">
+                                <button className={`${navLinkClass(false)} cursor-pointer`}>
+                                    Wellness/Telehealth Apps
+                                    <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
+                                </button>
+                                <div className="absolute left-0 top-full w-[380px] bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500 rounded-b-xl overflow-hidden">
+                                    <ul className="py-2">
+                                        <li>
+                                            <a
+                                                href="https://www.figma.com/design/QqGRXig7sOuLtFD6OaNBWH/Ai-wellness-app?node-id=1-1977&t=HfrvsM1Vm4Zm9wIb-0"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-3 px-5 py-2.5 text-base text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
+                                            >
+                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-400" />
+                                                eeMeds – AI-powered preventive wellness App
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="https://ee-telehealth-connect.onrender.com/login"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-3 px-5 py-2.5 text-base text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
+                                            >
+                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-400" />
+                                                eeTelehealth Connect: AI-powered Wellness/Virtual Care App
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -174,16 +239,24 @@ export const Header: React.FC = () => {
                             </li>
                         </ul>
 
-                        {/* Right side: Software button + Search */}
+                        {/* Right side: Phone + Software button + Search */}
                         <div className="hidden lg:flex items-center gap-3 ml-auto">
+                            <a
+                                href="tel:+16788159233"
+                                className="flex items-center gap-1.5 text-sm font-semibold text-navy-800 hover:text-brand-600 transition-colors"
+                            >
+                                <Phone size={14} />
+                                +1 (678) 815-9233
+                            </a>
+                            <div className="w-px h-5 bg-gray-200" />
                             <Link
                                 to="/software"
-                                className="inline-flex items-center gap-1.5 bg-navy-900 text-white px-5 py-2 rounded-lg text-[13px] font-semibold hover:bg-navy-800 hover:shadow-lg hover:shadow-navy-950/20 transition-all duration-300 hover:-translate-y-0.5"
+                                className="inline-flex items-center gap-1.5 bg-navy-900 text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-navy-800 hover:shadow-lg hover:shadow-navy-950/20 transition-all duration-300 hover:-translate-y-0.5"
                             >
                                 Software
                             </Link>
                             <div className="w-px h-5 bg-gray-200" />
-                            <button className="p-2 rounded-lg text-gray-400 hover:text-brand-600 hover:bg-gray-50 transition-all duration-200">
+                            <button className="p-2 rounded-lg text-gray-600 hover:text-brand-600 hover:bg-gray-50 transition-all duration-200">
                                 <Search size={17} />
                             </button>
                         </div>
@@ -210,7 +283,7 @@ export const Header: React.FC = () => {
             {/* Mobile Sidebar */}
             <div className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-[70] shadow-2xl transform transition-transform duration-300 ease-out lg:hidden overflow-y-auto flex flex-col ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
                 <div className="flex justify-between items-center p-4 border-b border-gray-100 bg-gradient-to-r from-navy-950 to-navy-800">
-                    <img src={EandELogo} alt="E & E Medicals" className="h-10 w-auto object-contain" />
+                    <img src={EandELogo} alt="E & E Medicals" className="h-10 w-auto object-contain img-crisp" />
                     <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-white hover:text-red-400 transition-colors bg-white/10 rounded-full">
                         <X size={18} />
                     </button>
@@ -279,18 +352,40 @@ export const Header: React.FC = () => {
                         onClose={() => setIsMobileMenuOpen(false)}
                     />
 
-                    <MobileLink to="/media" label="Media" onClick={() => setIsMobileMenuOpen(false)} />
+                    <MobileLinkExternal
+                        href="http://206.162.244.134:4040/"
+                        label="Medical Supplies Store"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                    />
+                    <MobileAccordionExternal
+                        label="Wellness/Telehealth Apps"
+                        isOpen={activeMobileDropdown === "wellness"}
+                        onToggle={() => toggleMobileDropdown("wellness")}
+                        items={[
+                            { href: "https://www.figma.com/design/QqGRXig7sOuLtFD6OaNBWH/Ai-wellness-app?node-id=1-1977&t=HfrvsM1Vm4Zm9wIb-0", label: "eeMeds – AI-powered preventive wellness App" },
+                            { href: "https://ee-telehealth-connect.onrender.com/login", label: "eeTelehealth Connect: AI-powered Wellness/Virtual Care App" },
+                        ]}
+                        onClose={() => setIsMobileMenuOpen(false)}
+                    />
                     <MobileLink to="/software" label="Software" onClick={() => setIsMobileMenuOpen(false)} highlight />
+                    <MobileLink to="/media" label="Media" onClick={() => setIsMobileMenuOpen(false)} />
                 </div>
 
                 <div className="mt-auto p-6 bg-gradient-to-br from-navy-950 to-navy-800">
-                    <p className="text-sm font-bold text-white mb-3">Need help?</p>
-                    <div className="flex items-center text-brand-400 text-sm mb-2 gap-2">
-                        <Phone size={14} /> (678) 385-6106
-                    </div>
-                    <div className="flex items-center text-brand-400 text-sm gap-2">
+                    <p className="text-base font-bold text-white mb-3">Get in touch</p>
+                    <a href="tel:+16788159233" className="flex items-center text-brand-300 text-base font-semibold mb-2 gap-2 hover:text-brand-200">
+                        <Phone size={14} /> Call: +1 (678) 815-9233
+                    </a>
+                    <a href="mailto:info@eemedicals.com" className="flex items-center text-brand-300 text-base font-semibold mb-4 gap-2 hover:text-brand-200">
                         <Mail size={14} /> info@eemedicals.com
-                    </div>
+                    </a>
+                    <Link
+                        to="/share-your-project"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-white font-bold text-sm"
+                    >
+                        <FileText size={16} /> Enquiry Form – Share Your Project
+                    </Link>
                 </div>
             </div>
         </>
@@ -302,15 +397,15 @@ export const Header: React.FC = () => {
 function MegaColumn({ title, items }: { title: string; items: { to: string; icon: React.ElementType; label: string }[] }) {
     return (
         <div>
-            <h3 className="text-navy-900 font-bold uppercase mb-5 tracking-wider text-xs flex items-center gap-2">
+            <h3 className="text-navy-900 font-bold uppercase mb-5 tracking-wider text-sm flex items-center gap-2">
                 <span className="w-6 h-0.5 bg-brand-500 rounded-full" />
                 {title}
             </h3>
             <ul className="space-y-1">
                 {items.map(({ to, icon: Icon, label }) => (
                     <li key={to + label}>
-                        <Link to={to} className="flex items-center gap-3 py-2 px-2 -mx-2 rounded-lg text-gray-600 hover:text-brand-600 hover:bg-brand-50 font-medium transition-all duration-200 text-sm">
-                            <Icon size={16} className="text-gray-400 group-hover/link:text-brand-500 shrink-0" />
+                        <Link to={to} className="flex items-center gap-3 py-2 px-2 -mx-2 rounded-lg text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200 text-base">
+                            <Icon size={16} className="text-gray-600 group-hover/link:text-brand-500 shrink-0" />
                             {label}
                         </Link>
                     </li>
@@ -332,6 +427,48 @@ function MobileLink({ to, label, onClick, highlight }: { to: string; label: stri
     );
 }
 
+function MobileLinkExternal({ href, label, onClick }: { href: string; label: string; onClick: () => void }) {
+    return (
+        <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-3.5 font-semibold border-b border-gray-50 text-navy-800 hover:text-brand-500 transition-colors block"
+            onClick={onClick}
+        >
+            {label}
+        </a>
+    );
+}
+
+function MobileAccordionExternal({ label, isOpen, onToggle, items, onClose }: {
+    label: string;
+    isOpen: boolean;
+    onToggle: () => void;
+    items: { href: string; label: string }[];
+    onClose: () => void;
+}) {
+    return (
+        <div className="border-b border-gray-50">
+            <button className="w-full px-6 py-3.5 flex justify-between items-center text-navy-800 font-semibold hover:text-brand-500 transition-colors" onClick={onToggle}>
+                {label}
+                <ChevronDown size={16} className={`transition-transform duration-200 ${isOpen ? "rotate-180 text-brand-500" : ""}`} />
+            </button>
+            <div className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-[400px]" : "max-h-0"}`}>
+                <ul className="flex flex-col py-2 px-6 text-base text-gray-800 font-medium space-y-1 pb-4 bg-gray-50/50">
+                    {items.map((item, i) => (
+                        <li key={i}>
+                            <a href={item.href} target="_blank" rel="noopener noreferrer" onClick={onClose} className="block py-2 px-3 rounded-lg hover:text-brand-500 hover:bg-white transition-all">
+                                {item.label}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
+}
+
 function MobileAccordion({ label, isOpen, onToggle, items, onClose }: {
     label: string;
     isOpen: boolean;
@@ -346,10 +483,10 @@ function MobileAccordion({ label, isOpen, onToggle, items, onClose }: {
                 <ChevronDown size={16} className={`transition-transform duration-200 ${isOpen ? "rotate-180 text-brand-500" : ""}`} />
             </button>
             <div className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-[600px]" : "max-h-0"}`}>
-                <ul className="flex flex-col py-2 px-6 text-sm text-gray-600 space-y-1 pb-4 bg-gray-50/50">
+                <ul className="flex flex-col py-2 px-6 text-base text-gray-800 font-medium space-y-1 pb-4 bg-gray-50/50">
                     {items.map((item, i) =>
                         item.heading ? (
-                            <li key={i} className="font-bold text-navy-800 pt-3 pb-1 text-xs uppercase tracking-wider">{item.heading}</li>
+                            <li key={i} className="font-bold text-navy-800 pt-3 pb-1 text-sm uppercase tracking-wider">{item.heading}</li>
                         ) : (
                             <li key={i}>
                                 <Link to={item.to!} onClick={onClose} className="block py-2 px-3 rounded-lg hover:text-brand-500 hover:bg-white transition-all">

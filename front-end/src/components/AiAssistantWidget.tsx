@@ -227,6 +227,7 @@ export const AiAssistantWidget: React.FC = () => {
                     stage: session.stage,
                     markets: session.markets,
                     timing: session.timing,
+                    requestType: "pathway_summary",
                 }),
             });
         } catch {
@@ -346,6 +347,10 @@ export const AiAssistantWidget: React.FC = () => {
                     markets: session.markets,
                     timing: session.timing,
                     requestType: requestedLeadType,
+                    pathwaySummaryText:
+                        requestedLeadType === "pathway_summary"
+                            ? [...messages].reverse().find((m) => m.role === "assistant")?.content ?? ""
+                            : undefined,
                 }),
             });
             if (res.ok) {

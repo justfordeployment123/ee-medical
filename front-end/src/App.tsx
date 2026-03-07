@@ -34,6 +34,7 @@ import { AiRegulatoryStrategy } from "./pages/AiRegulatoryStrategy";
 import { PccpAuthoring } from "./pages/PccpAuthoring";
 import { FdaInteractionDefense } from "./pages/FdaInteractionDefense";
 import { AiDesignControls } from "./pages/AiDesignControls";
+import { ShareYourProject } from "./pages/ShareYourProject";
 import { AiAssistantWidget } from "./components/AiAssistantWidget";
 
 // Placeholder components for future pages
@@ -91,6 +92,7 @@ function App() {
 
                     <Route path="/ai-design-controls" element={<AiDesignControls />} />
                     <Route path="/fda-defense" element={<FdaInteractionDefense />} />
+                    <Route path="/share-your-project" element={<ShareYourProject />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
 
