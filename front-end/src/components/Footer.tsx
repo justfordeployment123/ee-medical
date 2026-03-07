@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
                                 <img
                                     src={EandELogo}
                                     alt="E & E Medicals"
-                                    className="h-14 w-auto object-contain rounded-md img-crisp"
+                                    className="h-14 max-h-14 w-auto max-w-[180px] object-contain rounded-md img-crisp block"
                                 />
                             </Link>
                             {/* BBB & RAPS logos with links */}

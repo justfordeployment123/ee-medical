@@ -55,7 +55,7 @@ export const Header: React.FC = () => {
 
     return (
         <>
-            <header className="w-full flex flex-col z-40 relative">
+            <header className="w-full flex flex-col z-40 relative overflow-hidden">
                 {/* Top bar: Telephone, Email, Enquiry Form – always visible */}
                 <div className="w-full bg-navy-900 border-b border-navy-800">
                     <div className="px-4 md:px-8 flex flex-wrap items-center justify-center lg:justify-end gap-4 lg:gap-6 max-w-[1400px] mx-auto py-2.5 text-sm font-semibold">
@@ -77,11 +77,15 @@ export const Header: React.FC = () => {
                 </div>
 
                 {/* Main Nav */}
-                <nav className={`w-full bg-white/95 backdrop-blur-md text-gray-800 sticky top-0 z-50 transition-all duration-300 ${scrolled ? "shadow-lg shadow-navy-950/8" : "border-b border-gray-100"}`}>
-                    <div className="px-4 md:px-8 flex items-center max-w-[1400px] mx-auto relative h-16 lg:h-[68px]">
-                        {/* Logo */}
-                        <Link to="/" className="shrink-0 mr-8">
-                            <img src={EandELogo} alt="E & E Medicals" className="h-11 lg:h-12 w-auto object-contain img-crisp" />
+                <nav className={`w-full bg-white/95 backdrop-blur-md text-gray-800 sticky top-0 z-50 transition-all duration-300 overflow-hidden ${scrolled ? "shadow-lg shadow-navy-950/8" : "border-b border-gray-100"}`}>
+                    <div className="px-4 md:px-8 flex items-center max-w-[1400px] mx-auto relative h-16 lg:h-[68px] overflow-hidden">
+                        {/* Logo – constrained so it never overflows or obscures header */}
+                        <Link to="/" className="shrink-0 mr-8 flex items-center max-h-12 overflow-hidden">
+                            <img
+                                src={EandELogo}
+                                alt="E & E Medicals"
+                                className="h-10 lg:h-12 max-h-12 w-auto max-w-[200px] object-contain object-left img-crisp block"
+                            />
                         </Link>
 
                         {/* Desktop Menu */}
@@ -283,7 +287,7 @@ export const Header: React.FC = () => {
             {/* Mobile Sidebar */}
             <div className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-[70] shadow-2xl transform transition-transform duration-300 ease-out lg:hidden overflow-y-auto flex flex-col ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
                 <div className="flex justify-between items-center p-4 border-b border-gray-100 bg-gradient-to-r from-navy-950 to-navy-800">
-                    <img src={EandELogo} alt="E & E Medicals" className="h-10 w-auto object-contain img-crisp" />
+                    <img src={EandELogo} alt="E & E Medicals" className="h-10 max-h-10 w-auto max-w-[160px] object-contain img-crisp block" />
                     <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-white hover:text-red-400 transition-colors bg-white/10 rounded-full">
                         <X size={18} />
                     </button>
