@@ -61,7 +61,7 @@ export const Hero: React.FC = () => {
                             <span className="text-white/90">With Precision</span>
                         </h1>
 
-                        <p className="animate-fade-in-up delay-200 text-lg md:text-xl text-gray-300 leading-relaxed mb-10 max-w-xl font-medium">
+                        <p className="animate-fade-in-up delay-200 text-lg md:text-xl text-white/90 leading-relaxed mb-10 max-w-xl font-medium">
                             Expert consulting for medical device compliance, quality
                             management systems, and regulatory submissions. Over 32 years
                             positioning clients at the forefront of healthcare innovation.
@@ -102,7 +102,7 @@ export const Hero: React.FC = () => {
                             ].map(({ icon: Icon, label }) => (
                                 <div
                                     key={label}
-                                    className="flex items-center gap-2.5 text-sm text-gray-500"
+                                    className="flex items-center gap-2.5 text-sm text-white font-medium"
                                 >
                                     <div className="w-7 h-7 rounded-lg bg-brand-500/10 flex items-center justify-center">
                                         <Icon size={14} className="text-brand-400" />
@@ -148,7 +148,7 @@ export const Hero: React.FC = () => {
                                         <div className="text-2xl font-extrabold text-white font-display">
                                             {value}
                                         </div>
-                                        <div className="text-[11px] text-gray-400 font-semibold mt-1 uppercase tracking-wider">
+                                        <div className="text-[11px] text-white/90 font-semibold mt-1 uppercase tracking-wider">
                                             {label}
                                         </div>
                                     </div>
@@ -163,7 +163,7 @@ export const Hero: React.FC = () => {
             <div className="relative z-10 border-t border-white/[0.06]">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-white/[0.04]" />
                 <div className="relative max-w-[1400px] mx-auto px-4 md:px-8 py-8">
-                    <p className="text-center text-[11px] text-gray-500 uppercase tracking-[0.2em] font-semibold mb-5">
+                    <p className="text-center text-sm text-white uppercase tracking-[0.2em] font-semibold mb-5">
                         Regulatory Standards We Work With
                     </p>
                     <div className="relative overflow-hidden">
@@ -173,7 +173,7 @@ export const Hero: React.FC = () => {
                             {clientLogos.map((logo, i) => (
                                 <div
                                     key={i}
-                                    className="flex-shrink-0 px-7 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-gray-500 text-sm font-bold tracking-widest hover:bg-white/[0.08] hover:text-brand-400 hover:border-brand-400/30 transition-all duration-300 cursor-default"
+                                    className="flex-shrink-0 px-7 py-2.5 rounded-lg bg-white/[0.08] border border-white/20 text-white text-sm font-bold tracking-widest hover:bg-white/[0.12] hover:text-brand-300 hover:border-brand-400/40 transition-all duration-300 cursor-default"
                                 >
                                     {logo}
                                 </div>

@@ -29,7 +29,7 @@ export const About: React.FC = () => {
               ].map(({ title, text }) => (
                 <div key={title}>
                   <h3 className="font-display text-xl font-bold text-white mb-3">{title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">{text}</p>
+                  <p className="text-white/90 text-sm leading-relaxed">{text}</p>
                 </div>
               ))}
             </div>

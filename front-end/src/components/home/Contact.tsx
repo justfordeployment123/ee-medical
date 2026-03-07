@@ -35,7 +35,7 @@ export const Contact: React.FC = () => {
                             <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-navy-900/30 to-transparent" />
                             <div className="absolute bottom-4 left-5">
                                 <p className="text-white font-display font-bold text-sm">Atlanta, Georgia</p>
-                                <p className="text-gray-200 text-sm font-medium">Global Headquarters</p>
+                                <p className="text-white/90 text-sm font-medium">Global Headquarters</p>
                             </div>
                         </div>
                         {[

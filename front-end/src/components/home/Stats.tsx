@@ -50,7 +50,7 @@ export const Stats: React.FC = () => {
                         Over <span className="gradient-text">32 Years</span> of
                         Experience
                     </h2>
-                    <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-lg text-white/90 max-w-2xl mx-auto leading-relaxed">
                         Well-established partners across the EU, Asia, and USA.
                         Our customers consider us not just consultants, but
                         strategic outsourcing partners.
@@ -77,7 +77,7 @@ export const Stats: React.FC = () => {
                                 <div className="text-4xl md:text-5xl font-extrabold text-white mb-2 font-display tracking-tight">
                                     {stat.value}
                                 </div>
-                                <div className="text-xs font-semibold uppercase tracking-wider text-gray-500 group-hover:text-brand-300 transition-colors">
+                                <div className="text-xs font-semibold uppercase tracking-wider text-white/90 group-hover:text-brand-300 transition-colors">
                                     {stat.label}
                                 </div>
                             </div>
@@ -89,7 +89,7 @@ export const Stats: React.FC = () => {
                 <div className="mt-16 pt-12 border-t border-white/[0.08]">
                     <div className="flex items-center justify-center gap-2 mb-6">
                         <BadgeCheck size={14} className="text-brand-400" />
-                        <p className="text-center text-[11px] text-gray-500 uppercase tracking-[0.2em] font-semibold">
+                        <p className="text-center text-sm text-white uppercase tracking-[0.2em] font-semibold">
                             Certifications & Standards We Support
                         </p>
                     </div>
@@ -97,7 +97,7 @@ export const Stats: React.FC = () => {
                         {certifications.map((cert) => (
                             <div
                                 key={cert}
-                                className="px-5 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-gray-400 text-xs font-semibold tracking-wide hover:bg-white/[0.08] hover:text-brand-300 hover:border-brand-400/30 transition-all duration-300 cursor-default"
+                                className="px-5 py-2.5 rounded-full bg-white/[0.08] border border-white/20 text-white text-xs font-semibold tracking-wide hover:bg-white/[0.12] hover:text-brand-300 hover:border-brand-400/40 transition-all duration-300 cursor-default"
                             >
                                 {cert}
                             </div>

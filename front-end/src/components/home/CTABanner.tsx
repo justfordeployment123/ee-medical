@@ -61,7 +61,7 @@ export const CTABanner: React.FC = () => {
                         <br />
                         <span className="gradient-text">Regulatory Pathway?</span>
                     </h2>
-                    <p className="text-gray-400 text-lg mb-12 max-w-xl mx-auto leading-relaxed">
+                    <p className="text-white/90 text-lg mb-12 max-w-xl mx-auto leading-relaxed">
                         Schedule a free consultation with our FDA regulatory experts
                         and take the first step toward market approval.
                     </p>
@@ -92,7 +92,7 @@ export const CTABanner: React.FC = () => {
                         {[...Array(5)].map((_, i) => (
                             <Star key={i} size={14} className="text-amber-400 fill-amber-400" />
                         ))}
-                        <span className="text-gray-400 text-xs font-semibold ml-2 tracking-wide">Trusted by 470+ Companies</span>
+                        <span className="text-white/90 text-xs font-semibold ml-2 tracking-wide">Trusted by 470+ Companies</span>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         {testimonials.map((t, i) => (
@@ -103,7 +103,7 @@ export const CTABanner: React.FC = () => {
                                 <div className="absolute inset-0 bg-white/[0.04] border border-white/[0.08] rounded-2xl group-hover:bg-white/[0.07] group-hover:border-white/[0.14] transition-all duration-500" />
                                 <div className="relative">
                                     <Quote size={16} className="text-brand-400/60 mb-3" />
-                                    <p className="text-gray-300 text-[13px] leading-relaxed mb-5 italic">
+                                    <p className="text-white/95 text-[13px] leading-relaxed mb-5 italic">
                                         "{t.quote}"
                                     </p>
                                     <div className="flex items-center gap-3">
@@ -112,7 +112,7 @@ export const CTABanner: React.FC = () => {
                                         </div>
                                         <div>
                                             <p className="text-white text-xs font-semibold">{t.role}</p>
-                                            <p className="text-gray-500 text-[11px]">{t.company}</p>
+                                            <p className="text-white/80 text-[11px]">{t.company}</p>
                                         </div>
                                     </div>
                                 </div>
