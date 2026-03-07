@@ -61,6 +61,16 @@ img.img-crisp {
   image-rendering: crisp-edges;
 }
 
+/* Header logo: never exceed container (safety for large source images) */
+header nav a[href="/"] img,
+header nav a[href="/"] img.img-crisp {
+  max-height: 3rem !important;
+  max-width: 160px !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
 /* Brighter text site-wide: reduce faint gray so body copy is easier to read (overrides Tailwind) */
 .text-gray-500 {
   color: #374151 !important;

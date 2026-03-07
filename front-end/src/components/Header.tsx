@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import EandELogo from "../assets/EandE-logo.png";
 import {
@@ -7,6 +7,8 @@ import {
     MapPin,
     Search,
     ChevronDown,
+    ChevronLeft,
+    ChevronRight,
     X,
     Handshake,
     Lightbulb,
@@ -25,11 +27,29 @@ import {
     Building2,
 } from "lucide-react";
 
+const NAV_SCROLL_PX = 220;
+
 export const Header: React.FC = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeMobileDropdown, setActiveMobileDropdown] = useState<string | null>(null);
     const [scrolled, setScrolled] = useState(false);
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(false);
+    const navScrollRef = useRef<HTMLUListElement>(null);
     const location = useLocation();
+
+    const updateNavScrollState = useCallback(() => {
+        const el = navScrollRef.current;
+        if (!el) return;
+        setCanScrollLeft(el.scrollLeft > 0);
+        setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 1);
+    }, []);
+
+    useEffect(() => {
+        updateNavScrollState();
+        window.addEventListener("resize", updateNavScrollState);
+        return () => window.removeEventListener("resize", updateNavScrollState);
+    }, [updateNavScrollState]);
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 20);
@@ -42,12 +62,19 @@ export const Header: React.FC = () => {
         setActiveMobileDropdown(null);
     }, [location.pathname]);
 
+    const scrollNav = (direction: "left" | "right") => {
+        const el = navScrollRef.current;
+        if (!el) return;
+        el.scrollBy({ left: direction === "left" ? -NAV_SCROLL_PX : NAV_SCROLL_PX, behavior: "smooth" });
+        setTimeout(updateNavScrollState, 300);
+    };
+
     const toggleMobileDropdown = (menu: string) => {
         setActiveMobileDropdown(activeMobileDropdown === menu ? null : menu);
     };
 
     const navLinkClass = (isActive: boolean) =>
-        `relative flex items-center gap-1 py-2 px-3 text-sm font-semibold rounded-lg transition-all duration-200 ${
+        `relative flex items-center gap-1 py-2 px-2.5 text-[13px] font-semibold rounded-lg transition-all duration-200 whitespace-nowrap shrink-0 ${
             isActive
                 ? "text-brand-600 bg-brand-50"
                 : "text-navy-800 hover:text-brand-600 hover:bg-gray-50"
@@ -55,7 +82,7 @@ export const Header: React.FC = () => {
 
     return (
         <>
-            <header className="w-full flex flex-col z-40 relative overflow-hidden">
+            <header className="w-full flex flex-col z-40 relative">
                 {/* Top bar: Telephone, Email, Enquiry Form – always visible */}
                 <div className="w-full bg-navy-900 border-b border-navy-800">
                     <div className="px-4 md:px-8 flex flex-wrap items-center justify-center lg:justify-end gap-4 lg:gap-6 max-w-[1400px] mx-auto py-2.5 text-sm font-semibold">
@@ -77,19 +104,32 @@ export const Header: React.FC = () => {
                 </div>
 
                 {/* Main Nav */}
-                <nav className={`w-full bg-white/95 backdrop-blur-md text-gray-800 sticky top-0 z-50 transition-all duration-300 overflow-hidden ${scrolled ? "shadow-lg shadow-navy-950/8" : "border-b border-gray-100"}`}>
-                    <div className="px-4 md:px-8 flex items-center max-w-[1400px] mx-auto relative h-16 lg:h-[68px] overflow-hidden">
-                        {/* Logo – constrained so it never overflows or obscures header */}
-                        <Link to="/" className="shrink-0 mr-8 flex items-center max-h-12 overflow-hidden">
+                <nav className={`w-full bg-white/95 backdrop-blur-md text-gray-800 sticky top-0 z-50 transition-all duration-300 ${scrolled ? "shadow-lg shadow-navy-950/8" : "border-b border-gray-100"}`}>
+                    <div className="px-4 md:px-8 flex items-center max-w-[1400px] mx-auto relative h-16 lg:h-[68px] min-w-0">
+                        {/* Logo – fixed size so it never overflows */}
+                        <Link to="/" className="shrink-0 mr-6 lg:mr-8 flex items-center h-11 lg:h-12 w-[140px] lg:w-[160px] max-w-[160px] overflow-hidden">
                             <img
                                 src={EandELogo}
                                 alt="E & E Medicals"
-                                className="h-10 lg:h-12 max-h-12 w-auto max-w-[200px] object-contain object-left img-crisp block"
+                                className="h-11 lg:h-12 max-h-12 w-auto max-w-[160px] object-contain object-left img-crisp block"
                             />
                         </Link>
 
-                        {/* Desktop Menu */}
-                        <ul className="hidden lg:flex items-center gap-1 flex-1">
+                        {/* Desktop Menu – one line, scrollable when needed */}
+                        <div className="hidden lg:flex flex-1 min-w-0 items-center relative">
+                            <button
+                                type="button"
+                                aria-label="Scroll nav left"
+                                onClick={() => scrollNav("left")}
+                                className={`absolute left-0 z-10 h-8 w-8 flex items-center justify-center rounded-full bg-white/95 text-navy-800 shadow-md border border-gray-200 hover:bg-gray-50 transition-all ${canScrollLeft ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+                            >
+                                <ChevronLeft size={18} strokeWidth={2.5} />
+                            </button>
+                            <ul
+                                ref={navScrollRef}
+                                onScroll={updateNavScrollState}
+                                className="flex items-center gap-0.5 flex-1 min-w-0 flex-nowrap overflow-x-auto scrollbar-hide pl-9 pr-9"
+                            >
                             {[
                                 { to: "/", label: "Home" },
                                 { to: "/about", label: "About Us" },
@@ -109,7 +149,7 @@ export const Header: React.FC = () => {
                                     <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
                                 </button>
                                 <div className="absolute left-0 w-full top-full bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500">
-                                    <div className="max-w-[1400px] mx-auto py-10 px-8 grid grid-cols-3 gap-10">
+                                    <div className="max-w-[1200px] mx-auto py-6 px-6 grid grid-cols-3 gap-6">
                                         <MegaColumn title="Healthcare" items={[
                                             { to: "/reliability", icon: Handshake, label: "Reliability" },
                                             { to: "/six-sigma-healthcare", icon: Lightbulb, label: "Six Sigma - Healthcare" },
@@ -138,7 +178,7 @@ export const Header: React.FC = () => {
                                     <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
                                 </button>
                                 <div className="absolute left-0 w-full top-full bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500">
-                                    <div className="max-w-[1400px] mx-auto py-10 px-8 grid grid-cols-3 gap-10">
+                                    <div className="max-w-[1200px] mx-auto py-6 px-6 grid grid-cols-3 gap-6">
                                         <MegaColumn title="Mark Approval & Compliance" items={[
                                             { to: "/ccc-mark-approval", icon: Globe, label: "CCC Mark Approval" },
                                             { to: "/ce-mark-approval", icon: Globe, label: "CE Mark Approval" },
@@ -170,8 +210,8 @@ export const Header: React.FC = () => {
                                     AI-Enabled Regulatory
                                     <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
                                 </button>
-                                <div className="absolute left-0 top-full w-[360px] bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500 rounded-b-xl overflow-hidden">
-                                    <ul className="py-2">
+                                <div className="absolute left-0 top-full w-[320px] bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500 rounded-b-xl overflow-hidden">
+                                    <ul className="py-1.5">
                                         {[
                                             { to: "/ai-regulatory-strategy", label: "AI Regulatory Strategy" },
                                             { to: "/ai-samd-pathway", label: "AI SaMD Regulatory Pathway" },
@@ -181,8 +221,8 @@ export const Header: React.FC = () => {
                                             { to: "/fda-defense", label: "FDA Interaction & Defense" },
                                         ].map(({ to, label }) => (
                                             <li key={to}>
-                                                <Link to={to} className="flex items-center gap-3 px-5 py-2.5 text-base text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200">
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-brand-400" />
+                                                <Link to={to} className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200">
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
                                                     {label}
                                                 </Link>
                                             </li>
@@ -208,16 +248,16 @@ export const Header: React.FC = () => {
                                     Wellness/Telehealth Apps
                                     <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
                                 </button>
-                                <div className="absolute left-0 top-full w-[380px] bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500 rounded-b-xl overflow-hidden">
-                                    <ul className="py-2">
+                                <div className="absolute left-0 top-full w-[340px] bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500 rounded-b-xl overflow-hidden">
+                                    <ul className="py-1.5">
                                         <li>
                                             <a
                                                 href="https://www.figma.com/design/QqGRXig7sOuLtFD6OaNBWH/Ai-wellness-app?node-id=1-1977&t=HfrvsM1Vm4Zm9wIb-0"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex items-center gap-3 px-5 py-2.5 text-base text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
+                                                className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
                                             >
-                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-400" />
+                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
                                                 eeMeds – AI-powered preventive wellness App
                                             </a>
                                         </li>
@@ -226,9 +266,9 @@ export const Header: React.FC = () => {
                                                 href="https://ee-telehealth-connect.onrender.com/login"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex items-center gap-3 px-5 py-2.5 text-base text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
+                                                className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
                                             >
-                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-400" />
+                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
                                                 eeTelehealth Connect: AI-powered Wellness/Virtual Care App
                                             </a>
                                         </li>
@@ -242,12 +282,21 @@ export const Header: React.FC = () => {
                                 </Link>
                             </li>
                         </ul>
+                            <button
+                                type="button"
+                                aria-label="Scroll nav right"
+                                onClick={() => scrollNav("right")}
+                                className={`absolute right-0 z-10 h-8 w-8 flex items-center justify-center rounded-full bg-white/95 text-navy-800 shadow-md border border-gray-200 hover:bg-gray-50 transition-all ${canScrollRight ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+                            >
+                                <ChevronRight size={18} strokeWidth={2.5} />
+                            </button>
+                        </div>
 
-                        {/* Right side: Phone + Software button + Search */}
-                        <div className="hidden lg:flex items-center gap-3 ml-auto">
+                        {/* Right side: Phone + Software button + Search – always visible */}
+                        <div className="hidden lg:flex items-center gap-2 ml-4 shrink-0">
                             <a
                                 href="tel:+16788159233"
-                                className="flex items-center gap-1.5 text-sm font-semibold text-navy-800 hover:text-brand-600 transition-colors"
+                                className="flex items-center gap-1.5 text-[13px] font-semibold text-navy-800 hover:text-brand-600 transition-colors whitespace-nowrap"
                             >
                                 <Phone size={14} />
                                 +1 (678) 815-9233
@@ -255,7 +304,7 @@ export const Header: React.FC = () => {
                             <div className="w-px h-5 bg-gray-200" />
                             <Link
                                 to="/software"
-                                className="inline-flex items-center gap-1.5 bg-navy-900 text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-navy-800 hover:shadow-lg hover:shadow-navy-950/20 transition-all duration-300 hover:-translate-y-0.5"
+                                className="inline-flex items-center gap-1.5 bg-navy-900 text-white px-4 py-2 rounded-lg text-[13px] font-bold hover:bg-navy-800 hover:shadow-lg hover:shadow-navy-950/20 transition-all duration-300 whitespace-nowrap"
                             >
                                 Software
                             </Link>
@@ -287,7 +336,9 @@ export const Header: React.FC = () => {
             {/* Mobile Sidebar */}
             <div className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-[70] shadow-2xl transform transition-transform duration-300 ease-out lg:hidden overflow-y-auto flex flex-col ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
                 <div className="flex justify-between items-center p-4 border-b border-gray-100 bg-gradient-to-r from-navy-950 to-navy-800">
-                    <img src={EandELogo} alt="E & E Medicals" className="h-10 max-h-10 w-auto max-w-[160px] object-contain img-crisp block" />
+                    <div className="h-10 w-[120px] overflow-hidden flex items-center">
+                        <img src={EandELogo} alt="E & E Medicals" className="h-10 max-h-10 w-auto max-w-[120px] object-contain object-left img-crisp block" />
+                    </div>
                     <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-white hover:text-red-400 transition-colors bg-white/10 rounded-full">
                         <X size={18} />
                     </button>
@@ -401,15 +452,15 @@ export const Header: React.FC = () => {
 function MegaColumn({ title, items }: { title: string; items: { to: string; icon: React.ElementType; label: string }[] }) {
     return (
         <div>
-            <h3 className="text-navy-900 font-bold uppercase mb-5 tracking-wider text-sm flex items-center gap-2">
-                <span className="w-6 h-0.5 bg-brand-500 rounded-full" />
+            <h3 className="text-navy-900 font-bold uppercase mb-3 tracking-wider text-xs flex items-center gap-2">
+                <span className="w-5 h-0.5 bg-brand-500 rounded-full" />
                 {title}
             </h3>
-            <ul className="space-y-1">
+            <ul className="space-y-0.5">
                 {items.map(({ to, icon: Icon, label }) => (
                     <li key={to + label}>
-                        <Link to={to} className="flex items-center gap-3 py-2 px-2 -mx-2 rounded-lg text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200 text-base">
-                            <Icon size={16} className="text-gray-600 group-hover/link:text-brand-500 shrink-0" />
+                        <Link to={to} className="flex items-center gap-2.5 py-1.5 px-2 -mx-2 rounded-lg text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200 text-sm">
+                            <Icon size={14} className="text-gray-600 group-hover/link:text-brand-500 shrink-0" />
                             {label}
                         </Link>
                     </li>
