@@ -35,8 +35,44 @@ export const Header: React.FC = () => {
     const [scrolled, setScrolled] = useState(false);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(false);
+    const [openDesktopDropdown, setOpenDesktopDropdown] = useState<"ai" | "wellness" | null>(null);
+    const [dropdownLeft, setDropdownLeft] = useState(0);
     const navScrollRef = useRef<HTMLUListElement>(null);
+    const aiTriggerRef = useRef<HTMLButtonElement>(null);
+    const wellnessTriggerRef = useRef<HTMLButtonElement>(null);
+    const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const location = useLocation();
+
+    const cancelCloseDelay = () => {
+        if (closeTimeoutRef.current) {
+            clearTimeout(closeTimeoutRef.current);
+            closeTimeoutRef.current = null;
+        }
+    };
+
+    const scheduleClose = () => {
+        cancelCloseDelay();
+        closeTimeoutRef.current = setTimeout(() => setOpenDesktopDropdown(null), 200);
+    };
+
+    const openAiDropdown = () => {
+        cancelCloseDelay();
+        const el = aiTriggerRef.current;
+        if (el) {
+            const rect = el.getBoundingClientRect();
+            setDropdownLeft(Math.min(rect.left, typeof window !== "undefined" ? window.innerWidth - 336 : rect.left));
+        }
+        setOpenDesktopDropdown("ai");
+    };
+    const openWellnessDropdown = () => {
+        cancelCloseDelay();
+        const el = wellnessTriggerRef.current;
+        if (el) {
+            const rect = el.getBoundingClientRect();
+            setDropdownLeft(Math.min(rect.left, typeof window !== "undefined" ? window.innerWidth - 356 : rect.left));
+        }
+        setOpenDesktopDropdown("wellness");
+    };
 
     const updateNavScrollState = useCallback(() => {
         const el = navScrollRef.current;
@@ -58,8 +94,13 @@ export const Header: React.FC = () => {
     }, []);
 
     useEffect(() => {
+        if (closeTimeoutRef.current) {
+            clearTimeout(closeTimeoutRef.current);
+            closeTimeoutRef.current = null;
+        }
         setIsMobileMenuOpen(false);
         setActiveMobileDropdown(null);
+        setOpenDesktopDropdown(null);
     }, [location.pathname]);
 
     const scrollNav = (direction: "left" | "right") => {
@@ -82,7 +123,7 @@ export const Header: React.FC = () => {
 
     return (
         <>
-            <header className="w-full flex flex-col z-40 relative">
+            <header className="w-full flex flex-col sticky top-0 z-50 bg-transparent relative">
                 {/* Top bar: Telephone, Email, Enquiry Form – always visible */}
                 <div className="w-full bg-navy-900 border-b border-navy-800">
                     <div className="px-4 md:px-8 flex flex-wrap items-center justify-center lg:justify-end gap-4 lg:gap-6 max-w-[1400px] mx-auto py-2.5 text-sm font-semibold">
@@ -103,15 +144,30 @@ export const Header: React.FC = () => {
                     </div>
                 </div>
 
+                {/* Large desktop logo spanning both header lines */}
+                <Link
+                    to="/"
+                    className="hidden lg:flex items-center absolute left-4 top-8 h-[80px] w-[220px] max-w-[240px] z-50"
+                >
+                    <img
+                        src={EandELogo}
+                        alt="E & E Medicals"
+                        className="h-full w-auto object-contain object-left img-crisp block"
+                    />
+                </Link>
+
                 {/* Main Nav */}
-                <nav className={`w-full bg-white/95 backdrop-blur-md text-gray-800 sticky top-0 z-50 transition-all duration-300 ${scrolled ? "shadow-lg shadow-navy-950/8" : "border-b border-gray-100"}`}>
-                    <div className="px-4 md:px-8 flex items-center max-w-[1400px] mx-auto relative h-16 lg:h-[68px] min-w-0">
-                        {/* Logo – fixed size so it never overflows */}
-                        <Link to="/" className="shrink-0 mr-6 lg:mr-8 flex items-center h-11 lg:h-12 w-[140px] lg:w-[160px] max-w-[160px] overflow-hidden">
+                <nav className={`w-full bg-white/95 backdrop-blur-md text-gray-800 transition-all duration-300 ${scrolled ? "shadow-lg shadow-navy-950/8" : "border-b border-gray-100"}`}>
+                    <div className="pl-4 pr-4 md:pl-8 md:pr-8 lg:pl-[220px] flex items-center max-w-[1400px] mx-auto relative h-16 lg:h-[68px] min-w-0">
+                        {/* Logo – mobile only inside nav */}
+                        <Link
+                            to="/"
+                            className="shrink-0 mr-6 lg:mr-8 flex items-center h-11 w-[140px] max-w-[160px] overflow-hidden lg:hidden"
+                        >
                             <img
                                 src={EandELogo}
                                 alt="E & E Medicals"
-                                className="h-11 lg:h-12 max-h-12 w-auto max-w-[160px] object-contain object-left img-crisp block"
+                                className="h-11 max-h-11 w-auto max-w-[160px] object-contain object-left img-crisp block"
                             />
                         </Link>
 
@@ -204,13 +260,23 @@ export const Header: React.FC = () => {
                                 </div>
                             </li>
 
-                            {/* AI-Enabled Regulatory */}
+                            {/* AI-Enabled Regulatory – fixed-position dropdown so it's not clipped by nav scroll */}
                             <li className="relative group">
-                                <button className={`${navLinkClass(false)} cursor-pointer`}>
+                                <button
+                                    ref={aiTriggerRef}
+                                    onMouseEnter={openAiDropdown}
+                                    onMouseLeave={scheduleClose}
+                                    className={`${navLinkClass(false)} cursor-pointer`}
+                                >
                                     AI-Enabled Regulatory
-                                    <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
+                                    <ChevronDown size={12} className={`ml-0.5 opacity-50 transition-transform duration-200 ${openDesktopDropdown === "ai" ? "rotate-180" : ""}`} />
                                 </button>
-                                <div className="absolute left-0 top-full w-[320px] bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500 rounded-b-xl overflow-hidden">
+                                <div
+                                    onMouseEnter={openAiDropdown}
+                                    onMouseLeave={scheduleClose}
+                                    style={{ position: "fixed", top: "4.25rem", left: dropdownLeft, zIndex: 9999 }}
+                                    className={`w-[320px] bg-white shadow-2xl shadow-black/8 border-t-2 border-brand-500 rounded-b-xl overflow-hidden transition-opacity duration-200 ${openDesktopDropdown === "ai" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
+                                >
                                     <ul className="py-1.5">
                                         {[
                                             { to: "/ai-regulatory-strategy", label: "AI Regulatory Strategy" },
@@ -232,23 +298,39 @@ export const Header: React.FC = () => {
                             </li>
 
                             <li>
+                                <Link to="/media" className={navLinkClass(location.pathname === "/media")}>
+                                    Media
+                                </Link>
+                            </li>
+
+                            <li>
                                 <a
                                     href="http://206.162.244.134:4040/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className={navLinkClass(false)}
+                                    className={`${navLinkClass(false)} bg-navy-900 text-white hover:bg-navy-800 hover:text-white`}
                                 >
-                                    Medical Supplies Store
+                                    Medical Supply Store
                                 </a>
                             </li>
 
-                            {/* Wellness/Telehealth Apps dropdown */}
+                            {/* E&E Medical Platforms – fixed-position dropdown so it's not clipped */}
                             <li className="relative group">
-                                <button className={`${navLinkClass(false)} cursor-pointer`}>
-                                    Wellness/Telehealth Apps
-                                    <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
+                                <button
+                                    ref={wellnessTriggerRef}
+                                    onMouseEnter={openWellnessDropdown}
+                                    onMouseLeave={scheduleClose}
+                                    className={`${navLinkClass(false)} cursor-pointer bg-navy-900 text-white hover:bg-navy-800 hover:text-white`}
+                                >
+                                    E&E Medical Platforms
+                                    <ChevronDown size={12} className={`ml-0.5 opacity-50 transition-transform duration-200 ${openDesktopDropdown === "wellness" ? "rotate-180" : ""}`} />
                                 </button>
-                                <div className="absolute left-0 top-full w-[340px] bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500 rounded-b-xl overflow-hidden">
+                                <div
+                                    onMouseEnter={openWellnessDropdown}
+                                    onMouseLeave={scheduleClose}
+                                    style={{ position: "fixed", top: "4.25rem", left: dropdownLeft, zIndex: 9999 }}
+                                    className={`w-[340px] bg-white shadow-2xl shadow-black/8 border-t-2 border-brand-500 rounded-b-xl overflow-hidden transition-opacity duration-200 ${openDesktopDropdown === "wellness" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
+                                >
                                     <ul className="py-1.5">
                                         <li>
                                             <a
@@ -258,7 +340,7 @@ export const Header: React.FC = () => {
                                                 className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
                                             >
                                                 <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
-                                                eeMeds – AI-powered preventive wellness App
+                                                Ai-powered eeMeds Platform
                                             </a>
                                         </li>
                                         <li>
@@ -269,17 +351,11 @@ export const Header: React.FC = () => {
                                                 className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
                                             >
                                                 <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
-                                                eeTelehealth Connect: AI-powered Wellness/Virtual Care App
+                                                eeTelehealth connect platform
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
-
-                            <li>
-                                <Link to="/media" className={navLinkClass(location.pathname === "/media")}>
-                                    Media
-                                </Link>
                             </li>
                         </ul>
                             <button
@@ -292,21 +368,13 @@ export const Header: React.FC = () => {
                             </button>
                         </div>
 
-                        {/* Right side: Phone + Software button + Search – always visible */}
+                        {/* Right side: Digital Healthcare button + Search – always visible */}
                         <div className="hidden lg:flex items-center gap-2 ml-4 shrink-0">
-                            <a
-                                href="tel:+16788159233"
-                                className="flex items-center gap-1.5 text-[13px] font-semibold text-navy-800 hover:text-brand-600 transition-colors whitespace-nowrap"
-                            >
-                                <Phone size={14} />
-                                +1 (678) 815-9233
-                            </a>
-                            <div className="w-px h-5 bg-gray-200" />
                             <Link
                                 to="/software"
                                 className="inline-flex items-center gap-1.5 bg-navy-900 text-white px-4 py-2 rounded-lg text-[13px] font-bold hover:bg-navy-800 hover:shadow-lg hover:shadow-navy-950/20 transition-all duration-300 whitespace-nowrap"
                             >
-                                Software
+                                Digital Healthcare
                             </Link>
                             <div className="w-px h-5 bg-gray-200" />
                             <button className="p-2 rounded-lg text-gray-600 hover:text-brand-600 hover:bg-gray-50 transition-all duration-200">
@@ -407,23 +475,23 @@ export const Header: React.FC = () => {
                         onClose={() => setIsMobileMenuOpen(false)}
                     />
 
+                    <MobileLink to="/media" label="Media" onClick={() => setIsMobileMenuOpen(false)} />
                     <MobileLinkExternal
                         href="http://206.162.244.134:4040/"
-                        label="Medical Supplies Store"
+                        label="Medical Supply Store"
                         onClick={() => setIsMobileMenuOpen(false)}
                     />
                     <MobileAccordionExternal
-                        label="Wellness/Telehealth Apps"
+                        label="E&E Medical Platforms"
                         isOpen={activeMobileDropdown === "wellness"}
                         onToggle={() => toggleMobileDropdown("wellness")}
                         items={[
-                            { href: "https://www.figma.com/design/QqGRXig7sOuLtFD6OaNBWH/Ai-wellness-app?node-id=1-1977&t=HfrvsM1Vm4Zm9wIb-0", label: "eeMeds – AI-powered preventive wellness App" },
-                            { href: "https://ee-telehealth-connect.onrender.com/login", label: "eeTelehealth Connect: AI-powered Wellness/Virtual Care App" },
+                            { href: "https://www.figma.com/design/QqGRXig7sOuLtFD6OaNBWH/Ai-wellness-app?node-id=1-1977&t=HfrvsM1Vm4Zm9wIb-0", label: "Ai-powered eeMeds Platform" },
+                            { href: "https://ee-telehealth-connect.onrender.com/login", label: "eeTelehealth connect platform" },
                         ]}
                         onClose={() => setIsMobileMenuOpen(false)}
                     />
-                    <MobileLink to="/software" label="Software" onClick={() => setIsMobileMenuOpen(false)} highlight />
-                    <MobileLink to="/media" label="Media" onClick={() => setIsMobileMenuOpen(false)} />
+                    <MobileLink to="/software" label="Digital Healthcare" onClick={() => setIsMobileMenuOpen(false)} highlight />
                 </div>
 
                 <div className="mt-auto p-6 bg-gradient-to-br from-navy-950 to-navy-800">
