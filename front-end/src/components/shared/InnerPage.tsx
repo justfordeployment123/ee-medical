@@ -258,12 +258,14 @@ export const HeroImage: React.FC<{
     alt: string;
     height?: string;
     label?: string;
-}> = ({ src, alt, height = "h-72 md:h-[460px]", label }) => (
-    <div className={`relative w-full rounded-2xl overflow-hidden shadow-2xl shadow-black/15 border border-gray-100/60 ${height} group`}>
+    /** 'cover' fills and may crop; 'contain' shows full image without cropping */
+    fit?: "cover" | "contain";
+}> = ({ src, alt, height = "h-72 md:h-[460px]", label, fit = "cover" }) => (
+    <div className={`relative w-full rounded-2xl overflow-hidden shadow-2xl shadow-black/15 border border-gray-100/60 ${height} group flex items-center justify-center ${fit === "contain" ? "bg-slate-100" : ""}`}>
         <img
             src={src}
             alt={alt}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            className={`w-full h-full transition-transform duration-700 group-hover:scale-[1.02] ${fit === "contain" ? "object-contain" : "object-cover group-hover:scale-[1.03]"}`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-navy-950/55 via-navy-950/10 to-transparent" />
         {label && (

@@ -147,7 +147,7 @@ export const Header: React.FC = () => {
                 {/* Large desktop logo spanning both header lines */}
                 <Link
                     to="/"
-                    className="hidden lg:flex items-center absolute left-4 top-8 h-[80px] w-[220px] max-w-[240px] z-50"
+                    className="hidden lg:flex items-center absolute left-0 top-0 h-[180px] w-[230px] max-w-[320px] z-50"
                 >
                     <img
                         src={EandELogo}
@@ -297,24 +297,14 @@ export const Header: React.FC = () => {
                                 </div>
                             </li>
 
+                            {/* Digital Health */}
                             <li>
-                                <Link to="/media" className={navLinkClass(location.pathname === "/media")}>
-                                    Media
+                                <Link to="/software" className={navLinkClass(location.pathname === "/software")}>
+                                    Digital Health
                                 </Link>
                             </li>
 
-                            <li>
-                                <a
-                                    href="http://206.162.244.134:4040/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={`${navLinkClass(false)} bg-navy-900 text-white hover:bg-navy-800 hover:text-white`}
-                                >
-                                    Medical Supply Store
-                                </a>
-                            </li>
-
-                            {/* E&E Medical Platforms – fixed-position dropdown so it's not clipped */}
+                            {/* our platforms – fixed-position dropdown so it's not clipped */}
                             <li className="relative group">
                                 <button
                                     ref={wellnessTriggerRef}
@@ -322,7 +312,7 @@ export const Header: React.FC = () => {
                                     onMouseLeave={scheduleClose}
                                     className={`${navLinkClass(false)} cursor-pointer bg-navy-900 text-white hover:bg-navy-800 hover:text-white`}
                                 >
-                                    E&E Medical Platforms
+                                    Our Platforms
                                     <ChevronDown size={12} className={`ml-0.5 opacity-50 transition-transform duration-200 ${openDesktopDropdown === "wellness" ? "rotate-180" : ""}`} />
                                 </button>
                                 <div
@@ -357,6 +347,25 @@ export const Header: React.FC = () => {
                                     </ul>
                                 </div>
                             </li>
+
+                            {/* Medical supply */}
+                            <li>
+                                <a
+                                    href="http://206.162.244.134:4040/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`${navLinkClass(false)} cursor-pointer bg-navy-900 text-white hover:bg-navy-800 hover:text-white`}
+                                >
+                                    Medical supply
+                                </a>
+                            </li>
+
+                            {/* Media */}
+                            <li>
+                                <Link to="/media" className={navLinkClass(location.pathname === "/media")}>
+                                    Media
+                                </Link>
+                            </li>
                         </ul>
                             <button
                                 type="button"
@@ -368,14 +377,8 @@ export const Header: React.FC = () => {
                             </button>
                         </div>
 
-                        {/* Right side: Digital Healthcare button + Search – always visible */}
+                        {/* Right side: Search – always visible */}
                         <div className="hidden lg:flex items-center gap-2 ml-4 shrink-0">
-                            <Link
-                                to="/software"
-                                className="inline-flex items-center gap-1.5 bg-navy-900 text-white px-4 py-2 rounded-lg text-[13px] font-bold hover:bg-navy-800 hover:shadow-lg hover:shadow-navy-950/20 transition-all duration-300 whitespace-nowrap"
-                            >
-                                Digital Healthcare
-                            </Link>
                             <div className="w-px h-5 bg-gray-200" />
                             <button className="p-2 rounded-lg text-gray-600 hover:text-brand-600 hover:bg-gray-50 transition-all duration-200">
                                 <Search size={17} />
@@ -475,14 +478,9 @@ export const Header: React.FC = () => {
                         onClose={() => setIsMobileMenuOpen(false)}
                     />
 
-                    <MobileLink to="/media" label="Media" onClick={() => setIsMobileMenuOpen(false)} />
-                    <MobileLinkExternal
-                        href="http://206.162.244.134:4040/"
-                        label="Medical Supply Store"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                    />
+                    <MobileLink to="/software" label="Digital Health" onClick={() => setIsMobileMenuOpen(false)} highlight />
                     <MobileAccordionExternal
-                        label="E&E Medical Platforms"
+                        label="our platforms"
                         isOpen={activeMobileDropdown === "wellness"}
                         onToggle={() => toggleMobileDropdown("wellness")}
                         items={[
@@ -491,7 +489,12 @@ export const Header: React.FC = () => {
                         ]}
                         onClose={() => setIsMobileMenuOpen(false)}
                     />
-                    <MobileLink to="/software" label="Digital Healthcare" onClick={() => setIsMobileMenuOpen(false)} highlight />
+                    <MobileLinkExternal
+                        href="http://206.162.244.134:4040/"
+                        label="Medical supply"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                    />
+                    <MobileLink to="/media" label="Media" onClick={() => setIsMobileMenuOpen(false)} />
                 </div>
 
                 <div className="mt-auto p-6 bg-gradient-to-br from-navy-950 to-navy-800">

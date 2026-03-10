@@ -55,8 +55,9 @@ export const Software: React.FC = () => {
 
                         <HeroImage
                             src="https://eemedicals.com/wp-content/uploads/2026/01/Page-A-1024x512.png"
-                            alt="Healthcare IT integration"
-                            height="h-64 md:h-[420px]"
+                            alt="Healthcare Software Development Market Forecast"
+                            height="h-70 md:h-[500px]"
+                            fit="contain"
                         />
 
                         <div className="mt-10 space-y-6">

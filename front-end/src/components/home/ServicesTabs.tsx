@@ -374,11 +374,11 @@ export const ServicesTabs: React.FC = () => {
                     {/* Right: Content Area */}
                     <div>
                         {/* Category Featured Image */}
-                        <div key={`img-${activeTab}`} className="relative rounded-2xl overflow-hidden mb-8 group animate-fade-in">
+                        <div key={`img-${activeTab}`} className="relative rounded-xl overflow-hidden mb-6 group animate-fade-in h-[130px] max-h-[130px]">
                             <img
                                 src={activeCategory.imageUrl}
                                 alt={activeCategory.label}
-                                className="w-full h-[220px] object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                                className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
                             />
                             <div className="absolute inset-0 bg-gradient-to-r from-navy-950/80 via-navy-900/60 to-transparent" />
                             <div className="absolute inset-0 flex flex-col justify-center px-8">
