@@ -849,10 +849,10 @@ export const AiAssistantWidget: React.FC = () => {
             <button
                 type="button"
                 onClick={() => setIsOpen((prev) => !prev)}
-                className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-500 hover:bg-brand-400 text-white shadow-xl shadow-brand-600/40 transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-500 hover:bg-brand-400 text-white shadow-xl shadow-brand-600/40 transition-transform hover:-translate-y-0.5"
                 aria-label="Open Regulatory Advisor"
             >
-                <MessageCircle size={26} />
+                <MessageCircle size={30} />
             </button>
         </div>
     );

@@ -144,33 +144,20 @@ export const Header: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Large desktop logo spanning both header lines */}
-                <Link
-                    to="/"
-                    className="hidden lg:flex items-center absolute left-0 top-0 h-[180px] w-[230px] max-w-[320px] z-50"
-                >
-                    <img
-                        src={EandELogo}
-                        alt="E & E Medicals"
-                        className="h-full w-auto object-contain object-left img-crisp block"
-                    />
-                </Link>
-
                 {/* Main Nav */}
-                <nav className={`w-full bg-white/95 backdrop-blur-md text-gray-800 transition-all duration-300 ${scrolled ? "shadow-lg shadow-navy-950/8" : "border-b border-gray-100"}`}>
-                    <div className="pl-4 pr-4 md:pl-8 md:pr-8 lg:pl-[220px] flex items-center max-w-[1400px] mx-auto relative h-16 lg:h-[68px] min-w-0">
-                        {/* Logo – mobile only inside nav */}
+                <nav className={`w-full bg-white/95 backdrop-blur-md text-gray-800 transition-all duration-300 ${scrolled ? "shadow-md shadow-navy-950/5" : "border-b border-gray-100"}`}>
+                    <div className="pl-3 pr-3 md:pl-6 md:pr-6 flex items-center max-w-[1400px] mx-auto relative h-16 lg:h-20 min-w-0">
                         <Link
                             to="/"
-                            className="shrink-0 mr-6 lg:mr-8 flex items-center h-11 w-[140px] max-w-[160px] overflow-hidden lg:hidden"
+                            className="shrink-0 mr-4 lg:mr-8 flex items-center h-12 lg:h-16 w-[220px] lg:w-[260px] overflow-hidden"
                         >
                             <img
                                 src={EandELogo}
                                 alt="E & E Medicals"
-                                className="h-11 max-h-11 w-auto max-w-[160px] object-contain object-left img-crisp block"
+                                className="h-12 lg:h-16 w-auto object-contain object-left img-crisp block"
+                                style={{ transform: "scale(1.4)", transformOrigin: "left center" }}
                             />
                         </Link>
-
                         {/* Desktop Menu – one line, scrollable when needed */}
                         <div className="hidden lg:flex flex-1 min-w-0 items-center relative">
                             <button

@@ -87,12 +87,14 @@ export const CTABanner: React.FC = () => {
                 </div>
 
                 {/* Testimonials Strip */}
-                <div className="mt-16 pt-12 border-t border-white/[0.08]">
+                    <div className="mt-16 pt-12 border-t border-white/[0.08]">
                     <div className="flex items-center justify-center gap-1.5 mb-8">
                         {[...Array(5)].map((_, i) => (
                             <Star key={i} size={14} className="text-amber-400 fill-amber-400" />
                         ))}
-                        <span className="text-white/90 text-xs font-semibold ml-2 tracking-wide">Trusted by 470+ Companies</span>
+                        <span className="text-white/90 text-xs font-semibold ml-2 tracking-wide">
+                            Trusted by Most Healthcare Companies Worldwide
+                        </span>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         {testimonials.map((t, i) => (

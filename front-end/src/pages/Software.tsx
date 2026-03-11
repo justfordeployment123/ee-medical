@@ -23,7 +23,7 @@ export const Software: React.FC = () => {
             <Header />
 
             <main className="grow pb-24">
-                <PageHeader title="Consulting Packages" breadcrumb="Healthcare Software Development" />
+                <PageHeader title="Solutions and Services" breadcrumb="Healthcare Software Development" />
 
                 <InnerContent>
 

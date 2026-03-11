@@ -48,7 +48,7 @@ export const Hero: React.FC = () => {
                             <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-brand-500/10 border border-brand-500/20 mb-8 backdrop-blur-sm">
                                 <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                                 <span className="text-brand-300 text-base font-bold tracking-wide">
-                                    Trusted by 470+ Companies Worldwide
+                                    Trusted by Most Healthcare Companies Worldwide
                                 </span>
                             </div>
                         </div>

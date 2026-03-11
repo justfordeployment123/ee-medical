@@ -184,7 +184,7 @@ export const Footer: React.FC = () => {
                         </div>
                         <div className="flex flex-col md:flex-row justify-between items-center gap-3 text-xs font-medium text-gray-400">
                             <p>
-                                &copy; {new Date().getFullYear()} E & E Medicals and Consulting. All rights reserved.
+                                &copy; E & E Medicals and Consulting. All rights reserved.
                             </p>
                             <div className="flex gap-5">
                                 <a href="#" className="hover:text-gray-200 transition-colors">Terms of Use</a>
