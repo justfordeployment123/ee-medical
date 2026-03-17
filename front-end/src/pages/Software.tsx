@@ -54,7 +54,7 @@ export const Software: React.FC = () => {
                         />
 
                         <HeroImage
-                            src="https://eemedicals.com/wp-content/uploads/2026/01/Page-A-1024x512.png"
+                            src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=2000&auto=format&fit=crop"
                             alt="Healthcare Software Development Market Forecast"
                             height="h-70 md:h-[500px]"
                             fit="contain"
@@ -231,7 +231,7 @@ export const Software: React.FC = () => {
                         />
 
                         <HeroImage
-                            src="https://eemedicals.com/wp-content/uploads/2026/01/page-C.png"
+                            src="https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=2000&auto=format&fit=crop"
                             alt="Standalone App Pathways"
                             height="h-64 md:h-[400px]"
                         />
@@ -274,7 +274,7 @@ export const Software: React.FC = () => {
                         </div>
 
                         <HeroImage
-                            src="https://eemedicals.com/wp-content/uploads/2026/01/page-D.png"
+                            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop"
                             alt="CRM Statistics"
                             height="h-64 md:h-[380px]"
                         />
@@ -317,7 +317,7 @@ export const Software: React.FC = () => {
                             </p>
 
                             <HeroImage
-                                src="https://eemedicals.com/wp-content/uploads/2026/01/page-E.png"
+                                src="https://images.unsplash.com/photo-1587370560942-ad2a04eabb6d?q=80&w=2000&auto=format&fit=crop"
                                 alt="HMS UI"
                                 height="h-48 md:h-56"
                             />
@@ -345,7 +345,7 @@ export const Software: React.FC = () => {
                             </p>
 
                             <HeroImage
-                                src="https://eemedicals.com/wp-content/uploads/2026/01/page-F.png"
+                                src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2000&auto=format&fit=crop"
                                 alt="Device UI"
                                 height="h-48 md:h-56"
                             />
@@ -381,7 +381,7 @@ export const Software: React.FC = () => {
                         </p>
 
                         <HeroImage
-                            src="https://eemedicals.com/wp-content/uploads/2026/01/page-G.png"
+                            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2000&auto=format&fit=crop"
                             alt="Telemedicine Interface"
                             height="h-64 md:h-[400px]"
                         />

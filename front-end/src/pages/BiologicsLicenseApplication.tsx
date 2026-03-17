@@ -37,7 +37,7 @@ export const BiologicsLicenseApplication: React.FC = () => {
 
                 <InnerContent>
                     <HeroImage
-                        src="https://images.unsplash.com/photo-1583912268460-5bf1b2741f85?q=80&w=1400"
+                        src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?q=80&w=1400"
                         alt="Biologics License Application cell and gene therapy"
                         label="Biologics License Application"
                     />

@@ -111,7 +111,7 @@ const blogPosts: BlogPost[] = [
         id: "6455",
         title: "FDA Enforcement Action Against Unproven COVID-19 Treatments",
         link: "#",
-        image: "https://images.unsplash.com/photo-1587462118022-beedaa5a9f3a?q=80&w=800",
+        image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=800",
         category: "FDA News",
         date: "April 1, 2020",
         readTime: "4 min read",

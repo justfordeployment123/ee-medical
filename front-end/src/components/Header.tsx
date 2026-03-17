@@ -338,7 +338,7 @@ export const Header: React.FC = () => {
                             {/* Medical supply */}
                             <li>
                                 <a
-                                    href="http://206.162.244.134:4040/"
+                                    href="https://eemedicalsupply.com/"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className={`${navLinkClass(false)} cursor-pointer bg-navy-900 text-white hover:bg-navy-800 hover:text-white`}
