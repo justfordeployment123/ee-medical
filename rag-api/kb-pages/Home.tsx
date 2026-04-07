@@ -7,6 +7,7 @@ import { WhyChooseUs } from '../components/home/WhyChooseUs';
 import { Stats } from '../components/home/Stats';
 import { Industries } from '../components/home/Industries';
 import { FAQ } from '../components/home/FAQ';
+import { PastReviews } from '../components/home/PastReviews';
 import { CTABanner } from '../components/home/CTABanner';
 import { Contact } from '../components/home/Contact';
 
@@ -21,6 +22,7 @@ export const Home: React.FC = () => {
         <Stats />
         <Industries />
         <FAQ />
+        <PastReviews />
         <CTABanner />
         <Contact />
       </main>

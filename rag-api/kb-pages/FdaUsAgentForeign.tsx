@@ -23,7 +23,7 @@ export const FdaUsAgentForeign: React.FC = () => {
                 />
                 <InnerContent>
                     <HeroImage
-                        src="https://images.unsplash.com/photo-1524508762098-b9f2e10aace5?q=80&w=1400"
+                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1400"
                         alt="FDA United States Agent for Foreign Establishments"
                         label="FDA US Agent Services"
                     />

@@ -184,7 +184,7 @@ export const Fda510kApplication: React.FC = () => {
 
                     {/* Split image break */}
                     <SplitSection
-                        imageSrc="https://images.unsplash.com/photo-1587462118022-beedaa5a9f3a?q=80&w=900"
+                        imageSrc="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1400"
                         imageAlt="FDA regulatory strategy and submissions"
                         label="Expert Guidance"
                     >

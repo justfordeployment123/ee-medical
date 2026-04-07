@@ -23,16 +23,25 @@ export const AiAssistant: React.FC = () => {
             id: "welcome",
             role: "assistant",
             content:
-                "I can answer questions about E&E Medicals’ services, medical device and drug regulations, AI-enabled regulatory strategy, and related topics based on this website’s content. How can I help?",
+                "Hi—I'm the E&E Medicals Regulatory Advisor (AI). I can help map your FDA / CE / SaMD pathway and what evidence you'll likely need. What best describes your product?",
         },
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const question = input.trim();
+    const SUGGESTED_PROMPTS = [
+        "Medical device (hardware)",
+        "Software / SaMD / AI",
+        "IVD / diagnostic",
+        "Wellness app (non-medical)",
+        "Not sure — help me classify",
+        "I need a 510(k) / De Novo / PMA plan",
+        "EU MDR / CE Mark",
+    ];
+
+    const sendMessage = async (overrideQuestion?: string) => {
+        const question = (overrideQuestion ?? input.trim()).trim();
         if (!question || isLoading) return;
 
         const userMessage: ChatMessage = {
@@ -84,27 +93,31 @@ export const AiAssistant: React.FC = () => {
         }
     };
 
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        void sendMessage(undefined);
+    };
+
     return (
         <div className="min-h-screen flex flex-col font-sans bg-white">
             <Header />
 
             <main className="grow">
                 <PageHeader
-                    title="AI Medical & Regulatory Assistant"
-                    breadcrumb="AI Assistant"
+                    title="Regulatory Intelligence Assistant"
+                    breadcrumb="Regulatory Advisor"
                 />
 
                 <InnerContent>
                     <Section>
                         <SectionHeading
-                            badge="AI-Enabled Support"
-                            title="Ask Questions About Medical Devices, Drugs, and Compliance"
-                            subtitle="This assistant is grounded in E&E Medicals’ own website content — including AI regulatory services, device and drug pathways, and quality system guidance — to provide focused, domain-specific answers."
+                            badge="Regulatory Intelligence"
+                            title="Pre-Consultation Advisor & Lead Qualification"
+                            subtitle="This Regulatory Intelligence Assistant acts as a Pre-Consultation Advisor—not a generic chatbot. It answers pathway questions (510(k), De Novo, PMA), document requirements, and timelines, then routes qualified leads to our strategy team."
                         />
                         <InfoBox variant="warning" className="mb-6">
                             <p className="text-sm md:text-[15px] leading-relaxed">
-                                This tool is for general information only and does not replace medical advice, legal advice, or direct guidance from
-                                regulators. Always consult qualified professionals before making clinical, regulatory, or business decisions.
+                                Educational guidance only—not legal advice. Final regulatory determinations require a formal review. Contact qualified professionals for clinical, regulatory, or business decisions.
                             </p>
                         </InfoBox>
 
@@ -129,6 +142,20 @@ export const AiAssistant: React.FC = () => {
                                             </div>
                                         </div>
                                     ))}
+                                    {messages.length <= 1 && !isLoading && (
+                                        <div className="flex flex-wrap gap-2 pt-2">
+                                            {SUGGESTED_PROMPTS.map((text) => (
+                                                <button
+                                                    key={text}
+                                                    type="button"
+                                                    onClick={() => void sendMessage(text)}
+                                                    className="text-xs px-3 py-2 rounded-xl bg-brand-50 text-brand-700 border border-brand-100 hover:bg-brand-100 hover:border-brand-200 transition-colors text-left"
+                                                >
+                                                    {text}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
                                     {isLoading && (
                                         <div className="flex items-center gap-2 text-xs text-gray-500">
                                             <span className="w-2 h-2 rounded-full bg-brand-400 animate-bounce" />
@@ -143,7 +170,7 @@ export const AiAssistant: React.FC = () => {
                                     <textarea
                                         value={input}
                                         onChange={(e) => setInput(e.target.value)}
-                                        placeholder="Ask about AI regulatory strategy, FDA pathways, EU MDR, AI Act, or our services…"
+                                        placeholder="Pathway? 510(k) docs? Timeline? Book strategy call…"
                                         rows={2}
                                         className="flex-1 resize-none text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-400"
                                     />
@@ -164,32 +191,30 @@ export const AiAssistant: React.FC = () => {
 
                             <div className="space-y-5 text-sm text-gray-600">
                                 <h3 className="font-display text-base font-bold text-navy-900">
-                                    What this assistant is trained on
+                                    What this advisor covers
                                 </h3>
                                 <ul className="space-y-2">
                                     <li className="flex items-start gap-2">
                                         <span className="mt-1 w-1.5 h-1.5 rounded-full bg-brand-500" />
                                         <span>
-                                            AI-enabled regulatory pages (AI regulatory strategy, AI SaMD pathway, FDA readiness, PCCP authoring, AI design
-                                            controls, FDA defense).
+                                            Regulatory pathway questions: 510(k), De Novo, PMA, AI SaMD, EU MDR, AI Act.
                                         </span>
                                     </li>
                                     <li className="flex items-start gap-2">
                                         <span className="mt-1 w-1.5 h-1.5 rounded-full bg-brand-500" />
                                         <span>
-                                            Core service pages for medical devices, pharmaceuticals, quality systems, CE/CCC mark approvals, and audits.
+                                            Document requirements, submission timelines, cost estimates, and lead qualification.
                                         </span>
                                     </li>
                                     <li className="flex items-start gap-2">
                                         <span className="mt-1 w-1.5 h-1.5 rounded-full bg-brand-500" />
                                         <span>
-                                            Media &amp; news content and any curated FAQs you add for common regulatory and compliance questions.
+                                            Curated FAQs and service pages. Uses RAG to retrieve from website content.
                                         </span>
                                     </li>
                                 </ul>
                                 <p className="text-xs text-gray-500">
-                                    Answers are generated using retrieval-augmented generation (RAG): we first retrieve the most relevant content from this
-                                    website, then use it to craft a concise response.
+                                    Concludes with CTAs (e.g. Book a Strategy Call, Request a proposal) to convert visitors into consulting clients.
                                 </p>
                             </div>
                         </div>

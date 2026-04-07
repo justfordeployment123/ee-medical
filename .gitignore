@@ -13,6 +13,9 @@ node_modules
 dist
 dist-ssr
 *.local
+/rag-api/node_modules
+/rag-api/dist
+/rag-api/.env
 
 # Editor directories and files
 .vscode/*

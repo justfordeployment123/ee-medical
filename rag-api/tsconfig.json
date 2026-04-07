@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "checkJs": false
+  },
+  "exclude": ["kb-pages", "node_modules"]
+}

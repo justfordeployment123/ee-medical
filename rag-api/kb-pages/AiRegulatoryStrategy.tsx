@@ -11,7 +11,6 @@ import {
     Section,
     InfoBox,
     PageCTA,
-    SplitSection,
 } from "../components/shared/InnerPage";
 import heroImage from "../assets/hero.jpeg";
 import aiImage from "../assets/AI.jpeg";
@@ -78,7 +77,7 @@ export const AiRegulatoryStrategy: React.FC = () => {
                             badge="AI-Enabled Regulatory"
                             title="Global Regulatory Intelligence for AI-Enabled Medical Technologies"
                         />
-                        <div className="space-y-5 text-gray-700 leading-relaxed">
+                        <div className="space-y-5 text-gray-800 leading-relaxed">
                             <p>
                                 E&amp;E Medicals &amp; Consulting is a{" "}
                                 <strong className="text-navy-900">global regulatory intelligence partner</strong> for AI-enabled medical technologies.
@@ -96,16 +95,26 @@ export const AiRegulatoryStrategy: React.FC = () => {
                         </div>
                     </Section>
 
-                    <SplitSection
-                        imageSrc={aiImage}
-                        imageAlt="AI imaging, digital diagnostics, and remote monitoring platforms"
-                        label="AI Imaging, Diagnostics & Remote Monitoring"
-                    >
+                    <Section>
+                        {/* Image on top - compact height, no black empty space */}
+                        <div className="relative rounded-xl overflow-hidden mb-10 h-[220px] md:h-[260px] max-h-[260px] bg-slate-100 flex items-center justify-center">
+                            <img
+                                src={aiImage}
+                                alt="AI imaging, digital diagnostics, and remote monitoring platforms"
+                                className="w-full h-full object-contain object-center"
+                            />
+                            <div className="absolute bottom-4 left-4">
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-500/90 backdrop-blur-sm text-white text-sm font-bold uppercase tracking-wider shadow-lg">
+                                    AI Imaging, Diagnostics & Remote Monitoring
+                                </span>
+                            </div>
+                        </div>
+
                         <SectionHeading
                             badge="Regulatory Services"
                             title="Regulatory Services for AI Medical Devices Sold in the US or Europe"
                         />
-                        <div className="space-y-8 text-gray-700 leading-relaxed">
+                        <div className="space-y-8 text-gray-800 leading-relaxed">
                             <p>
                                 If your medical device includes <strong className="text-navy-900">AI-enabled software</strong>, E&amp;E Medicals helps you
                                 coordinate compliance across the European AI Act, EU MDR/IVDR, and US FDA expectations so you can scale globally without
@@ -149,7 +158,7 @@ export const AiRegulatoryStrategy: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-                    </SplitSection>
+                    </Section>
 
                     <Section>
                         <SectionHeading
