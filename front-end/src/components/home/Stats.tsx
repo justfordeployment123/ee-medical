@@ -2,6 +2,22 @@ import React from "react";
 import { Briefcase, Users, Award, ShieldCheck, BadgeCheck } from "lucide-react";
 import type { StatType } from "../../types";
 
+interface StatsContent {
+  badge_text?: string;
+  heading?: string;
+  subtext?: string;
+    bg_image?: string;
+    bg_image_alt?: string;
+  stat1_value?: string;
+  stat1_label?: string;
+  stat2_value?: string;
+  stat2_label?: string;
+  stat3_value?: string;
+  stat3_label?: string;
+  stat4_value?: string;
+  stat4_label?: string;
+}
+
 const statsData: StatType[] = [
     { id: "1", value: "470+", label: "Successful Projects", icon: Briefcase },
     { id: "2", value: "63", label: "FDA Regulatory Experts", icon: Users },
@@ -14,14 +30,14 @@ const certifications = [
     "EU MDR", "CE Mark", "GMP Compliant", "ICH Guidelines",
 ];
 
-export const Stats: React.FC = () => {
+export const Stats: React.FC<{ content?: StatsContent | null }> = ({ content }) => {
     return (
         <section className="relative py-24 px-4 md:px-8 overflow-hidden">
             {/* Background Image */}
             <div className="absolute inset-0">
                 <img
-                    src="https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2000&auto=format&fit=crop"
-                    alt=""
+                    src={content?.bg_image || "https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2000&auto=format&fit=crop"}
+                    alt={content?.bg_image_alt || "Stats background"}
                     className="w-full h-full object-cover"
                 />
             </div>
@@ -43,17 +59,14 @@ export const Stats: React.FC = () => {
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.1] mb-6">
                         <span className="text-brand-400 text-sm font-semibold">
-                            By the Numbers
+                            {content?.badge_text || 'By the Numbers'}
                         </span>
                     </div>
                     <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-white mb-5">
-                        Over <span className="gradient-text">32 Years</span> of
-                        Experience
+                        {content?.heading || 'Over 32 Years of Experience'}
                     </h2>
                     <p className="text-lg text-white/90 max-w-2xl mx-auto leading-relaxed">
-                        Well-established partners across the EU, Asia, and USA.
-                        Our customers consider us not just consultants, but
-                        strategic outsourcing partners.
+                        {content?.subtext || 'Well-established partners across the EU, Asia, and USA. Our customers consider us not just consultants, but strategic outsourcing partners.'}
                     </p>
                 </div>
 

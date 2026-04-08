@@ -2,7 +2,13 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
+import path from "path";
+import { fileURLToPath } from "url";
 import { loadKnowledgeBase } from "./knowledgeBase.js";
+import { getPageContent, uploadsDir } from "./db.js";
+import adminRoutes from "./adminRoutes.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 dotenv.config();
 
@@ -20,6 +26,23 @@ const openAiApiKey = process.env.OPENAI_API_KEY;
 
 app.use(cors());
 app.use(express.json());
+
+// Serve uploaded images
+app.use('/uploads', express.static(uploadsDir));
+app.use('/api/uploads', express.static(uploadsDir));
+
+// Admin routes
+app.use('/api/admin', adminRoutes);
+
+// Public content endpoint — frontend fetches this
+app.get('/api/content/:page', (req, res) => {
+  try {
+    const content = getPageContent(req.params.page);
+    res.json(content);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 /**
  * In-memory vector index

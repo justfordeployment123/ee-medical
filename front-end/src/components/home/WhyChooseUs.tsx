@@ -2,6 +2,15 @@ import React from "react";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
+interface WhyChooseUsContent {
+  section_heading?: string;
+  section_subtext?: string;
+    block1_image?: string;
+    block1_image_alt?: string;
+    block2_image?: string;
+    block2_image_alt?: string;
+}
+
 const blocks = [
     {
         imageUrl:
@@ -39,7 +48,16 @@ const blocks = [
     },
 ];
 
-export const WhyChooseUs: React.FC = () => {
+export const WhyChooseUs: React.FC<{ content?: WhyChooseUsContent | null }> = ({ content }) => {
+    const blockImageByIndex = [
+        content?.block1_image || blocks[0].imageUrl,
+        content?.block2_image || blocks[1].imageUrl,
+    ];
+    const blockAltByIndex = [
+        content?.block1_image_alt || blocks[0].title,
+        content?.block2_image_alt || blocks[1].title,
+    ];
+
     return (
         <section className="py-24 px-4 md:px-8 bg-slate-50 relative overflow-hidden">
             {/* Subtle background decoration */}
@@ -55,12 +73,10 @@ export const WhyChooseUs: React.FC = () => {
                         </span>
                     </div>
                     <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-navy-900 mb-5">
-                        A Trusted Partner in{" "}
-                        <span className="gradient-text">Healthcare Regulation</span>
+                        {content?.section_heading || 'A Trusted Partner in Healthcare Regulation'}
                     </h2>
                     <p className="text-gray-500 text-lg leading-relaxed">
-                        We combine deep regulatory expertise with a consultative approach
-                        to help you achieve market access faster and with confidence.
+                        {content?.section_subtext || 'We combine deep regulatory expertise with a consultative approach to help you achieve market access faster and with confidence.'}
                     </p>
                 </div>
 
@@ -82,8 +98,8 @@ export const WhyChooseUs: React.FC = () => {
                                     <div className="absolute -inset-[1px] bg-gradient-to-br from-brand-400/40 via-brand-200/20 to-brand-500/40 rounded-2xl" />
                                     <div className="relative rounded-2xl overflow-hidden">
                                         <img
-                                            src={block.imageUrl}
-                                            alt={block.title}
+                                            src={blockImageByIndex[index] || block.imageUrl}
+                                            alt={blockAltByIndex[index] || block.title}
                                             className="w-full aspect-[4/3] object-cover object-center transition-transform duration-700 group-hover:scale-105"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-navy-950/50 via-navy-950/10 to-transparent" />

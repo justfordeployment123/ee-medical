@@ -1,5 +1,10 @@
 import React from "react";
 
+interface PastReviewsContent {
+  section_heading?: string;
+  section_subtext?: string;
+}
+
 const reviews = [
     {
         name: "Maria Abba",
@@ -33,7 +38,7 @@ const reviews = [
     },
 ];
 
-export const PastReviews: React.FC = () => {
+export const PastReviews: React.FC<{ content?: PastReviewsContent | null }> = ({ content }) => {
     return (
         <section className="py-20 px-4 md:px-8 bg-slate-50 border-t border-slate-200">
             <div className="max-w-[1200px] mx-auto">
@@ -42,11 +47,10 @@ export const PastReviews: React.FC = () => {
                         Past Reviews
                     </p>
                     <h2 className="mt-4 text-2xl md:text-3xl font-extrabold text-navy-900">
-                        What Our Customers & Partners Say
+                        {content?.section_heading || 'What Our Customers & Partners Say'}
                     </h2>
                     <p className="mt-3 text-sm md:text-base text-slate-600 max-w-2xl mx-auto">
-                        Real experiences from clients who have trusted E &amp; E Medicals and Consulting for
-                        medical supplies, regulatory consulting, and FDA submissions.
+                        {content?.section_subtext || 'Real experiences from clients who have trusted E & E Medicals and Consulting for medical supplies, regulatory consulting, and FDA submissions.'}
                     </p>
                 </div>
 

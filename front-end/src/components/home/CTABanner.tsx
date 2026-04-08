@@ -1,6 +1,17 @@
 import React from "react";
 import { ArrowRight, Phone, Quote, Star } from "lucide-react";
 
+interface CTABannerContent {
+  badge_text?: string;
+  heading_line1?: string;
+  heading_line2?: string;
+  subtext?: string;
+    bg_image?: string;
+    bg_image_alt?: string;
+  btn1_text?: string;
+  btn2_text?: string;
+}
+
 const testimonials = [
     {
         quote: "E&E Medicals guided us through the entire 510(k) process with expertise and precision. Their deep FDA knowledge saved us months of delays.",
@@ -22,14 +33,14 @@ const testimonials = [
     },
 ];
 
-export const CTABanner: React.FC = () => {
+export const CTABanner: React.FC<{ content?: CTABannerContent | null }> = ({ content }) => {
     return (
         <section className="relative py-24 px-4 md:px-8 overflow-hidden">
             {/* Background Image */}
             <div className="absolute inset-0">
                 <img
-                    src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2000&auto=format&fit=crop"
-                    alt=""
+                    src={content?.bg_image || "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2000&auto=format&fit=crop"}
+                    alt={content?.bg_image_alt || "CTA background"}
                     className="w-full h-full object-cover"
                 />
             </div>
@@ -52,18 +63,17 @@ export const CTABanner: React.FC = () => {
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.06] border border-white/[0.1] mb-8 backdrop-blur-sm">
                         <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                         <span className="text-brand-300 text-sm font-semibold">
-                            Free Consultation Available
+                            {content?.badge_text || 'Free Consultation Available'}
                         </span>
                     </div>
 
                     <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6 leading-tight tracking-tight">
-                        Ready to Navigate Your
+                        {content?.heading_line1 || 'Ready to Navigate Your'}
                         <br />
-                        <span className="gradient-text">Regulatory Pathway?</span>
+                        <span className="gradient-text">{content?.heading_line2 || 'Regulatory Pathway?'}</span>
                     </h2>
                     <p className="text-white/90 text-lg mb-12 max-w-xl mx-auto leading-relaxed">
-                        Schedule a free consultation with our FDA regulatory experts
-                        and take the first step toward market approval.
+                        {content?.subtext || 'Schedule a free consultation with our FDA regulatory experts and take the first step toward market approval.'}
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
                         <a

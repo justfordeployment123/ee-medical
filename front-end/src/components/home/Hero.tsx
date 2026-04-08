@@ -7,14 +7,24 @@ const clientLogos = [
     "FDA", "ISO", "MDSAP", "CE Mark", "EU MDR", "IVDR", "GMP", "ICH",
 ];
 
-export const Hero: React.FC = () => {
+interface HeroContent {
+  badge_text?: string;
+  h1_line1?: string;
+  h1_line2?: string;
+  h1_line3?: string;
+  subtext?: string;
+    bg_image?: string;
+    bg_image_alt?: string;
+}
+
+export const Hero: React.FC<{ content?: HeroContent | null }> = ({ content }) => {
     return (
         <section className="relative w-full overflow-hidden">
             {/* Background Image */}
             <div className="absolute inset-0">
                 <img
-                    src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=2000&auto=format&fit=crop"
-                    alt=""
+                    src={content?.bg_image || "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=2000&auto=format&fit=crop"}
+                    alt={content?.bg_image_alt || "Hero background"}
                     className="w-full h-full object-cover"
                 />
             </div>
@@ -48,23 +58,21 @@ export const Hero: React.FC = () => {
                             <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-brand-500/10 border border-brand-500/20 mb-8 backdrop-blur-sm">
                                 <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                                 <span className="text-brand-300 text-base font-bold tracking-wide">
-                                    Trusted by Most Healthcare Companies Worldwide
+                                    {content?.badge_text || 'Trusted by Most Healthcare Companies Worldwide'}
                                 </span>
                             </div>
                         </div>
 
                         <h1 className="animate-fade-in-up delay-100 font-display text-4xl md:text-5xl lg:text-[3.75rem] font-extrabold text-white leading-[1.08] mb-7 tracking-tight">
-                            Navigating FDA
+                            {content?.h1_line1 || 'Navigating FDA'}
                             <br />
-                            <span className="gradient-text">Regulatory Pathways</span>
+                            <span className="gradient-text">{content?.h1_line2 || 'Regulatory Pathways'}</span>
                             <br />
-                            <span className="text-white/90">With Precision</span>
+                            <span className="text-white/90">{content?.h1_line3 || 'With Precision'}</span>
                         </h1>
 
                         <p className="animate-fade-in-up delay-200 text-lg md:text-xl text-white/90 leading-relaxed mb-10 max-w-xl font-medium">
-                            Expert consulting for medical device compliance, quality
-                            management systems, and regulatory submissions. Over 32 years
-                            positioning clients at the forefront of healthcare innovation.
+                            {content?.subtext || 'Expert consulting for medical device compliance, quality management systems, and regulatory submissions. Over 32 years positioning clients at the forefront of healthcare innovation.'}
                         </p>
 
                         <div className="animate-fade-in-up delay-300 flex flex-wrap gap-4 mb-14">

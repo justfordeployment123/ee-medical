@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 
+interface FAQContent {
+  section_heading?: string;
+  section_subtext?: string;
+  panel_heading?: string;
+  panel_text?: string;
+    side_image?: string;
+    side_image_alt?: string;
+}
+
 const faqData = [
     {
         question: "What types of medical devices do you provide regulatory consulting for?",
@@ -28,7 +37,7 @@ const faqData = [
     },
 ];
 
-export const FAQ: React.FC = () => {
+export const FAQ: React.FC<{ content?: FAQContent | null }> = ({ content }) => {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     return (
@@ -39,8 +48,8 @@ export const FAQ: React.FC = () => {
                     <div className="hidden lg:block sticky top-24">
                         <div className="relative rounded-2xl overflow-hidden group">
                             <img
-                                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1400&auto=format&fit=crop"
-                                alt="Medical device regulatory consulting"
+                                src={content?.side_image || "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1400&auto=format&fit=crop"}
+                                alt={content?.side_image_alt || "Medical device regulatory consulting"}
                                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-navy-950/30 to-transparent" />
@@ -50,10 +59,10 @@ export const FAQ: React.FC = () => {
                                     <span className="text-white/90 text-xs font-semibold">Expert Support</span>
                                 </div>
                                 <h3 className="font-display text-2xl font-extrabold text-white mb-2">
-                                    Have More Questions?
+                                    {content?.panel_heading || 'Have More Questions?'}
                                 </h3>
                                 <p className="text-gray-300 text-sm leading-relaxed mb-5">
-                                    Our team of 63 FDA regulatory experts is ready to answer your specific questions and guide you through the process.
+                                    {content?.panel_text || 'Our team of 63 FDA regulatory experts is ready to answer your specific questions and guide you through the process.'}
                                 </p>
                                 <a
                                     href="mailto:info@eemedicals.com"
@@ -77,12 +86,10 @@ export const FAQ: React.FC = () => {
                                 </span>
                             </div>
                             <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-navy-900 mb-5">
-                                Frequently Asked{" "}
-                                <span className="gradient-text">Questions</span>
+                                {content?.section_heading || 'Frequently Asked'} Questions
                             </h2>
                             <p className="text-gray-500 text-lg leading-relaxed">
-                                Get answers to common questions about our regulatory
-                                consulting services and processes.
+                                {content?.section_subtext || 'Get answers to common questions about our regulatory consulting services and processes.'}
                             </p>
                         </div>
 
