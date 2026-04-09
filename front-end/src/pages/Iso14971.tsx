@@ -3,6 +3,7 @@ import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -22,6 +23,19 @@ const methodologySteps = [
 ];
 
 export const Iso14971: React.FC = () => {
+    const content = useContent("iso14971");
+    const hero = content?.hero;
+    const expert = content?.expert;
+    const implementation = content?.implementation;
+
+    const steps = [
+        implementation?.step1,
+        implementation?.step2,
+        implementation?.step3,
+        implementation?.step4,
+        implementation?.step5,
+    ].filter(Boolean) as string[];
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
@@ -34,41 +48,33 @@ export const Iso14971: React.FC = () => {
 
                 <InnerContent>
                     <HeroImage
-                        src="https://images.unsplash.com/photo-1598520106830-8c45c2035460?q=80&w=1400"
-                        alt="ISO 14971 medical device risk management lifecycle"
-                        label="ISO 14971 Risk Management"
+                        src={hero?.hero_image || "https://images.unsplash.com/photo-1598520106830-8c45c2035460?q=80&w=1400"}
+                        alt={hero?.hero_image_alt || "ISO 14971 medical device risk management lifecycle"}
+                        label={hero?.badge_text || "ISO 14971 Risk Management"}
                     />
 
                     <Section>
-                        <SectionHeading badge="Risk Management" title="ISO 14971 Medical Device Risk Management Expert" />
+                        <SectionHeading badge={expert?.badge_text || "Risk Management"} title={expert?.title || "ISO 14971 Medical Device Risk Management Expert"} />
                         <div className="space-y-6 text-gray-700 leading-relaxed text-[15px] md:text-base">
-                            <p>
-                                ISO 14971 compliance helps medical device manufacturers introduce safe medical devices into the marketplace by evaluating and controlling the risks associated with a medical device, and by evaluating a device's interactions with other devices.
-                            </p>
-                            <p>
-                                As the only international standard for risk management for medical devices,{" "}
-                                <strong className="text-navy-900">ISO 14971 medical device risk management</strong>{" "}
-                                expert has become an integral element for satisfying regulatory requirements in most major markets and should be incorporated into the medical device life cycle.
-                            </p>
+                            <p>{expert?.paragraph1 || "ISO 14971 compliance helps manufacturers evaluate and control risks associated with medical devices."}</p>
+                            <p>{expert?.paragraph2 || "ISO 14971 is an integral international standard for satisfying risk-related requirements in major regulatory markets."}</p>
                             <InfoBox variant="light">
                                 <p className="text-center text-sm italic text-gray-500">
-                                    [Image diagram of the ISO 14971 Risk Management Life Cycle]
+                                    [{expert?.diagram_note || "Image diagram of the ISO 14971 Risk Management Life Cycle"}]
                                 </p>
                             </InfoBox>
                         </div>
                     </Section>
 
                     <Section>
-                        <SectionHeading badge="Implementation" title="ISO 14971 Medical Devices Risk Management Implementation Service" />
+                        <SectionHeading badge={implementation?.badge_text || "Implementation"} title={implementation?.title || "ISO 14971 Medical Devices Risk Management Implementation Service"} />
                         <div className="space-y-6 text-gray-700 leading-relaxed text-[15px] md:text-base">
                             <p>
                                 <Link to="/" className="text-brand-500 hover:text-brand-600 hover:underline">E & E Medicals</Link>{" "}
-                                and Consulting will assist you with ISO 14971 medical device implementation service that follows a 5-step methodology:
+                                and Consulting {implementation?.intro_text || "will assist you with ISO 14971 implementation using a 5-step methodology:"}
                             </p>
-                            <FeatureList items={methodologySteps} />
-                            <p>
-                                This can be integrated into an ISO 13485 certification program, or added to an existing ISO 13485 certification. We will provide and generate all the required documentation to meet the requirements of the standard.
-                            </p>
+                            <FeatureList items={steps.length ? steps : methodologySteps} />
+                            <p>{implementation?.closing_text || "This can be integrated into an ISO 13485 certification program with all required documentation provided."}</p>
                         </div>
                     </Section>
 

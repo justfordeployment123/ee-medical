@@ -4,8 +4,18 @@ import { Phone, Mail, MapPin, Clock, Facebook, Twitter, Linkedin, Youtube, Arrow
 import EandELogo from "../assets/EandE-logo.png";
 import BbbLogo from "../assets/bbb-logo.svg";
 import RapsLogo from "../assets/raps-logo.svg";
+import { useContent } from "../hooks/useContent";
 
 export const Footer: React.FC = () => {
+    const globalContent = useContent('global');
+    const contact = globalContent?.contact;
+    const phone1 = contact?.phone1 || '+1 (678) 815-9233';
+    const phone2 = contact?.phone2 || '+1 (678) 385-6106';
+    const phone3 = contact?.phone3 || '+1 (678) 336-8945';
+    const email  = contact?.email   || 'info@eemedicals.com';
+    const address = contact?.address || '400 Galleria Pkwy Suite 1500, Atlanta, GA 30339';
+    const hours  = contact?.hours   || 'Mon - Fri: 9am - 6pm EST';
+
     return (
         <footer className="relative overflow-hidden">
             {/* Top Wave */}
@@ -127,29 +137,29 @@ export const Footer: React.FC = () => {
                                     <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center shrink-0 mt-0.5">
                                         <MapPin size={12} className="text-brand-400" />
                                     </div>
-                                    <span className="text-sm font-medium text-gray-300">400 Galleria Pkwy Suite 1500, Atlanta, GA 30339</span>
+                                    <span className="text-sm font-medium text-gray-300">{address}</span>
                                 </li>
                                 <li className="flex items-start gap-2.5">
                                     <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center shrink-0 mt-0.5">
                                         <Mail size={12} className="text-brand-400" />
                                     </div>
-                                    <a href="mailto:info@eemedicals.com" className="text-sm font-medium text-brand-300 hover:text-brand-200 transition-colors">info@eemedicals.com</a>
+                                    <a href={`mailto:${email}`} className="text-sm font-medium text-brand-300 hover:text-brand-200 transition-colors">{email}</a>
                                 </li>
                                 <li className="flex items-start gap-2.5">
                                     <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center shrink-0 mt-0.5">
                                         <Phone size={12} className="text-brand-400" />
                                     </div>
                                     <div className="flex flex-col gap-0.5">
-                                        <a href="tel:+16788159233" className="text-sm font-medium text-gray-300 hover:text-brand-300 transition-colors">+1 (678) 815-9233</a>
-                                        <a href="tel:+16783856106" className="text-sm font-medium text-gray-300 hover:text-brand-300 transition-colors">+1 (678) 385-6106</a>
-                                        <a href="tel:+16783368945" className="text-sm font-medium text-gray-300 hover:text-brand-300 transition-colors">+1 (678) 336-8945</a>
+                                        {[phone1, phone2, phone3].filter(Boolean).map((p) => (
+                                            <a key={p} href={`tel:${p.replace(/\s|\(|\)|-/g, '')}`} className="text-sm font-medium text-gray-300 hover:text-brand-300 transition-colors">{p}</a>
+                                        ))}
                                     </div>
                                 </li>
                                 <li className="flex items-start gap-2.5">
                                     <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center shrink-0 mt-0.5">
                                         <Clock size={12} className="text-brand-400" />
                                     </div>
-                                    <span className="text-sm font-medium text-gray-300">Mon - Fri: 9am - 6pm EST</span>
+                                    <span className="text-sm font-medium text-gray-300">{hours}</span>
                                 </li>
                             </ul>
                         </div>
@@ -161,12 +171,12 @@ export const Footer: React.FC = () => {
                             <div className="flex items-center gap-4 text-xs font-medium text-gray-300">
                                 <div className="flex items-center gap-1.5">
                                     <Clock size={11} className="text-brand-400" />
-                                    <span>Mon - Fri: 9:00 AM - 6:00 PM EST</span>
+                                    <span>{hours}</span>
                                 </div>
                                 <div className="w-px h-3 bg-white/10 hidden md:block" />
-                                <a href="mailto:info@eemedicals.com" className="flex items-center gap-1.5 hover:text-brand-400 transition-colors text-xs">
+                                <a href={`mailto:${email}`} className="flex items-center gap-1.5 hover:text-brand-400 transition-colors text-xs">
                                     <Mail size={11} className="text-brand-400" />
-                                    <span>info@eemedicals.com</span>
+                                    <span>{email}</span>
                                 </a>
                             </div>
                             <div className="flex items-center gap-2">

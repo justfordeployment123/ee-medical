@@ -11,31 +11,60 @@ import {
     Globe,
 } from "lucide-react";
 
-const stats = [
-    { icon: Award, value: "32+", label: "Years Experience" },
-    { icon: Briefcase, value: "470+", label: "Projects Completed" },
-    { icon: Users, value: "63", label: "Expert Consultants" },
-];
+interface AboutMainContent {
+  heading?: string;
+  paragraph1?: string;
+  paragraph2?: string;
+  check1?: string;
+  check2?: string;
+  check3?: string;
+  stat1_value?: string;
+  stat1_label?: string;
+  stat2_value?: string;
+  stat2_label?: string;
+  stat3_value?: string;
+  stat3_label?: string;
+  cap1_title?: string;
+  cap1_text?: string;
+  cap2_title?: string;
+  cap2_text?: string;
+  cap3_title?: string;
+  cap3_text?: string;
+  team_photo?: string;
+  team_photo_alt?: string;
+}
 
-const capabilities = [
-    {
-        icon: ShieldCheck,
-        title: "FDA & Global Compliance",
-        text: "Proven track record with FDA, CE marking, and international regulatory bodies across 40+ countries.",
-    },
-    {
-        icon: Target,
-        title: "Quality Management Systems",
-        text: "Customized QMS implementation including ISO 13485, ISO 9001, and QMSR compliance.",
-    },
-    {
-        icon: Globe,
-        title: "Post-Market Surveillance",
-        text: "Dedicated support for clinical data management and post-market compliance under MDR/IVDR.",
-    },
-];
+export const AboutContent: React.FC<{ content?: AboutMainContent | null }> = ({ content }) => {
+    const stats = [
+        { icon: Award,    value: content?.stat1_value || '32+',  label: content?.stat1_label || 'Years Experience' },
+        { icon: Briefcase,value: content?.stat2_value || '470+', label: content?.stat2_label || 'Projects Completed' },
+        { icon: Users,    value: content?.stat3_value || '63',   label: content?.stat3_label || 'Expert Consultants' },
+    ];
 
-export const AboutContent: React.FC = () => {
+    const capabilities = [
+        {
+            icon: ShieldCheck,
+            title: content?.cap1_title || 'FDA & Global Compliance',
+            text: content?.cap1_text || 'Proven track record with FDA, CE marking, and international regulatory bodies across 40+ countries.',
+        },
+        {
+            icon: Target,
+            title: content?.cap2_title || 'Quality Management Systems',
+            text: content?.cap2_text || 'Customized QMS implementation including ISO 13485, ISO 9001, and QMSR compliance.',
+        },
+        {
+            icon: Globe,
+            title: content?.cap3_title || 'Post-Market Surveillance',
+            text: content?.cap3_text || 'Dedicated support for clinical data management and post-market compliance under MDR/IVDR.',
+        },
+    ];
+
+    const checkItems = [
+        content?.check1 || 'End-to-end 510(k), PMA, and De Novo submissions.',
+        content?.check2 || 'ISO 13485, ISO 14971, and QMSR implementation.',
+        content?.check3 || 'CE marking, EU MDR/IVDR, and global market access.',
+    ];
+
     return (
         <section className="py-20 md:py-28 px-4 md:px-8 bg-white">
             <div className="max-w-[1400px] mx-auto">
@@ -48,8 +77,8 @@ export const AboutContent: React.FC = () => {
 
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-navy-950/10">
                             <img
-                                src="https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=1200&auto=format&fit=crop"
-                                alt="Medical device regulatory consulting team"
+                                src={content?.team_photo || "https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=1200&auto=format&fit=crop"}
+                                alt={content?.team_photo_alt || "Medical device regulatory consulting team"}
                                 className="w-full h-auto object-cover object-center"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-navy-950/30 via-transparent to-transparent" />
@@ -85,31 +114,22 @@ export const AboutContent: React.FC = () => {
                         </div>
 
                         <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-navy-900 mb-6 leading-[1.15]">
-                            Your trusted partners in{" "}
-                            <span className="gradient-text">Regulatory Compliance</span>{" "}
-                            & Quality Assurance.
+                            {content?.heading || (
+                                <>Your trusted partners in{" "}<span className="gradient-text">Regulatory Compliance</span>{" "}& Quality Assurance.</>
+                            )}
                         </h2>
 
                         <p className="text-gray-600 text-lg leading-relaxed mb-5">
-                            E&E Medicals & Consulting is a premier regulatory affairs consulting
-                            firm dedicated to helping medical device, IVD, and pharmaceutical
-                            companies navigate the complex landscape of FDA and international
-                            regulations.
+                            {content?.paragraph1 || 'E&E Medicals & Consulting is a premier regulatory affairs consulting firm dedicated to helping medical device, IVD, and pharmaceutical companies navigate the complex landscape of FDA and international regulations.'}
                         </p>
 
                         <p className="text-gray-500 leading-relaxed text-[15px] mb-8">
-                            With over 32 years of combined experience, our experts provide
-                            strategic guidance, gap analysis, and hands-on implementation support
-                            to ensure your products reach the market safely and efficiently.
+                            {content?.paragraph2 || 'With over 32 years of combined experience, our experts provide strategic guidance, gap analysis, and hands-on implementation support to ensure your products reach the market safely and efficiently.'}
                         </p>
 
                         {/* Checkmark list */}
                         <ul className="space-y-3.5 mb-10">
-                            {[
-                                "End-to-end 510(k), PMA, and De Novo submissions.",
-                                "ISO 13485, ISO 14971, and QMSR implementation.",
-                                "CE marking, EU MDR/IVDR, and global market access.",
-                            ].map((item, i) => (
+                            {checkItems.map((item, i) => (
                                 <li key={i} className="flex items-start gap-3">
                                     <div className="w-5 h-5 rounded-full bg-green-50 border border-green-200 flex items-center justify-center shrink-0 mt-0.5">
                                         <CheckCircle size={12} className="text-green-500" />

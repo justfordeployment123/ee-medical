@@ -3,6 +3,7 @@ import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -28,6 +29,13 @@ const additionalDeliverables = [
 ];
 
 export const AiFdaReadiness: React.FC = () => {
+    const content = useContent("ai_fda_readiness");
+    const hero = content?.hero;
+    const audit = content?.audit;
+    const deliverables = content?.deliverables;
+
+    const deliverableItems = [deliverables?.item1, deliverables?.item2, deliverables?.item3, deliverables?.item4].filter(Boolean) as string[];
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
@@ -40,30 +48,29 @@ export const AiFdaReadiness: React.FC = () => {
 
                 <InnerContent>
                     <HeroImage
-                        src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1400"
-                        alt="AI FDA readiness audit neural network medical"
-                        label="AI FDA Readiness Audit"
+                        src={hero?.hero_image || "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1400"}
+                        alt={hero?.hero_image_alt || "AI FDA readiness audit neural network medical"}
+                        label={hero?.badge_text || "AI FDA Readiness Audit"}
                     />
                     <Section>
-                        <SectionHeading badge="FDA Readiness" title="FDA Readiness Audit" />
+                        <SectionHeading badge={audit?.badge_text || "FDA Readiness"} title={audit?.title || "FDA Readiness Audit"} />
                         <div className="space-y-5">
                             <InfoBox variant="brand">
                                 <p className="text-lg italic font-medium text-gray-800">
-                                    "We have an AI model — but we don't know how to make it regulatory-approvable, clinically credible, reimbursable, and scalable."
+                                    "{audit?.quote_text || "We have an AI model — but we don't know how to make it regulatory-approvable, clinically credible, reimbursable, and scalable."}"
                                 </p>
                             </InfoBox>
                             <p className="text-gray-700 leading-relaxed">
-                                We prepare an <strong className="text-navy-900">FDA-ready, AI-specific Readiness & Deficiency Risk Audit package</strong> suitable for{" "}
-                                <strong className="text-navy-900">AI/ML-based Software as a Medical Device (SaMD)</strong>, clinical decision support, or AI-enabled IVD software. This is structured exactly as FDA reviewers and internal audit teams expect to see it.
+                                {audit?.paragraph1 || "We prepare an FDA-ready, AI-specific Readiness & Deficiency Risk Audit package for AI/ML SaMD and AI-enabled software."}
                             </p>
                             <p className="text-gray-700 leading-relaxed">
-                                <strong className="text-navy-900">Purpose:</strong> Predict FDA deficiencies <em>before</em> submission.
+                                <strong className="text-navy-900">Purpose:</strong> {audit?.purpose_text || "Predict FDA deficiencies before submission."}
                             </p>
                         </div>
                     </Section>
 
                     <Section>
-                        <SectionHeading badge="Deliverables" title="Deliverables & Engagement" />
+                        <SectionHeading badge={deliverables?.badge_text || "Deliverables"} title={deliverables?.title || "Deliverables & Engagement"} />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                             <div>
                                 <h3 className="font-display text-xl font-semibold text-navy-900 mb-6">What You Receive</h3>
@@ -77,13 +84,13 @@ export const AiFdaReadiness: React.FC = () => {
                                             <BulletList items={gapAssessmentSubItems} className="mt-2 ml-2" />
                                         </div>
                                     </div>
-                                    <FeatureList items={additionalDeliverables} />
+                                    <FeatureList items={deliverableItems.length ? deliverableItems : additionalDeliverables} />
                                 </div>
                             </div>
                             <div className="flex flex-col gap-6 justify-center">
                                 <InfoBox variant="light">
-                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Duration</p>
-                                    <p className="text-2xl font-extrabold text-navy-900 font-display">3–6 weeks</p>
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">{deliverables?.duration_label || "Duration"}</p>
+                                    <p className="text-2xl font-extrabold text-navy-900 font-display">{deliverables?.duration_value || "3–6 weeks"}</p>
                                 </InfoBox>
                                 <p className="font-medium text-gray-700">
                                     For more details, submit your details at{" "}

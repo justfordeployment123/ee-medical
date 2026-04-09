@@ -3,6 +3,7 @@ import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -21,6 +22,20 @@ const assistItems = [
 ];
 
 export const SixSigmaHealthcare: React.FC = () => {
+    const content = useContent("six_sigma");
+    const hero = content?.hero;
+    const sigma = content?.sigma;
+    const healthcare = content?.healthcare;
+    const why = content?.why;
+
+    const assistList = [
+        why?.assist1,
+        why?.assist2,
+        why?.assist3,
+        why?.assist4,
+        why?.assist5,
+    ].filter(Boolean) as string[];
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
@@ -30,44 +45,38 @@ export const SixSigmaHealthcare: React.FC = () => {
 
                 <InnerContent>
                     <HeroImage
-                        src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=1400"
-                        alt="Six Sigma healthcare process improvement quality"
-                        label="Six Sigma Healthcare"
+                        src={hero?.hero_image || "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=1400"}
+                        alt={hero?.hero_image_alt || "Six Sigma healthcare process improvement quality"}
+                        label={hero?.badge_text || "Six Sigma Healthcare"}
                     />
 
                     <Section>
-                        <SectionHeading badge="Six Sigma" title="What is Six Sigma?" />
+                        <SectionHeading badge={sigma?.badge_text || "Six Sigma"} title={sigma?.title || "What is Six Sigma?"} />
                         <div className="space-y-4 text-gray-700 leading-relaxed text-[15px] md:text-base">
-                            <p>
-                                Six Sigma is a process improvement initiative used to eliminate defects from processes. The goal is to create near perfection through continuous improvement that aligns the "voice of the process" with the "voice of the customer". No more than 3.4 defects per one million opportunities (DPMO) is the goal of Six Sigma level of quality.
-                            </p>
-                            <p>
-                                Design for Six Sigma (DFSS) is a separate and emerging business-process management methodology related to traditional Six Sigma. While the tools and order used in Six Sigma require a process to be in place and functioning, DFSS has the objective of determining the customers and business needs, driving those needs into the product solution so created. DFSS is relevant to the complex system/product synthesis phase, especially in the context of unprecedented system development.
-                            </p>
+                            <p>{sigma?.paragraph1 || "Six Sigma is a process improvement initiative used to eliminate defects from processes."}</p>
+                            <p>{sigma?.paragraph2 || "Design for Six Sigma (DFSS) is an emerging methodology related to traditional Six Sigma."}</p>
                         </div>
                     </Section>
 
                     <Section>
-                        <SectionHeading badge="Healthcare" title="Why Six Sigma in Healthcare?" />
+                        <SectionHeading badge={healthcare?.badge_text || "Healthcare"} title={healthcare?.title || "Why Six Sigma in Healthcare?"} />
                         <p className="text-gray-700 leading-relaxed text-[15px] md:text-base">
-                            The healthcare industry faces challenges in costs, patient protection, liability, and insurance rates. Currently, many hospitals are more mindful of the operating costs as the demands of quality patient care increases. The Six Sigma in healthcare approach can be used as a remedy for improving the quality of healthcare in hospitals and services. In healthcare, the Lean Six Sigma methodologies can be used to reduce defects which could result in medical errors. Medical accidents in the United States have led to over 400,000 deaths worldwide, costing an estimated $112.1 billion annually to the medical industry. Successfully implementing the Lean Six Sigma concepts could reduce accidents or falls in hospitals and nursing homes and drug administration mistakes, reduce the runoff time for test results, reduce the wait times in hospitals and private practitioners. All these improvements lead to high service quality, reduce operating costs, and better customer satisfaction.
+                            {healthcare?.paragraph || "The healthcare industry faces challenges in cost, safety, and quality. Lean Six Sigma can reduce defects, wait times, and operating costs while improving patient outcomes."}
                         </p>
                     </Section>
 
                     <Section dark>
-                        <SectionHeading badge="Why E&E" title="Why choose E & E Medicals and Consulting?" />
+                        <SectionHeading badge={why?.badge_text || "Why E&E"} title={why?.title || "Why choose E & E Medicals and Consulting?"} />
                         <div className="space-y-5 text-gray-300 leading-relaxed text-[15px] md:text-base">
-                            <p>
-                                Given the difficulties of implementing Six Sigma in the medical sector, many healthcare facilities continue to use independent Six Sigma consultants to maximize satisfaction for patients.
-                            </p>
+                            <p>{why?.paragraph1 || "Given the challenges of implementing Six Sigma in healthcare, many facilities continue to use independent consultants."}</p>
                             <p>
                                 <Link to="/" className="text-brand-400 hover:text-brand-300 hover:underline">
                                     E & E Medicals
                                 </Link>{" "}
-                                and consulting offer a very unique Six Sigma Healthcare program that is designed for the Healthcare industry. While much of the Lean Six Sigma methodologies are applicable to any process improvement program, there are certain unique qualities of the Healthcare environment that require a full understanding of what providers are currently facing. Six Sigma process is based on the DMAIC model – Define, Measure, Analyze, Improve, and Control. Although the methodology used for each organization is similar, we fully customize each application to meet the challenges of your individual business and disciplines. This results in product designs that consistently meet customer requirements, target costs, target release dates, and manufacturing requirements.
+                                and consulting {why?.paragraph2 || "offer a customized Six Sigma Healthcare program based on DMAIC to match your business challenges and disciplines."}
                             </p>
-                            <p className="font-semibold text-white">We will assist you in:</p>
-                            <FeatureList items={assistItems} />
+                            <p className="font-semibold text-white">{why?.assist_intro || "We will assist you in:"}</p>
+                            <FeatureList items={assistList.length ? assistList : assistItems} />
                         </div>
                     </Section>
 

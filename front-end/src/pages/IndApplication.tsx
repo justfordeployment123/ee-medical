@@ -3,6 +3,7 @@ import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -39,6 +40,14 @@ const expertiseItems = [
 ];
 
 export const IndApplication: React.FC = () => {
+    const content = useContent("ind");
+    const hero = content?.hero;
+    const main = content?.main;
+    const expertise = content?.expertise;
+
+    const obstaclesList = [main?.obstacle1, main?.obstacle2, main?.obstacle3, main?.obstacle4].filter(Boolean) as string[];
+    const expertiseList = [expertise?.item1, expertise?.item2, expertise?.item3, expertise?.item4].filter(Boolean) as string[];
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
@@ -51,26 +60,20 @@ export const IndApplication: React.FC = () => {
 
                 <InnerContent>
                     <HeroImage
-                        src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=1400"
-                        alt="Pharmaceutical research and IND application"
-                        label="IND Application"
+                        src={hero?.hero_image || "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=1400"}
+                        alt={hero?.hero_image_alt || "Pharmaceutical research and IND application"}
+                        label={hero?.badge_text || "IND Application"}
                     />
                     <Section>
-                        <SectionHeading badge="IND" title="Investigational New Drug (IND) Application" />
+                        <SectionHeading badge={main?.badge_text || "IND"} title={main?.title || "Investigational New Drug (IND) Application"} />
                         <div className="space-y-6 text-gray-700 leading-relaxed text-[15px] md:text-base">
-                            <p>
-                                To transport or distribute a drug across the United States for use in a clinical program, the sponsor must first submit an Investigational New Drug Application (INDA) to the US Food and Drug Administration (FDA) and receive agency acceptance.
-                            </p>
-                            <p>
-                                The US Food and Drug Administration (
-                                <a href="https://en.wikipedia.org/wiki/Food_and_Drug_Administration" target="_blank" rel="noopener noreferrer" className="text-brand-500 hover:text-brand-600 hover:underline">FDA</a>
-                                ) may place a clinical hold (full or partial clinical hold) on an IND if the sponsor fails to provide sufficient information to assure product quality, safety, and scientific evidence on the proposed efficacy profile.
-                            </p>
+                            <p>{main?.paragraph1 || "Sponsors must submit IND to FDA and receive acceptance before clinical distribution of investigational drugs."}</p>
+                            <p>{main?.paragraph2 || "FDA may place a clinical hold if quality, safety, or efficacy evidence is insufficient."}</p>
                             <div>
                                 <h4 className="font-display font-bold text-navy-900 mb-4">
                                     The following are some of the obstacles encountered during the IND filing and IND approval process with the US FDA:
                                 </h4>
-                                <FeatureList items={obstacles} />
+                                <FeatureList items={obstaclesList.length ? obstaclesList : obstacles} />
                             </div>
                             <InfoBox variant="brand">
                                 <p className="font-semibold text-gray-800 text-lg">
@@ -103,8 +106,8 @@ export const IndApplication: React.FC = () => {
                     </SplitSection>
 
                     <Section dark>
-                        <SectionHeading badge="Expertise" title="IND Submissions - E&E Medicals Expertise" />
-                        <FeatureList items={expertiseItems} columns={2} />
+                        <SectionHeading badge={expertise?.badge_text || "Expertise"} title={expertise?.title || "IND Submissions - E&E Medicals Expertise"} />
+                        <FeatureList items={expertiseList.length ? expertiseList : expertiseItems} columns={2} />
                     </Section>
 
                     <PageCTA />

@@ -3,6 +3,7 @@ import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -14,6 +15,14 @@ import {
 } from "../components/shared/InnerPage";
 
 export const FdaEstablishmentRegistration: React.FC = () => {
+    const content = useContent("fda_establishment");
+    const hero = content?.hero;
+    const main = content?.main;
+    const medical = content?.medical;
+    const drug = content?.drug;
+
+    const drugItems = [drug?.item1, drug?.item2, drug?.item3, drug?.item4].filter(Boolean) as string[];
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
@@ -24,28 +33,19 @@ export const FdaEstablishmentRegistration: React.FC = () => {
                 />
                 <InnerContent>
                     <HeroImage
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1400"
-                        alt="FDA Establishment Registration compliance process"
-                        label="FDA Establishment Registration"
+                        src={hero?.hero_image || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1400"}
+                        alt={hero?.hero_image_alt || "FDA Establishment Registration compliance process"}
+                        label={hero?.badge_text || "FDA Establishment Registration"}
                     />
 
                     <Section>
                         <SectionHeading
-                            badge="FDA Registration"
-                            title="FDA Establishment Registration"
+                            badge={main?.badge_text || "FDA Registration"}
+                            title={main?.title || "FDA Establishment Registration"}
                         />
                         <div className="text-gray-600 leading-relaxed space-y-5">
-                            <p>
-                                FDA Establishment that produces and markets medical devices in the United States has to follow a registration process
-                                with the FDA called "Establishment registration" within 30 days of commercialization of the medical device. E &amp; E
-                                Medicals and Consulting is a US FDA Agent with consultants supporting manufactures &amp; distributors during the online{" "}
-                                <strong className="text-navy-900">FDA Establishment Registration</strong> and listing process.
-                            </p>
-                            <p>
-                                The Food and Drug Administration of the United States (US FDA) protects public health by ensuring the safety,
-                                efficacy, and security of Food Supply, Drugs, and Biological(s). Hence, business owners and operators (Establishments
-                                Registration or Facilities) within the ranks for these industries must REGISTER their facilities with the US FDA.
-                            </p>
+                            <p>{main?.paragraph1 || "Establishments marketing medical devices in the U.S. must complete FDA registration and listing within required timelines."}</p>
+                            <p>{main?.paragraph2 || "US FDA protects public health by ensuring safety, efficacy, and security for regulated products, requiring facility registration."}</p>
                             <p>
                                 The US FDA process varies dependent on the type of product in the U.S. Registration and listing provide the FDA with
                                 the location of medical device establishments and the devices manufactured at those establishments.
@@ -55,16 +55,11 @@ export const FdaEstablishmentRegistration: React.FC = () => {
 
                     <Section>
                         <SectionHeading
-                            badge="Medical Devices"
-                            title="Medical Device — Establishment Registration"
+                            badge={medical?.badge_text || "Medical Devices"}
+                            title={medical?.title || "Medical Device — Establishment Registration"}
                         />
                         <div className="text-gray-600 leading-relaxed space-y-5">
-                            <p>
-                                Facility Business owners operators of the medical device industry are involved in the manufacture distribution of
-                                medical devices. Intended for use in the United States are required to complete annual Registration. The CFR 807
-                                section requires that the listing of those devices. Only those devices exempted from PMA 510k clearance could be
-                                direct with the FDA. E &amp; E Medicals Consulting helps to define medical device establishment requirements.
-                            </p>
+                            <p>{medical?.paragraph || "Medical device business operators involved in manufacture and distribution for U.S. use must complete annual registration and device listing obligations."}</p>
                             <p>
                                 Owners or operators of places of business (additionally known as institutions centers) worried about the production
                                 and allotment medical devices meant for use within the United States (U.S.) are required to register yearly with the
@@ -76,14 +71,14 @@ export const FdaEstablishmentRegistration: React.FC = () => {
 
                     <Section dark={false}>
                         <SectionHeading
-                            badge="Drug & Cosmetic"
-                            title="FDA Drug &amp; Cosmetic Establishment Registration"
+                            badge={drug?.badge_text || "Drug & Cosmetic"}
+                            title={drug?.title || "FDA Drug & Cosmetic Establishment Registration"}
                         />
                         <p className="text-gray-600 leading-relaxed mb-8">
-                            E &amp; E Medicals and Consulting provides the following services to pharmaceutical companies.
+                            {drug?.paragraph || "E & E Medicals and Consulting provides the following services to pharmaceutical companies."}
                         </p>
                         <FeatureList
-                            items={[
+                            items={drugItems.length ? drugItems : [
                                 "GMP Consultancy for pharmaceuticals",
                                 "Pre-audit inspection",
                                 "Assist in responding to 483 letters",

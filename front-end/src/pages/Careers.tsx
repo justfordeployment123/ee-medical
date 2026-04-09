@@ -12,6 +12,7 @@ import {
     PageCTA,
     StatStrip,
 } from "../components/shared/InnerPage";
+import { useContent } from "../hooks/useContent";
 
 const culturePillars = [
     "High-performance, <strong>client-centered consulting</strong> grounded in scientific and regulatory rigor.",
@@ -50,6 +51,9 @@ const applicationSteps = [
 ];
 
 export const Careers: React.FC = () => {
+    const content = useContent('careers');
+    const intro = content?.intro;
+
     return (
         <div className="min-h-screen flex flex-col font-sans bg-white">
             <Header />
@@ -60,14 +64,13 @@ export const Careers: React.FC = () => {
                 <InnerContent>
                     <Section>
                         <SectionHeading
-                            badge="Join Our Team"
-                            title="Join Our Mission to Improve Patient Health and Safety"
-                            subtitle="E&amp;E Medicals &amp; Consulting is a global regulatory, quality, and AI compliance partner for medical device and life science innovators. Our teams help clients bring safe, effective, and compliant products to patients worldwide."
+                            badge={intro?.badge || "Join Our Team"}
+                            title={intro?.heading || "Join Our Mission to Improve Patient Health and Safety"}
+                            subtitle={intro?.subtitle || "E&E Medicals & Consulting is a global regulatory, quality, and AI compliance partner for medical device and life science innovators. Our teams help clients bring safe, effective, and compliant products to patients worldwide."}
                         />
                         <div className="space-y-6 text-gray-700 leading-relaxed">
                             <p>
-                                At E&amp;E Medicals, you will work alongside experienced regulatory strategists, quality leaders, and AI governance experts.
-                                Together, we solve complex problems at the intersection of <strong className="text-navy-900">FDA regulations, EU MDR/IVDR, the EU AI Act, and international standards</strong>.
+                                {intro?.paragraph1 || "At E&E Medicals, you will work alongside experienced regulatory strategists, quality leaders, and AI governance experts. Together, we solve complex problems at the intersection of FDA regulations, EU MDR/IVDR, the EU AI Act, and international standards."}
                             </p>
                             <InfoBox variant="brand">
                                 <p className="text-sm md:text-base">
@@ -90,7 +93,7 @@ export const Careers: React.FC = () => {
                     <Section>
                         <SectionHeading
                             badge="Culture"
-                            title="How We Work"
+                            title={intro?.culture_heading || "How We Work"}
                         />
                         <FeatureList items={culturePillars} columns={2} />
                     </Section>
@@ -98,7 +101,7 @@ export const Careers: React.FC = () => {
                     <Section>
                         <SectionHeading
                             badge="Opportunities"
-                            title="Why Build Your Career at E&amp;E?"
+                            title={intro?.opps_heading || "Why Build Your Career at E&E?"}
                         />
                         <FeatureList items={whyJoin} columns={2} />
                     </Section>
@@ -114,14 +117,14 @@ export const Careers: React.FC = () => {
                     <Section>
                         <SectionHeading
                             badge="Who Thrives Here"
-                            title="What We Look For"
+                            title={intro?.profile_heading || "What We Look For"}
                         />
                         <BulletList items={hiringProfile} />
                     </Section>
 
                     <Section>
                         <SectionHeading
-                            badge="How to Apply"
+                            badge={intro?.apply_heading || "How to Apply"}
                             title="Our Hiring Approach"
                             subtitle="We review every application carefully. Even when we do not have a posted opening that matches your profile, we welcome strong candidates for future project-based or part-time collaboration."
                         />
@@ -134,8 +137,8 @@ export const Careers: React.FC = () => {
                             <InfoBox variant="light" className="mt-4">
                                 <p className="text-sm md:text-base">
                                     To be considered for upcoming roles, send your CV and a brief summary of your AI, regulatory, or quality experience to{" "}
-                                    <a href="mailto:info@eemedicals.com" className="text-brand-600 font-semibold underline-offset-2 hover:underline">
-                                        info@eemedicals.com
+                                    <a href={`mailto:${intro?.apply_email || 'info@eemedicals.com'}`} className="text-brand-600 font-semibold underline-offset-2 hover:underline">
+                                        {intro?.apply_email || 'info@eemedicals.com'}
                                     </a>
                                     .
                                 </p>
@@ -144,10 +147,10 @@ export const Careers: React.FC = () => {
                     </Section>
 
                     <PageCTA
-                        title="Ready to Explore a Career with E&E Medicals?"
-                        subtitle="Share your CV and interests with our team, and we’ll contact you when there is a strong match with open roles or consulting engagements."
+                        title={intro?.cta_heading || "Ready to Explore a Career with E&E Medicals?"}
+                        subtitle={intro?.cta_text || "Share your CV and interests with our team, and we’ll contact you when there is a strong match with open roles or consulting engagements."}
                         linkLabel="Email Your CV"
-                        email="info@eemedicals.com"
+                        email={intro?.apply_email || "info@eemedicals.com"}
                     />
                 </InnerContent>
             </main>

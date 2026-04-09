@@ -2,6 +2,7 @@ import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -55,6 +56,15 @@ const commonPitfalls = [
 ];
 
 export const AiRegulatoryStrategy: React.FC = () => {
+    const content = useContent("ai_reg_strategy");
+    const hero = content?.hero;
+    const intro = content?.intro;
+    const services = content?.services;
+    const lists = content?.lists;
+
+    const differentiators = [lists?.different1, lists?.different2, lists?.different3].filter(Boolean) as string[];
+    const pitfalls = [lists?.pitfall1, lists?.pitfall2, lists?.pitfall3].filter(Boolean) as string[];
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
@@ -67,28 +77,19 @@ export const AiRegulatoryStrategy: React.FC = () => {
 
                 <InnerContent>
                     <HeroImage
-                        src={heroImage}
+                        src={hero?.hero_image || heroImage}
                         alt="AI regulatory strategy in digital healthcare"
-                        label="AI-Enabled Regulatory Strategy"
+                        label={hero?.badge_text || "AI-Enabled Regulatory Strategy"}
                     />
 
                     <Section>
                         <SectionHeading
-                            badge="AI-Enabled Regulatory"
-                            title="Global Regulatory Intelligence for AI-Enabled Medical Technologies"
+                            badge={intro?.badge_text || "AI-Enabled Regulatory"}
+                            title={intro?.title || "Global Regulatory Intelligence for AI-Enabled Medical Technologies"}
                         />
                         <div className="space-y-5 text-gray-800 leading-relaxed">
-                            <p>
-                                E&amp;E Medicals &amp; Consulting is a{" "}
-                                <strong className="text-navy-900">global regulatory intelligence partner</strong> for AI-enabled medical technologies.
-                                We align <strong className="text-navy-900">FDA</strong>, <strong className="text-navy-900">EU MDR</strong>, and the{" "}
-                                <strong className="text-navy-900">EU AI Act</strong> into a single, execution-ready compliance strategy so that AI can
-                                move from prototype to market with confidence.
-                            </p>
-                            <p>
-                                Our <strong className="text-navy-900">global AI Compliance Framework</strong> accelerates approvals, reduces regulatory
-                                friction, and strengthens investor confidence across portfolio companies.
-                            </p>
+                            <p>{intro?.paragraph1 || "E&E Medicals is a global regulatory intelligence partner for AI-enabled medical technologies across FDA, EU MDR, and EU AI Act pathways."}</p>
+                            <p>{intro?.paragraph2 || "Our global AI compliance framework accelerates approvals, reduces regulatory friction, and strengthens investor confidence."}</p>
                             <p className="font-medium text-navy-900">
                                 Serving AI imaging, digital diagnostics, remote monitoring platforms, and global MedTech innovators.
                             </p>
@@ -111,15 +112,11 @@ export const AiRegulatoryStrategy: React.FC = () => {
                         </div>
 
                         <SectionHeading
-                            badge="Regulatory Services"
-                            title="Regulatory Services for AI Medical Devices Sold in the US or Europe"
+                            badge={services?.badge_text || "Regulatory Services"}
+                            title={services?.title || "Regulatory Services for AI Medical Devices Sold in the US or Europe"}
                         />
                         <div className="space-y-8 text-gray-800 leading-relaxed">
-                            <p>
-                                If your medical device includes <strong className="text-navy-900">AI-enabled software</strong>, E&amp;E Medicals helps you
-                                coordinate compliance across the European AI Act, EU MDR/IVDR, and US FDA expectations so you can scale globally without
-                                rebuilding your regulatory strategy for each market.
-                            </p>
+                            <p>{services?.paragraph || "If your medical device includes AI software, we coordinate EU AI Act, EU MDR/IVDR, and FDA expectations in one scalable strategy."}</p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-3">
@@ -172,7 +169,7 @@ export const AiRegulatoryStrategy: React.FC = () => {
                                     <strong className="text-navy-900">continuous learning, model updates, and data drift</strong> from day one.
                                 </p>
                             </InfoBox>
-                            <FeatureList items={whatMakesUsDifferent} columns={2} />
+                            <FeatureList items={differentiators.length ? differentiators : whatMakesUsDifferent} columns={2} />
                         </div>
                     </Section>
 
@@ -206,7 +203,7 @@ export const AiRegulatoryStrategy: React.FC = () => {
                             title="Common Compliance Pitfalls"
                         />
                         <InfoBox variant="warning">
-                            <BulletList items={commonPitfalls} />
+                            <BulletList items={pitfalls.length ? pitfalls : commonPitfalls} />
                         </InfoBox>
                     </Section>
 

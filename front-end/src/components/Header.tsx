@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import EandELogo from "../assets/EandE-logo.png";
+import { useContent } from "../hooks/useContent";
 import {
     Phone,
     Mail,
@@ -30,6 +31,10 @@ import {
 const NAV_SCROLL_PX = 220;
 
 export const Header: React.FC = () => {
+    const globalContent = useContent('global');
+    const contact = globalContent?.contact;
+    const phone1 = contact?.phone1 || '+1 (678) 815-9233';
+    const email = contact?.email || 'info@eemedicals.com';
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeMobileDropdown, setActiveMobileDropdown] = useState<string | null>(null);
     const [scrolled, setScrolled] = useState(false);
@@ -127,14 +132,14 @@ export const Header: React.FC = () => {
                 {/* Top bar: Telephone, Email, Enquiry Form – always visible */}
                 <div className="w-full bg-navy-900 border-b border-navy-800">
                     <div className="px-4 md:px-8 flex flex-wrap items-center justify-center lg:justify-end gap-4 lg:gap-6 max-w-[1400px] mx-auto py-2.5 text-sm font-semibold">
-                        <a href="tel:+16788159233" className="flex items-center gap-2 text-gray-200 hover:text-white transition-colors whitespace-nowrap">
+                        <a href={`tel:${phone1.replace(/\s|\(|\)|-/g, '')}`} className="flex items-center gap-2 text-gray-200 hover:text-white transition-colors whitespace-nowrap">
                             <Phone size={14} />
-                            Call Us: +1 (678) 815-9233
+                            Call Us: {phone1}
                         </a>
                         <span className="hidden lg:inline text-navy-600">|</span>
-                        <a href="mailto:info@eemedicals.com" className="flex items-center gap-2 text-gray-200 hover:text-white transition-colors whitespace-nowrap">
+                        <a href={`mailto:${email}`} className="flex items-center gap-2 text-gray-200 hover:text-white transition-colors whitespace-nowrap">
                             <Mail size={14} />
-                            Mail us for help: info@eemedicals.com
+                            Mail us for help: {email}
                         </a>
                         <span className="hidden lg:inline text-navy-600">|</span>
                         <Link to="/share-your-project" className="flex items-center gap-2 text-brand-300 hover:text-brand-200 transition-colors whitespace-nowrap font-bold">

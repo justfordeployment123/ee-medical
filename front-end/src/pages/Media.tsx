@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { ChevronRight, Search, Calendar, Tag, ArrowRight, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useContent } from "../hooks/useContent";
 
 interface BlogPost {
     id: string;
@@ -134,6 +135,8 @@ const blogPosts: BlogPost[] = [
 const categories = ["All", "FDA Regulatory", "IVD & Diagnostics", "Compliance", "FDA News", "US Agent Services", "Public Health"];
 
 export const Media: React.FC = () => {
+    const content = useContent('media');
+    const header = content?.header;
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -154,7 +157,13 @@ export const Media: React.FC = () => {
             <Header />
 
             <main className="grow pb-24">
-                <PageHeader title="Media & News" breadcrumb="Media" />
+                <PageHeader title={header?.section_heading || "Media & News"} breadcrumb="Media" />
+
+                <div className="max-w-[900px] mx-auto px-4 md:px-8 pt-10 text-center">
+                    <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+                        {header?.section_subtext || "Stay current with the latest in FDA regulatory affairs, medical device compliance, ISO standards, and global market access. Insights from our expert consulting team."}
+                    </p>
+                </div>
 
                 <div className="max-w-[1400px] mx-auto px-4 md:px-8 pt-16 pb-12">
                     {/* Category Filter */}
@@ -378,8 +387,8 @@ export const Media: React.FC = () => {
                                     <div className="w-12 h-12 rounded-xl bg-brand-500/20 flex items-center justify-center mx-auto mb-4">
                                         <BookOpen size={20} className="text-brand-400" />
                                     </div>
-                                    <h3 className="font-display text-base font-bold text-white mb-2">Need Expert Guidance?</h3>
-                                    <p className="text-gray-400 text-xs mb-5 leading-relaxed">Schedule a free consultation with our FDA regulatory experts.</p>
+                                    <h3 className="font-display text-base font-bold text-white mb-2">{header?.cta_heading || 'Need Expert Guidance?'}</h3>
+                                    <p className="text-gray-400 text-xs mb-5 leading-relaxed">{header?.cta_text || 'Schedule a free consultation with our FDA regulatory experts.'}</p>
                                     <a
                                         href="mailto:info@eemedicals.com"
                                         className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-xl text-xs transition-all duration-300 shadow-lg shadow-brand-500/25"

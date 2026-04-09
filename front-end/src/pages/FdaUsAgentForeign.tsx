@@ -2,6 +2,7 @@ import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -13,6 +14,13 @@ import {
 } from "../components/shared/InnerPage";
 
 export const FdaUsAgentForeign: React.FC = () => {
+    const content = useContent("fda_us_agent");
+    const hero = content?.hero;
+    const main = content?.main;
+    const services = content?.services;
+
+    const items = [services?.item1, services?.item2, services?.item3].filter(Boolean) as string[];
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
@@ -23,29 +31,19 @@ export const FdaUsAgentForeign: React.FC = () => {
                 />
                 <InnerContent>
                     <HeroImage
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1400"
-                        alt="FDA United States Agent for Foreign Establishments"
-                        label="FDA US Agent Services"
+                        src={hero?.hero_image || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1400"}
+                        alt={hero?.hero_image_alt || "FDA United States Agent for Foreign Establishments"}
+                        label={hero?.badge_text || "FDA US Agent Services"}
                     />
 
                     <Section>
                         <SectionHeading
-                            badge="Foreign Establishments"
-                            title="US Agent for Foreign Establishments"
+                            badge={main?.badge_text || "Foreign Establishments"}
+                            title={main?.title || "US Agent for Foreign Establishments"}
                         />
                         <div className="text-gray-600 leading-relaxed space-y-5">
-                            <p>
-                                In adverse events under the Medical Device Reporting regulation (21 CFR Part 803) or submitting 510(k) Premarket
-                                Notifications (21 CFR Part 807, Subpart E), the United States Food and Drug Administration (FDA) requires all medical
-                                devices, IVD, and pharmaceutical companies not located (foreign facility) in the United States to appoint a registered
-                                FDA US Agent.
-                            </p>
-                            <p>
-                                An appointed <strong className="text-navy-900">FDA United States Agent</strong> must be a resident of the United
-                                States OR maintain a place of business in the US. Each foreign establishment may designate only one U.S. agent. The
-                                foreign establishment should provide the name, address, telephone and fax numbers, and e-mail address of the U.S.
-                                agent.
-                            </p>
+                            <p>{main?.paragraph1 || "Foreign device and pharmaceutical establishments must appoint a U.S. Agent for specific FDA interactions and submissions."}</p>
+                            <p>{main?.paragraph2 || "A U.S. Agent must be U.S.-resident or maintain a U.S. place of business and can represent one foreign establishment."}</p>
                             <p>
                                 Information about a foreign establishment's U.S. Agent is submitted electronically the use of the FDA Unified
                                 Registration and Listing System (FURLS machine) and is a part of the status quo registration manner. Each overseas
@@ -56,16 +54,16 @@ export const FdaUsAgentForeign: React.FC = () => {
 
                     <Section dark>
                         <SectionHeading
-                            badge="Our Services"
-                            title="How E &amp; E Medicals Supports You"
+                            badge={services?.badge_text || "Our Services"}
+                            title={services?.title || "How E & E Medicals Supports You"}
                         />
                         <InfoBox variant="dark" className="mb-8">
                             <p className="text-lg font-semibold text-white">
-                                We shall function as your FDA US Agent at a reasonable annual fee.
+                                {services?.highlight || "We shall function as your FDA US Agent at a reasonable annual fee."}
                             </p>
                         </InfoBox>
                         <FeatureList
-                            items={[
+                            items={items.length ? items : [
                                 "Assist FDA in communications with foreign establishments.",
                                 "Assist in scheduling inspections of the foreign establishment's facility.",
                                 "Provide a legal US presence and address for regulatory correspondence.",

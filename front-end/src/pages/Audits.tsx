@@ -2,7 +2,7 @@ import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { Link } from "react-router-dom";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -49,6 +49,17 @@ const otherSystems = [
 ];
 
 export const Audits: React.FC = () => {
+    const content = useContent("audits");
+    const hero = content?.hero;
+    const intro = content?.intro;
+    const types = content?.types;
+    const standards = content?.standards;
+
+    const typeItems = [types?.type1, types?.type2, types?.type3].filter(Boolean) as string[];
+    const medicalList = [standards?.medical_1, standards?.medical_2, standards?.medical_3, standards?.medical_4, standards?.medical_5].filter(Boolean) as string[];
+    const qualityList = [standards?.quality_1, standards?.quality_2].filter(Boolean) as string[];
+    const otherList = [standards?.other_1, standards?.other_2, standards?.other_3].filter(Boolean) as string[];
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
@@ -58,50 +69,44 @@ export const Audits: React.FC = () => {
 
                 <InnerContent>
                     <HeroImage
-                        src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1400"
-                        alt="Quality assurance audits compliance verification"
-                        label="Quality Assurance Audits"
+                        src={hero?.hero_image || "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1400"}
+                        alt={hero?.hero_image_alt || "Quality assurance audits compliance verification"}
+                        label={hero?.badge_text || "Quality Assurance Audits"}
                     />
 
                     <Section>
-                        <SectionHeading badge="Quality Assurance" title="Quality Assurance Audits" />
+                        <SectionHeading badge={intro?.badge_text || "Quality Assurance"} title={intro?.title || "Quality Assurance Audits"} />
                         <p className="text-gray-700 leading-relaxed text-[15px] md:text-base">
-                            To maintain quality system, it is essential that you carry on routine quality assurance audits to eliminate the reduction in product quality, improve processes, eliminate loss of third party certifications of{" "}
+                            {intro?.paragraph || "To maintain quality systems, routine quality assurance audits are essential to improve process performance and maintain certifications."}{" "}
                             <a href="https://en.wikipedia.org/wiki/Food_and_Drug_Administration" target="_blank" rel="noopener noreferrer" className="text-brand-500 hover:text-brand-600 hover:underline">FDA</a>{" "}
                             enforcement.
                         </p>
                     </Section>
 
                     <Section>
-                        <SectionHeading badge="Audit Types" title="Three Different Types of Quality Assurance Audits" />
+                        <SectionHeading badge={types?.badge_text || "Audit Types"} title={types?.title || "Three Different Types of Quality Assurance Audits"} />
                         <div className="space-y-6 text-gray-700 leading-relaxed text-[15px] md:text-base">
-                            <p>
-                                <Link to="#" className="text-brand-500 hover:text-brand-600 hover:underline">ISO 9001</Link> defines an audit as a "systematic, independent and documented process for obtaining audit evidence [records, statements of fact or other information which are relevant and verifiable] and evaluating it objectively to determine the extent to which the audit criteria [a set of policies, procedures or requirements] are fulfilled."
-                            </p>
-                            <p>
-                                Quality assurance audits could be carried out through Process, Product, and Systemic verification.
-                            </p>
-                            <FeatureList items={auditTypes} />
-                            <p>
-                                QMS audits help to evaluate the quality management program of a company or organization based on its conformance to company policies, contract commitments, and regulatory requirements.
-                            </p>
+                            <p>{types?.paragraph1 || "ISO 9001 defines an audit as a systematic, independent, and documented process for obtaining and evaluating evidence."}</p>
+                            <p>{types?.paragraph2 || "Quality assurance audits can be performed through Process, Product, and System verification."}</p>
+                            <FeatureList items={typeItems.length ? typeItems : auditTypes} />
+                            <p>{types?.paragraph3 || "QMS audits evaluate organizations against policies, contractual commitments, and regulatory requirements."}</p>
                         </div>
                     </Section>
 
                     <Section>
-                        <SectionHeading badge="Standards" title="Audit Standards & Frameworks" />
+                        <SectionHeading badge={standards?.badge_text || "Standards"} title={standards?.title || "Audit Standards & Frameworks"} />
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                             <div>
-                                <SubHeading className="border-b border-gray-200 pb-3 mb-5">Medical Devices</SubHeading>
-                                <FeatureList items={medicalDeviceStandards} />
+                                <SubHeading className="border-b border-gray-200 pb-3 mb-5">{standards?.medical_heading || "Medical Devices"}</SubHeading>
+                                <FeatureList items={medicalList.length ? medicalList : medicalDeviceStandards} />
                             </div>
                             <div>
-                                <SubHeading className="border-b border-gray-200 pb-3 mb-5">Quality Management</SubHeading>
-                                <FeatureList items={qualityMgmtStandards} />
+                                <SubHeading className="border-b border-gray-200 pb-3 mb-5">{standards?.quality_heading || "Quality Management"}</SubHeading>
+                                <FeatureList items={qualityList.length ? qualityList : qualityMgmtStandards} />
                             </div>
                             <div>
-                                <SubHeading className="border-b border-gray-200 pb-3 mb-5">Other Systems</SubHeading>
-                                <FeatureList items={otherSystems} />
+                                <SubHeading className="border-b border-gray-200 pb-3 mb-5">{standards?.other_heading || "Other Systems"}</SubHeading>
+                                <FeatureList items={otherList.length ? otherList : otherSystems} />
                             </div>
                         </div>
                     </Section>

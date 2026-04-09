@@ -3,6 +3,7 @@ import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -18,29 +19,37 @@ import {
 } from "../components/shared/InnerPage";
 
 export const Software: React.FC = () => {
+    const content = useContent("software");
+    const hero = content?.hero;
+    const telemedicine = content?.telemedicine;
+    const cta = content?.cta;
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
 
             <main className="grow pb-24">
-                <PageHeader title="Solutions and Services" breadcrumb="Healthcare Software Development" />
+                <PageHeader
+                    title={hero?.page_title || "Solutions and Services"}
+                    breadcrumb={hero?.breadcrumb || "Healthcare Software Development"}
+                />
 
                 <InnerContent>
 
                     {/* ─── SECTION 1: Main Introduction ─────────────────────── */}
                     <Section>
                         <SectionHeading
-                            badge="Healthcare Software"
-                            title="Healthcare Software Development"
-                            subtitle="Secure, scalable applications that integrate seamlessly with hospital networks, laboratories, research platforms, and enterprise systems."
+                            badge={hero?.badge_text || "Healthcare Software"}
+                            title={hero?.title || "Healthcare Software Development"}
+                            subtitle={hero?.subtitle || "Secure, scalable applications that integrate seamlessly with hospital networks, laboratories, research platforms, and enterprise systems."}
                         />
 
                         <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-5 mb-8">
                             <p>
-                                <strong className="text-gray-900">E&E Medicals</strong> designs and delivers custom healthcare software tailored to the workflows of clinicians and administrators. From EHR/EMR systems and telemedicine platforms to medical device software and CRM solutions, we build secure, scalable applications that integrate seamlessly with hospital networks, laboratories, research platforms, and enterprise systems. Our solutions leverage interoperability standards such as <strong className="text-gray-900">FHIR</strong> and <strong className="text-gray-900">HL7</strong>, ensuring smooth data exchange and regulatory alignment.
+                                {hero?.paragraph1 || "E&E Medicals designs and delivers custom healthcare software tailored to clinician and administrator workflows. From EHR/EMR and telemedicine to medical device software and CRM solutions, we build secure and scalable systems aligned with interoperability standards such as HL7 and FHIR."}
                             </p>
                             <p>
-                                We collaborate with hospitals, long-term care providers, diagnostic centers, pharmaceutical companies, and digital health startups to align technology with clinical operations, reduce friction, and safeguard patient data. Our development approach prioritizes:
+                                {hero?.paragraph2 || "We collaborate with hospitals, long-term care providers, diagnostic centers, pharmaceutical companies, and digital health startups to reduce operational friction and protect patient data."}
                             </p>
                         </div>
 
@@ -54,16 +63,16 @@ export const Software: React.FC = () => {
                         />
 
                         <HeroImage
-                            src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=2000&auto=format&fit=crop"
-                            alt="Healthcare Software Development Market Forecast"
+                            src={hero?.hero_image || "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=2000&auto=format&fit=crop"}
+                            alt={hero?.hero_image_alt || "Healthcare Software Development Market Forecast"}
                             height="h-70 md:h-[500px]"
                             fit="contain"
                         />
 
                         <div className="mt-10 space-y-6">
-                            <SubHeading className="mt-2">Applications We Develop</SubHeading>
+                            <SubHeading className="mt-2">{hero?.app_heading || "Applications We Develop"}</SubHeading>
                             <p className="text-gray-700 text-[15px] leading-relaxed">
-                                E&E Medicals builds healthcare software that supports both administrative and patient-facing functions. Our solutions are customized to match the unique workflows of medical practices and integrate with diverse IT ecosystems, including:
+                                {hero?.app_paragraph || "Our healthcare software supports both administrative and patient-facing operations and integrates with diverse IT ecosystems."}
                             </p>
 
                             <BulletList
@@ -371,18 +380,18 @@ export const Software: React.FC = () => {
                     {/* ─── SECTION 7: Telemedicine ──────────────────────────── */}
                     <Section>
                         <SectionHeading
-                            badge="Telemedicine"
-                            title="Telemedicine Software Applications"
-                            subtitle="Our specialists create telemedicine software that allows healthcare providers to offer remote medical consultations, examinations, diagnostics, and online education and training for medical staff."
+                            badge={telemedicine?.badge_text || "Telemedicine"}
+                            title={telemedicine?.title || "Telemedicine Software Applications"}
+                            subtitle={telemedicine?.subtitle || "Our specialists create telemedicine software that allows healthcare providers to offer remote medical consultations, examinations, diagnostics, and online education and training for medical staff."}
                         />
 
                         <p className="text-gray-700 text-[15px] leading-relaxed mb-8">
-                            We offer telemedicine solutions that give patients on-demand remote access to healthcare while helping medical facilities manage resources efficiently and grow their service coverage.
+                            {telemedicine?.paragraph || "We offer telemedicine solutions that give patients on-demand remote access to healthcare while helping medical facilities manage resources efficiently and grow their service coverage."}
                         </p>
 
                         <HeroImage
-                            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2000&auto=format&fit=crop"
-                            alt="Telemedicine Interface"
+                            src={telemedicine?.hero_image || "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2000&auto=format&fit=crop"}
+                            alt={telemedicine?.hero_image_alt || "Telemedicine Interface"}
                             height="h-64 md:h-[400px]"
                         />
 
@@ -404,9 +413,9 @@ export const Software: React.FC = () => {
 
                     {/* ─── Page CTA ─────────────────────────────────────────── */}
                     <PageCTA
-                        title="Ready to Build Your Healthcare Software?"
-                        subtitle="Let our specialists design and deliver a solution tailored to your clinical and operational needs."
-                        linkLabel="Start Your Project"
+                        title={cta?.title || "Ready to Build Your Healthcare Software?"}
+                        subtitle={cta?.subtitle || "Let our specialists design and deliver a solution tailored to your clinical and operational needs."}
+                        linkLabel={cta?.button_text || "Start Your Project"}
                         linkTo="/share-your-project"
                     />
 

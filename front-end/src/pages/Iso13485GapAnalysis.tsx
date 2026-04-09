@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { useContent } from "../hooks/useContent";
 import { CheckCircle, ArrowRight, ArrowLeft, Pencil, Mail, Flag } from "lucide-react";
 
 interface FormData {
@@ -194,6 +195,8 @@ const WIZARD_STEPS = [
 const stepToProgress = [0, 0, 1, 1, 2, 3, 3];
 
 export const Iso13485GapAnalysis: React.FC = () => {
+    const content = useContent("iso13485_gap");
+    const header = content?.header;
     const [currentStep, setCurrentStep] = useState(0);
     const [formData, setFormData] = useState<FormData>(initialFormData);
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -255,7 +258,10 @@ export const Iso13485GapAnalysis: React.FC = () => {
             <Header />
 
             <main className="grow pb-24">
-                <PageHeader title="Free ISO 13485:2016 Gap Analysis Tool" breadcrumb="Free ISO 13485:2016 Gap Analysis Tool" />
+                <PageHeader
+                    title={header?.title || "Free ISO 13485:2016 Gap Analysis Tool"}
+                    breadcrumb={header?.breadcrumb || "Free ISO 13485:2016 Gap Analysis Tool"}
+                />
 
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
                     {isSubmitted ? (

@@ -3,6 +3,7 @@ import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -25,6 +26,14 @@ const biologicsServices = [
 ];
 
 export const BiologicsLicenseApplication: React.FC = () => {
+    const content = useContent("bla");
+    const hero = content?.hero;
+    const main = content?.main;
+    const services = content?.services;
+    const guidance = content?.guidance;
+
+    const servicesList = [services?.item1, services?.item2, services?.item3, services?.item4].filter(Boolean) as string[];
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
@@ -37,21 +46,15 @@ export const BiologicsLicenseApplication: React.FC = () => {
 
                 <InnerContent>
                     <HeroImage
-                        src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?q=80&w=1400"
-                        alt="Biologics License Application cell and gene therapy"
-                        label="Biologics License Application"
+                        src={hero?.hero_image || "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?q=80&w=1400"}
+                        alt={hero?.hero_image_alt || "Biologics License Application cell and gene therapy"}
+                        label={hero?.badge_text || "Biologics License Application"}
                     />
                     <Section>
-                        <SectionHeading badge="BLA" title="Understanding the BLA Process" />
+                        <SectionHeading badge={main?.badge_text || "BLA"} title={main?.title || "Understanding the BLA Process"} />
                         <div className="space-y-5 text-gray-700 leading-relaxed text-[15px] md:text-base">
-                            <p>
-                                Through the BLA, promising biological medicinal products can be developed and approved to prevent and treat a wide range of serious, chronic diseases and conditions. Biopharma companies are constantly working on new biological products to fill voids in the healthcare industry, but applicants face a difficult decision when deciding on a development strategy for submitting a{" "}
-                                <strong className="text-navy-900">Biologics License Application (BLA)</strong> to the US Food and Drug Administration (FDA).
-                            </p>
-                            <p>
-                                Health Authorities have begun implementing risk-based review procedures in response to increasing regulatory enforcement for complex biologics, biosimilars, and advanced therapies like cellular and gene therapy products. Failure to include all required details could result in a{" "}
-                                <strong className="text-navy-900">refusal to file (RTF)</strong>.
-                            </p>
+                            <p>{main?.paragraph1 || "BLA enables development and approval of biologics for serious disease areas, but requires strong strategic planning."}</p>
+                            <p>{main?.paragraph2 || "Risk-based review expectations for advanced therapies require complete, high-quality submissions to avoid RTF."}</p>
                             <p>
                                 From pre-BLA/BPD meetings to post-approval Lifecycle Management (LCM) activities, E&E Medicals provides full regulatory support to BLA sponsors.
                             </p>
@@ -59,9 +62,9 @@ export const BiologicsLicenseApplication: React.FC = () => {
                     </Section>
 
                     <Section>
-                        <SectionHeading badge="Services" title="Our Biologics Regulatory Services" />
+                        <SectionHeading badge={services?.badge_text || "Services"} title={services?.title || "Our Biologics Regulatory Services"} />
                         <div className="space-y-8">
-                            <FeatureList items={biologicsServices} columns={2} />
+                            <FeatureList items={servicesList.length ? servicesList : biologicsServices} columns={2} />
                             <InfoBox variant="brand">
                                 <p className="text-lg text-gray-800 font-medium text-center">
                                     Ready to start your FDA BLA Submission?{" "}
@@ -74,9 +77,9 @@ export const BiologicsLicenseApplication: React.FC = () => {
                     </Section>
 
                     <Section>
-                        <SectionHeading badge="Strategic Guidance" title="Strategic Guidance" />
+                        <SectionHeading badge={guidance?.badge_text || "Strategic Guidance"} title={guidance?.title || "Strategic Guidance"} />
                         <p className="text-gray-700 leading-relaxed text-[15px] md:text-base">
-                            We help sponsors navigate the complexities of vaccines, recombinant therapeutic protein products, monoclonal antibody products, and gene therapies. Our team ensures that every Biologics License Application is submitted on time and meets the rigorous standards of modern health authorities.
+                            {guidance?.paragraph || "We help sponsors navigate complex biologics and advanced therapies with submission-ready regulatory strategy."}
                         </p>
                     </Section>
 

@@ -3,6 +3,7 @@ import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -16,6 +17,13 @@ import {
 } from "../components/shared/InnerPage";
 
 export const Fda510kApplication: React.FC = () => {
+    const content = useContent("fda_510k");
+    const hero = content?.hero;
+    const overview = content?.overview;
+    const notifications = content?.notifications;
+    const strategy = content?.strategy;
+    const drugs = content?.drugs;
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
@@ -29,30 +37,24 @@ export const Fda510kApplication: React.FC = () => {
                 <InnerContent>
                     {/* Hero Image */}
                     <HeroImage
-                        src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1400"
-                        alt="FDA Applications 510k PMA De Novo medical device approval"
-                        label="FDA 510(k) Applications"
+                        src={hero?.hero_image || "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1400"}
+                        alt={hero?.hero_image_alt || "FDA Applications 510k PMA De Novo medical device approval"}
+                        label={hero?.badge_text || "FDA 510(k) Applications"}
                     />
 
                     {/* --- SECTION 1: FDA Applications Overview --- */}
                     <section>
                         <SectionHeading
-                            badge="FDA Applications"
-                            title="FDA Applications"
+                            badge={overview?.badge_text || "FDA Applications"}
+                            title={overview?.title || "FDA Applications"}
                         />
 
                         <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-6">
-                            <p>
-                                In 1938, congress passed a set of laws giving authority to the U.S. Food and Drug Administration FDA application to oversee the safety of food, drugs, and cosmetics. Section 510(k) requires Medical Device manufacturers to register and notify FDA, at least 90 days in advance, of their intent to market a medical device in the USA. This is called the Premarket Notification (PMN). This notification allows the FDA to determine if the device has already been classified within any of the three categories.
-                            </p>
+                            <p>{overview?.paragraph1 || "Section 510(k) requires manufacturers to notify FDA before marketing a device in the U.S. and allows classification/pathway determination."}</p>
 
-                            <p>
-                                The 510(k) notification involves devices that are "substantially equivalent" or a "predicate" to legally marketed medical devices in the United States. Devices that are significantly different, in terms of design, material, chemical composition, energy source, manufacturing process, or intended use, go through premarket approval, or PMA process.
-                            </p>
+                            <p>{overview?.paragraph2 || "Devices substantially equivalent to predicates usually follow 510(k), while significantly different devices may require PMA or De Novo."}</p>
 
-                            <p>
-                                Some new devices are classified as Class III by the FDA clearly because there is no predicate device available. However, Section 513(f) of the Food, Drugs and Cosmetic Act requires the sponsor of a novel product to submit a de novo application for the possible reclassification of the novel Class III product to a Class I or Class II device, removing the requirement for expensive and time-consuming PMA. Pre-Submissions (Pre-Subs) are often processed and published, with respect to PMAs and de novo applications, in order to be in accordance with the FDA on the regulatory approach and quality of the applications.
-                            </p>
+                            <p>{overview?.paragraph3 || "Novel devices without predicates may use De Novo to seek reclassification and avoid full PMA when appropriate."}</p>
 
                             <p className="font-semibold text-gray-900">
                                 E &amp; E Medicals and Consulting helps during the process of submitting applications for class I, II, III medical devices at any stages of the product development. Our team of qualified experts will successfully prepare and submit FDA medical device regulatory documents for the U.S and international clients. These applications include:
@@ -77,14 +79,12 @@ export const Fda510kApplication: React.FC = () => {
                     {/* --- SECTION 2: 510(k) Premarket Notifications --- */}
                     <Section>
                         <SectionHeading
-                            badge="510(k)"
-                            title="510(k) Premarket Notifications"
+                            badge={notifications?.badge_text || "510(k)"}
+                            title={notifications?.title || "510(k) Premarket Notifications"}
                         />
 
                         <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-6">
-                            <p>
-                                E &amp; E Medicals and Consulting provides answers to related questions:
-                            </p>
+                            <p>{notifications?.paragraph || "E & E Medicals and Consulting provides answers to key classification and 510(k) process questions."}</p>
                             <ol className="list-decimal pl-6 space-y-2 font-medium text-gray-900 mb-6">
                                 <li>Which classifications (Class I, II, and III) do we require an FDA 510(k)?</li>
                                 <li>How many stages consist of the 510(k) application process?</li>
@@ -127,14 +127,12 @@ export const Fda510kApplication: React.FC = () => {
                     {/* --- SECTION 3: Submissions Strategy --- */}
                     <section>
                         <SectionHeading
-                            badge="Strategy"
-                            title="Our US FDA 510(k) Submissions Strategy"
+                            badge={strategy?.badge_text || "Strategy"}
+                            title={strategy?.title || "Our US FDA 510(k) Submissions Strategy"}
                         />
 
                         <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-6 mb-8">
-                            <p>
-                                We follow a two-stage approach to ensure a successful 510(k) application. This strategy is cost-efficient for many customers, and the risk of a 510(k) FDA clearance not being issued is significantly reduced.
-                            </p>
+                            <p>{strategy?.paragraph || "We follow a two-stage approach (gap analysis then submission) to reduce risk and improve clearance outcomes."}</p>
                             <p>
                                 For the FDA 510(k) Full / Half service, provide your{" "}
                                 <Link to="/share-your-project" className="text-brand-600 hover:underline font-medium">
@@ -206,14 +204,12 @@ export const Fda510kApplication: React.FC = () => {
                     {/* --- SECTION 4: Drugs --- */}
                     <section>
                         <SectionHeading
-                            badge="Drugs"
-                            title="Drugs"
+                            badge={drugs?.badge_text || "Drugs"}
+                            title={drugs?.title || "Drugs"}
                         />
 
                         <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-6">
-                            <p>
-                                Many pharmaceutical researchers believe that IND and ANDA FDA application submissions are not initially approved most of the time. Our pharmaceutical consultants are expert ANDA Consultants, NDA Consultants and IND Consultants provide our customers with the best possible service. They have the knowledge and experience to increase the chances of receiving initial approval. Our FDA consultants prepare all FDA drug approvals, including:
-                            </p>
+                            <p>{drugs?.paragraph || "Our pharmaceutical consultants support IND, ANDA, NDA, and DMF strategy to increase first-cycle submission quality."}</p>
                         </div>
 
                         <div className="mt-6">

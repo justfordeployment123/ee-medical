@@ -2,6 +2,7 @@ import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -27,6 +28,13 @@ const andaItems = [
 ];
 
 export const AndaApplication: React.FC = () => {
+    const content = useContent("anda");
+    const hero = content?.hero;
+    const main = content?.main;
+    const submissions = content?.submissions;
+
+    const submissionItems = [submissions?.item1, submissions?.item2, submissions?.item3, submissions?.item4].filter(Boolean) as string[];
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <Header />
@@ -39,32 +47,25 @@ export const AndaApplication: React.FC = () => {
 
                 <InnerContent>
                     <HeroImage
-                        src="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?q=80&w=1400"
-                        alt="Abbreviated New Drug Application generic drug manufacturing"
-                        label="ANDA Submissions"
+                        src={hero?.hero_image || "https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?q=80&w=1400"}
+                        alt={hero?.hero_image_alt || "Abbreviated New Drug Application generic drug manufacturing"}
+                        label={hero?.badge_text || "ANDA Submissions"}
                     />
                     <Section>
-                        <SectionHeading badge="ANDA" title="Abbreviated New Drug Application (ANDA)" />
+                        <SectionHeading badge={main?.badge_text || "ANDA"} title={main?.title || "Abbreviated New Drug Application (ANDA)"} />
                         <div className="space-y-6 text-gray-700 leading-relaxed text-[15px] md:text-base">
-                            <p>
-                                The Abbreviated New Drug Application (ANDA) is the pharmaceutical industry's entry point for generic medicines to demonstrate their therapeutic equivalence to innovator/branded drugs in terms of quality, safety, and efficacy, making them a more affordable option. US officials are aware of the potential of the generic medicines market, so they push for the growth of generic manufacturers by facilitating the registration of ANDAs through the 505(j) route.
-                            </p>
-                            <p>
-                                Generic drug applications must go through the ANDA application and ANDA Regulatory approval processes. Nonetheless, it is difficult for manufacturers to decipher the guidelines and adhere to specific requirements like product development using a QbD approach, Module 2 in QBR format, and the implementation of the GDUFA program, all of which are mandated by the US FDA as part of ANDA submissions. Manufacturers must include Regulatory Affairs professionals in the initial stages of product development to ensure smoother registration, faster approval, better life cycle management, and an easier ANDA filing process.
-                            </p>
-                            <p>
-                                Regarding timely, low-cost, and RTR (Refuse-to-Receive) compliant submissions and approvals, E&E Medicals is the dependable Regulatory partner you need. An ANDA application reviewed by the US FDA can be sped up with the help of E&E Medicals. E&E Medicals helps you find the fastest and safest way to get your products to market so that you can achieve your business goals by thoroughly understanding the ANDA submission requirements and a comprehensive risk management approach.
-                            </p>
+                            <p>{main?.paragraph1 || "ANDA is the pathway for generic medicines to demonstrate therapeutic equivalence and enter the market."}</p>
+                            <p>{main?.paragraph2 || "Early regulatory strategy helps manufacturers meet QbD, GDUFA, and filing requirements with fewer review delays."}</p>
                         </div>
                     </Section>
 
                     <Section dark>
-                        <SectionHeading badge="Submissions" title="ANDA Submissions" />
+                        <SectionHeading badge={submissions?.badge_text || "Submissions"} title={submissions?.title || "ANDA Submissions"} />
                         <div className="space-y-6">
                             <p className="text-gray-300 leading-relaxed text-[15px] md:text-base">
-                                Strategic assistance with ANDA submission roadmaps, ANDA filing process, and ANDA submission-related document generation. The following are some of the things E&E Medicals can do regarding ANDA submissions:
+                                {submissions?.paragraph || "Strategic assistance with ANDA roadmaps, filing process, and submission document readiness."}
                             </p>
-                            <FeatureList items={andaItems} columns={2} />
+                            <FeatureList items={submissionItems.length ? submissionItems : andaItems} columns={2} />
                         </div>
                     </Section>
 
