@@ -19,6 +19,8 @@ export const PostmarketCompliance: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>Post-Market Compliance Under EU MDR — Clinical Data & Vigilance | E&E Medicals</title>
+            <meta name="description" content="Post-market compliance services under EU MDR/IVDR — PMCF planning, clinical data requirements, periodic safety update reports, and vigilance reporting." />
             <Header />
 
             <main className="grow">

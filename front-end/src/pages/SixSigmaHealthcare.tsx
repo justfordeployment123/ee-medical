@@ -38,6 +38,8 @@ export const SixSigmaHealthcare: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>Six Sigma Healthcare Consulting — Process Improvement for Medical Devices | E&E Medicals</title>
+            <meta name="description" content="Six Sigma and Lean consulting for healthcare and medical device manufacturers — process improvement, DMAIC methodology, and quality system optimization." />
             <Header />
 
             <main className="grow">

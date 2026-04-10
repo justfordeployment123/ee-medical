@@ -1,6 +1,7 @@
 import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
+import { PageMeta } from "../components/shared/PageMeta";
 import { Footer } from "../components/Footer";
 import { useContent } from "../hooks/useContent";
 import {
@@ -62,6 +63,10 @@ export const Audits: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <PageMeta
+                title="Quality Assurance Audits for Medical Devices — FDA & ISO Compliance"
+                description="FDA and ISO quality assurance audit services for medical device manufacturers — pre-audit preparation, internal audits, gap analysis, and corrective action support."
+            />
             <Header />
 
             <main className="grow">

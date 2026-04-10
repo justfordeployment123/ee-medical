@@ -12,6 +12,7 @@ import {
     PageCTA,
 } from "../components/shared/InnerPage";
 
+// meta added below in JSX
 const andaItems = [
     "Regulatory consultation during product development and manufacturing for RLD/Reference Standard selection, API/in-process control/finished product specification review, process validation protocol/report generation, stability study generation, IIG database compliance generation, Q1/Q2 compliance generation for parenteral, optics, and ophthalmic, and batch size guidance.",
     "Advice on minimizing potential risks when submitting an ANDA and any necessary preparation work.",
@@ -37,6 +38,8 @@ export const AndaApplication: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>ANDA Application Consulting — Abbreviated New Drug Application Support | E&E Medicals</title>
+            <meta name="description" content="Abbreviated New Drug Application (ANDA) consulting — generic drug regulatory strategy, bioequivalence study guidance, ANDA submission preparation, and FDA correspondence support." />
             <Header />
 
             <main className="grow">

@@ -17,6 +17,8 @@ export const MedicalDevices: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>Medical Device Consulting & Regulatory Compliance Services | E&E Medicals</title>
+            <meta name="description" content="Expert medical device consulting — FDA regulatory submissions, quality management systems, EU MDR compliance, and market approval strategies for medical device manufacturers." />
             <Header />
 
             <main className="grow">

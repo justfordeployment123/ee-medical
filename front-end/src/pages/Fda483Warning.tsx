@@ -1,6 +1,7 @@
 import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
+import { PageMeta } from "../components/shared/PageMeta";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
 import { useContent } from "../hooks/useContent";
@@ -24,6 +25,10 @@ export const Fda483Warning: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <PageMeta
+                title="FDA 483 Observations, Warning Letters & Recalls Remediation"
+                description="Expert FDA 483 observation and Warning Letter response services — CAPA development, remediation planning, and FDA re-inspection preparation for medical device manufacturers."
+            />
             <Header />
             <main className="grow">
                 <PageHeader

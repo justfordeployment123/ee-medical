@@ -1,5 +1,6 @@
 import React from 'react';
 import { Header } from '../components/Header';
+import { PageMeta } from '../components/shared/PageMeta';
 import { Footer } from '../components/Footer';
 import { Hero } from '../components/home/Hero';
 import { ServicesTabs } from '../components/home/ServicesTabs';
@@ -17,6 +18,10 @@ export const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col font-sans">
+      <PageMeta
+        title="FDA Regulatory Consulting Services for Medical Devices"
+        description="E&E Medicals provides FDA 510(k), ISO 13485, QMS, and global market access consulting for medical device manufacturers. 32+ years of regulatory expertise."
+      />
       <Header />
       <main className="grow">
         <Hero content={content?.hero} />

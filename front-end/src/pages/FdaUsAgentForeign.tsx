@@ -1,6 +1,7 @@
 import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
+import { PageMeta } from "../components/shared/PageMeta";
 import { Footer } from "../components/Footer";
 import { useContent } from "../hooks/useContent";
 import {
@@ -23,6 +24,10 @@ export const FdaUsAgentForeign: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <PageMeta
+                title="FDA US Agent Services for Foreign Medical Device Establishments"
+                description="FDA-required US Agent services for foreign medical device manufacturers — regulatory correspondence, establishment registration, and import compliance support."
+            />
             <Header />
             <main className="grow">
                 <PageHeader

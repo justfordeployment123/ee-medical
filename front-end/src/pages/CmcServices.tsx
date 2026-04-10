@@ -66,6 +66,8 @@ export const CmcServices: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>CMC Services — Chemistry, Manufacturing & Controls Consulting | E&E Medicals</title>
+            <meta name="description" content="CMC consulting services — chemistry, manufacturing, and controls strategy for IND, NDA, ANDA, and BLA submissions. Expert CMC regulatory affairs support for pharmaceutical and biotech companies." />
             <Header />
 
             <main className="grow">

@@ -56,6 +56,8 @@ export const Careers: React.FC = () => {
 
     return (
         <div className="min-h-screen flex flex-col font-sans bg-white">
+            <title>Careers at E&E Medicals — FDA Regulatory & Quality Management Jobs</title>
+            <meta name="description" content="Explore career opportunities at E&E Medicals — join our team of FDA regulatory affairs experts, quality management consultants, and medical device compliance specialists." />
             <Header />
 
             <main className="grow">

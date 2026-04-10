@@ -1,6 +1,7 @@
 import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
+import { PageMeta } from "../components/shared/PageMeta";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
 import { useContent } from "../hooks/useContent";
@@ -41,6 +42,10 @@ export const AiSamdPathway: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <PageMeta
+                title="AI SaMD Regulatory Pathway — FDA Approval for Software as a Medical Device"
+                description="Navigate the FDA regulatory pathway for AI Software as a Medical Device — classification, 510(k)/De Novo submission, IEC 62304, and AI/ML validation strategy."
+            />
             <Header />
 
             <main className="grow">

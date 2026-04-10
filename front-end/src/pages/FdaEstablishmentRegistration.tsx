@@ -1,6 +1,7 @@
 import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
+import { PageMeta } from "../components/shared/PageMeta";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
 import { useContent } from "../hooks/useContent";
@@ -25,6 +26,10 @@ export const FdaEstablishmentRegistration: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <PageMeta
+                title="FDA Establishment Registration for Medical Device Manufacturers"
+                description="FDA establishment registration services — domestic and foreign manufacturer registration, device listing, and annual renewal support for U.S. market access."
+            />
             <Header />
             <main className="grow">
                 <PageHeader

@@ -1,6 +1,7 @@
 import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
+import { PageMeta } from "../components/shared/PageMeta";
 import { Footer } from "../components/Footer";
 import { useContent } from "../hooks/useContent";
 import {
@@ -28,6 +29,10 @@ export const CCCMarkApproval: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <PageMeta
+                title="CCC Mark Approval — China Compulsory Certification for Medical Devices"
+                description="CCC Mark certification consulting for medical devices entering the Chinese market — China Compulsory Certification requirements, testing, and application support."
+            />
             <Header />
 
             <main className="grow">

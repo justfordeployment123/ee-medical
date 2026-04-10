@@ -15,6 +15,7 @@ import {
     PageCTA,
 } from "../components/shared/InnerPage";
 
+// meta added below in JSX
 const obstacles = [
     "Determine which regulations must be met to submit an IND application (e.g., Phase I, II, III).",
     "GMP/GLP compliance.",
@@ -50,6 +51,8 @@ export const IndApplication: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>IND Application Consulting — Investigational New Drug Submission Support | E&E Medicals</title>
+            <meta name="description" content="Investigational New Drug (IND) application consulting — FDA pre-submission strategy, GMP/GLP compliance, IND preparation, and clinical trial regulatory support." />
             <Header />
 
             <main className="grow">

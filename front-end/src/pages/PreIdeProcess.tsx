@@ -21,6 +21,8 @@ export const PreIdeProcess: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>Pre-IDE Process & Investigational Device Exemption Application | E&E Medicals</title>
+            <meta name="description" content="Pre-IDE and IDE process consulting — investigational device exemption application support, FDA pre-submission meetings, and clinical trial approval for significant risk devices." />
             <Header />
             <main className="grow">
                 <PageHeader title="Pre-IDE Process" breadcrumb="Pre-IDE Process" />

@@ -36,6 +36,14 @@ import { FdaInteractionDefense } from "./pages/FdaInteractionDefense";
 import { AiDesignControls } from "./pages/AiDesignControls";
 import { ShareYourProject } from "./pages/ShareYourProject";
 import { Admin } from "./pages/Admin";
+import { BlogPost } from "./pages/BlogPost";
+import { Fda510kSubmissionGuide } from "./pages/Fda510kSubmissionGuide";
+import { MedicalDeviceFdaApprovalProcess } from "./pages/MedicalDeviceFdaApprovalProcess";
+import { Iso13485Guide } from "./pages/Iso13485Guide";
+import { FdaQmsRequirements } from "./pages/FdaQmsRequirements";
+import { MedicalDeviceRegulatoryStrategy } from "./pages/MedicalDeviceRegulatoryStrategy";
+import { SamdFdaRegulations } from "./pages/SamdFdaRegulations";
+import { Fda510kConsulting } from "./pages/Fda510kConsulting";
 import { AiAssistantWidget } from "./components/AiAssistantWidget";
 
 // Placeholder components for future pages
@@ -64,6 +72,7 @@ function App() {
                     <Route path="/iso-14971-medical-device-risk-management-for-medical-devices" element={<Iso14971 />} />
                     <Route path="/free-iso-13485-2016-gap-analysis-tool" element={<Iso13485GapAnalysis />} />
                     <Route path="/media" element={<Media />} />
+                    <Route path="/media/:slug" element={<BlogPost />} />
                     <Route path="/careers" element={<Careers />} />
                     <Route path="/software" element={<Software />} />
                     <Route path="/healthcare-software-development" element={<Software />} />
@@ -95,6 +104,18 @@ function App() {
                     <Route path="/fda-defense" element={<FdaInteractionDefense />} />
                     <Route path="/share-your-project" element={<ShareYourProject />} />
                     <Route path="/admin" element={<Admin />} />
+
+                    {/* Pillar Pages */}
+                    <Route path="/fda-510k-submission-guide" element={<Fda510kSubmissionGuide />} />
+                    <Route path="/medical-device-fda-approval-process" element={<MedicalDeviceFdaApprovalProcess />} />
+                    <Route path="/iso-13485-guide" element={<Iso13485Guide />} />
+                    <Route path="/fda-qms-requirements" element={<FdaQmsRequirements />} />
+                    <Route path="/medical-device-regulatory-strategy" element={<MedicalDeviceRegulatoryStrategy />} />
+                    <Route path="/samd-fda-regulations" element={<SamdFdaRegulations />} />
+
+                    {/* Service Pages */}
+                    <Route path="/fda-510k-consulting" element={<Fda510kConsulting />} />
+
                     <Route path="*" element={<NotFound />} />
                 </Routes>
 

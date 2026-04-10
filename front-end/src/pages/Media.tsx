@@ -5,134 +5,8 @@ import { Footer } from "../components/Footer";
 import { ChevronRight, Search, Calendar, Tag, ArrowRight, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useContent } from "../hooks/useContent";
-
-interface BlogPost {
-    id: string;
-    title: string;
-    excerpt: string;
-    link: string;
-    image: string;
-    category: string;
-    date: string;
-    readTime: string;
-    featured?: boolean;
-}
-
-const blogPosts: BlogPost[] = [
-    {
-        id: "6509",
-        title: "FDA NEWS: 510(k) Premarket Notification Updates",
-        link: "#",
-        image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800",
-        category: "FDA Regulatory",
-        date: "March 30, 2021",
-        readTime: "5 min read",
-        featured: true,
-        excerpt:
-            "The U.S. Food and Drug Administration continues to strengthen and modernize the 510(k) medical device program. This update covers key changes to premarket notification requirements, including new guidance documents for device-specific performance criteria and the Safety and Performance Based Pathway.",
-    },
-    {
-        id: "6463",
-        title: "In Vitro Diagnostics EUA: Emergency Use Authorization Explained",
-        link: "#",
-        image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?q=80&w=800",
-        category: "IVD & Diagnostics",
-        date: "September 21, 2020",
-        readTime: "4 min read",
-        excerpt:
-            "In vitro diagnostic (IVD) devices are tests performed on samples taken from the human body. IVDs can detect diseases or other conditions and can be used to monitor a person's overall health to help cure, treat, or prevent diseases.",
-    },
-    {
-        id: "6462",
-        title: "COVID-19 Update: FDA Prepares for Resumption of Domestic Inspections",
-        link: "#",
-        image: "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?q=80&w=800",
-        category: "FDA News",
-        date: "July 10, 2020",
-        readTime: "6 min read",
-        excerpt:
-            "The U.S. Food and Drug Administration has been thoughtfully and deliberately determining the safest and most appropriate time to resume prioritized domestic inspections of FDA-regulated facilities and other associated activities following COVID-19.",
-    },
-    {
-        id: "6461",
-        title: "Adverse Event Reporting for Medical Devices Under EUA",
-        link: "#",
-        image: "https://images.unsplash.com/photo-1598520106830-8c45c2035460?q=80&w=800",
-        category: "Compliance",
-        date: "June 15, 2020",
-        readTime: "5 min read",
-        excerpt:
-            "As a result of the Coronavirus Disease 2019 (COVID-19) pandemic, the FDA has issued numerous Emergency Use Authorizations (EUAs) for medical devices. This guide covers adverse event reporting requirements for EUA devices.",
-    },
-    {
-        id: "6460",
-        title: "Strengthening the 510(k) Medical Device Program",
-        link: "#",
-        image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800",
-        category: "FDA Regulatory",
-        date: "April 22, 2020",
-        readTime: "7 min read",
-        excerpt:
-            "FDA publishes draft guidance documents to provide device-specific performance criteria for the Safety and Performance Based Pathway. Learn how these changes impact your 510(k) submission strategy.",
-    },
-    {
-        id: "6458",
-        title: "FDA Policy for Ventilators During the COVID-19 Public Health Emergency",
-        link: "#",
-        image: "https://images.unsplash.com/photo-1576671081837-49000212a370?q=80&w=800",
-        category: "Public Health",
-        date: "April 18, 2020",
-        readTime: "4 min read",
-        excerpt:
-            "FDA enforces new policy for ventilators and accessories and other respiratory devices during the COVID-19 public health emergency. This enforcement policy aims to expand the availability of respiratory devices.",
-    },
-    {
-        id: "6457",
-        title: "U.S. Agents: Requirements for Foreign Establishments",
-        link: "#",
-        image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800",
-        category: "US Agent Services",
-        date: "April 10, 2020",
-        readTime: "5 min read",
-        excerpt:
-            "Any foreign establishment engaged in the manufacture, preparation, propagation, compounding, or processing of a device imported into the United States must identify a United States agent (U.S. agent) for that establishment.",
-    },
-    {
-        id: "6456",
-        title: "Serological Test Validation and Education Efforts",
-        link: "#",
-        image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=800",
-        category: "IVD & Diagnostics",
-        date: "April 5, 2020",
-        readTime: "3 min read",
-        excerpt:
-            "The FDA is working with stakeholders to validate serological tests and provide education on the proper use of such tests. This article outlines key considerations for manufacturers seeking EUA authorization.",
-    },
-    {
-        id: "6455",
-        title: "FDA Enforcement Action Against Unproven COVID-19 Treatments",
-        link: "#",
-        image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=800",
-        category: "FDA News",
-        date: "April 1, 2020",
-        readTime: "4 min read",
-        excerpt:
-            "Federal courts have entered temporary injunctions preventing the sale of unapproved products marketed as COVID-19 treatments. The FDA continues to take action against products making unfounded disease claims.",
-    },
-    {
-        id: "6450",
-        title: "Medical Device Registration and Listing: A Complete Guide",
-        link: "#",
-        image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800",
-        category: "FDA Regulatory",
-        date: "March 15, 2020",
-        readTime: "8 min read",
-        excerpt:
-            "Owners or operators of establishments involved in the production and distribution of medical devices intended for use in the United States are required to register annually with the FDA. This comprehensive guide explains the entire registration process.",
-    },
-];
-
-const categories = ["All", "FDA Regulatory", "IVD & Diagnostics", "Compliance", "FDA News", "US Agent Services", "Public Health"];
+import { blogPosts, categories } from "../data/blogData";
+import { PageMeta } from "../components/shared/PageMeta";
 
 export const Media: React.FC = () => {
     const content = useContent('media');
@@ -154,6 +28,10 @@ export const Media: React.FC = () => {
 
     return (
         <div className="w-full bg-slate-50 font-sans flex flex-col min-h-screen">
+            <PageMeta
+                title="Media & News — FDA Regulatory Insights"
+                description="Latest insights on FDA regulatory affairs, medical device compliance, ISO standards, and global market access from E&E Medicals' expert consulting team."
+            />
             <Header />
 
             <main className="grow pb-24">
@@ -188,7 +66,7 @@ export const Media: React.FC = () => {
                         <div className="lg:w-2/3">
                             {/* Featured Post */}
                             {featured && selectedCategory === "All" && searchQuery === "" && (
-                                <Link to={featured.link} className="block mb-10 group">
+                                <Link to={`/media/${featured.slug}`} className="block mb-10 group">
                                     <div className="relative rounded-2xl overflow-hidden shadow-xl shadow-black/10 border border-gray-100 bg-white">
                                         <div className="relative h-64 md:h-80 overflow-hidden">
                                             <img
@@ -228,7 +106,7 @@ export const Media: React.FC = () => {
                             {/* Post Grid */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 {rest.map((post) => (
-                                    <Link key={post.id} to={post.link} className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-black/8 border border-gray-100 hover:border-brand-200 transition-all duration-400">
+                                    <Link key={post.id} to={`/media/${post.slug}`} className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-black/8 border border-gray-100 hover:border-brand-200 transition-all duration-400">
                                         {/* Image */}
                                         <div className="relative h-44 overflow-hidden">
                                             <img
@@ -333,7 +211,7 @@ export const Media: React.FC = () => {
                                                 <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                                             </div>
                                             <div className="min-w-0">
-                                                <Link to={post.link} className="text-navy-800 font-semibold text-xs hover:text-brand-600 transition-colors block mb-1 leading-snug line-clamp-2">
+                                                <Link to={`/media/${post.slug}`} className="text-navy-800 font-semibold text-xs hover:text-brand-600 transition-colors block mb-1 leading-snug line-clamp-2">
                                                     {post.title}
                                                 </Link>
                                                 <span className="text-[11px] text-gray-400 flex items-center gap-1">

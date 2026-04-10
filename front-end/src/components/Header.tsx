@@ -26,6 +26,7 @@ import {
     FileText,
     Settings,
     Building2,
+    BookOpen,
 } from "lucide-react";
 
 const NAV_SCROLL_PX = 220;
@@ -214,6 +215,8 @@ export const Header: React.FC = () => {
                                             { to: "/quality-management-system-implementation", icon: Heart, label: "ISO 9001 Quality Management" },
                                             { to: "/free-iso-13485-2016-gap-analysis-tool", icon: Target, label: "Free ISO 13485 Gap Analysis" },
                                             { to: "#", icon: History, label: "Free ISO 9001:2015 Gap Analysis" },
+                                            { to: "/iso-13485-guide", icon: BookOpen, label: "ISO 13485 Complete Guide" },
+                                            { to: "/fda-qms-requirements", icon: Settings, label: "FDA QMS Requirements Guide" },
                                         ]} />
                                     </div>
                                 </div>
@@ -237,6 +240,10 @@ export const Header: React.FC = () => {
                                         <MegaColumn title="Medical Device & Diagnostics" items={[
                                             { to: "/pre-ide-process", icon: Settings, label: "Investigational Device Exemption (IDE)" },
                                             { to: "/fda-510k-application", icon: Heart, label: "510(k), De Novo, PMA" },
+                                            { to: "/fda-510k-consulting", icon: Briefcase, label: "FDA 510(k) Consulting" },
+                                            { to: "/fda-510k-submission-guide", icon: FileText, label: "510(k) Submission Guide" },
+                                            { to: "/medical-device-fda-approval-process", icon: Target, label: "FDA Approval Process Guide" },
+                                            { to: "/medical-device-regulatory-strategy", icon: Lightbulb, label: "Regulatory Strategy Guide" },
                                             { to: "/fda-establishment-registration", icon: Building2, label: "Establishment Registration" },
                                             { to: "/fda-usa-agents-for-foreign-establishments", icon: MapPin, label: "US Agent for Foreign Establishments" },
                                         ]} />
@@ -277,6 +284,7 @@ export const Header: React.FC = () => {
                                             { to: "/pccp-authoring", label: "PCCP Authoring" },
                                             { to: "/ai-design-controls", label: "AI Design Controls & QMSR" },
                                             { to: "/fda-defense", label: "FDA Interaction & Defense" },
+                                            { to: "/samd-fda-regulations", label: "SaMD FDA Regulations Guide" },
                                         ].map(({ to, label }) => (
                                             <li key={to}>
                                                 <Link to={to} className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200">
@@ -429,6 +437,8 @@ export const Header: React.FC = () => {
                             { to: "/iso-13485-medical-quality-system-registration", label: "ISO 13485" },
                             { to: "/iso-14971-medical-device-risk-management-for-medical-devices", label: "ISO 14971" },
                             { to: "/quality-management-system-implementation", label: "ISO 9001 QMS" },
+                            { to: "/iso-13485-guide", label: "ISO 13485 Complete Guide" },
+                            { to: "/fda-qms-requirements", label: "FDA QMS Requirements Guide" },
                         ]}
                         onClose={() => setIsMobileMenuOpen(false)}
                     />
@@ -445,6 +455,10 @@ export const Header: React.FC = () => {
                             { heading: "Medical Device & Diagnostics" },
                             { to: "/pre-ide-process", label: "IDE Process" },
                             { to: "/fda-510k-application", label: "510(k) / PMA" },
+                            { to: "/fda-510k-consulting", label: "FDA 510(k) Consulting" },
+                            { to: "/fda-510k-submission-guide", label: "510(k) Submission Guide" },
+                            { to: "/medical-device-fda-approval-process", label: "FDA Approval Process Guide" },
+                            { to: "/medical-device-regulatory-strategy", label: "Regulatory Strategy Guide" },
                             { to: "/fda-establishment-registration", label: "Establishment Registration" },
                             { heading: "Drugs & Biologics" },
                             { to: "/investigational-new-drug-ind-application", label: "IND Applications" },
@@ -466,6 +480,7 @@ export const Header: React.FC = () => {
                             { to: "/pccp-authoring", label: "PCCP Authoring" },
                             { to: "/ai-design-controls", label: "AI Design Controls" },
                             { to: "/fda-defense", label: "FDA Defense" },
+                            { to: "/samd-fda-regulations", label: "SaMD FDA Regulations Guide" },
                         ]}
                         onClose={() => setIsMobileMenuOpen(false)}
                     />

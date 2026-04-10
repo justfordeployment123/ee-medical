@@ -14,6 +14,7 @@ import {
     PageCTA,
 } from "../components/shared/InnerPage";
 
+// meta added below in JSX
 const biologicsServices = [
     "Pre-submission and strategic guidance for BLA routes",
     "Coordination of FDA Meetings (Type A, B, C, and BPD)",
@@ -36,6 +37,8 @@ export const BiologicsLicenseApplication: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>Biologics License Application (BLA) Consulting — FDA Biologics Submissions | E&E Medicals</title>
+            <meta name="description" content="Biologics License Application (BLA) consulting — FDA BLA strategy, pre-submission meetings, regulatory gap analysis, and biosimilar pathway support for biologics manufacturers." />
             <Header />
 
             <main className="grow">

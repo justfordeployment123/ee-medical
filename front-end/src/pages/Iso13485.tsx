@@ -1,6 +1,7 @@
 import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
+import { PageMeta } from "../components/shared/PageMeta";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
 import { useContent } from "../hooks/useContent";
@@ -21,6 +22,10 @@ export const Iso13485: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <PageMeta
+                title="ISO 13485 Medical Quality System Registration & Consulting"
+                description="ISO 13485 quality management system registration and consulting for medical device manufacturers — certification preparation, audits, and QMS implementation support."
+            />
             <Header />
 
             <main className="grow">

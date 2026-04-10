@@ -32,6 +32,8 @@ export const PccpAuthoring: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>PCCP Authoring — Predetermined Change Control Plan for AI/ML Medical Devices | E&E Medicals</title>
+            <meta name="description" content="PCCP authoring services for AI/ML medical devices — structured change management documentation under FDA's Predetermined Change Control Plan guidance." />
             <Header />
 
             <main className="grow">

@@ -105,6 +105,8 @@ export const Reliability: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>Reliability Engineering & Medical Device Testing Services | E&E Medicals</title>
+            <meta name="description" content="Reliability engineering consulting for medical devices — FMEA, design verification, accelerated life testing, and reliability growth analysis for FDA and ISO compliance." />
             <Header />
 
             <main className="grow">

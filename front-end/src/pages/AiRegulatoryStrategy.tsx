@@ -67,6 +67,8 @@ export const AiRegulatoryStrategy: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>AI Regulatory Strategy for Medical AI Devices | E&E Medicals</title>
+            <meta name="description" content="AI regulatory strategy consulting for medical AI and digital health companies — FDA pathway selection, evidence planning, and pre-submission meeting support." />
             <Header />
 
             <main className="grow">

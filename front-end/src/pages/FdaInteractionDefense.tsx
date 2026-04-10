@@ -30,6 +30,8 @@ export const FdaInteractionDefense: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>FDA Interaction & Defense Services for Medical Device Manufacturers | E&E Medicals</title>
+            <meta name="description" content="FDA interaction and defense consulting — pre-submission meeting preparation, inspection response strategy, and regulatory defense for medical device manufacturers." />
             <Header />
 
             <main className="grow">

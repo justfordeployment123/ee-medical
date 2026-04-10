@@ -38,6 +38,8 @@ export const Iso14971: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>ISO 14971 Risk Management for Medical Devices — Compliance Consulting | E&E Medicals</title>
+            <meta name="description" content="ISO 14971 risk management consulting for medical devices — risk analysis, risk evaluation, risk control, and residual risk assessment to meet FDA and EU MDR requirements." />
             <Header />
 
             <main className="grow">

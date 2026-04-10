@@ -14,6 +14,7 @@ import {
     PageCTA,
 } from "../components/shared/InnerPage";
 
+// meta added below in JSX
 const dmfItems = [
     "Type II: Drug substance and intermediate",
     "Type III: Packaging materials",
@@ -50,6 +51,8 @@ export const DrugMasterFile: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>Drug Master File (DMF) Submission Consulting — FDA Type II, III, IV & V | E&E Medicals</title>
+            <meta name="description" content="Drug Master File (DMF) consulting — FDA DMF preparation, submission, and maintenance for drug substances, packaging materials, excipients, and manufacturing processes." />
             <Header />
 
             <main className="grow">

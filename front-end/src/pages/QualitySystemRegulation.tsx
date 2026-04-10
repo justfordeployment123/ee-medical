@@ -1,6 +1,7 @@
 import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
+import { PageMeta } from "../components/shared/PageMeta";
 import { Footer } from "../components/Footer";
 import { useContent } from "../hooks/useContent";
 import {
@@ -28,6 +29,10 @@ export const QualitySystemRegulation: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <PageMeta
+                title="FDA Quality System Regulation (QSR) — 21 CFR Part 820 Consulting"
+                description="FDA Quality System Regulation consulting — QMS design, implementation, and 21 CFR Part 820 compliance support for medical device manufacturers."
+            />
             <Header />
 
             <main className="grow">

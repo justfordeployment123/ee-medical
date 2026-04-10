@@ -14,6 +14,7 @@ import {
     PageCTA,
 } from "../components/shared/InnerPage";
 
+// meta added below in JSX
 const sopItems = [
     "Production and Process Control",
     "Management Review",
@@ -57,6 +58,8 @@ export const Iso9001Implementation: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>ISO 9001 Implementation & Certification Consulting for Healthcare | E&E Medicals</title>
+            <meta name="description" content="ISO 9001:2015 implementation and certification consulting — quality management system design, gap analysis, documentation, and audit preparation for medical and healthcare organizations." />
             <Header />
 
             <main className="grow">

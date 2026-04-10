@@ -1,6 +1,7 @@
 import React from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
+import { PageMeta } from "../components/shared/PageMeta";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
 import { useContent } from "../hooks/useContent";
@@ -38,6 +39,10 @@ export const AiFdaReadiness: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <PageMeta
+                title="AI FDA Readiness & Risk Audit for Medical AI Devices"
+                description="AI FDA readiness and risk audit services — assess your AI medical device for FDA submission readiness, identify regulatory gaps, and build a compliant strategy."
+            />
             <Header />
 
             <main className="grow">

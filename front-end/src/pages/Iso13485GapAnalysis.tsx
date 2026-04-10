@@ -255,6 +255,8 @@ export const Iso13485GapAnalysis: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>Free ISO 13485:2016 Gap Analysis Tool for Medical Device Companies | E&E Medicals</title>
+            <meta name="description" content="Free ISO 13485:2016 gap analysis tool — assess your medical device quality management system against ISO 13485 requirements and identify compliance gaps before your certification audit." />
             <Header />
 
             <main className="grow pb-24">

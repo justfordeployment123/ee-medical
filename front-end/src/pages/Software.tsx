@@ -26,6 +26,8 @@ export const Software: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>Healthcare Software Development & Digital Health Solutions | E&E Medicals</title>
+            <meta name="description" content="FDA-compliant healthcare software development — medical device software, SaMD development, digital health platforms, and telehealth solutions from E&E Medicals." />
             <Header />
 
             <main className="grow pb-24">

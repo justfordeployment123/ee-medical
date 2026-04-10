@@ -12,6 +12,7 @@ import {
     PageCTA,
 } from "../components/shared/InnerPage";
 
+// meta added below in JSX
 export const NdaApplication: React.FC = () => {
     const content = useContent("nda");
     const hero = content?.hero;
@@ -22,6 +23,8 @@ export const NdaApplication: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>NDA Application Consulting — New Drug Application FDA Submission | E&E Medicals</title>
+            <meta name="description" content="New Drug Application (NDA) consulting — FDA submission strategy, NDA preparation, clinical data review, and regulatory affairs support for pharmaceutical manufacturers." />
             <Header />
 
             <main className="grow">

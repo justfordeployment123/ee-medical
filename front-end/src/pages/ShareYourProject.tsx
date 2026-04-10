@@ -48,6 +48,8 @@ export const ShareYourProject: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>Share Your Project — Get a Free Regulatory Consultation | E&E Medicals</title>
+            <meta name="description" content="Share your medical device or drug project with E&E Medicals for a free initial consultation. Tell us about your regulatory needs and we'll connect you with the right expert." />
             <Header />
 
             <main className="grow">

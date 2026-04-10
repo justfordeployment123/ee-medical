@@ -32,6 +32,8 @@ export const AiDesignControls: React.FC = () => {
 
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
+            <title>AI Design Controls & QMSR for Medical AI Devices | E&E Medicals</title>
+            <meta name="description" content="FDA-compliant AI design controls consulting — implement design controls for AI medical devices under 21 CFR Part 820, ISO 13485, and the updated QMSR." />
             <Header />
 
             <main className="grow">
