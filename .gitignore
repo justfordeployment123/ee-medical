@@ -30,3 +30,7 @@ dist-ssr
 
 # Local assets not needed in repo
 front-end/EandE logo (1).png
+
+# SQLite temp files
+rag-api/content.db-shm
+rag-api/content.db-wal
