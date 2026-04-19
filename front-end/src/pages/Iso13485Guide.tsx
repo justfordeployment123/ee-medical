@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
 import { PageMeta } from "../components/shared/PageMeta";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -16,6 +17,12 @@ import {
 } from "../components/shared/InnerPage";
 
 export const Iso13485Guide: React.FC = () => {
+    const content = useContent('iso_13485_guide');
+    const header = content?.header;
+    const intro = content?.intro;
+    const split = content?.split;
+    const cta = content?.cta;
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <PageMeta
@@ -34,21 +41,15 @@ export const Iso13485Guide: React.FC = () => {
                     {/* Section 1: What is ISO 13485 */}
                     <section>
                         <SectionHeading
-                            badge="ISO 13485"
-                            title="What Is ISO 13485? The Global Standard for Medical Device QMS"
-                            subtitle="Everything medical device manufacturers need to know about ISO 13485:2016 — requirements, certification, and how it aligns with FDA regulations."
+                            badge={header?.badge_text || "ISO 13485"}
+                            title={header?.title || "What Is ISO 13485? The Global Standard for Medical Device QMS"}
+                            subtitle={header?.subtitle || "Everything medical device manufacturers need to know about ISO 13485:2016 — requirements, certification, and how it aligns with FDA regulations."}
                         />
 
                         <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-5">
-                            <p>
-                                ISO 13485 is the internationally recognized standard specifying requirements for a Quality Management System (QMS) in the medical device industry. Published by the International Organization for Standardization (ISO), the standard is designed to help organizations demonstrate their ability to consistently design, develop, produce, and service medical devices that meet customer and applicable regulatory requirements.
-                            </p>
-                            <p>
-                                The current version — ISO 13485:2016 — was updated to better align with regulatory requirements across key markets including the U.S. (FDA), Europe (EU MDR/IVDR), and Canada (MDSAP). It is increasingly used as a framework for regulatory compliance globally. Many notified bodies, regulatory authorities, and procurement organizations now require ISO 13485 certification as a baseline condition for market access.
-                            </p>
-                            <p>
-                                E&amp;E Medicals and Consulting provides ISO 13485 implementation and consulting services to help organizations build compliant QMS frameworks, prepare for certification audits, and maintain ongoing conformance. This guide covers the full scope of the standard.
-                            </p>
+                            <p>{intro?.paragraph1 || "ISO 13485 is the internationally recognized standard specifying requirements for a Quality Management System (QMS) in the medical device industry. The standard is designed to help organizations demonstrate their ability to consistently design, develop, produce, and service medical devices."}</p>
+                            <p>{intro?.paragraph2 || "The current version — ISO 13485:2016 — was updated to better align with regulatory requirements across key markets including the U.S. (FDA), Europe (EU MDR/IVDR), and Canada (MDSAP). It is increasingly used as a framework for regulatory compliance globally."}</p>
+                            <p>{intro?.paragraph3 || "E&E Medicals and Consulting provides ISO 13485 implementation and consulting services to help organizations build compliant QMS frameworks, prepare for certification audits, and maintain ongoing conformance."}</p>
                         </div>
                     </section>
 
@@ -143,23 +144,24 @@ export const Iso13485Guide: React.FC = () => {
 
                     {/* Split break */}
                     <SplitSection
-                        imageSrc="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1400"
-                        imageAlt="ISO 13485 quality management system medical devices"
+                        imageSrc={split?.split_image || "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1400"}
+                        imageAlt={split?.split_image_alt || "ISO 13485 quality management system medical devices"}
                         label="Certification Process"
                     >
                         <div>
                             <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-5">
                                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
-                                ISO 13485 Certification
+                                {split?.badge_text || "ISO 13485 Certification"}
                             </span>
                             <h2 className="font-display text-2xl font-extrabold text-navy-900 leading-tight mb-4">
-                                The ISO 13485 Certification Process
+                                {split?.title || "The ISO 13485 Certification Process"}
                             </h2>
                             <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                                Certification is performed by an accredited third-party certification body (CB) through a two-stage audit: Stage 1 (documentation review) and Stage 2 (implementation assessment). Certification is valid for 3 years with annual surveillance audits.
+                                {split?.paragraph1 || "Certification is performed by an accredited third-party certification body (CB) through a two-stage audit: Stage 1 (documentation review) and Stage 2 (implementation assessment). Certification is valid for 3 years with annual surveillance audits."}
                             </p>
                             <p className="text-gray-500 text-sm leading-relaxed">
-                                E&amp;E Medicals guides organizations through every step — from gap analysis and QMS documentation to audit preparation and post-certification maintenance. Use our free{" "}
+                                {split?.paragraph2 || "E&E Medicals guides organizations through every step — from gap analysis and QMS documentation to audit preparation and post-certification maintenance."}{" "}
+                                Use our free{" "}
                                 <Link to="/free-iso-13485-2016-gap-analysis-tool" className="text-brand-600 hover:underline">
                                     ISO 13485:2016 Gap Analysis Tool
                                 </Link>
@@ -245,8 +247,8 @@ export const Iso13485Guide: React.FC = () => {
 
                     {/* Page CTA */}
                     <PageCTA
-                        title="Ready to Achieve ISO 13485 Certification?"
-                        subtitle="Our consultants will guide your QMS implementation from gap analysis to certification — efficiently and on schedule."
+                        title={cta?.title || "Ready to Achieve ISO 13485 Certification?"}
+                        subtitle={cta?.subtitle || "Our consultants will guide your QMS implementation from gap analysis to certification — efficiently and on schedule."}
                         linkLabel="Start Your ISO 13485 Journey"
                         linkTo="/share-your-project"
                     />

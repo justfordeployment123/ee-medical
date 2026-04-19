@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
 import { PageMeta } from "../components/shared/PageMeta";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -16,6 +17,12 @@ import {
 } from "../components/shared/InnerPage";
 
 export const Fda510kSubmissionGuide: React.FC = () => {
+    const content = useContent('fda_510k_guide');
+    const header = content?.header;
+    const intro = content?.intro;
+    const split = content?.split;
+    const cta = content?.cta;
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <PageMeta
@@ -34,21 +41,15 @@ export const Fda510kSubmissionGuide: React.FC = () => {
                     {/* Section 1: What is 510(k) */}
                     <section>
                         <SectionHeading
-                            badge="FDA 510(k)"
-                            title="What Is an FDA 510(k) Submission?"
-                            subtitle="A complete walkthrough of the 510(k) premarket notification process for medical device manufacturers and startups entering the U.S. market."
+                            badge={header?.badge_text || "FDA 510(k)"}
+                            title={header?.title || "What Is an FDA 510(k) Submission?"}
+                            subtitle={header?.subtitle || "A complete walkthrough of the 510(k) premarket notification process for medical device manufacturers and startups entering the U.S. market."}
                         />
 
                         <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-5">
-                            <p>
-                                The FDA 510(k) is a premarket submission made to the U.S. Food and Drug Administration to demonstrate that a medical device is substantially equivalent to a legally marketed predicate device. Upon clearance, manufacturers receive authorization to market the device in the United States. This pathway applies to most Class II medical devices and some Class I and Class III devices that do not require a full Premarket Approval (PMA).
-                            </p>
-                            <p>
-                                Unlike the PMA process — which requires clinical trial data and extensive scientific review — the 510(k) pathway is comparatively streamlined. However, it still demands rigorous preparation. Incomplete or incorrect submissions are among the leading reasons for FDA refusals to accept (RTA) and additional information (AI) requests, which significantly delay market entry.
-                            </p>
-                            <p>
-                                At E&amp;E Medicals and Consulting, our team has guided hundreds of medical device companies through the 510(k) process — from startups seeking first-time clearance to established manufacturers updating existing devices. This guide outlines everything you need to know.
-                            </p>
+                            <p>{intro?.paragraph1 || "The FDA 510(k) is a premarket submission made to the U.S. Food and Drug Administration to demonstrate that a medical device is substantially equivalent to a legally marketed predicate device. Upon clearance, manufacturers receive authorization to market the device in the United States."}</p>
+                            <p>{intro?.paragraph2 || "Unlike the PMA process — which requires clinical trial data and extensive scientific review — the 510(k) pathway is comparatively streamlined. However, it still demands rigorous preparation."}</p>
+                            <p>{intro?.paragraph3 || "At E&E Medicals and Consulting, our team has guided hundreds of medical device companies through the 510(k) process — from startups seeking first-time clearance to established manufacturers updating existing devices."}</p>
                         </div>
                     </section>
 
@@ -170,23 +171,23 @@ export const Fda510kSubmissionGuide: React.FC = () => {
 
                     {/* Split break */}
                     <SplitSection
-                        imageSrc="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1400"
-                        imageAlt="FDA 510k submission process medical device"
+                        imageSrc={split?.split_image || "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1400"}
+                        imageAlt={split?.split_image_alt || "FDA 510k submission process medical device"}
                         label="510(k) Expertise"
                     >
                         <div>
                             <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-5">
                                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
-                                Common 510(k) Mistakes
+                                {split?.badge_text || "Common 510(k) Mistakes"}
                             </span>
                             <h2 className="font-display text-2xl font-extrabold text-navy-900 leading-tight mb-4">
-                                Why 510(k) Submissions Get Rejected
+                                {split?.title || "Why 510(k) Submissions Get Rejected"}
                             </h2>
                             <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                                The most common reasons for FDA refusal or AI requests include: inadequate predicate selection, missing performance testing, incomplete software documentation, labeling deficiencies, and insufficient biocompatibility data.
+                                {split?.paragraph1 || "The most common reasons for FDA refusal or AI requests include: inadequate predicate selection, missing performance testing, incomplete software documentation, labeling deficiencies, and insufficient biocompatibility data."}
                             </p>
                             <p className="text-gray-500 text-sm leading-relaxed">
-                                Our regulatory consultants perform a rigorous gap analysis before submission — catching deficiencies early and dramatically reducing the risk of rejection or delays.
+                                {split?.paragraph2 || "Our regulatory consultants perform a rigorous gap analysis before submission — catching deficiencies early and dramatically reducing the risk of rejection or delays."}
                             </p>
                         </div>
                     </SplitSection>
@@ -260,8 +261,8 @@ export const Fda510kSubmissionGuide: React.FC = () => {
 
                     {/* Page CTA */}
                     <PageCTA
-                        title="Ready to Submit Your 510(k)?"
-                        subtitle="Get expert guidance from our FDA regulatory consultants — from classification through clearance."
+                        title={cta?.title || "Ready to Submit Your 510(k)?"}
+                        subtitle={cta?.subtitle || "Get expert guidance from our FDA regulatory consultants — from classification through clearance."}
                         linkLabel="Request a Free Consultation"
                         linkTo="/share-your-project"
                     />

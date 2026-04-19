@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
 import { PageMeta } from "../components/shared/PageMeta";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -16,6 +17,12 @@ import {
 } from "../components/shared/InnerPage";
 
 export const MedicalDeviceRegulatoryStrategy: React.FC = () => {
+    const content = useContent('md_reg_strategy');
+    const header = content?.header;
+    const intro = content?.intro;
+    const split = content?.split;
+    const cta = content?.cta;
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <PageMeta
@@ -34,21 +41,15 @@ export const MedicalDeviceRegulatoryStrategy: React.FC = () => {
                     {/* Section 1: Overview */}
                     <section>
                         <SectionHeading
-                            badge="Regulatory Strategy"
-                            title="What Is a Medical Device Regulatory Strategy — and Why Does It Matter?"
-                            subtitle="A well-designed regulatory strategy can cut years off your time to market, reduce costs, and prevent the costly mistakes that derail device programs."
+                            badge={header?.badge_text || "Regulatory Strategy"}
+                            title={header?.title || "What Is a Medical Device Regulatory Strategy — and Why Does It Matter?"}
+                            subtitle={header?.subtitle || "A well-designed regulatory strategy can cut years off your time to market, reduce costs, and prevent the costly mistakes that derail device programs."}
                         />
 
                         <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-5">
-                            <p>
-                                A medical device regulatory strategy is a roadmap that defines how a manufacturer will achieve and maintain market authorization for a medical device — across one or multiple global markets. It encompasses device classification, pathway selection, clinical and technical evidence requirements, quality system readiness, and post-market obligations.
-                            </p>
-                            <p>
-                                Companies that develop a regulatory strategy early — ideally at the concept phase — significantly reduce their risk of regulatory surprises, failed submissions, and costly design changes late in development. Those who engage regulatory expertise only at submission often discover that their technical files, testing plans, or product designs do not meet regulatory requirements, requiring expensive rework.
-                            </p>
-                            <p>
-                                E&amp;E Medicals and Consulting provides regulatory strategy services for startups launching their first device and for established manufacturers expanding into new markets or developing next-generation products. Our approach integrates regulatory planning into your product development lifecycle from day one.
-                            </p>
+                            <p>{intro?.paragraph1 || "A medical device regulatory strategy is a roadmap that defines how a manufacturer will achieve and maintain market authorization for a medical device — across one or multiple global markets."}</p>
+                            <p>{intro?.paragraph2 || "Companies that develop a regulatory strategy early — ideally at the concept phase — significantly reduce their risk of regulatory surprises, failed submissions, and costly design changes late in development."}</p>
+                            <p>{intro?.paragraph3 || "E&E Medicals and Consulting provides regulatory strategy services for startups launching their first device and for established manufacturers expanding into new markets or developing next-generation products."}</p>
                         </div>
                     </section>
 
@@ -151,23 +152,23 @@ export const MedicalDeviceRegulatoryStrategy: React.FC = () => {
 
                     {/* Split break */}
                     <SplitSection
-                        imageSrc="https://images.unsplash.com/photo-1551601651-2a8555f1a136?q=80&w=1400"
-                        imageAlt="Medical device regulatory strategy consulting"
+                        imageSrc={split?.split_image || "https://images.unsplash.com/photo-1551601651-2a8555f1a136?q=80&w=1400"}
+                        imageAlt={split?.split_image_alt || "Medical device regulatory strategy consulting"}
                         label="Global Strategy"
                     >
                         <div>
                             <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-5">
                                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
-                                Global Market Access
+                                {split?.badge_text || "Global Market Access"}
                             </span>
                             <h2 className="font-display text-2xl font-extrabold text-navy-900 leading-tight mb-4">
-                                FDA vs CE Mark: Dual-Market Strategy
+                                {split?.title || "FDA vs CE Mark: Dual-Market Strategy"}
                             </h2>
                             <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                                Many manufacturers need FDA clearance and EU CE marking simultaneously. A coordinated dual-market strategy leverages overlapping evidence requirements, reduces redundant testing, and sequences submissions for maximum efficiency.
+                                {split?.paragraph1 || "Many manufacturers need FDA clearance and EU CE marking simultaneously. A coordinated dual-market strategy leverages overlapping evidence requirements, reduces redundant testing, and sequences submissions for maximum efficiency."}
                             </p>
                             <p className="text-gray-500 text-sm leading-relaxed">
-                                Our team is experienced in both FDA and EU MDR/IVDR requirements — helping manufacturers build a single technical file that supports multiple regulatory submissions.
+                                {split?.paragraph2 || "Our team is experienced in both FDA and EU MDR/IVDR requirements — helping manufacturers build a single technical file that supports multiple regulatory submissions."}
                             </p>
                         </div>
                     </SplitSection>
@@ -239,8 +240,8 @@ export const MedicalDeviceRegulatoryStrategy: React.FC = () => {
 
                     {/* Page CTA */}
                     <PageCTA
-                        title="Build Your Regulatory Strategy Today"
-                        subtitle="Work with our expert consultants to create a clear regulatory roadmap — from concept to U.S. and global market access."
+                        title={cta?.title || "Build Your Regulatory Strategy Today"}
+                        subtitle={cta?.subtitle || "Work with our expert consultants to create a clear regulatory roadmap — from concept to U.S. and global market access."}
                         linkLabel="Schedule a Regulatory Strategy Session"
                         linkTo="/share-your-project"
                     />

@@ -836,6 +836,133 @@ f('share_project','form','placeholder_message','Message Placeholder','textarea',
 f('share_project','form','purpose_options','Purpose Options (one per line)','textarea','Please Select\nFDA 510(k) / De Novo / PMA\nEU MDR / IVDR / CE Mark\nQuality Management System (QMS)\nAI/ML Medical Device\nDrug / Biologics Submission\nClinical Evaluation\nOther Regulatory Support',50);
 f('share_project','form','submit_text','Submit Button Text','text','Submit Enquiry',4);
 
+// ─── SEO PILLAR PAGES SEED ───────────────────────────────────────────────────
+
+// Fda510kSubmissionGuide
+f('fda_510k_guide','header','badge_text',   'Section Badge',           'text',     'FDA 510(k)', 5);
+f('fda_510k_guide','header','title',        'Page / Section Title',    'text',     'What Is an FDA 510(k) Submission?', 10);
+f('fda_510k_guide','header','subtitle',     'Section Subtitle',        'textarea', 'A complete walkthrough of the 510(k) premarket notification process for medical device manufacturers and startups entering the U.S. market.', 30);
+f('fda_510k_guide','intro','paragraph1',    'Intro Paragraph 1',       'textarea', 'The FDA 510(k) is a premarket submission made to the U.S. Food and Drug Administration to demonstrate that a medical device is substantially equivalent to a legally marketed predicate device. Upon clearance, manufacturers receive authorization to market the device in the United States.', 80);
+f('fda_510k_guide','intro','paragraph2',    'Intro Paragraph 2',       'textarea', 'Unlike the PMA process — which requires clinical trial data and extensive scientific review — the 510(k) pathway is comparatively streamlined. However, it still demands rigorous preparation.', 50);
+f('fda_510k_guide','intro','paragraph3',    'Intro Paragraph 3',       'textarea', 'At E&E Medicals and Consulting, our team has guided hundreds of medical device companies through the 510(k) process — from startups seeking first-time clearance to established manufacturers updating existing devices.', 50);
+f('fda_510k_guide','split','badge_text',    'Split Section Badge',     'text',     'Common 510(k) Mistakes', 5);
+f('fda_510k_guide','split','title',         'Split Section Title',     'text',     'Why 510(k) Submissions Get Rejected', 10);
+f('fda_510k_guide','split','paragraph1',    'Split Section Para 1',    'textarea', 'The most common reasons for FDA refusal or AI requests include: inadequate predicate selection, missing performance testing, incomplete software documentation, labeling deficiencies, and insufficient biocompatibility data.', 50);
+f('fda_510k_guide','split','paragraph2',    'Split Section Para 2',    'textarea', 'Our regulatory consultants perform a rigorous gap analysis before submission — catching deficiencies early and dramatically reducing the risk of rejection or delays.', 40);
+img('fda_510k_guide','split','split_image','Split Section Image','https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1400',1400,700,'FDA 510k submission process medical device');
+f('fda_510k_guide','cta','title',           'CTA Title',               'text',     'Ready to Submit Your 510(k)?', 8);
+f('fda_510k_guide','cta','subtitle',        'CTA Subtitle',            'textarea', 'Get expert guidance from our FDA regulatory consultants — from classification through clearance.', 20);
+
+// MedicalDeviceFdaApprovalProcess
+f('fda_approval_process','header','badge_text',   'Section Badge',           'text',     'FDA Approval', 5);
+f('fda_approval_process','header','title',        'Page / Section Title',    'text',     'Understanding the Medical Device FDA Approval Process', 10);
+f('fda_approval_process','header','subtitle',     'Section Subtitle',        'textarea', 'A structured overview of how medical devices are regulated, classified, and approved or cleared for sale in the United States.', 25);
+f('fda_approval_process','intro','paragraph1',    'Intro Paragraph 1',       'textarea', 'Bringing a medical device to market in the United States requires navigating the FDA\'s regulatory framework — a multi-step process governed by the Federal Food, Drug, and Cosmetic Act (FD&C Act) and enforced by the Center for Devices and Radiological Health (CDRH).', 60);
+f('fda_approval_process','intro','paragraph2',    'Intro Paragraph 2',       'textarea', 'The FDA does not use a single, universal approval process for all devices. Instead, the pathway depends on the device\'s classification (Class I, II, or III), its risk profile, and whether a substantially equivalent predicate device already exists in the market.', 60);
+f('fda_approval_process','intro','paragraph3',    'Intro Paragraph 3',       'textarea', 'E&E Medicals and Consulting has supported medical device manufacturers across all device classes and categories through the FDA regulatory process. This guide provides a complete overview of each pathway, what to expect, and how to prepare.', 50);
+f('fda_approval_process','split','badge_text',    'Split Section Badge',     'text',     'Pre-Submission Strategy', 5);
+f('fda_approval_process','split','title',         'Split Section Title',     'text',     'Pre-Submission Meetings with FDA', 8);
+f('fda_approval_process','split','paragraph1',    'Split Section Para 1',    'textarea', 'Before formally submitting, manufacturers can request a Pre-Submission (Q-Sub) meeting with the FDA to get feedback on proposed regulatory strategies, study designs, and testing protocols — significantly reducing risk of rejection.', 50);
+f('fda_approval_process','split','paragraph2',    'Split Section Para 2',    'textarea', 'E&E Medicals can prepare your Pre-Sub package, identify the right questions to ask FDA, and accompany you through the interaction to maximize the value of the meeting.', 40);
+img('fda_approval_process','split','split_image','Split Section Image','https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=1400',1400,700,'Medical device FDA approval regulatory process');
+f('fda_approval_process','cta','title',           'CTA Title',               'text',     'Need Help Navigating the FDA Approval Process?', 10);
+f('fda_approval_process','cta','subtitle',        'CTA Subtitle',            'textarea', 'Our regulatory experts will assess your device and recommend the fastest, most cost-effective path to U.S. market clearance.', 25);
+
+// Iso13485Guide
+f('iso_13485_guide','header','badge_text',   'Section Badge',           'text',     'ISO 13485', 5);
+f('iso_13485_guide','header','title',        'Page / Section Title',    'text',     'What Is ISO 13485? The Global Standard for Medical Device QMS', 12);
+f('iso_13485_guide','header','subtitle',     'Section Subtitle',        'textarea', 'Everything medical device manufacturers need to know about ISO 13485:2016 — requirements, certification, and how it aligns with FDA regulations.', 25);
+f('iso_13485_guide','intro','paragraph1',    'Intro Paragraph 1',       'textarea', 'ISO 13485 is the internationally recognized standard specifying requirements for a Quality Management System (QMS) in the medical device industry. The standard is designed to help organizations demonstrate their ability to consistently design, develop, produce, and service medical devices.', 60);
+f('iso_13485_guide','intro','paragraph2',    'Intro Paragraph 2',       'textarea', 'The current version — ISO 13485:2016 — was updated to better align with regulatory requirements across key markets including the U.S. (FDA), Europe (EU MDR/IVDR), and Canada (MDSAP). It is increasingly used as a framework for regulatory compliance globally.', 60);
+f('iso_13485_guide','intro','paragraph3',    'Intro Paragraph 3',       'textarea', 'E&E Medicals and Consulting provides ISO 13485 implementation and consulting services to help organizations build compliant QMS frameworks, prepare for certification audits, and maintain ongoing conformance.', 40);
+f('iso_13485_guide','split','badge_text',    'Split Section Badge',     'text',     'ISO 13485 Certification', 5);
+f('iso_13485_guide','split','title',         'Split Section Title',     'text',     'The ISO 13485 Certification Process', 8);
+f('iso_13485_guide','split','paragraph1',    'Split Section Para 1',    'textarea', 'Certification is performed by an accredited third-party certification body (CB) through a two-stage audit: Stage 1 (documentation review) and Stage 2 (implementation assessment). Certification is valid for 3 years with annual surveillance audits.', 50);
+f('iso_13485_guide','split','paragraph2',    'Split Section Para 2',    'textarea', 'E&E Medicals guides organizations through every step — from gap analysis and QMS documentation to audit preparation and post-certification maintenance.', 35);
+img('iso_13485_guide','split','split_image','Split Section Image','https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1400',1400,700,'ISO 13485 quality management system medical devices');
+f('iso_13485_guide','cta','title',           'CTA Title',               'text',     'Ready to Achieve ISO 13485 Certification?', 8);
+f('iso_13485_guide','cta','subtitle',        'CTA Subtitle',            'textarea', 'Our consultants will guide your QMS implementation from gap analysis to certification — efficiently and on schedule.', 20);
+
+// FdaQmsRequirements
+f('fda_qms_req','header','badge_text',   'Section Badge',           'text',     'FDA QMS', 5);
+f('fda_qms_req','header','title',        'Page / Section Title',    'text',     'What Are the FDA QMS Requirements for Medical Devices?', 10);
+f('fda_qms_req','header','subtitle',     'Section Subtitle',        'textarea', 'A complete guide to FDA Quality System Regulation (21 CFR Part 820) — what it requires, who it applies to, and how to achieve and maintain compliance.', 30);
+f('fda_qms_req','intro','paragraph1',    'Intro Paragraph 1',       'textarea', 'The FDA\'s Quality System Regulation (QSR), codified in 21 CFR Part 820, establishes the minimum quality system requirements for the design, manufacture, packaging, labeling, storage, installation, and servicing of medical devices intended for sale in the United States.', 70);
+f('fda_qms_req','intro','paragraph2',    'Intro Paragraph 2',       'textarea', 'In 2024, the FDA finalized its Quality Management System Regulation (QMSR) update, aligning 21 CFR Part 820 more closely with ISO 13485:2016. This alignment reduces regulatory burden for manufacturers who are already ISO 13485 certified.', 60);
+f('fda_qms_req','intro','paragraph3',    'Intro Paragraph 3',       'textarea', 'E&E Medicals and Consulting helps medical device manufacturers build, implement, and maintain FDA-compliant quality systems. This guide explains what the FDA QMS requirements entail, how they apply to your organization, and what a compliant quality system looks like in practice.', 55);
+f('fda_qms_req','split','badge_text',    'Split Section Badge',     'text',     'FDA 483 Observations', 5);
+f('fda_qms_req','split','title',         'Split Section Title',     'text',     'Most Common FDA QMS Violations', 8);
+f('fda_qms_req','split','paragraph1',    'Split Section Para 1',    'textarea', 'The FDA\'s most frequently cited QSR violations include: inadequate CAPA processes, design control deficiencies, complaint handling failures, and insufficient process validation. These observations can escalate to Warning Letters and enforcement action.', 50);
+f('fda_qms_req','split','paragraph2',    'Split Section Para 2',    'textarea', 'Our FDA 483 and Warning Letter remediation services help manufacturers respond effectively and restore FDA confidence.', 25);
+img('fda_qms_req','split','split_image','Split Section Image','https://images.unsplash.com/photo-1504439468489-c8920d796a29?q=80&w=1400',1400,700,'FDA QMS quality management system medical device');
+f('fda_qms_req','cta','title',           'CTA Title',               'text',     'Build a FDA-Compliant Quality System', 8);
+f('fda_qms_req','cta','subtitle',        'CTA Subtitle',            'textarea', 'Our regulatory experts will assess your current QMS and implement the systems you need to pass FDA inspections with confidence.', 25);
+
+// MedicalDeviceRegulatoryStrategy
+f('md_reg_strategy','header','badge_text',   'Section Badge',           'text',     'Regulatory Strategy', 5);
+f('md_reg_strategy','header','title',        'Page / Section Title',    'text',     'What Is a Medical Device Regulatory Strategy — and Why Does It Matter?', 12);
+f('md_reg_strategy','header','subtitle',     'Section Subtitle',        'textarea', 'A well-designed regulatory strategy can cut years off your time to market, reduce costs, and prevent the costly mistakes that derail device programs.', 30);
+f('md_reg_strategy','intro','paragraph1',    'Intro Paragraph 1',       'textarea', 'A medical device regulatory strategy is a roadmap that defines how a manufacturer will achieve and maintain market authorization for a medical device — across one or multiple global markets. It encompasses device classification, pathway selection, clinical and technical evidence requirements, quality system readiness, and post-market obligations.', 70);
+f('md_reg_strategy','intro','paragraph2',    'Intro Paragraph 2',       'textarea', 'Companies that develop a regulatory strategy early — ideally at the concept phase — significantly reduce their risk of regulatory surprises, failed submissions, and costly design changes late in development.', 50);
+f('md_reg_strategy','intro','paragraph3',    'Intro Paragraph 3',       'textarea', 'E&E Medicals and Consulting provides regulatory strategy services for startups launching their first device and for established manufacturers expanding into new markets or developing next-generation products.', 45);
+f('md_reg_strategy','split','badge_text',    'Split Section Badge',     'text',     'Global Market Access', 5);
+f('md_reg_strategy','split','title',         'Split Section Title',     'text',     'FDA vs CE Mark: Dual-Market Strategy', 8);
+f('md_reg_strategy','split','paragraph1',    'Split Section Para 1',    'textarea', 'Many manufacturers need FDA clearance and EU CE marking simultaneously. A coordinated dual-market strategy leverages overlapping evidence requirements, reduces redundant testing, and sequences submissions for maximum efficiency.', 50);
+f('md_reg_strategy','split','paragraph2',    'Split Section Para 2',    'textarea', 'Our team is experienced in both FDA and EU MDR/IVDR requirements — helping manufacturers build a single technical file that supports multiple regulatory submissions.', 40);
+img('md_reg_strategy','split','split_image','Split Section Image','https://images.unsplash.com/photo-1551601651-2a8555f1a136?q=80&w=1400',1400,700,'Medical device regulatory strategy consulting');
+f('md_reg_strategy','cta','title',           'CTA Title',               'text',     'Build Your Regulatory Strategy Today', 6);
+f('md_reg_strategy','cta','subtitle',        'CTA Subtitle',            'textarea', 'Work with our expert consultants to create a clear regulatory roadmap — from concept to U.S. and global market access.', 22);
+
+// SamdFdaRegulations
+f('samd_fda_reg','header','badge_text',   'Section Badge',           'text',     'SaMD', 4);
+f('samd_fda_reg','header','title',        'Page / Section Title',    'text',     'What Is Software as a Medical Device (SaMD)?', 10);
+f('samd_fda_reg','header','subtitle',     'Section Subtitle',        'textarea', 'A comprehensive guide to FDA regulations for Software as a Medical Device — including classification, approval pathways, AI/ML requirements, and validation standards.', 30);
+f('samd_fda_reg','intro','paragraph1',    'Intro Paragraph 1',       'textarea', 'Software as a Medical Device (SaMD) is software intended to be used for one or more medical purposes that performs these purposes without being part of a hardware medical device. Examples include software that analyzes medical images to detect cancer, interprets ECG data, or provides clinical decision support.', 70);
+f('samd_fda_reg','intro','paragraph2',    'Intro Paragraph 2',       'textarea', 'The rapid growth of AI in healthcare has made SaMD one of the most strategically important and actively evolving areas of FDA medical device regulation.', 35);
+f('samd_fda_reg','intro','paragraph3',    'Intro Paragraph 3',       'textarea', 'E&E Medicals provides specialized SaMD regulatory consulting with deep expertise in FDA digital health frameworks. Understanding FDA SaMD regulations is critical for software developers, digital health companies, and medical device manufacturers integrating AI into their products.', 55);
+f('samd_fda_reg','split','badge_text',    'Split Section Badge',     'text',     'Approval Pathways', 5);
+f('samd_fda_reg','split','title',         'Split Section Title',     'text',     'SaMD FDA Approval Pathways', 6);
+f('samd_fda_reg','split','paragraph1',    'Split Section Para 1',    'textarea', 'SaMD typically follows the same FDA pathways as other medical devices: 510(k) for moderate-risk software with a predicate, De Novo for novel low-to-moderate risk software, and PMA for high-risk diagnostic algorithms. However, the evidence requirements differ significantly from hardware devices.', 60);
+f('samd_fda_reg','split','paragraph2',    'Split Section Para 2',    'textarea', 'The FDA Breakthrough Devices Program also offers an accelerated pathway for SaMD that provides more effective treatment or diagnosis of serious conditions — a strategic option for innovative AI diagnostic tools.', 40);
+img('samd_fda_reg','split','split_image','Split Section Image','https://images.unsplash.com/photo-1677442135703-1787eea5ce01?q=80&w=1400',1400,700,'AI machine learning FDA medical device SaMD');
+f('samd_fda_reg','cta','title',           'CTA Title',               'text',     'Navigate FDA SaMD Regulations with Confidence', 8);
+f('samd_fda_reg','cta','subtitle',        'CTA Subtitle',            'textarea', 'Our AI and digital health regulatory experts will guide your SaMD program from concept through FDA clearance or approval.', 22);
+
+// ─── SERVICE PAGES SEED ──────────────────────────────────────────────────────
+
+// Fda510kConsulting
+f('fda_510k_consulting','header','badge_text',   'Section Badge',           'text',     '510(k) Consulting', 4);
+f('fda_510k_consulting','header','title',        'Page / Section Title',    'text',     'Expert FDA 510(k) Consulting — From Classification to Clearance', 12);
+f('fda_510k_consulting','header','subtitle',     'Section Subtitle',        'textarea', 'E&E Medicals provides end-to-end 510(k) consulting services that maximize your clearance success rate and minimize time to market.', 25);
+f('fda_510k_consulting','intro','paragraph1',    'Intro Paragraph 1',       'textarea', 'Navigating the FDA 510(k) premarket notification process requires deep expertise in regulatory strategy, device classification, predicate selection, and technical documentation. A single misstep can result in Refuse to Accept (RTA) determinations or Additional Information (AI) requests that add months to your timeline.', 70);
+f('fda_510k_consulting','intro','paragraph2',    'Intro Paragraph 2',       'textarea', 'E&E Medicals and Consulting has been supporting medical device manufacturers through FDA 510(k) submissions for over 32 years. Our consultants have managed submissions across a wide range of device categories — from IVD diagnostics and orthopedic implants to digital health software and imaging systems.', 60);
+f('fda_510k_consulting','intro','paragraph3',    'Intro Paragraph 3',       'textarea', 'Whether you are a startup seeking your first 510(k) clearance or an established manufacturer managing a product modification, we bring the regulatory expertise, FDA relationship knowledge, and submission experience to get your device cleared efficiently.', 50);
+f('fda_510k_consulting','split','badge_text',    'Split Section Badge',     'text',     '32+ Years of Experience', 5);
+f('fda_510k_consulting','split','title',         'Split Section Title',     'text',     'Why Choose E&E Medicals for Your 510(k)?', 10);
+f('fda_510k_consulting','split','paragraph1',    'Split Section Para 1',    'textarea', 'Our consultants bring over three decades of FDA regulatory experience, direct relationships with CDRH reviewers, and a track record of successful 510(k) clearances across dozens of device categories.', 45);
+f('fda_510k_consulting','split','paragraph2',    'Split Section Para 2',    'textarea', 'We approach every 510(k) project with the same rigor: thorough predicate research, meticulous documentation, and proactive FDA communication — giving your device the strongest possible foundation for clearance.', 45);
+img('fda_510k_consulting','split','split_image','Split Section Image','https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1400',1400,700,'FDA 510k consulting services medical device');
+f('fda_510k_consulting','cta','title',           'CTA Title',               'text',     'Start Your 510(k) Submission Today', 6);
+f('fda_510k_consulting','cta','subtitle',        'CTA Subtitle',            'textarea', 'Our FDA 510(k) consultants are ready to assess your device and build a clearance strategy that works. Contact us for a free consultation.', 30);
+
+// FdaComplianceConsulting
+f('fda_compliance','header','badge_text',   'Section Badge',           'text',     'Regulatory Compliance', 4);
+f('fda_compliance','header','title',        'Page / Section Title',    'text',     'FDA Compliance Consulting for Medical Device Companies', 10);
+f('fda_compliance','header','subtitle',     'Section Subtitle',        'textarea', 'E&E Medicals helps medical device manufacturers build, remediate, and sustain FDA-compliant quality systems — from initial gap assessment through full regulatory readiness.', 35);
+f('fda_compliance','intro','paragraph1',    'Intro Paragraph 1',       'textarea', 'Navigating FDA compliance requirements is complex and constantly evolving. Whether you are preparing for your first FDA inspection, responding to a 483 observation, or rebuilding a QMS after a warning letter, E&E Medicals provides the regulatory expertise to get you back on track quickly and efficiently.', 65);
+f('fda_compliance','intro','paragraph2',    'Intro Paragraph 2',       'textarea', 'We work as an extension of your team — assessing your current compliance posture, identifying gaps against 21 CFR Part 820, ISO 13485, or EU MDR requirements, and implementing sustainable corrective actions that stand up to regulatory scrutiny.', 55);
+f('fda_compliance','cta','title',           'CTA Title',               'text',     'Ready to Strengthen Your FDA Compliance Program?', 8);
+f('fda_compliance','cta','subtitle',        'CTA Subtitle',            'textarea', 'Contact our team for a free initial consultation. We\'ll assess your current compliance posture and recommend the right path forward.', 25);
+
+// FdaAuditPreparation
+f('fda_audit_prep','header','badge_text',   'Section Badge',           'text',     'Inspection Readiness', 4);
+f('fda_audit_prep','header','title',        'Page / Section Title',    'text',     'FDA Audit Preparation & Inspection Readiness', 8);
+f('fda_audit_prep','header','subtitle',     'Section Subtitle',        'textarea', 'Be ready before the investigator arrives. E&E Medicals prepares medical device manufacturers for FDA inspections, ISO audits, and Notified Body reviews with structured mock inspections and gap remediation.', 40);
+f('fda_audit_prep','intro','paragraph1',    'Intro Paragraph 1',       'textarea', 'An FDA inspection can happen with as little as 24–48 hours notice. Companies that are not in a constant state of inspection readiness risk 483 observations, warning letters, and in serious cases, import alerts or consent decrees. E&E Medicals helps you stay ready — not just for the next inspection, but as an ongoing operating standard.', 70);
+f('fda_audit_prep','intro','paragraph2',    'Intro Paragraph 2',       'textarea', 'Whether you have received a notice of inspection, are preparing for a Pre-Approval Inspection (PAI), or simply want to stress-test your QMS before an auditor arrives, we provide the structured preparation that significantly improves inspection outcomes.', 55);
+f('fda_audit_prep','cta','title',           'CTA Title',               'text',     'Don\'t Wait for the Investigator to Knock', 7);
+f('fda_audit_prep','cta','subtitle',        'CTA Subtitle',            'textarea', 'Contact E&E Medicals today to schedule a mock FDA inspection or inspection readiness assessment. Early preparation is always your best defense.', 30);
+
 // ─── GLOBAL SETTINGS SEED ────────────────────────────────────────────────────
 
 f('global','contact','phone1',   'Phone Number 1',  'text', '+1 (678) 815-9233', 5);

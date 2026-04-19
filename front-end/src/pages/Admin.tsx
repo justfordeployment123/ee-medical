@@ -381,6 +381,96 @@ const PAGE_CONFIGS: PageConfig[] = [
       { key: 'form', label: 'Form Labels & Messages' },
     ],
   },
+  // ─── SEO Pillar Pages ─────────────────────────────────────────────────────
+  {
+    key: 'fda_510k_guide',
+    label: 'FDA 510(k) Submission Guide',
+    sections: [
+      { key: 'header',  label: 'Page Header & Intro Badge' },
+      { key: 'intro',   label: 'Intro Paragraphs' },
+      { key: 'split',   label: 'Split Section & Image' },
+      { key: 'cta',     label: 'CTA Banner' },
+    ],
+  },
+  {
+    key: 'fda_approval_process',
+    label: 'Medical Device FDA Approval Process',
+    sections: [
+      { key: 'header',  label: 'Page Header & Intro Badge' },
+      { key: 'intro',   label: 'Intro Paragraphs' },
+      { key: 'split',   label: 'Split Section & Image' },
+      { key: 'cta',     label: 'CTA Banner' },
+    ],
+  },
+  {
+    key: 'iso_13485_guide',
+    label: 'ISO 13485 Guide',
+    sections: [
+      { key: 'header',  label: 'Page Header & Intro Badge' },
+      { key: 'intro',   label: 'Intro Paragraphs' },
+      { key: 'split',   label: 'Split Section & Image' },
+      { key: 'cta',     label: 'CTA Banner' },
+    ],
+  },
+  {
+    key: 'fda_qms_req',
+    label: 'FDA QMS Requirements',
+    sections: [
+      { key: 'header',  label: 'Page Header & Intro Badge' },
+      { key: 'intro',   label: 'Intro Paragraphs' },
+      { key: 'split',   label: 'Split Section & Image' },
+      { key: 'cta',     label: 'CTA Banner' },
+    ],
+  },
+  {
+    key: 'md_reg_strategy',
+    label: 'Medical Device Regulatory Strategy',
+    sections: [
+      { key: 'header',  label: 'Page Header & Intro Badge' },
+      { key: 'intro',   label: 'Intro Paragraphs' },
+      { key: 'split',   label: 'Split Section & Image' },
+      { key: 'cta',     label: 'CTA Banner' },
+    ],
+  },
+  {
+    key: 'samd_fda_reg',
+    label: 'SaMD FDA Regulations',
+    sections: [
+      { key: 'header',  label: 'Page Header & Intro Badge' },
+      { key: 'intro',   label: 'Intro Paragraphs' },
+      { key: 'split',   label: 'Split Section & Image' },
+      { key: 'cta',     label: 'CTA Banner' },
+    ],
+  },
+  // ─── Service Pages ────────────────────────────────────────────────────────
+  {
+    key: 'fda_510k_consulting',
+    label: 'FDA 510(k) Consulting',
+    sections: [
+      { key: 'header',  label: 'Page Header & Intro Badge' },
+      { key: 'intro',   label: 'Intro Paragraphs' },
+      { key: 'split',   label: 'Split Section & Image' },
+      { key: 'cta',     label: 'CTA Banner' },
+    ],
+  },
+  {
+    key: 'fda_compliance',
+    label: 'FDA Compliance Consulting',
+    sections: [
+      { key: 'header',  label: 'Page Header & Intro Badge' },
+      { key: 'intro',   label: 'Intro Paragraphs' },
+      { key: 'cta',     label: 'CTA Banner' },
+    ],
+  },
+  {
+    key: 'fda_audit_prep',
+    label: 'FDA Audit Preparation',
+    sections: [
+      { key: 'header',  label: 'Page Header & Intro Badge' },
+      { key: 'intro',   label: 'Intro Paragraphs' },
+      { key: 'cta',     label: 'CTA Banner' },
+    ],
+  },
 ];
 
 const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
@@ -471,6 +561,25 @@ const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: 'PCCP Authoring', pageKey: 'pccp' },
       { label: 'AI Design Controls & QMSR', pageKey: 'ai_design_controls' },
       { label: 'FDA Interaction & Defense', pageKey: 'fda_defense' },
+    ],
+  },
+  {
+    label: 'SEO Pillar Pages',
+    items: [
+      { label: 'FDA 510(k) Submission Guide', pageKey: 'fda_510k_guide' },
+      { label: 'Medical Device FDA Approval Process', pageKey: 'fda_approval_process' },
+      { label: 'ISO 13485 Guide', pageKey: 'iso_13485_guide' },
+      { label: 'FDA QMS Requirements', pageKey: 'fda_qms_req' },
+      { label: 'Medical Device Regulatory Strategy', pageKey: 'md_reg_strategy' },
+      { label: 'SaMD FDA Regulations', pageKey: 'samd_fda_reg' },
+    ],
+  },
+  {
+    label: 'Service Pages',
+    items: [
+      { label: 'FDA 510(k) Consulting', pageKey: 'fda_510k_consulting' },
+      { label: 'FDA Compliance Consulting', pageKey: 'fda_compliance' },
+      { label: 'FDA Audit Preparation', pageKey: 'fda_audit_prep' },
     ],
   },
 ];

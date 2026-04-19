@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
 import { PageMeta } from "../components/shared/PageMeta";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -16,6 +17,12 @@ import {
 } from "../components/shared/InnerPage";
 
 export const MedicalDeviceFdaApprovalProcess: React.FC = () => {
+    const content = useContent('fda_approval_process');
+    const header = content?.header;
+    const intro = content?.intro;
+    const split = content?.split;
+    const cta = content?.cta;
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <PageMeta
@@ -34,21 +41,15 @@ export const MedicalDeviceFdaApprovalProcess: React.FC = () => {
                     {/* Section 1: Overview */}
                     <section>
                         <SectionHeading
-                            badge="FDA Approval"
-                            title="Understanding the Medical Device FDA Approval Process"
-                            subtitle="A structured overview of how medical devices are regulated, classified, and approved or cleared for sale in the United States."
+                            badge={header?.badge_text || "FDA Approval"}
+                            title={header?.title || "Understanding the Medical Device FDA Approval Process"}
+                            subtitle={header?.subtitle || "A structured overview of how medical devices are regulated, classified, and approved or cleared for sale in the United States."}
                         />
 
                         <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-5">
-                            <p>
-                                Bringing a medical device to market in the United States requires navigating the FDA's regulatory framework — a multi-step process governed by the Federal Food, Drug, and Cosmetic Act (FD&amp;C Act) and enforced by the Center for Devices and Radiological Health (CDRH). Understanding which pathway applies to your device, and how to prepare for it, is fundamental to a successful market entry.
-                            </p>
-                            <p>
-                                The FDA does not use a single, universal approval process for all devices. Instead, the pathway depends on the device's classification (Class I, II, or III), its risk profile, and whether a substantially equivalent predicate device already exists in the market. Choosing the wrong pathway — or applying without proper preparation — can result in rejection, costly delays, and potential enforcement action.
-                            </p>
-                            <p>
-                                E&amp;E Medicals and Consulting has supported medical device manufacturers across all device classes and categories through the FDA regulatory process. This guide provides a complete overview of each pathway, what to expect, and how to prepare.
-                            </p>
+                            <p>{intro?.paragraph1 || "Bringing a medical device to market in the United States requires navigating the FDA's regulatory framework — a multi-step process governed by the Federal Food, Drug, and Cosmetic Act (FD&C Act) and enforced by the Center for Devices and Radiological Health (CDRH)."}</p>
+                            <p>{intro?.paragraph2 || "The FDA does not use a single, universal approval process for all devices. Instead, the pathway depends on the device's classification (Class I, II, or III), its risk profile, and whether a substantially equivalent predicate device already exists in the market."}</p>
+                            <p>{intro?.paragraph3 || "E&E Medicals and Consulting has supported medical device manufacturers across all device classes and categories through the FDA regulatory process. This guide provides a complete overview of each pathway, what to expect, and how to prepare."}</p>
                         </div>
                     </section>
 
@@ -143,23 +144,23 @@ export const MedicalDeviceFdaApprovalProcess: React.FC = () => {
 
                     {/* Split break */}
                     <SplitSection
-                        imageSrc="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=1400"
-                        imageAlt="Medical device FDA approval regulatory process"
+                        imageSrc={split?.split_image || "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=1400"}
+                        imageAlt={split?.split_image_alt || "Medical device FDA approval regulatory process"}
                         label="FDA Regulatory Strategy"
                     >
                         <div>
                             <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-5">
                                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
-                                Pre-Submission Strategy
+                                {split?.badge_text || "Pre-Submission Strategy"}
                             </span>
                             <h2 className="font-display text-2xl font-extrabold text-navy-900 leading-tight mb-4">
-                                Pre-Submission Meetings with FDA
+                                {split?.title || "Pre-Submission Meetings with FDA"}
                             </h2>
                             <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                                Before formally submitting, manufacturers can request a Pre-Submission (Q-Sub) meeting with the FDA to get feedback on proposed regulatory strategies, study designs, and testing protocols — significantly reducing risk of rejection.
+                                {split?.paragraph1 || "Before formally submitting, manufacturers can request a Pre-Submission (Q-Sub) meeting with the FDA to get feedback on proposed regulatory strategies, study designs, and testing protocols — significantly reducing risk of rejection."}
                             </p>
                             <p className="text-gray-500 text-sm leading-relaxed">
-                                E&amp;E Medicals can prepare your Pre-Sub package, identify the right questions to ask FDA, and accompany you through the interaction to maximize the value of the meeting.
+                                {split?.paragraph2 || "E&E Medicals can prepare your Pre-Sub package, identify the right questions to ask FDA, and accompany you through the interaction to maximize the value of the meeting."}
                             </p>
                         </div>
                     </SplitSection>
@@ -238,8 +239,8 @@ export const MedicalDeviceFdaApprovalProcess: React.FC = () => {
 
                     {/* Page CTA */}
                     <PageCTA
-                        title="Need Help Navigating the FDA Approval Process?"
-                        subtitle="Our regulatory experts will assess your device and recommend the fastest, most cost-effective path to U.S. market clearance."
+                        title={cta?.title || "Need Help Navigating the FDA Approval Process?"}
+                        subtitle={cta?.subtitle || "Our regulatory experts will assess your device and recommend the fastest, most cost-effective path to U.S. market clearance."}
                         linkLabel="Schedule a Free Regulatory Assessment"
                         linkTo="/share-your-project"
                     />

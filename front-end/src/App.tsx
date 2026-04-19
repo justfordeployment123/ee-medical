@@ -44,6 +44,8 @@ import { FdaQmsRequirements } from "./pages/FdaQmsRequirements";
 import { MedicalDeviceRegulatoryStrategy } from "./pages/MedicalDeviceRegulatoryStrategy";
 import { SamdFdaRegulations } from "./pages/SamdFdaRegulations";
 import { Fda510kConsulting } from "./pages/Fda510kConsulting";
+import { FdaComplianceConsulting } from "./pages/FdaComplianceConsulting";
+import { FdaAuditPreparation } from "./pages/FdaAuditPreparation";
 import { AiAssistantWidget } from "./components/AiAssistantWidget";
 
 // Placeholder components for future pages
@@ -115,6 +117,8 @@ function App() {
 
                     {/* Service Pages */}
                     <Route path="/fda-510k-consulting" element={<Fda510kConsulting />} />
+                    <Route path="/fda-compliance-consulting" element={<FdaComplianceConsulting />} />
+                    <Route path="/fda-audit-preparation" element={<FdaAuditPreparation />} />
 
                     <Route path="*" element={<NotFound />} />
                 </Routes>

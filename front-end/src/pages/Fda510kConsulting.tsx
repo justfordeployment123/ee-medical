@@ -3,6 +3,7 @@ import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -16,6 +17,12 @@ import {
 import { PageMeta } from "../components/shared/PageMeta";
 
 export const Fda510kConsulting: React.FC = () => {
+    const content = useContent('fda_510k_consulting');
+    const header = content?.header;
+    const intro = content?.intro;
+    const split = content?.split;
+    const cta = content?.cta;
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <PageMeta
@@ -34,21 +41,15 @@ export const Fda510kConsulting: React.FC = () => {
                     {/* Section 1: Overview */}
                     <section>
                         <SectionHeading
-                            badge="510(k) Consulting"
-                            title="Expert FDA 510(k) Consulting — From Classification to Clearance"
-                            subtitle="E&E Medicals provides end-to-end 510(k) consulting services that maximize your clearance success rate and minimize time to market."
+                            badge={header?.badge_text || "510(k) Consulting"}
+                            title={header?.title || "Expert FDA 510(k) Consulting — From Classification to Clearance"}
+                            subtitle={header?.subtitle || "E&E Medicals provides end-to-end 510(k) consulting services that maximize your clearance success rate and minimize time to market."}
                         />
 
                         <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-5">
-                            <p>
-                                Navigating the FDA 510(k) premarket notification process requires deep expertise in regulatory strategy, device classification, predicate selection, and technical documentation. A single misstep — from choosing the wrong predicate to submitting an incomplete performance testing summary — can result in Refuse to Accept (RTA) determinations or Additional Information (AI) requests that add months to your timeline and tens of thousands of dollars to your costs.
-                            </p>
-                            <p>
-                                E&amp;E Medicals and Consulting has been supporting medical device manufacturers through FDA 510(k) submissions for over 32 years. Our consultants have managed submissions across a wide range of device categories — from IVD diagnostics and orthopedic implants to digital health software and imaging systems. We provide full-service 510(k) consulting from strategy through clearance.
-                            </p>
-                            <p>
-                                Whether you are a startup seeking your first 510(k) clearance or an established manufacturer managing a product modification, we bring the regulatory expertise, FDA relationship knowledge, and submission experience to get your device cleared efficiently.
-                            </p>
+                            <p>{intro?.paragraph1 || "Navigating the FDA 510(k) premarket notification process requires deep expertise in regulatory strategy, device classification, predicate selection, and technical documentation. A single misstep can result in Refuse to Accept (RTA) determinations or Additional Information (AI) requests that add months to your timeline."}</p>
+                            <p>{intro?.paragraph2 || "E&E Medicals and Consulting has been supporting medical device manufacturers through FDA 510(k) submissions for over 32 years. Our consultants have managed submissions across a wide range of device categories — from IVD diagnostics and orthopedic implants to digital health software and imaging systems."}</p>
+                            <p>{intro?.paragraph3 || "Whether you are a startup seeking your first 510(k) clearance or an established manufacturer managing a product modification, we bring the regulatory expertise, FDA relationship knowledge, and submission experience to get your device cleared efficiently."}</p>
                         </div>
                     </section>
 
@@ -128,23 +129,23 @@ export const Fda510kConsulting: React.FC = () => {
 
                     {/* Split break */}
                     <SplitSection
-                        imageSrc="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1400"
-                        imageAlt="FDA 510k consulting services medical device"
+                        imageSrc={split?.split_image || "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1400"}
+                        imageAlt={split?.split_image_alt || "FDA 510k consulting services medical device"}
                         label="Our Track Record"
                     >
                         <div>
                             <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-5">
                                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
-                                32+ Years of Experience
+                                {split?.badge_text || "32+ Years of Experience"}
                             </span>
                             <h2 className="font-display text-2xl font-extrabold text-navy-900 leading-tight mb-4">
-                                Why Choose E&amp;E Medicals for Your 510(k)?
+                                {split?.title || "Why Choose E&E Medicals for Your 510(k)?"}
                             </h2>
                             <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                                Our consultants bring over three decades of FDA regulatory experience, direct relationships with CDRH reviewers, and a track record of successful 510(k) clearances across dozens of device categories.
+                                {split?.paragraph1 || "Our consultants bring over three decades of FDA regulatory experience, direct relationships with CDRH reviewers, and a track record of successful 510(k) clearances across dozens of device categories."}
                             </p>
                             <p className="text-gray-500 text-sm leading-relaxed">
-                                We approach every 510(k) project with the same rigor: thorough predicate research, meticulous documentation, and proactive FDA communication — giving your device the strongest possible foundation for clearance.
+                                {split?.paragraph2 || "We approach every 510(k) project with the same rigor: thorough predicate research, meticulous documentation, and proactive FDA communication — giving your device the strongest possible foundation for clearance."}
                             </p>
                         </div>
                     </SplitSection>
@@ -223,8 +224,8 @@ export const Fda510kConsulting: React.FC = () => {
 
                     {/* Page CTA */}
                     <PageCTA
-                        title="Start Your 510(k) Submission Today"
-                        subtitle="Our FDA 510(k) consultants are ready to assess your device and build a clearance strategy that works. Contact us for a free consultation."
+                        title={cta?.title || "Start Your 510(k) Submission Today"}
+                        subtitle={cta?.subtitle || "Our FDA 510(k) consultants are ready to assess your device and build a clearance strategy that works. Contact us for a free consultation."}
                         linkLabel="Request a Free 510(k) Consultation"
                         linkTo="/share-your-project"
                     />

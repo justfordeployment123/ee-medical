@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
 import { PageMeta } from "../components/shared/PageMeta";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -16,6 +17,12 @@ import {
 } from "../components/shared/InnerPage";
 
 export const SamdFdaRegulations: React.FC = () => {
+    const content = useContent('samd_fda_reg');
+    const header = content?.header;
+    const intro = content?.intro;
+    const split = content?.split;
+    const cta = content?.cta;
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <PageMeta
@@ -34,21 +41,15 @@ export const SamdFdaRegulations: React.FC = () => {
                     {/* Section 1: What is SaMD */}
                     <section>
                         <SectionHeading
-                            badge="SaMD"
-                            title="What Is Software as a Medical Device (SaMD)?"
-                            subtitle="A comprehensive guide to FDA regulations for Software as a Medical Device — including classification, approval pathways, AI/ML requirements, and validation standards."
+                            badge={header?.badge_text || "SaMD"}
+                            title={header?.title || "What Is Software as a Medical Device (SaMD)?"}
+                            subtitle={header?.subtitle || "A comprehensive guide to FDA regulations for Software as a Medical Device — including classification, approval pathways, AI/ML requirements, and validation standards."}
                         />
 
                         <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-5">
-                            <p>
-                                Software as a Medical Device (SaMD) is software intended to be used for one or more medical purposes that performs these purposes without being part of a hardware medical device. The term was introduced by the International Medical Device Regulators Forum (IMDRF) and is now widely used by the FDA to describe software that qualifies as a medical device under the Federal Food, Drug, and Cosmetic Act.
-                            </p>
-                            <p>
-                                Examples of SaMD include: software that analyzes medical images to detect cancer, software that interprets ECG data to diagnose arrhythmia, clinical decision support software that recommends drug dosing, and AI algorithms that classify pathology slides. The rapid growth of AI in healthcare has made SaMD one of the most strategically important and actively evolving areas of FDA medical device regulation.
-                            </p>
-                            <p>
-                                Understanding FDA SaMD regulations is critical for software developers, digital health companies, and medical device manufacturers integrating AI into their products. E&amp;E Medicals provides specialized SaMD regulatory consulting with deep expertise in FDA digital health frameworks.
-                            </p>
+                            <p>{intro?.paragraph1 || "Software as a Medical Device (SaMD) is software intended to be used for one or more medical purposes that performs these purposes without being part of a hardware medical device. Examples include software that analyzes medical images to detect cancer, interprets ECG data, or provides clinical decision support."}</p>
+                            <p>{intro?.paragraph2 || "The rapid growth of AI in healthcare has made SaMD one of the most strategically important and actively evolving areas of FDA medical device regulation."}</p>
+                            <p>{intro?.paragraph3 || "E&E Medicals provides specialized SaMD regulatory consulting with deep expertise in FDA digital health frameworks. Understanding FDA SaMD regulations is critical for software developers, digital health companies, and medical device manufacturers integrating AI into their products."}</p>
                         </div>
                     </section>
 
@@ -136,23 +137,23 @@ export const SamdFdaRegulations: React.FC = () => {
 
                     {/* Split break */}
                     <SplitSection
-                        imageSrc="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?q=80&w=1400"
-                        imageAlt="AI machine learning FDA medical device SaMD"
+                        imageSrc={split?.split_image || "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?q=80&w=1400"}
+                        imageAlt={split?.split_image_alt || "AI machine learning FDA medical device SaMD"}
                         label="SaMD Pathways"
                     >
                         <div>
                             <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-5">
                                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
-                                Approval Pathways
+                                {split?.badge_text || "Approval Pathways"}
                             </span>
                             <h2 className="font-display text-2xl font-extrabold text-navy-900 leading-tight mb-4">
-                                SaMD FDA Approval Pathways
+                                {split?.title || "SaMD FDA Approval Pathways"}
                             </h2>
                             <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                                SaMD typically follows the same FDA pathways as other medical devices: 510(k) for moderate-risk software with a predicate, De Novo for novel low-to-moderate risk software, and PMA for high-risk diagnostic algorithms. However, the evidence requirements differ significantly from hardware devices.
+                                {split?.paragraph1 || "SaMD typically follows the same FDA pathways as other medical devices: 510(k) for moderate-risk software with a predicate, De Novo for novel low-to-moderate risk software, and PMA for high-risk diagnostic algorithms. However, the evidence requirements differ significantly from hardware devices."}
                             </p>
                             <p className="text-gray-500 text-sm leading-relaxed">
-                                The FDA Breakthrough Devices Program also offers an accelerated pathway for SaMD that provides more effective treatment or diagnosis of serious conditions — a strategic option for innovative AI diagnostic tools.
+                                {split?.paragraph2 || "The FDA Breakthrough Devices Program also offers an accelerated pathway for SaMD that provides more effective treatment or diagnosis of serious conditions — a strategic option for innovative AI diagnostic tools."}
                             </p>
                         </div>
                     </SplitSection>
@@ -245,8 +246,8 @@ export const SamdFdaRegulations: React.FC = () => {
 
                     {/* Page CTA */}
                     <PageCTA
-                        title="Navigate FDA SaMD Regulations with Confidence"
-                        subtitle="Our AI and digital health regulatory experts will guide your SaMD program from concept through FDA clearance or approval."
+                        title={cta?.title || "Navigate FDA SaMD Regulations with Confidence"}
+                        subtitle={cta?.subtitle || "Our AI and digital health regulatory experts will guide your SaMD program from concept through FDA clearance or approval."}
                         linkLabel="Get SaMD Regulatory Support"
                         linkTo="/share-your-project"
                     />

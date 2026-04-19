@@ -206,6 +206,8 @@ export const Header: React.FC = () => {
                                         <MegaColumn title="Quality Assurance" items={[
                                             { to: "/medical-devices-quality-assurance", icon: Briefcase, label: "Medical Devices" },
                                             { to: "/quality-assurance-audits", icon: ClipboardCheck, label: "Audits" },
+                                            { to: "/fda-compliance-consulting", icon: ShieldCheck, label: "FDA Compliance Consulting" },
+                                            { to: "/fda-audit-preparation", icon: ClipboardCheck, label: "FDA Audit Preparation" },
                                             { to: "/quality-system-regulation-qsr", icon: Cpu, label: "Quality Management System Regulation" },
                                             { to: "/quality-management-system-implementation", icon: ShieldCheck, label: "QMS Implementation" },
                                         ]} />
@@ -431,6 +433,8 @@ export const Header: React.FC = () => {
                             { heading: "Quality Assurance" },
                             { to: "/medical-devices-quality-assurance", label: "Medical Devices" },
                             { to: "/quality-assurance-audits", label: "Audits" },
+                            { to: "/fda-compliance-consulting", label: "FDA Compliance Consulting" },
+                            { to: "/fda-audit-preparation", label: "FDA Audit Preparation" },
                             { to: "/quality-system-regulation-qsr", label: "QMSR Regulation" },
                             { to: "/quality-management-system-implementation", label: "QMS Implementation" },
                             { heading: "ISO Standards" },

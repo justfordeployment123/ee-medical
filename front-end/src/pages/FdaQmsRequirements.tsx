@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Link } from "react-router-dom";
 import { PageMeta } from "../components/shared/PageMeta";
+import { useContent } from "../hooks/useContent";
 import {
     InnerContent,
     SectionHeading,
@@ -16,6 +17,12 @@ import {
 } from "../components/shared/InnerPage";
 
 export const FdaQmsRequirements: React.FC = () => {
+    const content = useContent('fda_qms_req');
+    const header = content?.header;
+    const intro = content?.intro;
+    const split = content?.split;
+    const cta = content?.cta;
+
     return (
         <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <PageMeta
@@ -34,21 +41,15 @@ export const FdaQmsRequirements: React.FC = () => {
                     {/* Section 1: Overview */}
                     <section>
                         <SectionHeading
-                            badge="FDA QMS"
-                            title="What Are the FDA QMS Requirements for Medical Devices?"
-                            subtitle="A complete guide to FDA Quality System Regulation (21 CFR Part 820) — what it requires, who it applies to, and how to achieve and maintain compliance."
+                            badge={header?.badge_text || "FDA QMS"}
+                            title={header?.title || "What Are the FDA QMS Requirements for Medical Devices?"}
+                            subtitle={header?.subtitle || "A complete guide to FDA Quality System Regulation (21 CFR Part 820) — what it requires, who it applies to, and how to achieve and maintain compliance."}
                         />
 
                         <div className="text-gray-700 leading-relaxed text-[15px] md:text-base space-y-5">
-                            <p>
-                                The FDA's Quality System Regulation (QSR), codified in 21 CFR Part 820, establishes the minimum quality system requirements for the design, manufacture, packaging, labeling, storage, installation, and servicing of medical devices intended for sale in the United States. Compliance with the QSR is mandatory for all medical device manufacturers — including importers, contract manufacturers, and repackagers — and is enforced through regular FDA inspections.
-                            </p>
-                            <p>
-                                In 2024, the FDA finalized its Quality Management System Regulation (QMSR) update, aligning 21 CFR Part 820 more closely with ISO 13485:2016. This alignment reduces regulatory burden for manufacturers who are already ISO 13485 certified, while strengthening the quality system requirements applicable to all U.S. medical device manufacturers.
-                            </p>
-                            <p>
-                                E&amp;E Medicals and Consulting helps medical device manufacturers build, implement, and maintain FDA-compliant quality systems. This guide explains what the FDA QMS requirements entail, how they apply to your organization, and what a compliant quality system looks like in practice.
-                            </p>
+                            <p>{intro?.paragraph1 || "The FDA's Quality System Regulation (QSR), codified in 21 CFR Part 820, establishes the minimum quality system requirements for the design, manufacture, packaging, labeling, storage, installation, and servicing of medical devices intended for sale in the United States."}</p>
+                            <p>{intro?.paragraph2 || "In 2024, the FDA finalized its Quality Management System Regulation (QMSR) update, aligning 21 CFR Part 820 more closely with ISO 13485:2016. This alignment reduces regulatory burden for manufacturers who are already ISO 13485 certified."}</p>
+                            <p>{intro?.paragraph3 || "E&E Medicals and Consulting helps medical device manufacturers build, implement, and maintain FDA-compliant quality systems."}</p>
                         </div>
                     </section>
 
@@ -141,27 +142,26 @@ export const FdaQmsRequirements: React.FC = () => {
 
                     {/* Split break */}
                     <SplitSection
-                        imageSrc="https://images.unsplash.com/photo-1504439468489-c8920d796a29?q=80&w=1400"
-                        imageAlt="FDA QMS quality management system medical device"
+                        imageSrc={split?.split_image || "https://images.unsplash.com/photo-1504439468489-c8920d796a29?q=80&w=1400"}
+                        imageAlt={split?.split_image_alt || "FDA QMS quality management system medical device"}
                         label="FDA Inspections"
                     >
                         <div>
                             <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-100 text-brand-600 text-xs font-bold uppercase tracking-wider mb-5">
                                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
-                                FDA 483 Observations
+                                {split?.badge_text || "FDA 483 Observations"}
                             </span>
                             <h2 className="font-display text-2xl font-extrabold text-navy-900 leading-tight mb-4">
-                                Most Common FDA QMS Violations
+                                {split?.title || "Most Common FDA QMS Violations"}
                             </h2>
                             <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                                The FDA's most frequently cited QSR violations include: inadequate CAPA processes, design control deficiencies, complaint handling failures, and insufficient process validation. These observations can escalate to Warning Letters and enforcement action.
+                                {split?.paragraph1 || "The FDA's most frequently cited QSR violations include: inadequate CAPA processes, design control deficiencies, complaint handling failures, and insufficient process validation. These observations can escalate to Warning Letters and enforcement action."}
                             </p>
                             <p className="text-gray-500 text-sm leading-relaxed">
-                                Our{" "}
+                                {split?.paragraph2 || "Our FDA 483 and Warning Letter remediation services help manufacturers respond effectively and restore FDA confidence."}{" "}
                                 <Link to="/fda-483-observations-warning-letters-recalls-remediation" className="text-brand-600 hover:underline">
-                                    FDA 483 and Warning Letter remediation services
+                                    Learn more →
                                 </Link>
-                                {" "}help manufacturers respond effectively and restore FDA confidence.
                             </p>
                         </div>
                     </SplitSection>
@@ -233,8 +233,8 @@ export const FdaQmsRequirements: React.FC = () => {
 
                     {/* Page CTA */}
                     <PageCTA
-                        title="Build a FDA-Compliant Quality System"
-                        subtitle="Our regulatory experts will assess your current QMS and implement the systems you need to pass FDA inspections with confidence."
+                        title={cta?.title || "Build a FDA-Compliant Quality System"}
+                        subtitle={cta?.subtitle || "Our regulatory experts will assess your current QMS and implement the systems you need to pass FDA inspections with confidence."}
                         linkLabel="Request a QMS Assessment"
                         linkTo="/share-your-project"
                     />
