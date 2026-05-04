@@ -14,6 +14,7 @@ import {
     SplitSection,
     Section,
     PageCTA,
+    ResourceLinksGrid,
 } from "../components/shared/InnerPage";
 
 export const MedicalDeviceFdaApprovalProcess: React.FC = () => {
@@ -235,6 +236,30 @@ export const MedicalDeviceFdaApprovalProcess: React.FC = () => {
                                 "ISO 13485 certification coordination",
                             ]}
                         />
+                    </Section>
+
+                    {/* Section: External Resources */}
+                    <Section>
+                        <SectionHeading
+                            badge="Further Reading"
+                            title="External Resources &amp; Industry Sources"
+                            subtitle="Curated references on FDA approval pathways, device classification, and regulatory updates from leading industry publications and the FDA."
+                        />
+                        <ResourceLinksGrid links={[
+                            { href: "https://intuitionlabs.io", label: "FDA 510(k) Explained: Medical Device Premarket Notification", source: "IntuitionLabs" },
+                            { href: "https://www.fda.gov/medical-devices/device-approvals-clearances-and-other-actions/device-approvals-clearances-and-other-actions", label: "Device Approvals and Clearances", source: "U.S. FDA" },
+                            { href: "https://quantiva.io", label: "FDA Pathways for SaMD: 510(k) vs De Novo vs PMA", source: "Quantiva" },
+                            { href: "https://bioaccess.com", label: "510k Vs PMA Vs De Novo Pathway Key Differences", source: "bioaccess®" },
+                            { href: "https://omcmedical.com", label: "Do You Need a 510(k) or De Novo? Choosing the Right FDA Pathway", source: "OMC Medical" },
+                            { href: "https://thefdagroup.com", label: "PMA vs. 510(k): Everything You Need to Know (2026)", source: "The FDA Group" },
+                            { href: "https://pharmiweb.com", label: "Understanding Medical Device Regulatory Pathways — 510(k), PMA, De Novo", source: "PharmIweb" },
+                            { href: "https://educolifesciences.com", label: "FDA De Novo vs 510k vs PMA Comparison", source: "Educo Life Sciences" },
+                            { href: "https://pureglobal.ai", label: "FDA News Today: Medical Device Regulatory Updates 2026", source: "Pure Global" },
+                            { href: "https://eleapsoftware.com", label: "FDA Cleared vs Approved: The Complete 2026 Regulatory Guide", source: "Eleap Software" },
+                            { href: "https://www.prnewswire.com", label: "All FDA Approval News and Press Releases", source: "PR Newswire" },
+                            { href: "https://www.fda.gov/medical-devices/premarket-submissions-selecting-and-preparing-correct-submission/de-novo-classification-request", label: "De Novo Classification Request", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/medical-devices/how-study-and-market-your-device/breakthrough-devices-program", label: "Breakthrough Devices Program", source: "U.S. FDA" },
+                        ]} />
                     </Section>
 
                     {/* Page CTA */}

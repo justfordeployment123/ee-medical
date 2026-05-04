@@ -13,6 +13,7 @@ import {
     Section,
     InfoBox,
     PageCTA,
+    ResourceLinksGrid,
 } from "../components/shared/InnerPage";
 
 // meta added below in JSX
@@ -111,6 +112,29 @@ export const IndApplication: React.FC = () => {
                     <Section dark>
                         <SectionHeading badge={expertise?.badge_text || "Expertise"} title={expertise?.title || "IND Submissions - E&E Medicals Expertise"} />
                         <FeatureList items={expertiseList.length ? expertiseList : expertiseItems} columns={2} />
+                    </Section>
+
+                    <Section>
+                        <SectionHeading
+                            badge="Further Reading"
+                            title="FDA IND, Clinical Trials &amp; Drug Development Resources"
+                        />
+                        <ResourceLinksGrid links={[
+                            { href: "https://www.fda.gov/drugs/guidance-compliance-regulatory-information/guidance-documents-drug-applications", label: "Guidance Documents for Drug Applications", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/drugs/new-drugs-fda-cders-new-molecular-entities-and-new-therapeutic-biological-products/novel-drug-approvals-2026", label: "Novel Drug Approvals for 2026", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/drugs/guidance-compliance-regulatory-information/clinical-trials-guidance-documents", label: "Clinical Trials Guidance Documents", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/drugs/investigational-new-drug-ind-application/ind-application-reporting-safety-reports", label: "IND Application Reporting: Safety Reports", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/safety-reporting-requirements-inds-investigational-new-drug-applications-and-babe-studies", label: "Safety Reporting Requirements for INDs and BA/BE Studies", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/investigator-responsibilities-safety-reporting-investigational-new-drug-application-studies-and", label: "Investigator Responsibilities – Safety Reporting for Investigational New Drug Application Studies", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/providing-regulatory-submissions-electronic-format-ind-safety-reports", label: "Providing Regulatory Submissions in Electronic Format: IND Safety Reports", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/safety/faers-electronic-submissions", label: "FDA Adverse Event Reporting System (FAERS) Electronic Submissions", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/conducting-clinical-trials-decentralized-elements", label: "Conducting Clinical Trials With Decentralized Elements", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/science-research/artificial-intelligence-ai-drug-development", label: "Artificial Intelligence for Drug Development", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/science-research/artificial-intelligence-in-drug-development/guiding-principles-good-ai-practice-drug-development", label: "Guiding Principles of Good AI Practice in Drug Development", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/considerations-use-artificial-intelligence-support-regulatory-decision-making-drug-and-biological", label: "Considerations for the Use of AI to Support Regulatory Decision-Making for Drug and Biological Products", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/considerations-use-real-world-data-and-real-world-evidence-support-regulatory-decision-making-drug", label: "Considerations for the Use of Real-World Data and Real-World Evidence for Drug and Biological Products", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/science-research/artificial-intelligence-in-drug-development/using-artificial-intelligence-machine-learning-development-drug-substances", label: "Using Artificial Intelligence & Machine Learning in the Development of Drug Substances", source: "U.S. FDA" },
+                        ]} />
                     </Section>
 
                     <PageCTA />

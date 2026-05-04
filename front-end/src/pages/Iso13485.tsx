@@ -10,7 +10,9 @@ import {
     HeroImage,
     SectionHeading,
     InfoBox,
+    Section,
     PageCTA,
+    ResourceLinksGrid,
 } from "../components/shared/InnerPage";
 
 export const Iso13485: React.FC = () => {
@@ -87,6 +89,28 @@ export const Iso13485: React.FC = () => {
                             </p>
                         </div>
                     </section>
+
+                    {/* Section: External Resources */}
+                    <Section>
+                        <SectionHeading
+                            badge="Further Reading"
+                            title="MDSAP &amp; ISO 13485 Resources"
+                            subtitle="Official FDA guidance, audit body references, and industry resources on MDSAP and ISO 13485 compliance."
+                        />
+                        <ResourceLinksGrid links={[
+                            { href: "https://www.fda.gov/medical-devices/cdrh-international-programs/medical-device-single-audit-program-mdsap", label: "Medical Device Single Audit Program (MDSAP)", source: "U.S. FDA" },
+                            { href: "https://nsf.org", label: "MDSAP Audit Approach Update: What Changed and Why It Matters", source: "NSF" },
+                            { href: "https://thehealthcareguys.com", label: "Beyond the Single Audit: Leveraging MDSAP to Navigate the 2026 FDA QMSR", source: "The Healthcare Guys" },
+                            { href: "https://www.mddionline.com", label: "Preparing for 2026: MDSAP as Your Regulatory Compliance Guide", source: "Medical Device and Diagnostic Industry" },
+                            { href: "https://intertek.com", label: "MDSAP in 2025: A Strategic Compliance Pathway for Global Manufacturers", source: "Intertek" },
+                            { href: "https://meddeviceguide.com", label: "MDSAP Audit: The Complete Guide to the Medical Device Single Audit Program", source: "MedDeviceGuide" },
+                            { href: "https://gmta.info", label: "Global Medical Technology Alliance — MDSAP & Global Compliance", source: "Global Medical Technology Alliance" },
+                            { href: "https://formiventos.com", label: "The MDSAP Audit Approach (MDSAP AU P0002.010) Revised", source: "formiventos.com" },
+                            { href: "https://mdsap.global", label: "Documents Library — Medical Device Single Audit Program (MDSAP)", source: "MDSAP Global" },
+                            { href: "https://mavenprofserv.com", label: "MDSAP Audit Approach Guide for Medical Device Companies", source: "Maven Profcon Services" },
+                            { href: "https://globalstd.com", label: "Medical Device Single Audit Program — MDSAP Overview", source: "Global STD" },
+                        ]} />
+                    </Section>
 
                     {/* Page CTA */}
                     <PageCTA

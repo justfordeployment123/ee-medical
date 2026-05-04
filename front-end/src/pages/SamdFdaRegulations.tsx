@@ -14,6 +14,7 @@ import {
     SplitSection,
     Section,
     PageCTA,
+    ResourceLinksGrid,
 } from "../components/shared/InnerPage";
 
 export const SamdFdaRegulations: React.FC = () => {
@@ -242,6 +243,41 @@ export const SamdFdaRegulations: React.FC = () => {
                                 "AI regulatory strategy for startup digital health companies",
                             ]}
                         />
+                    </Section>
+
+                    {/* Section: External Resources */}
+                    <Section>
+                        <SectionHeading
+                            badge="Further Reading"
+                            title="FDA Guidance Documents &amp; Industry Resources"
+                            subtitle="Official FDA guidance documents and industry references on AI/ML medical devices, SaMD regulation, PCCP, and real-world evidence."
+                        />
+                        <ResourceLinksGrid links={[
+                            { href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/predetermined-change-control-plan-artificial-intelligence-enabled-devices", label: "Predetermined Change Control Plan for Artificial Intelligence-Enabled Devices", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-device-software-functions", label: "Artificial Intelligence-Enabled Device Software Functions: Lifecycle Recommendations", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices", label: "Artificial Intelligence-Enabled Medical Devices", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/science-research/science-and-research-special-topics/real-world-evidence", label: "Use of Real-World Evidence to Support Regulatory Decision-Making for Medical Devices", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/medical-devices/premarket-submissions-selecting-and-preparing-correct-submission/de-novo-classification-request", label: "De Novo Classification Request", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/medical-devices/how-study-and-market-your-device/breakthrough-devices-program", label: "Breakthrough Devices Program", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/medical-devices/digital-health-center-excellence/digital-health-technologies-remote-data-acquisition-clinical-investigations", label: "Digital Health Technologies for Remote Data Acquisition in Clinical Investigations", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/medical-devices/device-approvals-clearances-and-other-actions/device-approvals-clearances-and-other-actions", label: "Device Approvals and Clearances", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/considerations-use-artificial-intelligence-support-regulatory-decision-making", label: "Considerations for the Use of AI to Support Regulatory Decision-Making", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/medical-devices/device-approvals-clearances-and-other-actions/examples-real-world-evidence-used-medical-device-regulatory-decisions", label: "Examples of Real-World Evidence Used in Medical Device Regulatory Decisions", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/news-events/press-announcements/fda-issues-comprehensive-draft-guidance-developers-artificial-intelligence-enabled-devices", label: "FDA Issues Comprehensive Draft Guidance for Developers of AI-Enabled Devices", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/marketing-submission-recommendations-predetermined-change-control-plan-artificial-intelligence", label: "Marketing Submission Recommendations for a Predetermined Change Control Plan for AI", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/medical-devices/guidance-documents-medical-devices-and-radiation-emitting-products/recent-final-medical-device-guidance-documents", label: "Recent Final Medical Device Guidance Documents", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/medical-devices/science-and-research-medical-devices/real-world-evidence-advancing-medical-devices", label: "Real-World Evidence: Advancing Regulatory Decision-Making for Medical Devices", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/medical-devices/workshops-conferences-and-meetings-medical-devices/town-hall-use-real-world-evidence-and-medical-devices", label: "Town Hall – Use of Real-World Evidence and Medical Devices", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/science-research/science-and-research-special-topics/real-world-evidence", label: "Real-World Evidence | FDA (Program Hub)", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/news-events/press-announcements/fda-eliminates-major-barrier-using-real-world-evidence-drug-and-device-applications", label: "FDA Eliminates Major Barrier to Using Real-World Evidence in Drug and Device Applications", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/science-research/science-and-research-special-topics/real-world-evidence", label: "FDA Use of Real-World Evidence in Regulatory Decision Making", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/news-events/press-announcements/fda-proposes-framework-advance-credibility-ai-models-used-drug-development", label: "FDA Proposes Framework to Advance Credibility of AI Models Used for Drug Development", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/predetermined-change-control-plans-medical-devices", label: "Predetermined Change Control Plans for Medical Devices (Draft Guidance, Aug 2024)", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/medical-devices/science-and-research-medical-devices/use-real-world-evidence-support-regulatory-decision-making-medical-devices", label: "Use of Real-World Evidence for Medical Device Regulatory Decision-Making", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents", label: "Search for FDA Guidance Documents", source: "U.S. FDA" },
+                            { href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/newly-added-guidance-documents", label: "Newly Added FDA Guidance Documents", source: "U.S. FDA" },
+                            { href: "https://quantiva.io", label: "FDA Pathways for SaMD: 510(k) vs De Novo vs PMA", source: "Quantiva" },
+                        ]} />
                     </Section>
 
                     {/* Page CTA */}

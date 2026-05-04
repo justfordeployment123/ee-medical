@@ -4,7 +4,7 @@
  */
 import React from "react";
 import { Link } from "react-router-dom";
-import { CheckCircle, ArrowRight, type LucideIcon } from "lucide-react";
+import { CheckCircle, ArrowRight, ExternalLink, type LucideIcon } from "lucide-react";
 
 /* ─── Section Heading ─────────────────────────────────────── */
 export const SectionHeading: React.FC<{
@@ -336,5 +336,69 @@ export const Section: React.FC<{
 export const InnerContent: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <div className="max-w-[1100px] mx-auto px-4 md:px-8 pt-16 pb-28 space-y-16">
         {children}
+    </div>
+);
+
+/* ─── Resource Links Grid ──────────────────────────────────── */
+interface ResourceLink {
+    href: string;
+    label: string;
+    source: string;
+}
+
+type SourceVariant = 'fda' | 'eu' | 'regulatory' | 'industry';
+
+const LINK_VARIANTS: Record<SourceVariant, { bar: string; avatar: string }> = {
+    fda:        { bar: 'bg-blue-700',    avatar: 'bg-blue-700' },
+    eu:         { bar: 'bg-amber-600',   avatar: 'bg-amber-600' },
+    regulatory: { bar: 'bg-emerald-700', avatar: 'bg-emerald-700' },
+    industry:   { bar: 'bg-brand-500',   avatar: 'bg-brand-500' },
+};
+
+const REGULATORY_SOURCES = new Set(['NSF', 'RAPS', 'MDSAP Global', 'Global Medical Technology Alliance', 'Global STD', 'DQS']);
+
+function getLinkVariant(source: string): SourceVariant {
+    if (source === 'U.S. FDA') return 'fda';
+    if (source === 'European Commission') return 'eu';
+    if (REGULATORY_SOURCES.has(source)) return 'regulatory';
+    return 'industry';
+}
+
+function getSourceInitials(source: string): string {
+    const cleaned = source.replace(/\.(com|io|org|info|global|eu|ai)$/i, '');
+    const words = cleaned.split(/[\s&®™]+/).filter(Boolean);
+    if (words.length === 1) return words[0].slice(0, 3).toUpperCase();
+    return words.slice(0, 3).map(w => w[0].toUpperCase()).join('');
+}
+
+export const ResourceLinksGrid: React.FC<{ links: ResourceLink[] }> = ({ links }) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {links.map(({ href, label, source }) => {
+            const { bar, avatar } = LINK_VARIANTS[getLinkVariant(source)];
+            const initials = getSourceInitials(source);
+            return (
+                <a
+                    key={href}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-stretch rounded-xl border border-gray-200 overflow-hidden hover:border-gray-300 hover:shadow-md hover:shadow-black/5 transition-all duration-200 group bg-white"
+                >
+                    <div className={`w-1.5 shrink-0 ${bar}`} />
+                    <div className="flex items-start gap-3 px-4 py-3 flex-1 min-w-0">
+                        <div className={`flex-shrink-0 w-9 h-9 rounded-full ${avatar} flex items-center justify-center text-[10px] font-bold text-white mt-0.5 shadow-sm`}>
+                            {initials}
+                        </div>
+                        <div className="flex flex-col gap-0.5 min-w-0 flex-1">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">{source}</span>
+                            <div className="flex items-start gap-1">
+                                <span className="text-sm text-gray-700 leading-snug group-hover:text-navy-900 transition-colors flex-1">{label}</span>
+                                <ExternalLink size={13} className="shrink-0 mt-0.5 text-gray-300 group-hover:text-brand-400 transition-colors" />
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            );
+        })}
     </div>
 );

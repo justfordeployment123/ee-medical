@@ -14,6 +14,7 @@ import {
     SplitSection,
     Section,
     PageCTA,
+    ResourceLinksGrid,
 } from "../components/shared/InnerPage";
 
 export const Fda510kSubmissionGuide: React.FC = () => {
@@ -257,6 +258,25 @@ export const Fda510kSubmissionGuide: React.FC = () => {
                                 "510(k) cost estimation and fee transfer support",
                             ]}
                         />
+                    </Section>
+
+                    {/* Section: External Resources */}
+                    <Section>
+                        <SectionHeading
+                            badge="Further Reading"
+                            title="510(k) &amp; FDA Pathway Resources"
+                            subtitle="Curated external references on FDA 510(k), PMA, De Novo, and device clearance from trusted industry sources."
+                        />
+                        <ResourceLinksGrid links={[
+                            { href: "https://intuitionlabs.io", label: "FDA 510(k) Explained: Medical Device Premarket Notification", source: "IntuitionLabs" },
+                            { href: "https://www.fda.gov/medical-devices/device-approvals-clearances-and-other-actions/device-approvals-clearances-and-other-actions", label: "Device Approvals and Clearances", source: "U.S. FDA" },
+                            { href: "https://thefdagroup.com", label: "PMA vs. 510(k): Everything You Need to Know (2026)", source: "The FDA Group" },
+                            { href: "https://educolifesciences.com", label: "FDA De Novo vs 510k vs PMA Comparison", source: "Educo Life Sciences" },
+                            { href: "https://eleapsoftware.com", label: "FDA Cleared vs Approved: The Complete 2026 Regulatory Guide", source: "Eleap Software" },
+                            { href: "https://pureglobal.ai", label: "FDA News Today: Medical Device Regulatory Updates 2026", source: "Pure Global" },
+                            { href: "https://omcmedical.com", label: "Do You Need a 510(k) or De Novo? Choosing the Right FDA Pathway", source: "OMC Medical" },
+                            { href: "https://pharmiweb.com", label: "Understanding Medical Device Regulatory Pathways — 510(k), PMA, De Novo", source: "PharmIweb" },
+                        ]} />
                     </Section>
 
                     {/* Page CTA */}

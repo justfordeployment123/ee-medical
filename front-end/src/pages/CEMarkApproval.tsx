@@ -12,6 +12,7 @@ import {
     Section,
     InfoBox,
     PageCTA,
+    ResourceLinksGrid,
 } from "../components/shared/InnerPage";
 
 export const CEMarkApproval: React.FC = () => {
@@ -92,6 +93,24 @@ export const CEMarkApproval: React.FC = () => {
                                 </p>
                             </div>
                         </div>
+                    </Section>
+
+                    <Section>
+                        <SectionHeading badge="Further Reading" title="EU MDR/IVDR Resources &amp; Industry Sources" subtitle="Recent regulatory updates, reform proposals, and compliance guidance from leading EU medical device regulatory sources." />
+                        <ResourceLinksGrid links={[
+                            { href: "https://meddeviceguide.com", label: "EU MDR/IVDR Simplification 2026: Proposed Changes, Timeline & What to Expect", source: "MedDeviceGuide" },
+                            { href: "https://complifegroup.com", label: "MDR and IVDR Reform: the Commission's Proposal for a Long-Awaited Revision", source: "Complife Group" },
+                            { href: "https://health.ec.europa.eu/medical-devices-sector/new-regulations_en", label: "New Regulations — EU Medical Device Regulation (MDR & IVDR)", source: "European Commission" },
+                            { href: "https://mdlaw.eu", label: "MDR and IVDR: EU Guidance Documents Updated in April 2026", source: "MDlaw" },
+                            { href: "https://mavenprofserv.com", label: "EUDAMED Mandatory 2026: MDR & IVDR Compliance Guide", source: "Maven Profcon Services" },
+                            { href: "https://dqs.com", label: "MDR Update: Commission Implementing Decision (EU) 2026/193", source: "DQS" },
+                            { href: "https://raps.org", label: "MedCon: Don't Change Course Based on Proposed MDR/IVDR Reforms", source: "RAPS" },
+                            { href: "https://arnoldporter.com", label: "The EU Medical Device Shake-Up: What International Companies Should Know", source: "Arnold & Porter" },
+                            { href: "https://kalmsconsulting.com", label: "EUDAMED, MDR Transition and EU Regulatory Changes in 2026", source: "Kalms Consulting" },
+                            { href: "https://mdxcro.com", label: "MDR and IVDR Targeted Revision: What Changes in 2026?", source: "MDX CRO" },
+                            { href: "https://johner-institute.com", label: "MDR 2.0, IVDR 2.0: What the European Commission is Planning", source: "Johner Institute" },
+                            { href: "https://simmons-simmons.com", label: "EU Proposes Overhaul of MDR & IVDR", source: "Simmons & Simmons" },
+                        ]} />
                     </Section>
 
                     <PageCTA />
