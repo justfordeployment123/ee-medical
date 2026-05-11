@@ -16,11 +16,14 @@ export interface BlogPost {
     date: string;
     readTime: string;
     featured?: boolean;
+    /** When false, article is draft (admin list only) */
+    published?: boolean;
     author: string;
     metaDescription: string;
     content: ContentSection[];
 }
 
+/** Static fallback when the blog API is unavailable */
 export const blogPosts: BlogPost[] = [
     {
         id: "6509",

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node --watch ./src/server.js",
     "start": "node ./src/server.js",
-    "sync-pages": "node scripts/sync-pages.js"
+    "sync-pages": "node scripts/sync-pages.js",
+    "seed-blog": "node scripts/seed-blog.mjs"
   },
   "dependencies": {
     "better-sqlite3": "^12.8.0",

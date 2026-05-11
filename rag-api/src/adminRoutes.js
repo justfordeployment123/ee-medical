@@ -4,7 +4,7 @@ import { createHash, randomUUID } from 'crypto';
 import path from 'path';
 import fs from 'fs';
 import sizeOf from 'image-size';
-import { uploadsDir, getAdminPageContent, updateField, updateImageRecord, getImageMeta } from './db.js';
+import { uploadsDir, getAdminPageContent, updateField, updateImageRecord, getImageMeta, listAllBlogPostsAdmin, getBlogPostByIdAdmin, createBlogPost, updateBlogPost, deleteBlogPost } from './db.js';
 
 const router = Router();
 
@@ -109,6 +109,94 @@ router.post('/image/:page/:section/:key', auth, upload.single('image'), (req, re
   } catch (err) {
     if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
     res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/admin/blog/cover — blog hero (no fixed slot; relaxed size limits)
+router.post('/blog/cover', auth, upload.single('image'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No image file. Allowed: JPEG, PNG, WebP, GIF (max 15 MB).' });
+  }
+  const filePath = req.file.path;
+  try {
+    const dims = sizeOf(fs.readFileSync(filePath));
+    const maxW = 4096;
+    const maxH = 4096;
+    const minW = 200;
+    const minH = 200;
+    if (!dims.width || !dims.height) {
+      fs.unlinkSync(filePath);
+      return res.status(400).json({ error: 'Could not read image dimensions.' });
+    }
+    if (dims.width > maxW || dims.height > maxH) {
+      fs.unlinkSync(filePath);
+      return res.status(400).json({
+        error: `Image too large. Maximum ${maxW}×${maxH}px. Your file: ${dims.width}×${dims.height}px.`,
+      });
+    }
+    if (dims.width < minW || dims.height < minH) {
+      fs.unlinkSync(filePath);
+      return res.status(400).json({
+        error: `Image too small for a clear cover. Use at least ${minW}×${minH}px. Your file: ${dims.width}×${dims.height}px.`,
+      });
+    }
+    const path = `/api/uploads/${req.file.filename}`;
+    res.json({ ok: true, path, url: path });
+  } catch (err) {
+    if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ─── Blog posts (CMS) ─────────────────────────────────────────────────────────
+router.get('/blog', auth, (_req, res) => {
+  try {
+    res.json({ posts: listAllBlogPostsAdmin() });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get('/blog/:id', auth, (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    if (!Number.isFinite(id)) return res.status(400).json({ error: 'Invalid id' });
+    const post = getBlogPostByIdAdmin(id);
+    if (!post) return res.status(404).json({ error: 'Not found' });
+    res.json(post);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.post('/blog', auth, (req, res) => {
+  try {
+    const post = createBlogPost(req.body || {});
+    res.json(post);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+router.put('/blog/:id', auth, (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    if (!Number.isFinite(id)) return res.status(400).json({ error: 'Invalid id' });
+    const post = updateBlogPost(id, req.body || {});
+    res.json(post);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+router.delete('/blog/:id', auth, (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    if (!Number.isFinite(id)) return res.status(400).json({ error: 'Invalid id' });
+    deleteBlogPost(id);
+    res.json({ ok: true });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
 });
 

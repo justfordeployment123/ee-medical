@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 import path from "path";
 import { fileURLToPath } from "url";
 import { loadKnowledgeBase } from "./knowledgeBase.js";
-import { getPageContent, uploadsDir } from "./db.js";
+import { getPageContent, uploadsDir, listPublishedBlogSummaries, getPublishedBlogWithNav, listRelatedPublishedSummaries } from "./db.js";
 import adminRoutes from "./adminRoutes.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -39,6 +39,27 @@ app.get('/api/content/:page', (req, res) => {
   try {
     const content = getPageContent(req.params.page);
     res.json(content);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/blog/posts', (_req, res) => {
+  try {
+    res.json({ posts: listPublishedBlogSummaries() });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/blog/post/:slug', (req, res) => {
+  try {
+    const data = getPublishedBlogWithNav(req.params.slug);
+    if (!data) {
+      return res.status(404).json({ error: 'Not found' });
+    }
+    const related = listRelatedPublishedSummaries(data.post.category, data.post.slug, 3);
+    res.json({ ...data, related });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

@@ -1,20 +1,51 @@
-import React, { useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { PageHeader } from "../components/shared/PageHeader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { ChevronRight, Search, Calendar, Tag, ArrowRight, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useContent } from "../hooks/useContent";
-import { blogPosts, categories } from "../data/blogData";
+import { blogPosts as staticBlogPosts } from "../data/blogData";
+import type { BlogPost } from "../data/blogData";
 import { PageMeta } from "../components/shared/PageMeta";
+import { resolveAssetUrl } from "../utils/resolveAssetUrl";
 
-export const Media: React.FC = () => {
+function apiBase() {
+    return (import.meta.env.VITE_API_BASE_URL as string) ?? "";
+}
+
+export const Media = () => {
     const content = useContent('media');
     const header = content?.header;
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
+    const [blogPosts, setBlogPosts] = useState<BlogPost[] | null>(null);
+    const [blogSourceApi, setBlogSourceApi] = useState(false);
 
-    const filteredPosts = blogPosts.filter((post) => {
+    useEffect(() => {
+        const base = apiBase();
+        fetch(`${base}/api/blog/posts`)
+            .then((r) => (r.ok ? r.json() : Promise.reject(new Error("bad status"))))
+            .then((d) => {
+                const list = (d.posts || []) as BlogPost[];
+                setBlogPosts(list.map((p) => ({ ...p, content: p.content ?? [] })));
+                setBlogSourceApi(true);
+            })
+            .catch(() => {
+                setBlogPosts(staticBlogPosts);
+                setBlogSourceApi(false);
+            });
+    }, []);
+
+    const categories = useMemo(() => {
+        const list = blogPosts ?? staticBlogPosts;
+        const cats = new Set(list.map((p) => p.category).filter(Boolean));
+        return ["All", ...Array.from(cats).sort((a, b) => a.localeCompare(b))];
+    }, [blogPosts]);
+
+    const displayPosts = blogPosts ?? staticBlogPosts;
+
+    const filteredPosts = displayPosts.filter((post) => {
         const matchesSearch =
             searchQuery === "" ||
             post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -25,6 +56,24 @@ export const Media: React.FC = () => {
 
     const featured = filteredPosts.find((p) => p.featured);
     const rest = filteredPosts.filter((p) => !p.featured || selectedCategory !== "All" || searchQuery !== "");
+
+    const recentSidebar = displayPosts.slice(0, 4);
+
+    const archiveBuckets = useMemo(() => {
+        const map = new Map<number, { label: string; count: number }>();
+        for (const p of displayPosts) {
+            const d = new Date(p.date);
+            if (Number.isNaN(d.getTime())) continue;
+            const sortKey = d.getFullYear() * 100 + d.getMonth();
+            const label = d.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+            const cur = map.get(sortKey);
+            if (cur) cur.count += 1;
+            else map.set(sortKey, { label, count: 1 });
+        }
+        return Array.from(map.entries())
+            .sort((a, b) => b[0] - a[0])
+            .map(([, v]) => v);
+    }, [displayPosts]);
 
     return (
         <div className="w-full bg-slate-50 font-sans flex flex-col min-h-screen">
@@ -70,7 +119,7 @@ export const Media: React.FC = () => {
                                     <div className="relative rounded-2xl overflow-hidden shadow-xl shadow-black/10 border border-gray-100 bg-white">
                                         <div className="relative h-64 md:h-80 overflow-hidden">
                                             <img
-                                                src={featured.image}
+                                                src={resolveAssetUrl(featured.image)}
                                                 alt={featured.title}
                                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                                             />
@@ -110,7 +159,7 @@ export const Media: React.FC = () => {
                                         {/* Image */}
                                         <div className="relative h-44 overflow-hidden">
                                             <img
-                                                src={post.image}
+                                                src={resolveAssetUrl(post.image)}
                                                 alt={post.title}
                                                 className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-[1.06]"
                                             />
@@ -146,25 +195,12 @@ export const Media: React.FC = () => {
                                 </div>
                             )}
 
-                            {/* Pagination */}
+                            {/* Pagination — single page for now; extend when post list grows */}
+                            {blogSourceApi && displayPosts.length > 12 && (
                             <div className="flex items-center gap-2 pt-10">
-                                {[1, 2, 3].map((n) => (
-                                    <Link
-                                        key={n}
-                                        to="#"
-                                        className={`w-10 h-10 flex items-center justify-center font-bold rounded-xl text-sm transition-all ${
-                                            n === 1
-                                                ? "bg-brand-500 text-white shadow-lg shadow-brand-500/25"
-                                                : "bg-white text-gray-600 border border-gray-200 hover:border-brand-300 hover:text-brand-600"
-                                        }`}
-                                    >
-                                        {n}
-                                    </Link>
-                                ))}
-                                <Link to="#" className="w-10 h-10 flex items-center justify-center bg-white text-gray-600 border border-gray-200 hover:border-brand-300 hover:text-brand-600 rounded-xl transition-all">
-                                    <ChevronRight size={16} />
-                                </Link>
+                                <span className="text-sm text-gray-500">Showing {filteredPosts.length} of {displayPosts.length} articles</span>
                             </div>
+                            )}
                         </div>
 
                         {/* Sidebar */}
@@ -205,10 +241,10 @@ export const Media: React.FC = () => {
                                     <span className="absolute left-0 bottom-0 w-8 h-0.5 bg-brand-500 rounded-full" />
                                 </h3>
                                 <ul className="space-y-4">
-                                    {blogPosts.slice(0, 4).map((post) => (
+                                    {recentSidebar.map((post) => (
                                         <li key={post.id} className="flex gap-3 group">
                                             <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0">
-                                                <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                                                <img src={resolveAssetUrl(post.image)} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                                             </div>
                                             <div className="min-w-0">
                                                 <Link to={`/media/${post.slug}`} className="text-navy-800 font-semibold text-xs hover:text-brand-600 transition-colors block mb-1 leading-snug line-clamp-2">
@@ -230,14 +266,7 @@ export const Media: React.FC = () => {
                                     <span className="absolute left-0 bottom-0 w-8 h-0.5 bg-brand-500 rounded-full" />
                                 </h3>
                                 <ul className="space-y-1">
-                                    {[
-                                        { label: "March 2021", count: 1 },
-                                        { label: "September 2020", count: 1 },
-                                        { label: "July 2020", count: 1 },
-                                        { label: "June 2020", count: 1 },
-                                        { label: "April 2020", count: 24 },
-                                        { label: "April 2010", count: 1 },
-                                    ].map((item) => (
+                                    {archiveBuckets.map((item) => (
                                         <li key={item.label}>
                                             <Link
                                                 to="#"

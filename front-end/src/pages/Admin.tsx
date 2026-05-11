@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { LogOut, Save, Upload, Image as ImageIcon, ChevronRight, CheckCircle, AlertCircle, Loader, Globe, Search, X } from 'lucide-react';
+import { AdminBlogPanel } from '../components/admin/AdminBlogPanel';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Field {
@@ -481,6 +482,7 @@ const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: 'About Page', pageKey: 'about' },
       { label: 'Careers Page', pageKey: 'careers' },
       { label: 'Media / Blog', pageKey: 'media' },
+      { label: 'Blog articles', pageKey: '__blog__' },
       { label: 'Healthcare Software Development', pageKey: 'software' },
       { label: 'Share Your Project', pageKey: 'share_project' },
       { label: 'Global Settings', pageKey: 'global' },
@@ -912,9 +914,16 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   const [fetchErr, setFetchErr] = useState('');
   const [pageSearch, setPageSearch] = useState('');
 
-  const currentPageConfig = PAGE_CONFIGS.find((p) => p.key === activePage) ?? PAGE_CONFIGS[0];
+  const currentPageConfig =
+    activePage === '__blog__'
+      ? { key: '__blog__', label: 'Blog articles', sections: [{ key: '_', label: '' }] }
+      : (PAGE_CONFIGS.find((p) => p.key === activePage) ?? PAGE_CONFIGS[0]);
 
   const fetchData = useCallback(async (page: string) => {
+    if (page === '__blog__') {
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setFetchErr('');
     setData(null);
@@ -936,16 +945,36 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
     }
   }, [onLogout]);
 
-  useEffect(() => { fetchData(activePage); }, [activePage, fetchData]);
+  useEffect(() => {
+    if (activePage !== '__blog__') fetchData(activePage);
+  }, [activePage, fetchData]);
 
   function handlePageChange(pageKey: string) {
+    if (pageKey === '__blog__') {
+      setActivePage('__blog__');
+      setPageSearch('');
+      return;
+    }
     const page = PAGE_CONFIGS.find((p) => p.key === pageKey) ?? PAGE_CONFIGS[0];
     setActivePage(pageKey);
     setActiveSection(page.sections[0]?.key ?? '');
     setPageSearch('');
   }
 
-  const activeSectionLabel = currentPageConfig.sections.find((s) => s.key === activeSection)?.label ?? '';
+  const activeSectionLabel =
+    activePage === '__blog__' ? '' : (currentPageConfig.sections.find((s) => s.key === activeSection)?.label ?? '');
+
+  if (activePage === '__blog__') {
+    return (
+      <AdminBlogPanel
+        onLogout={onLogout}
+        onBackToCms={() => {
+          setActivePage('home');
+          setActiveSection('hero');
+        }}
+      />
+    );
+  }
 
   // Filter nav groups by search query
   const searchQuery = pageSearch.trim().toLowerCase();

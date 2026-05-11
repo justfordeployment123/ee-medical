@@ -40,7 +40,72 @@ db.exec(`
     alt             TEXT    NOT NULL DEFAULT '',
     UNIQUE(page, section, field_key)
   );
+
+  CREATE TABLE IF NOT EXISTS blog_posts (
+    id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    slug              TEXT    NOT NULL UNIQUE,
+    title             TEXT    NOT NULL,
+    excerpt           TEXT    NOT NULL DEFAULT '',
+    image             TEXT    NOT NULL DEFAULT '',
+    category          TEXT    NOT NULL DEFAULT 'General',
+    author            TEXT    NOT NULL DEFAULT '',
+    read_time         TEXT    NOT NULL DEFAULT '',
+    featured          INTEGER NOT NULL DEFAULT 0,
+    published         INTEGER NOT NULL DEFAULT 1,
+    meta_description  TEXT    NOT NULL DEFAULT '',
+    content_json      TEXT    NOT NULL DEFAULT '[]',
+    display_date      TEXT    NOT NULL DEFAULT '',
+    sort_order        INTEGER NOT NULL DEFAULT 0,
+    created_at        TEXT    NOT NULL DEFAULT (datetime('now')),
+    updated_at        TEXT    NOT NULL DEFAULT (datetime('now'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_blog_posts_pub ON blog_posts(published, sort_order, id);
 `);
+
+function seedBlogPostsIfEmpty() {
+  const n = db.prepare('SELECT COUNT(*) AS c FROM blog_posts').get().c;
+  if (n > 0) return;
+  const seedPath = path.join(__dirname, 'blogSeedPosts.json');
+  if (!fs.existsSync(seedPath)) return;
+  let posts;
+  try {
+    posts = JSON.parse(fs.readFileSync(seedPath, 'utf8'));
+  } catch {
+    return;
+  }
+  if (!Array.isArray(posts) || posts.length === 0) return;
+  const ins = db.prepare(`
+    INSERT INTO blog_posts (
+      slug, title, excerpt, image, category, author, read_time, featured, published,
+      meta_description, content_json, display_date, sort_order
+    ) VALUES (
+      @slug, @title, @excerpt, @image, @category, @author, @read_time, @featured, 1,
+      @meta_description, @content_json, @display_date, @sort_order
+    )
+  `);
+  const tx = db.transaction((rows) => {
+    let order = 0;
+    for (const p of rows) {
+      ins.run({
+        slug: p.slug,
+        title: p.title,
+        excerpt: p.excerpt ?? '',
+        image: p.image ?? '',
+        category: p.category ?? 'General',
+        author: p.author ?? '',
+        read_time: p.readTime ?? '',
+        featured: p.featured ? 1 : 0,
+        meta_description: p.metaDescription ?? '',
+        content_json: JSON.stringify(p.content ?? []),
+        display_date: p.date ?? '',
+        sort_order: order++,
+      });
+    }
+  });
+  tx(posts);
+}
+
+seedBlogPostsIfEmpty();
 
 // ─── Seed helpers ─────────────────────────────────────────────────────────────
 const insertField = db.prepare(`
@@ -1012,4 +1077,204 @@ export function updateImageRecord(page, section, field_key, filename, alt) {
 export function getImageMeta(page, section, field_key) {
   return db.prepare('SELECT * FROM images WHERE page = ? AND section = ? AND field_key = ?')
     .get(page, section, field_key);
+}
+
+// ─── Blog posts ───────────────────────────────────────────────────────────────
+
+function mapBlogRow(row, { includeContent } = { includeContent: true }) {
+  let content = [];
+  if (includeContent) {
+    try {
+      content = JSON.parse(row.content_json || '[]');
+    } catch {
+      content = [];
+    }
+  }
+  return {
+    id: String(row.id),
+    slug: row.slug,
+    title: row.title,
+    excerpt: row.excerpt,
+    image: row.image,
+    category: row.category,
+    date: row.display_date,
+    readTime: row.read_time,
+    featured: !!row.featured,
+    published: !!row.published,
+    author: row.author,
+    metaDescription: row.meta_description,
+    ...(includeContent ? { content } : {}),
+  };
+}
+
+export function listPublishedBlogSummaries() {
+  const rows = db.prepare(`
+    SELECT id, slug, title, excerpt, image, category, author, read_time, featured, meta_description, display_date, sort_order, published, content_json
+    FROM blog_posts WHERE published = 1
+    ORDER BY sort_order ASC, id DESC
+  `).all();
+  return rows.map((r) => mapBlogRow(r, { includeContent: false }));
+}
+
+export function listAllBlogPostsAdmin() {
+  const rows = db.prepare(`
+    SELECT * FROM blog_posts ORDER BY sort_order ASC, id DESC
+  `).all();
+  return rows.map((r) => mapBlogRow(r, { includeContent: false }));
+}
+
+export function getPublishedBlogWithNav(slug) {
+  const postRow = db.prepare('SELECT * FROM blog_posts WHERE slug = ? AND published = 1').get(slug);
+  if (!postRow) return null;
+  const ordered = db.prepare(`
+    SELECT slug, title FROM blog_posts WHERE published = 1 ORDER BY sort_order ASC, id DESC
+  `).all();
+  const slugs = ordered.map((r) => r.slug);
+  const idx = slugs.indexOf(slug);
+  const prev = idx > 0 ? ordered[idx - 1] : null;
+  const next = idx < ordered.length - 1 ? ordered[idx + 1] : null;
+  return {
+    post: mapBlogRow(postRow, { includeContent: true }),
+    prev,
+    next,
+  };
+}
+
+export function getBlogPostByIdAdmin(id) {
+  const row = db.prepare('SELECT * FROM blog_posts WHERE id = ?').get(id);
+  return row ? mapBlogRow(row, { includeContent: true }) : null;
+}
+
+export function normalizeBlogSlug(raw) {
+  return String(raw || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+export function createBlogPost(input) {
+  const slug = normalizeBlogSlug(input.slug);
+  if (!slug) throw new Error('Invalid slug');
+  const exists = db.prepare('SELECT 1 FROM blog_posts WHERE slug = ?').get(slug);
+  if (exists) throw new Error('Slug already exists');
+  let contentJson = '[]';
+  if (input.content !== undefined) {
+    contentJson = typeof input.content === 'string' ? input.content : JSON.stringify(input.content);
+    JSON.parse(contentJson);
+  }
+  const maxOrder = db.prepare('SELECT COALESCE(MAX(sort_order), -1) AS m FROM blog_posts').get().m;
+  const featured = input.featured ? 1 : 0;
+  if (featured) {
+    db.prepare('UPDATE blog_posts SET featured = 0').run();
+  }
+  const published = input.published === false ? 0 : 1;
+  const r = db.prepare(`
+    INSERT INTO blog_posts (
+      slug, title, excerpt, image, category, author, read_time, featured, published,
+      meta_description, content_json, display_date, sort_order, updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+  `).run(
+    slug,
+    String(input.title || '').trim() || 'Untitled',
+    String(input.excerpt ?? ''),
+    String(input.image ?? ''),
+    String(input.category ?? 'General'),
+    String(input.author ?? ''),
+    String(input.readTime ?? ''),
+    featured,
+    published,
+    String(input.metaDescription ?? ''),
+    contentJson,
+    String(input.displayDate ?? input.date ?? ''),
+    maxOrder + 1,
+  );
+  return getBlogPostByIdAdmin(r.lastInsertRowid);
+}
+
+export function updateBlogPost(id, input) {
+  const row = db.prepare('SELECT * FROM blog_posts WHERE id = ?').get(id);
+  if (!row) throw new Error('Post not found');
+  let slug = row.slug;
+  if (input.slug !== undefined) {
+    slug = normalizeBlogSlug(input.slug);
+    if (!slug) throw new Error('Invalid slug');
+    const clash = db.prepare('SELECT id FROM blog_posts WHERE slug = ? AND id != ?').get(slug, id);
+    if (clash) throw new Error('Slug already exists');
+  }
+  let contentJson = row.content_json;
+  if (input.content !== undefined) {
+    contentJson = typeof input.content === 'string' ? input.content : JSON.stringify(input.content);
+    JSON.parse(contentJson);
+  }
+  const featured = input.featured !== undefined ? (input.featured ? 1 : 0) : row.featured;
+  const published = input.published !== undefined ? (input.published ? 1 : 0) : row.published;
+  if (featured) {
+    db.prepare('UPDATE blog_posts SET featured = 0').run();
+  }
+  db.prepare(`
+    UPDATE blog_posts SET
+      slug = ?,
+      title = ?,
+      excerpt = ?,
+      image = ?,
+      category = ?,
+      author = ?,
+      read_time = ?,
+      featured = ?,
+      published = ?,
+      meta_description = ?,
+      content_json = ?,
+      display_date = ?,
+      updated_at = datetime('now')
+    WHERE id = ?
+  `).run(
+    slug,
+    input.title !== undefined ? String(input.title).trim() || 'Untitled' : row.title,
+    input.excerpt !== undefined ? String(input.excerpt) : row.excerpt,
+    input.image !== undefined ? String(input.image) : row.image,
+    input.category !== undefined ? String(input.category) : row.category,
+    input.author !== undefined ? String(input.author) : row.author,
+    input.readTime !== undefined ? String(input.readTime) : row.read_time,
+    featured,
+    published,
+    input.metaDescription !== undefined ? String(input.metaDescription) : row.meta_description,
+    contentJson,
+    input.displayDate !== undefined ? String(input.displayDate) : (input.date !== undefined ? String(input.date) : row.display_date),
+    id,
+  );
+  return getBlogPostByIdAdmin(id);
+}
+
+export function deleteBlogPost(id) {
+  const r = db.prepare('DELETE FROM blog_posts WHERE id = ?').run(id);
+  if (r.changes === 0) throw new Error('Post not found');
+  return { ok: true };
+}
+
+export function listRelatedPublishedSummaries(category, excludeSlug, limit = 3) {
+  const sameCat = db.prepare(`
+    SELECT id, slug, title, excerpt, image, category, author, read_time, featured, meta_description, display_date, published, content_json
+    FROM blog_posts WHERE published = 1 AND slug != ? AND category = ?
+    ORDER BY sort_order ASC, id DESC
+    LIMIT ?
+  `).all(excludeSlug, category, limit);
+  const seen = new Set(sameCat.map((r) => r.slug));
+  const out = [...sameCat];
+  if (out.length < limit) {
+    const more = db.prepare(`
+      SELECT id, slug, title, excerpt, image, category, author, read_time, featured, meta_description, display_date, published, content_json
+      FROM blog_posts WHERE published = 1 AND slug != ?
+      ORDER BY sort_order ASC, id DESC
+      LIMIT ?
+    `).all(excludeSlug, limit + 20);
+    for (const r of more) {
+      if (out.length >= limit) break;
+      if (!seen.has(r.slug)) {
+        seen.add(r.slug);
+        out.push(r);
+      }
+    }
+  }
+  return out.slice(0, limit).map((r) => mapBlogRow(r, { includeContent: false }));
 }

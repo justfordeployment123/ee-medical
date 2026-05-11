@@ -1,11 +1,42 @@
-import React from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { Calendar, Tag, Clock, ArrowLeft, ArrowRight, ChevronRight, BookOpen, User } from "lucide-react";
-import { getBlogPostBySlug, blogPosts } from "../data/blogData";
+import { Calendar, Tag, Clock, ArrowLeft, ArrowRight, ChevronRight, BookOpen, User, Loader } from "lucide-react";
+import { getBlogPostBySlug, blogPosts as staticBlogPosts } from "../data/blogData";
 import { PageMeta } from "../components/shared/PageMeta";
-import type { ContentSection } from "../data/blogData";
+import type { BlogPost as BlogArticle, ContentSection } from "../data/blogData";
+import { resolveAssetUrl } from "../utils/resolveAssetUrl";
+
+function apiBase() {
+    return (import.meta.env.VITE_API_BASE_URL as string) ?? "";
+}
+
+type NavLink = { slug: string; title: string } | null;
+
+type PostPayload = {
+    post: BlogArticle;
+    prev: NavLink;
+    next: NavLink;
+    related: BlogArticle[];
+};
+
+function staticPayload(slug: string): PostPayload | null {
+    const post = getBlogPostBySlug(slug);
+    if (!post) return null;
+    const currentIndex = staticBlogPosts.findIndex((p) => p.slug === slug);
+    const prevRow = currentIndex > 0 ? staticBlogPosts[currentIndex - 1] : null;
+    const nextRow = currentIndex < staticBlogPosts.length - 1 ? staticBlogPosts[currentIndex + 1] : null;
+    const relatedPosts = staticBlogPosts.filter((p) => p.slug !== slug && p.category === post.category).slice(0, 3);
+    const fallbackRelated = staticBlogPosts.filter((p) => p.slug !== slug).slice(0, 3);
+    const related = relatedPosts.length > 0 ? relatedPosts : fallbackRelated;
+    return {
+        post,
+        prev: prevRow ? { slug: prevRow.slug, title: prevRow.title } : null,
+        next: nextRow ? { slug: nextRow.slug, title: nextRow.title } : null,
+        related,
+    };
+}
 
 const renderSection = (section: ContentSection, index: number) => {
     switch (section.type) {
@@ -75,57 +106,100 @@ const renderSection = (section: ContentSection, index: number) => {
     }
 };
 
-export const BlogPost: React.FC = () => {
+export const BlogPost = () => {
     const { slug } = useParams<{ slug: string }>();
-    const post = slug ? getBlogPostBySlug(slug) : undefined;
+    const [payload, setPayload] = useState<PostPayload | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [notFound, setNotFound] = useState(false);
 
-    if (!post) {
+    useEffect(() => {
+        if (!slug) {
+            setNotFound(true);
+            setLoading(false);
+            return;
+        }
+        const base = apiBase();
+        fetch(`${base}/api/blog/post/${encodeURIComponent(slug)}`)
+            .then((r) => {
+                if (r.status === 404) throw new Error("404");
+                if (!r.ok) throw new Error("bad");
+                return r.json();
+            })
+            .then((data: PostPayload) => {
+                setPayload({
+                    post: { ...data.post, content: data.post.content ?? [] },
+                    prev: data.prev ?? null,
+                    next: data.next ?? null,
+                    related: (data.related || []).map((r) => ({ ...r, content: r.content ?? [] })),
+                });
+                setNotFound(false);
+            })
+            .catch(() => {
+                const fallback = staticPayload(slug);
+                if (fallback) {
+                    setPayload(fallback);
+                    setNotFound(false);
+                } else {
+                    setNotFound(true);
+                }
+            })
+            .finally(() => setLoading(false));
+    }, [slug]);
+
+    const categoryLinks = useMemo(() => {
+        if (!payload) return [] as string[];
+        const s = new Set<string>();
+        s.add(payload.post.category);
+        payload.related.forEach((r) => s.add(r.category));
+        return Array.from(s).sort((a, b) => a.localeCompare(b));
+    }, [payload]);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-slate-50 flex items-center justify-center gap-3 text-gray-500">
+                <Loader className="animate-spin" size={22} />
+                <span className="text-sm font-medium">Loading article…</span>
+            </div>
+        );
+    }
+
+    if (notFound || !payload) {
         return <Navigate to="/media" replace />;
     }
 
-    const currentIndex = blogPosts.findIndex((p) => p.slug === slug);
-    const prevPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null;
-    const nextPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null;
-    const relatedPosts = blogPosts.filter((p) => p.slug !== slug && p.category === post.category).slice(0, 3);
-    const fallbackRelated = blogPosts.filter((p) => p.slug !== slug).slice(0, 3);
+    const { post, prev, next, related } = payload;
 
     return (
         <div className="w-full bg-slate-50 font-sans flex flex-col min-h-screen">
-            <PageMeta
-                title={post.title}
-                description={post.excerpt.slice(0, 160)}
-            />
+            <PageMeta title={post.title} description={(post.metaDescription || post.excerpt).slice(0, 160)} />
             <Header />
 
-            {/* Hero Banner */}
             <div className="relative w-full h-72 md:h-96 overflow-hidden">
-                <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+                <img src={resolveAssetUrl(post.image)} alt={post.title} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/50 to-navy-950/20" />
                 <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-12 max-w-4xl mx-auto w-full left-0 right-0">
-                    {/* Breadcrumb */}
                     <div className="inline-flex items-center gap-1.5 text-sm font-semibold mb-4">
-                        <Link to="/" className="text-white/70 hover:text-brand-300 transition-colors">Home</Link>
+                        <Link to="/" className="text-white/70 hover:text-brand-300 transition-colors">
+                            Home
+                        </Link>
                         <ChevronRight size={14} className="text-white/50" />
-                        <Link to="/media" className="text-white/70 hover:text-brand-300 transition-colors">Media</Link>
+                        <Link to="/media" className="text-white/70 hover:text-brand-300 transition-colors">
+                            Media
+                        </Link>
                         <ChevronRight size={14} className="text-white/50" />
                         <span className="text-brand-300 truncate max-w-[200px]">{post.category}</span>
                     </div>
                     <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-500 text-white text-xs font-bold uppercase tracking-wider w-fit mb-3">
                         <Tag size={10} /> {post.category}
                     </span>
-                    <h1 className="font-display text-2xl md:text-4xl font-extrabold text-white leading-tight">
-                        {post.title}
-                    </h1>
+                    <h1 className="font-display text-2xl md:text-4xl font-extrabold text-white leading-tight">{post.title}</h1>
                 </div>
             </div>
 
             <main className="grow pb-24">
                 <div className="max-w-[1200px] mx-auto px-4 md:px-8 pt-10">
                     <div className="flex flex-col lg:flex-row gap-12">
-
-                        {/* Article Content */}
                         <article className="lg:w-2/3">
-                            {/* Meta bar */}
                             <div className="flex flex-wrap items-center gap-5 text-sm text-gray-400 mb-8 pb-6 border-b border-gray-200">
                                 <span className="flex items-center gap-1.5">
                                     <User size={14} className="text-brand-500" /> {post.author}
@@ -138,38 +212,33 @@ export const BlogPost: React.FC = () => {
                                 </span>
                             </div>
 
-                            {/* Lead paragraph */}
-                            <p className="text-gray-700 text-lg leading-relaxed mb-6 font-medium border-l-4 border-brand-500 pl-4">
-                                {post.excerpt}
-                            </p>
+                            <p className="text-gray-700 text-lg leading-relaxed mb-6 font-medium border-l-4 border-brand-500 pl-4">{post.excerpt}</p>
 
-                            {/* Body */}
                             <div className="prose-content">
-                                {post.content.map((section, i) => renderSection(section, i))}
+                                {(post.content || []).map((section, i) => renderSection(section, i))}
                             </div>
 
-                            {/* Post Navigation */}
                             <div className="flex flex-col sm:flex-row gap-4 mt-12 pt-8 border-t border-gray-200">
-                                {prevPost && (
+                                {prev && (
                                     <Link
-                                        to={`/media/${prevPost.slug}`}
+                                        to={`/media/${prev.slug}`}
                                         className="flex-1 group flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all"
                                     >
                                         <ArrowLeft size={16} className="text-brand-500 mt-1 shrink-0 group-hover:-translate-x-1 transition-transform" />
                                         <div>
                                             <p className="text-xs text-gray-400 mb-1">Previous Article</p>
-                                            <p className="text-sm font-bold text-navy-800 line-clamp-2 group-hover:text-brand-600 transition-colors">{prevPost.title}</p>
+                                            <p className="text-sm font-bold text-navy-800 line-clamp-2 group-hover:text-brand-600 transition-colors">{prev.title}</p>
                                         </div>
                                     </Link>
                                 )}
-                                {nextPost && (
+                                {next && (
                                     <Link
-                                        to={`/media/${nextPost.slug}`}
+                                        to={`/media/${next.slug}`}
                                         className="flex-1 group flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all text-right justify-end"
                                     >
                                         <div>
                                             <p className="text-xs text-gray-400 mb-1">Next Article</p>
-                                            <p className="text-sm font-bold text-navy-800 line-clamp-2 group-hover:text-brand-600 transition-colors">{nextPost.title}</p>
+                                            <p className="text-sm font-bold text-navy-800 line-clamp-2 group-hover:text-brand-600 transition-colors">{next.title}</p>
                                         </div>
                                         <ArrowRight size={16} className="text-brand-500 mt-1 shrink-0 group-hover:translate-x-1 transition-transform" />
                                     </Link>
@@ -177,17 +246,11 @@ export const BlogPost: React.FC = () => {
                             </div>
                         </article>
 
-                        {/* Sidebar */}
                         <aside className="lg:w-1/3 space-y-8">
-                            {/* Back to Media */}
-                            <Link
-                                to="/media"
-                                className="flex items-center gap-2 text-brand-600 font-bold text-sm hover:gap-3 transition-all"
-                            >
+                            <Link to="/media" className="flex items-center gap-2 text-brand-600 font-bold text-sm hover:gap-3 transition-all">
                                 <ArrowLeft size={16} /> Back to All Articles
                             </Link>
 
-                            {/* About Author Widget */}
                             <div className="bg-white border border-gray-100 rounded-2xl p-6">
                                 <h3 className="font-display text-base font-bold text-navy-900 pb-4 mb-4 border-b border-gray-100 relative">
                                     About the Author
@@ -207,31 +270,26 @@ export const BlogPost: React.FC = () => {
                                 </p>
                             </div>
 
-                            {/* Related Articles */}
                             <div className="bg-white border border-gray-100 rounded-2xl p-6">
                                 <h3 className="font-display text-base font-bold text-navy-900 pb-4 mb-5 border-b border-gray-100 relative">
                                     Related Articles
                                     <span className="absolute left-0 bottom-0 w-8 h-0.5 bg-brand-500 rounded-full" />
                                 </h3>
                                 <ul className="space-y-4">
-                                    {(relatedPosts.length > 0 ? relatedPosts : fallbackRelated).map((related) => (
-                                        <li key={related.id} className="flex gap-3 group">
+                                    {related.map((rel) => (
+                                        <li key={rel.id} className="flex gap-3 group">
                                             <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0">
-                                                <img
-                                                    src={related.image}
-                                                    alt={related.title}
-                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform"
-                                                />
+                                                <img src={resolveAssetUrl(rel.image)} alt={rel.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                                             </div>
                                             <div className="min-w-0">
                                                 <Link
-                                                    to={`/media/${related.slug}`}
+                                                    to={`/media/${rel.slug}`}
                                                     className="text-navy-800 font-semibold text-xs hover:text-brand-600 transition-colors block mb-1 leading-snug line-clamp-2"
                                                 >
-                                                    {related.title}
+                                                    {rel.title}
                                                 </Link>
                                                 <span className="text-[11px] text-gray-400 flex items-center gap-1">
-                                                    <Calendar size={9} /> {related.date}
+                                                    <Calendar size={9} /> {rel.date}
                                                 </span>
                                             </div>
                                         </li>
@@ -239,7 +297,6 @@ export const BlogPost: React.FC = () => {
                                 </ul>
                             </div>
 
-                            {/* CTA Widget */}
                             <div className="relative rounded-2xl overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-br from-navy-950 to-navy-800" />
                                 <div
@@ -266,14 +323,16 @@ export const BlogPost: React.FC = () => {
                                 </div>
                             </div>
 
-                            {/* Categories */}
                             <div className="bg-white border border-gray-100 rounded-2xl p-6">
                                 <h3 className="font-display text-base font-bold text-navy-900 pb-4 mb-5 border-b border-gray-100 relative">
                                     Categories
                                     <span className="absolute left-0 bottom-0 w-8 h-0.5 bg-brand-500 rounded-full" />
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
-                                    {["FDA Regulatory", "IVD & Diagnostics", "Compliance", "FDA News", "US Agent Services", "Public Health"].map((cat) => (
+                                    {(categoryLinks.length > 0
+                                        ? categoryLinks
+                                        : ["FDA Regulatory", "IVD & Diagnostics", "Compliance", "FDA News", "US Agent Services", "Public Health"]
+                                    ).map((cat) => (
                                         <Link
                                             key={cat}
                                             to="/media"
