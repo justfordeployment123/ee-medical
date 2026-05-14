@@ -295,6 +295,12 @@ f('media','header','section_subtext', 'Page Subtext',   'textarea', 'Stay curren
 f('media','header','cta_heading',     'Sidebar CTA Heading', 'text','Need Expert Guidance?', 5);
 f('media','header','cta_text',        'Sidebar CTA Text',    'textarea','Our FDA regulatory experts are ready to help with your specific questions and compliance needs.', 30);
 
+// ─── BLOG LANDING (/blog) — hero editable in admin ───────────────────────────
+
+f('blog','hero','section_heading', 'Hero title', 'text', 'Regulatory Insights & Blog', 14);
+f('blog','hero','section_subtext', 'Hero subtitle', 'textarea', 'Articles and updates on FDA submissions, quality systems, ISO standards, and global market access for medical device and life science teams.', 50);
+img('blog','hero','hero_bg','Hero background image','https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2000&auto=format&fit=crop',1920,1080,'Blog landing hero');
+
 // ─── MEDICAL DEVICES PAGE SEED ───────────────────────────────────────────────
 
 f('medical_devices','hero','badge_text',     'Section Badge',       'text',     'Quality Assurance', 5);
