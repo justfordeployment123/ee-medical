@@ -87,6 +87,11 @@ const PAGE_CONFIGS: PageConfig[] = [
     ],
   },
   {
+    key: 'blog',
+    label: 'Blog landing page',
+    sections: [{ key: 'hero', label: 'Hero (title, subtitle & background)' }],
+  },
+  {
     key: 'global',
     label: 'Global Settings',
     sections: [
@@ -482,6 +487,7 @@ const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: 'About Page', pageKey: 'about' },
       { label: 'Careers Page', pageKey: 'careers' },
       { label: 'Media / Blog', pageKey: 'media' },
+      { label: 'Blog landing page', pageKey: 'blog' },
       { label: 'Blog articles', pageKey: '__blog__' },
       { label: 'Healthcare Software Development', pageKey: 'software' },
       { label: 'Share Your Project', pageKey: 'share_project' },

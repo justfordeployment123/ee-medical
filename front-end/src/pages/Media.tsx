@@ -228,8 +228,8 @@ export const Media = () => {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-navy-950/30 flex items-end p-5">
                                     <div>
-                                        <p className="text-brand-400 text-xs font-bold uppercase tracking-wider mb-1">Stay Updated</p>
-                                        <p className="text-white font-bold text-sm">Latest FDA & Regulatory News</p>
+                                        <p className="text-brand-100 text-xs font-bold uppercase tracking-wider mb-1 drop-shadow-sm">Stay Updated</p>
+                                        <p className="text-white font-bold text-sm drop-shadow-md">Latest FDA & Regulatory News</p>
                                     </div>
                                 </div>
                             </div>
@@ -291,11 +291,11 @@ export const Media = () => {
                                     backgroundSize: "20px 20px"
                                 }} />
                                 <div className="relative p-6 text-center">
-                                    <div className="w-12 h-12 rounded-xl bg-brand-500/20 flex items-center justify-center mx-auto mb-4">
-                                        <BookOpen size={20} className="text-brand-400" />
+                                    <div className="w-12 h-12 rounded-xl bg-brand-500/25 flex items-center justify-center mx-auto mb-4 ring-1 ring-white/10">
+                                        <BookOpen size={20} className="text-brand-100" />
                                     </div>
-                                    <h3 className="font-display text-base font-bold text-white mb-2">{header?.cta_heading || 'Need Expert Guidance?'}</h3>
-                                    <p className="text-gray-400 text-xs mb-5 leading-relaxed">{header?.cta_text || 'Schedule a free consultation with our FDA regulatory experts.'}</p>
+                                    <h3 className="font-display text-base font-bold text-white mb-2 drop-shadow-sm">{header?.cta_heading || 'Need Expert Guidance?'}</h3>
+                                    <p className="text-slate-200 text-sm mb-5 leading-relaxed">{header?.cta_text || 'Schedule a free consultation with our FDA regulatory experts.'}</p>
                                     <a
                                         href="mailto:info@eemedicals.com"
                                         className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-xl text-xs transition-all duration-300 shadow-lg shadow-brand-500/25"

@@ -58,7 +58,7 @@ export const Stats: React.FC<{ content?: StatsContent | null }> = ({ content }) 
                 {/* Header */}
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.1] mb-6">
-                        <span className="text-brand-400 text-sm font-semibold">
+                        <span className="text-brand-200 text-sm font-semibold">
                             {content?.badge_text || 'By the Numbers'}
                         </span>
                     </div>
@@ -84,7 +84,7 @@ export const Stats: React.FC<{ content?: StatsContent | null }> = ({ content }) 
                                 <div className="w-14 h-14 rounded-2xl bg-brand-500/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-brand-500/20 group-hover:scale-110 transition-all duration-500">
                                     <stat.icon
                                         size={24}
-                                        className="text-brand-400"
+                                        className="text-brand-200"
                                     />
                                 </div>
                                 <div className="text-4xl md:text-5xl font-extrabold text-white mb-2 font-display tracking-tight">
@@ -101,7 +101,7 @@ export const Stats: React.FC<{ content?: StatsContent | null }> = ({ content }) 
                 {/* Trust Certification Strip */}
                 <div className="mt-16 pt-12 border-t border-white/[0.08]">
                     <div className="flex items-center justify-center gap-2 mb-6">
-                        <BadgeCheck size={14} className="text-brand-400" />
+                        <BadgeCheck size={14} className="text-brand-200" />
                         <p className="text-center text-sm text-white uppercase tracking-[0.2em] font-semibold">
                             Certifications & Standards We Support
                         </p>

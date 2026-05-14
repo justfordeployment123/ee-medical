@@ -385,7 +385,7 @@ export const ServicesTabs: React.FC = () => {
                                 <h3 className="font-display text-2xl font-extrabold text-white mb-2">
                                     {activeCategory.label}
                                 </h3>
-                                <p className="text-gray-300 text-sm leading-relaxed max-w-lg">
+                                <p className="text-slate-100 text-sm leading-relaxed max-w-lg drop-shadow-sm">
                                     {activeCategory.description}
                                 </p>
                             </div>

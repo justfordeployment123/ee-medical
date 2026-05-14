@@ -12,6 +12,7 @@ import { Iso13485 } from "./pages/Iso13485";
 import { Iso14971 } from "./pages/Iso14971";
 import { Iso13485GapAnalysis } from "./pages/Iso13485GapAnalysis";
 import { Media } from "./pages/Media";
+import { Blog } from "./pages/Blog";
 import { Software } from "./pages/Software";
 import { Careers } from "./pages/Careers";
 import { CEMarkApproval } from "./pages/CEMarkApproval";
@@ -74,6 +75,7 @@ function App() {
                     <Route path="/iso-14971-medical-device-risk-management-for-medical-devices" element={<Iso14971 />} />
                     <Route path="/free-iso-13485-2016-gap-analysis-tool" element={<Iso13485GapAnalysis />} />
                     <Route path="/media" element={<Media />} />
+                    <Route path="/blog" element={<Blog />} />
                     <Route path="/media/:slug" element={<BlogPost />} />
                     <Route path="/careers" element={<Careers />} />
                     <Route path="/software" element={<Software />} />

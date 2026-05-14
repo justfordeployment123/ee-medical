@@ -270,7 +270,7 @@ export function AdminBlogPanel({
         </div>
         <div className="flex items-center gap-2">
           <a
-            href="/media"
+            href="/blog"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-brand-600 hover:bg-brand-50 rounded-lg font-medium"

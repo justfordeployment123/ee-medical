@@ -61,7 +61,7 @@ export const FAQ: React.FC<{ content?: FAQContent | null }> = ({ content }) => {
                                 <h3 className="font-display text-2xl font-extrabold text-white mb-2">
                                     {content?.panel_heading || 'Have More Questions?'}
                                 </h3>
-                                <p className="text-gray-300 text-sm leading-relaxed mb-5">
+                                <p className="text-slate-100 text-sm leading-relaxed mb-5 drop-shadow-sm">
                                     {content?.panel_text || 'Our team of 63 FDA regulatory experts is ready to answer your specific questions and guide you through the process.'}
                                 </p>
                                 <a

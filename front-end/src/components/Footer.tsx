@@ -58,7 +58,7 @@ export const Footer: React.FC = () => {
                                     <img src={RapsLogo} alt="RAPS Enterprise Member" className="w-full h-auto object-contain block img-crisp" width="140" height="70" />
                                 </a>
                             </div>
-                            <p className="text-gray-300 text-sm leading-relaxed mb-6 font-medium">
+                            <p className="text-slate-200 text-sm leading-relaxed mb-6 font-medium">
                                 Expert FDA regulatory consulting, quality management, and medical device compliance services with over 32 years of industry experience.
                             </p>
                             <div className="flex gap-2">
@@ -68,7 +68,7 @@ export const Footer: React.FC = () => {
                                     { Icon: Linkedin, href: "https://www.linkedin.com/company/e-e-medicals-and-consulting-inc/", label: "LinkedIn" },
                                     { Icon: Youtube, href: "https://www.youtube.com/channel/UCMYcc35W83o0B94INFH87jA", label: "YouTube" },
                                 ].map(({ Icon, href, label }) => (
-                                    <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="w-8 h-8 rounded-lg bg-white/5 hover:bg-brand-500 flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300">
+                                    <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="w-8 h-8 rounded-lg bg-white/5 hover:bg-brand-500 flex items-center justify-center text-slate-200 hover:text-white transition-all duration-300">
                                         <Icon size={14} />
                                     </a>
                                 ))}
@@ -92,7 +92,7 @@ export const Footer: React.FC = () => {
                                     { to: "/media", label: "Media & Blog" },
                                 ].map(({ to, label }) => (
                                     <li key={to}>
-                                        <Link to={to} className="text-gray-300 hover:text-brand-300 text-sm font-medium transition-colors duration-200 flex items-center gap-2 group">
+                                        <Link to={to} className="text-slate-200 hover:text-brand-300 text-sm font-medium transition-colors duration-200 flex items-center gap-2 group">
                                             <ArrowRight size={11} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
                                             <span className="group-hover:translate-x-0.5 transition-transform">{label}</span>
                                         </Link>
@@ -117,7 +117,7 @@ export const Footer: React.FC = () => {
                                     { to: "/investigational-new-drug-ind-application", label: "IND Applications" },
                                 ].map(({ to, label }) => (
                                     <li key={to}>
-                                        <Link to={to} className="text-gray-300 hover:text-brand-300 text-sm font-medium transition-colors duration-200 flex items-center gap-2 group">
+                                        <Link to={to} className="text-slate-200 hover:text-brand-300 text-sm font-medium transition-colors duration-200 flex items-center gap-2 group">
                                             <ArrowRight size={11} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
                                             <span className="group-hover:translate-x-0.5 transition-transform">{label}</span>
                                         </Link>
@@ -135,31 +135,31 @@ export const Footer: React.FC = () => {
                             <ul className="space-y-3">
                                 <li className="flex items-start gap-2.5">
                                     <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center shrink-0 mt-0.5">
-                                        <MapPin size={12} className="text-brand-400" />
+                                        <MapPin size={12} className="text-brand-300" />
                                     </div>
-                                    <span className="text-sm font-medium text-gray-300">{address}</span>
+                                    <span className="text-sm font-medium text-slate-200">{address}</span>
                                 </li>
                                 <li className="flex items-start gap-2.5">
                                     <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center shrink-0 mt-0.5">
-                                        <Mail size={12} className="text-brand-400" />
+                                        <Mail size={12} className="text-brand-300" />
                                     </div>
                                     <a href={`mailto:${email}`} className="text-sm font-medium text-brand-300 hover:text-brand-200 transition-colors">{email}</a>
                                 </li>
                                 <li className="flex items-start gap-2.5">
                                     <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center shrink-0 mt-0.5">
-                                        <Phone size={12} className="text-brand-400" />
+                                        <Phone size={12} className="text-brand-300" />
                                     </div>
                                     <div className="flex flex-col gap-0.5">
                                         {[phone1, phone2, phone3].filter(Boolean).map((p) => (
-                                            <a key={p} href={`tel:${p.replace(/\s|\(|\)|-/g, '')}`} className="text-sm font-medium text-gray-300 hover:text-brand-300 transition-colors">{p}</a>
+                                            <a key={p} href={`tel:${p.replace(/\s|\(|\)|-/g, '')}`} className="text-sm font-medium text-slate-200 hover:text-brand-300 transition-colors">{p}</a>
                                         ))}
                                     </div>
                                 </li>
                                 <li className="flex items-start gap-2.5">
                                     <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center shrink-0 mt-0.5">
-                                        <Clock size={12} className="text-brand-400" />
+                                        <Clock size={12} className="text-brand-300" />
                                     </div>
-                                    <span className="text-sm font-medium text-gray-300">{hours}</span>
+                                    <span className="text-sm font-medium text-slate-200">{hours}</span>
                                 </li>
                             </ul>
                         </div>
@@ -168,14 +168,14 @@ export const Footer: React.FC = () => {
                     {/* Bottom Bar */}
                     <div className="pt-6 border-t border-white/5 space-y-4">
                         <div className="flex flex-col md:flex-row justify-between items-center gap-3">
-                            <div className="flex items-center gap-4 text-xs font-medium text-gray-300">
+                            <div className="flex items-center gap-4 text-xs font-medium text-slate-200">
                                 <div className="flex items-center gap-1.5">
-                                    <Clock size={11} className="text-brand-400" />
+                                    <Clock size={11} className="text-brand-300" />
                                     <span>{hours}</span>
                                 </div>
                                 <div className="w-px h-3 bg-white/10 hidden md:block" />
-                                <a href={`mailto:${email}`} className="flex items-center gap-1.5 hover:text-brand-400 transition-colors text-xs">
-                                    <Mail size={11} className="text-brand-400" />
+                                <a href={`mailto:${email}`} className="flex items-center gap-1.5 text-slate-200 hover:text-brand-300 transition-colors text-xs">
+                                    <Mail size={11} className="text-brand-300" />
                                     <span>{email}</span>
                                 </a>
                             </div>
@@ -186,20 +186,20 @@ export const Footer: React.FC = () => {
                                     { Icon: Linkedin, href: "https://www.linkedin.com/company/e-e-medicals-and-consulting-inc/", label: "LinkedIn" },
                                     { Icon: Youtube, href: "https://www.youtube.com/channel/UCMYcc35W83o0B94INFH87jA", label: "YouTube" },
                                 ].map(({ Icon, href, label }) => (
-                                    <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="w-6 h-6 rounded-full bg-white/5 hover:bg-brand-500 flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200">
+                                    <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="w-6 h-6 rounded-full bg-white/5 hover:bg-brand-500 flex items-center justify-center text-slate-300 hover:text-white transition-all duration-200">
                                         <Icon size={12} />
                                     </a>
                                 ))}
                             </div>
                         </div>
-                        <div className="flex flex-col md:flex-row justify-between items-center gap-3 text-xs font-medium text-gray-400">
+                        <div className="flex flex-col md:flex-row justify-between items-center gap-3 text-xs font-medium text-slate-300">
                             <p>
                                 &copy; E & E Medicals and Consulting. All rights reserved.
                             </p>
                             <div className="flex gap-5">
-                                <a href="#" className="hover:text-gray-200 transition-colors">Terms of Use</a>
-                                <a href="#" className="hover:text-gray-200 transition-colors">Privacy Policy</a>
-                                <a href="#" className="hover:text-gray-200 transition-colors">Cookie Policy</a>
+                                <a href="#" className="text-slate-300 hover:text-white transition-colors">Terms of Use</a>
+                                <a href="#" className="text-slate-300 hover:text-white transition-colors">Privacy Policy</a>
+                                <a href="#" className="text-slate-300 hover:text-white transition-colors">Cookie Policy</a>
                             </div>
                         </div>
                     </div>

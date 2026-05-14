@@ -41,11 +41,12 @@ export const Header: React.FC = () => {
     const [scrolled, setScrolled] = useState(false);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(false);
-    const [openDesktopDropdown, setOpenDesktopDropdown] = useState<"ai" | "wellness" | null>(null);
+    const [openDesktopDropdown, setOpenDesktopDropdown] = useState<"ai" | "wellness" | "media" | null>(null);
     const [dropdownLeft, setDropdownLeft] = useState(0);
     const navScrollRef = useRef<HTMLUListElement>(null);
     const aiTriggerRef = useRef<HTMLButtonElement>(null);
     const wellnessTriggerRef = useRef<HTMLButtonElement>(null);
+    const mediaTriggerRef = useRef<HTMLButtonElement>(null);
     const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const location = useLocation();
 
@@ -78,6 +79,15 @@ export const Header: React.FC = () => {
             setDropdownLeft(Math.min(rect.left, typeof window !== "undefined" ? window.innerWidth - 356 : rect.left));
         }
         setOpenDesktopDropdown("wellness");
+    };
+    const openMediaDropdown = () => {
+        cancelCloseDelay();
+        const el = mediaTriggerRef.current;
+        if (el) {
+            const rect = el.getBoundingClientRect();
+            setDropdownLeft(Math.min(rect.left, typeof window !== "undefined" ? window.innerWidth - 236 : rect.left));
+        }
+        setOpenDesktopDropdown("media");
     };
 
     const updateNavScrollState = useCallback(() => {
@@ -332,7 +342,7 @@ export const Header: React.FC = () => {
                                                 className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
                                             >
                                                 <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
-                                                Ai-powered eeMeds Platform
+                                                eeMeds app platform
                                             </a>
                                         </li>
                                         <li>
@@ -343,7 +353,7 @@ export const Header: React.FC = () => {
                                                 className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
                                             >
                                                 <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
-                                                eeTelehealth connect platform
+                                                eeTelehealth app platform
                                             </a>
                                         </li>
                                     </ul>
@@ -362,11 +372,52 @@ export const Header: React.FC = () => {
                                 </a>
                             </li>
 
-                            {/* Media */}
-                            <li>
-                                <Link to="/media" className={navLinkClass(location.pathname === "/media")}>
+                            {/* Media – fixed-position dropdown (nav ul has overflow-x-auto; absolute menus are clipped) */}
+                            <li className="relative shrink-0">
+                                <button
+                                    type="button"
+                                    ref={mediaTriggerRef}
+                                    onMouseEnter={openMediaDropdown}
+                                    onMouseLeave={scheduleClose}
+                                    className={`${navLinkClass(
+                                        location.pathname === "/media" ||
+                                            location.pathname.startsWith("/media/") ||
+                                            location.pathname === "/blog"
+                                    )} cursor-pointer`}
+                                >
                                     Media
-                                </Link>
+                                    <ChevronDown
+                                        size={12}
+                                        className={`ml-0.5 opacity-50 transition-transform duration-200 ${openDesktopDropdown === "media" ? "rotate-180" : ""}`}
+                                    />
+                                </button>
+                                <div
+                                    onMouseEnter={openMediaDropdown}
+                                    onMouseLeave={scheduleClose}
+                                    style={{ position: "fixed", top: "4.25rem", left: dropdownLeft, zIndex: 9999 }}
+                                    className={`w-[220px] bg-white shadow-2xl shadow-black/8 border-t-2 border-brand-500 rounded-b-xl overflow-hidden transition-opacity duration-200 ${openDesktopDropdown === "media" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
+                                >
+                                    <ul className="py-1.5">
+                                        <li>
+                                            <Link
+                                                to="/media"
+                                                className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
+                                            >
+                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
+                                                Media & news
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to="/blog"
+                                                className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
+                                            >
+                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
+                                                Blog
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                         </ul>
                             <button
@@ -495,8 +546,8 @@ export const Header: React.FC = () => {
                         isOpen={activeMobileDropdown === "wellness"}
                         onToggle={() => toggleMobileDropdown("wellness")}
                         items={[
-                            { href: "https://www.figma.com/design/QqGRXig7sOuLtFD6OaNBWH/Ai-wellness-app?node-id=1-1977&t=HfrvsM1Vm4Zm9wIb-0", label: "Ai-powered eeMeds Platform" },
-                            { href: "https://ee-telehealth-connect.onrender.com/login", label: "eeTelehealth connect platform" },
+                            { href: "https://www.figma.com/design/QqGRXig7sOuLtFD6OaNBWH/Ai-wellness-app?node-id=1-1977&t=HfrvsM1Vm4Zm9wIb-0", label: "eeMeds app platform" },
+                            { href: "https://ee-telehealth-connect.onrender.com/login", label: "eeTelehealth app platform" },
                         ]}
                         onClose={() => setIsMobileMenuOpen(false)}
                     />
@@ -505,7 +556,16 @@ export const Header: React.FC = () => {
                         label="Medical supply"
                         onClick={() => setIsMobileMenuOpen(false)}
                     />
-                    <MobileLink to="/media" label="Media" onClick={() => setIsMobileMenuOpen(false)} />
+                    <MobileAccordion
+                        label="Media"
+                        isOpen={activeMobileDropdown === "media"}
+                        onToggle={() => toggleMobileDropdown("media")}
+                        items={[
+                            { to: "/media", label: "Media & news" },
+                            { to: "/blog", label: "Blog" },
+                        ]}
+                        onClose={() => setIsMobileMenuOpen(false)}
+                    />
                 </div>
 
                 <div className="mt-auto p-6 bg-gradient-to-br from-navy-950 to-navy-800">

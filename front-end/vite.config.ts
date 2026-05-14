@@ -17,6 +17,7 @@ const routes = [
   '/iso-14971-medical-device-risk-management-for-medical-devices',
   '/free-iso-13485-2016-gap-analysis-tool',
   '/media',
+  '/blog',
   '/careers',
   '/ccc-mark-approval',
   '/ce-mark-approval',

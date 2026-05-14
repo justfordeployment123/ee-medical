@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { Calendar, Tag, Clock, ArrowLeft, ArrowRight, ChevronRight, BookOpen, User, Loader } from "lucide-react";
+import { Calendar, Clock, ArrowLeft, ArrowRight, BookOpen, Loader } from "lucide-react";
 import { getBlogPostBySlug, blogPosts as staticBlogPosts } from "../data/blogData";
 import { PageMeta } from "../components/shared/PageMeta";
 import type { BlogPost as BlogArticle, ContentSection } from "../data/blogData";
@@ -54,7 +54,7 @@ const renderSection = (section: ContentSection, index: number) => {
             );
         case "p":
             return (
-                <p key={index} className="text-gray-600 leading-relaxed mb-5 text-[16px]">
+                <p key={index} className="text-gray-700 leading-[1.75] mb-5 text-[17px]">
                     {section.text}
                 </p>
             );
@@ -62,7 +62,7 @@ const renderSection = (section: ContentSection, index: number) => {
             return (
                 <ul key={index} className="mb-5 space-y-2 pl-2">
                     {section.items?.map((item, i) => (
-                        <li key={i} className="flex items-start gap-3 text-gray-600 text-[16px] leading-relaxed">
+                        <li key={i} className="flex items-start gap-3 text-gray-700 text-[17px] leading-[1.75]">
                             <span className="mt-1.5 w-2 h-2 rounded-full bg-brand-500 shrink-0" />
                             {item}
                         </li>
@@ -73,7 +73,7 @@ const renderSection = (section: ContentSection, index: number) => {
             return (
                 <ol key={index} className="mb-5 space-y-2 pl-2">
                     {section.items?.map((item, i) => (
-                        <li key={i} className="flex items-start gap-3 text-gray-600 text-[16px] leading-relaxed">
+                        <li key={i} className="flex items-start gap-3 text-gray-700 text-[17px] leading-[1.75]">
                             <span className="mt-0.5 w-6 h-6 rounded-full bg-brand-500/10 text-brand-600 text-xs font-bold flex items-center justify-center shrink-0">
                                 {i + 1}
                             </span>
@@ -91,8 +91,8 @@ const renderSection = (section: ContentSection, index: number) => {
         case "cta":
             return (
                 <div key={index} className="my-8 p-6 bg-gradient-to-br from-navy-950 to-navy-800 rounded-2xl text-center">
-                    <BookOpen size={28} className="text-brand-400 mx-auto mb-3" />
-                    <p className="text-white font-bold text-lg mb-4">{section.ctaText}</p>
+                    <BookOpen size={28} className="text-brand-200 mx-auto mb-3 drop-shadow-sm" />
+                    <p className="text-white font-bold text-lg mb-4 drop-shadow-sm">{section.ctaText}</p>
                     <Link
                         to={section.ctaLink || "/share-your-project"}
                         className="inline-flex items-center gap-2 px-6 py-3 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-xl text-sm transition-all duration-300 shadow-lg shadow-brand-500/25"
@@ -111,6 +111,20 @@ export const BlogPost = () => {
     const [payload, setPayload] = useState<PostPayload | null>(null);
     const [loading, setLoading] = useState(true);
     const [notFound, setNotFound] = useState(false);
+    const [listPosts, setListPosts] = useState<BlogArticle[]>([]);
+
+    useEffect(() => {
+        const base = apiBase();
+        fetch(`${base}/api/blog/posts`)
+            .then((r) => (r.ok ? r.json() : Promise.reject()))
+            .then((d) => {
+                const list = (d.posts || []) as BlogArticle[];
+                setListPosts(list.map((p) => ({ ...p, content: p.content ?? [] })));
+            })
+            .catch(() =>
+                setListPosts(staticBlogPosts.map((p) => ({ ...p, content: p.content ?? [] }))),
+            );
+    }, []);
 
     useEffect(() => {
         if (!slug) {
@@ -146,17 +160,21 @@ export const BlogPost = () => {
             .finally(() => setLoading(false));
     }, [slug]);
 
-    const categoryLinks = useMemo(() => {
-        if (!payload) return [] as string[];
-        const s = new Set<string>();
-        s.add(payload.post.category);
-        payload.related.forEach((r) => s.add(r.category));
-        return Array.from(s).sort((a, b) => a.localeCompare(b));
-    }, [payload]);
+    const sidebarCategories = useMemo(() => {
+        const src = listPosts.length > 0 ? listPosts : staticBlogPosts;
+        const cats = new Set(src.map((p) => p.category).filter(Boolean));
+        return Array.from(cats).sort((a, b) => a.localeCompare(b));
+    }, [listPosts]);
+
+    const postsExceptCurrent = useMemo(() => {
+        if (!slug) return [];
+        const src = listPosts.length > 0 ? listPosts : staticBlogPosts;
+        return src.filter((p) => p.slug !== slug);
+    }, [listPosts, slug]);
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center gap-3 text-gray-500">
+            <div className="min-h-screen bg-white flex items-center justify-center gap-3 text-gray-500">
                 <Loader className="animate-spin" size={22} />
                 <span className="text-sm font-medium">Loading article…</span>
             </div>
@@ -164,57 +182,68 @@ export const BlogPost = () => {
     }
 
     if (notFound || !payload) {
-        return <Navigate to="/media" replace />;
+        return <Navigate to="/blog" replace />;
     }
 
     const { post, prev, next, related } = payload;
+    const displayRecent = (postsExceptCurrent.length > 0 ? postsExceptCurrent : related).slice(0, 6);
 
     return (
-        <div className="w-full bg-slate-50 font-sans flex flex-col min-h-screen">
+        <div className="w-full bg-white font-sans flex flex-col min-h-screen">
             <PageMeta title={post.title} description={(post.metaDescription || post.excerpt).slice(0, 160)} />
             <Header />
 
-            <div className="relative w-full h-72 md:h-96 overflow-hidden">
-                <img src={resolveAssetUrl(post.image)} alt={post.title} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/50 to-navy-950/20" />
-                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-12 max-w-4xl mx-auto w-full left-0 right-0">
-                    <div className="inline-flex items-center gap-1.5 text-sm font-semibold mb-4">
-                        <Link to="/" className="text-white/70 hover:text-brand-300 transition-colors">
-                            Home
-                        </Link>
-                        <ChevronRight size={14} className="text-white/50" />
-                        <Link to="/media" className="text-white/70 hover:text-brand-300 transition-colors">
-                            Media
-                        </Link>
-                        <ChevronRight size={14} className="text-white/50" />
-                        <span className="text-brand-300 truncate max-w-[200px]">{post.category}</span>
-                    </div>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-500 text-white text-xs font-bold uppercase tracking-wider w-fit mb-3">
-                        <Tag size={10} /> {post.category}
-                    </span>
-                    <h1 className="font-display text-2xl md:text-4xl font-extrabold text-white leading-tight">{post.title}</h1>
-                </div>
-            </div>
+            <main className="grow bg-white pb-20">
+                <div className="max-w-6xl mx-auto px-4 md:px-8 pt-8 md:pt-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[minmax(0,1fr)_300px] gap-10 xl:gap-14 lg:items-start">
+                        <article className="min-w-0 order-1">
+                            <Link
+                                to="/blog"
+                                className="inline-flex items-center gap-2 text-sm font-semibold text-brand-600 hover:text-brand-500 mb-6 transition-colors"
+                            >
+                                <ArrowLeft size={18} className="shrink-0" aria-hidden />
+                                All posts
+                            </Link>
 
-            <main className="grow pb-24">
-                <div className="max-w-[1200px] mx-auto px-4 md:px-8 pt-10">
-                    <div className="flex flex-col lg:flex-row gap-12">
-                        <article className="lg:w-2/3">
-                            <div className="flex flex-wrap items-center gap-5 text-sm text-gray-400 mb-8 pb-6 border-b border-gray-200">
-                                <span className="flex items-center gap-1.5">
-                                    <User size={14} className="text-brand-500" /> {post.author}
+                            <h1 className="font-display text-3xl md:text-[2.125rem] font-extrabold text-brand-600 leading-tight tracking-tight">
+                                {post.title}
+                            </h1>
+
+                            <p className="mt-4 text-sm text-gray-500 flex flex-wrap items-center gap-x-2 gap-y-1">
+                                <span className="inline-flex items-center gap-1.5">
+                                    <Calendar size={14} className="text-gray-400 shrink-0" aria-hidden />
+                                    {post.date}
                                 </span>
-                                <span className="flex items-center gap-1.5">
-                                    <Calendar size={14} className="text-brand-500" /> {post.date}
+                                <span className="text-gray-300 select-none" aria-hidden>
+                                    |
                                 </span>
-                                <span className="flex items-center gap-1.5">
-                                    <Clock size={14} className="text-brand-500" /> {post.readTime}
-                                </span>
+                                <span>{post.category}</span>
+                                {post.readTime ? (
+                                    <>
+                                        <span className="text-gray-300 select-none" aria-hidden>
+                                            |
+                                        </span>
+                                        <span className="inline-flex items-center gap-1">
+                                            <Clock size={14} className="text-gray-400 shrink-0" aria-hidden />
+                                            {post.readTime}
+                                        </span>
+                                    </>
+                                ) : null}
+                            </p>
+
+                            <div className="mt-8 rounded-xl overflow-hidden border border-gray-100 bg-gray-50 shadow-sm">
+                                <img
+                                    src={resolveAssetUrl(post.image)}
+                                    alt=""
+                                    className="w-full h-auto object-cover max-h-[min(560px,70vh)]"
+                                />
                             </div>
 
-                            <p className="text-gray-700 text-lg leading-relaxed mb-6 font-medium border-l-4 border-brand-500 pl-4">{post.excerpt}</p>
+                            {post.excerpt ? (
+                                <p className="mt-8 text-gray-800 text-lg leading-relaxed font-medium">{post.excerpt}</p>
+                            ) : null}
 
-                            <div className="prose-content">
+                            <div className="mt-6 prose-content max-w-none">
                                 {(post.content || []).map((section, i) => renderSection(section, i))}
                             </div>
 
@@ -222,125 +251,121 @@ export const BlogPost = () => {
                                 {prev && (
                                     <Link
                                         to={`/media/${prev.slug}`}
-                                        className="flex-1 group flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all"
+                                        className="flex-1 group flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all"
                                     >
-                                        <ArrowLeft size={16} className="text-brand-500 mt-1 shrink-0 group-hover:-translate-x-1 transition-transform" />
+                                        <ArrowLeft
+                                            size={16}
+                                            className="text-brand-500 mt-1 shrink-0 group-hover:-translate-x-1 transition-transform"
+                                        />
                                         <div>
-                                            <p className="text-xs text-gray-400 mb-1">Previous Article</p>
-                                            <p className="text-sm font-bold text-navy-800 line-clamp-2 group-hover:text-brand-600 transition-colors">{prev.title}</p>
+                                            <p className="text-xs text-gray-400 mb-1">Previous article</p>
+                                            <p className="text-sm font-bold text-navy-800 line-clamp-2 group-hover:text-brand-600 transition-colors">
+                                                {prev.title}
+                                            </p>
                                         </div>
                                     </Link>
                                 )}
                                 {next && (
                                     <Link
                                         to={`/media/${next.slug}`}
-                                        className="flex-1 group flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all text-right justify-end"
+                                        className="flex-1 group flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-gray-100 hover:border-brand-200 hover:shadow-md transition-all text-right sm:justify-end sm:flex-row-reverse"
                                     >
+                                        <ArrowRight
+                                            size={16}
+                                            className="text-brand-500 mt-1 shrink-0 group-hover:translate-x-1 transition-transform"
+                                        />
                                         <div>
-                                            <p className="text-xs text-gray-400 mb-1">Next Article</p>
-                                            <p className="text-sm font-bold text-navy-800 line-clamp-2 group-hover:text-brand-600 transition-colors">{next.title}</p>
+                                            <p className="text-xs text-gray-400 mb-1">Next article</p>
+                                            <p className="text-sm font-bold text-navy-800 line-clamp-2 group-hover:text-brand-600 transition-colors">
+                                                {next.title}
+                                            </p>
                                         </div>
-                                        <ArrowRight size={16} className="text-brand-500 mt-1 shrink-0 group-hover:translate-x-1 transition-transform" />
                                     </Link>
                                 )}
                             </div>
                         </article>
 
-                        <aside className="lg:w-1/3 space-y-8">
-                            <Link to="/media" className="flex items-center gap-2 text-brand-600 font-bold text-sm hover:gap-3 transition-all">
-                                <ArrowLeft size={16} /> Back to All Articles
-                            </Link>
-
-                            <div className="bg-white border border-gray-100 rounded-2xl p-6">
-                                <h3 className="font-display text-base font-bold text-navy-900 pb-4 mb-4 border-b border-gray-100 relative">
-                                    About the Author
-                                    <span className="absolute left-0 bottom-0 w-8 h-0.5 bg-brand-500 rounded-full" />
-                                </h3>
-                                <div className="flex items-center gap-3 mb-3">
-                                    <div className="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center shrink-0">
-                                        <User size={20} className="text-brand-500" />
-                                    </div>
-                                    <div>
-                                        <p className="font-bold text-navy-800 text-sm">{post.author}</p>
-                                        <p className="text-xs text-gray-400">FDA Regulatory Experts</p>
-                                    </div>
-                                </div>
-                                <p className="text-gray-500 text-xs leading-relaxed">
-                                    E&E Medicals brings over 32 years of experience in FDA regulatory affairs, medical device compliance, and quality management systems.
-                                </p>
-                            </div>
-
-                            <div className="bg-white border border-gray-100 rounded-2xl p-6">
-                                <h3 className="font-display text-base font-bold text-navy-900 pb-4 mb-5 border-b border-gray-100 relative">
-                                    Related Articles
-                                    <span className="absolute left-0 bottom-0 w-8 h-0.5 bg-brand-500 rounded-full" />
-                                </h3>
-                                <ul className="space-y-4">
-                                    {related.map((rel) => (
-                                        <li key={rel.id} className="flex gap-3 group">
-                                            <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0">
-                                                <img src={resolveAssetUrl(rel.image)} alt={rel.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
-                                            </div>
-                                            <div className="min-w-0">
-                                                <Link
-                                                    to={`/media/${rel.slug}`}
-                                                    className="text-navy-800 font-semibold text-xs hover:text-brand-600 transition-colors block mb-1 leading-snug line-clamp-2"
-                                                >
-                                                    {rel.title}
-                                                </Link>
-                                                <span className="text-[11px] text-gray-400 flex items-center gap-1">
-                                                    <Calendar size={9} /> {rel.date}
-                                                </span>
-                                            </div>
+                        <aside className="order-2 lg:sticky lg:top-28 space-y-10 shrink-0 pb-8 lg:pb-0 border-b border-gray-100 lg:border-0">
+                            <nav aria-label="Blog categories">
+                                <h2 className="text-base font-bold text-navy-900 mb-4">Categories</h2>
+                                <ul className="space-y-2.5">
+                                    <li>
+                                        <Link to="/blog" className="text-sm text-gray-600 hover:text-brand-600 transition-colors">
+                                            All posts
+                                        </Link>
+                                    </li>
+                                    {sidebarCategories.map((cat) => (
+                                        <li key={cat}>
+                                            <Link
+                                                to={`/blog?category=${encodeURIComponent(cat)}`}
+                                                className={`text-sm transition-colors ${
+                                                    post.category === cat
+                                                        ? "text-brand-600 font-semibold"
+                                                        : "text-gray-600 hover:text-brand-600"
+                                                }`}
+                                            >
+                                                {cat}
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
-                            </div>
+                            </nav>
+
+                            <section aria-labelledby="recent-posts-heading">
+                                <h2 id="recent-posts-heading" className="text-base font-bold text-navy-900 mb-4">
+                                    Recent posts
+                                </h2>
+                                {displayRecent.length === 0 ? (
+                                    <p className="text-sm text-gray-500">No other posts yet.</p>
+                                ) : (
+                                    <ul className="space-y-5">
+                                        {displayRecent.map((rp) => (
+                                            <li key={rp.id}>
+                                                <Link to={`/media/${rp.slug}`} className="flex gap-3 group">
+                                                    <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 shrink-0 border border-gray-100">
+                                                        <img
+                                                            src={resolveAssetUrl(rp.image)}
+                                                            alt=""
+                                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                                        />
+                                                    </div>
+                                                    <div className="min-w-0 py-0.5">
+                                                        <p className="text-sm font-semibold text-navy-900 leading-snug line-clamp-2 group-hover:text-brand-600 transition-colors">
+                                                            {rp.title}
+                                                        </p>
+                                                        <p className="text-xs text-gray-400 mt-1">{rp.date}</p>
+                                                    </div>
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </section>
 
                             <div className="relative rounded-2xl overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-br from-navy-950 to-navy-800" />
                                 <div
-                                    className="absolute inset-0"
+                                    className="absolute inset-0 opacity-60"
                                     style={{
-                                        backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)",
+                                        backgroundImage:
+                                            "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)",
                                         backgroundSize: "20px 20px",
                                     }}
                                 />
-                                <div className="relative p-6 text-center">
-                                    <div className="w-12 h-12 rounded-xl bg-brand-500/20 flex items-center justify-center mx-auto mb-4">
-                                        <BookOpen size={20} className="text-brand-400" />
+                                <div className="relative p-5 text-center">
+                                    <div className="w-11 h-11 rounded-xl bg-brand-500/25 flex items-center justify-center mx-auto mb-3 ring-1 ring-white/10">
+                                        <BookOpen size={18} className="text-brand-100" />
                                     </div>
-                                    <h3 className="font-display text-base font-bold text-white mb-2">Need Expert Guidance?</h3>
-                                    <p className="text-gray-400 text-xs mb-5 leading-relaxed">
-                                        Schedule a free consultation with our FDA regulatory experts.
+                                    <h3 className="font-display text-sm font-bold text-white mb-1.5 drop-shadow-sm">Need expert guidance?</h3>
+                                    <p className="text-slate-200 text-sm mb-4 leading-relaxed">
+                                        Schedule a consultation with our regulatory team.
                                     </p>
                                     <a
                                         href="mailto:info@eemedicals.com"
-                                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-xl text-xs transition-all duration-300 shadow-lg shadow-brand-500/25"
+                                        className="inline-flex items-center gap-2 px-4 py-2 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-xl text-xs transition-all duration-300 shadow-lg shadow-brand-500/25"
                                     >
-                                        Contact Us <ArrowRight size={12} />
+                                        Contact us <ArrowRight size={12} />
                                     </a>
-                                </div>
-                            </div>
-
-                            <div className="bg-white border border-gray-100 rounded-2xl p-6">
-                                <h3 className="font-display text-base font-bold text-navy-900 pb-4 mb-5 border-b border-gray-100 relative">
-                                    Categories
-                                    <span className="absolute left-0 bottom-0 w-8 h-0.5 bg-brand-500 rounded-full" />
-                                </h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {(categoryLinks.length > 0
-                                        ? categoryLinks
-                                        : ["FDA Regulatory", "IVD & Diagnostics", "Compliance", "FDA News", "US Agent Services", "Public Health"]
-                                    ).map((cat) => (
-                                        <Link
-                                            key={cat}
-                                            to="/media"
-                                            className="px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-gray-600 hover:bg-brand-500 hover:text-white transition-all"
-                                        >
-                                            {cat}
-                                        </Link>
-                                    ))}
                                 </div>
                             </div>
                         </aside>

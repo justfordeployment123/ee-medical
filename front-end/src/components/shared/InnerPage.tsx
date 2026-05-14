@@ -6,92 +6,141 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CheckCircle, ArrowRight, ExternalLink, type LucideIcon } from "lucide-react";
 
+/** True inside `<Section dark>` or `<SplitSection dark>` — drives light text on navy backgrounds */
+const SectionDarkContext = React.createContext(false);
+export const useSectionDark = () => React.useContext(SectionDarkContext);
+
 /* ─── Section Heading ─────────────────────────────────────── */
 export const SectionHeading: React.FC<{
     badge?: string;
     title: React.ReactNode;
     subtitle?: string;
     centered?: boolean;
-}> = ({ badge, title, subtitle, centered }) => (
-    <div className={`mb-10 ${centered ? "text-center" : ""}`}>
-        {badge && (
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-100 text-brand-600 text-sm font-bold uppercase tracking-wider mb-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-400" />
-                {badge}
-            </span>
-        )}
-        <div className={`flex items-start gap-5 ${centered ? "justify-center" : ""}`}>
-            <div className="w-1 h-12 rounded-full bg-gradient-to-b from-brand-400 to-brand-600 shrink-0 mt-1 hidden sm:block" />
-            <h2 className="font-display text-2xl md:text-3xl lg:text-[2.1rem] font-extrabold text-navy-900 leading-tight tracking-tight">
-                {title}
-            </h2>
+}> = ({ badge, title, subtitle, centered }) => {
+    const dark = useSectionDark();
+    return (
+        <div className={`mb-10 ${centered ? "text-center" : ""}`}>
+            {badge && (
+                <span
+                    className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider mb-4 ${
+                        dark
+                            ? "bg-white/10 border border-white/15 text-brand-200"
+                            : "bg-brand-50 border border-brand-100 text-brand-600"
+                    }`}
+                >
+                    <span className={`w-1.5 h-1.5 rounded-full ${dark ? "bg-brand-300" : "bg-brand-400"}`} />
+                    {badge}
+                </span>
+            )}
+            <div className={`flex items-start gap-5 ${centered ? "justify-center" : ""}`}>
+                <div className="w-1 h-12 rounded-full bg-gradient-to-b from-brand-400 to-brand-600 shrink-0 mt-1 hidden sm:block" />
+                <h2
+                    className={`font-display text-2xl md:text-3xl lg:text-[2.1rem] font-extrabold leading-tight tracking-tight ${
+                        dark ? "text-white" : "text-navy-900"
+                    }`}
+                >
+                    {title}
+                </h2>
+            </div>
+            {subtitle && (
+                <p
+                    className={`mt-4 leading-relaxed text-base font-medium max-w-3xl ${
+                        dark ? "text-slate-200" : "text-gray-700"
+                    }`}
+                >
+                    {subtitle}
+                </p>
+            )}
         </div>
-        {subtitle && (
-            <p className="text-gray-700 mt-4 leading-relaxed text-base font-medium max-w-3xl">
-                {subtitle}
-            </p>
-        )}
-    </div>
-);
+    );
+};
 
 /* ─── Sub Heading (smaller h3) ────────────────────────────── */
 export const SubHeading: React.FC<{ children: React.ReactNode; className?: string }> = ({
     children,
     className = "",
-}) => (
-    <h3 className={`font-display text-xl font-bold text-navy-900 mb-4 ${className}`}>
-        {children}
-    </h3>
-);
+}) => {
+    const dark = useSectionDark();
+    return (
+        <h3
+            className={`font-display text-xl font-bold mb-4 ${dark ? "text-white" : "text-navy-900"} ${className}`}
+        >
+            {children}
+        </h3>
+    );
+};
 
 /* ─── Feature List ─────────────────────────────────────────── */
 export const FeatureList: React.FC<{
     items: string[];
     columns?: 1 | 2;
     className?: string;
-}> = ({ items, columns = 1, className = "" }) => (
-    <ul
-        className={`${
-            columns === 2
-                ? "grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3"
-                : "space-y-3"
-        } ${className}`}
-    >
-        {items.map((item, i) => (
-            <li key={i} className="flex items-start gap-3">
-                <div className="w-5 h-5 rounded-full bg-brand-50 border border-brand-200 flex items-center justify-center shrink-0 mt-0.5">
-                    <CheckCircle size={12} className="text-brand-500" />
-                </div>
-                <span
-                    className="text-gray-800 text-[15px] leading-relaxed font-medium"
-                    dangerouslySetInnerHTML={{ __html: item }}
-                />
-            </li>
-        ))}
-    </ul>
-);
+}> = ({ items, columns = 1, className = "" }) => {
+    const dark = useSectionDark();
+    return (
+        <ul
+            className={`${
+                columns === 2
+                    ? "grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3"
+                    : "space-y-3"
+            } ${className}`}
+        >
+            {items.map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                    <div
+                        className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 border ${
+                            dark
+                                ? "bg-white/10 border-white/20"
+                                : "bg-brand-50 border-brand-200"
+                        }`}
+                    >
+                        <CheckCircle size={12} className={dark ? "text-brand-200" : "text-brand-500"} />
+                    </div>
+                    <span
+                        className={`text-[15px] leading-relaxed font-medium ${
+                            dark ? "text-slate-100" : "text-gray-800"
+                        }`}
+                        dangerouslySetInnerHTML={{ __html: item }}
+                    />
+                </li>
+            ))}
+        </ul>
+    );
+};
 
 /* ─── Bullet List ──────────────────────────────────────────── */
 export const BulletList: React.FC<{
     items: string[];
     columns?: 1 | 2;
     className?: string;
-}> = ({ items, columns = 1, className = "" }) => (
-    <ul
-        className={`${
-            columns === 2
-                ? "grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2"
-                : "space-y-2"
-        } ${className}`}
-    >
-        {items.map((item, i) => (
-            <li key={i} className="flex items-start gap-2.5 text-gray-800 text-[15px] font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-500 shrink-0 mt-2" />
-                <span dangerouslySetInnerHTML={{ __html: item }} />
-            </li>
-        ))}
-    </ul>
-);
+}> = ({ items, columns = 1, className = "" }) => {
+    const dark = useSectionDark();
+    return (
+        <ul
+            className={`${
+                columns === 2
+                    ? "grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2"
+                    : "space-y-2"
+            } ${className}`}
+        >
+            {items.map((item, i) => (
+                <li
+                    key={i}
+                    className={`flex items-start gap-2.5 text-[15px] font-medium ${
+                        dark ? "text-slate-100" : "text-gray-800"
+                    }`}
+                >
+                    <span
+                        className={`w-1.5 h-1.5 rounded-full shrink-0 mt-2 ${
+                            dark ? "bg-brand-300" : "bg-brand-500"
+                        }`}
+                    />
+                    <span dangerouslySetInnerHTML={{ __html: item }} />
+                </li>
+            ))}
+        </ul>
+    );
+};
 
 /* ─── Info Box (highlight / callout) ──────────────────────── */
 export const InfoBox: React.FC<{
@@ -115,30 +164,41 @@ export const InfoBox: React.FC<{
 /* ─── Process Steps ────────────────────────────────────────── */
 export const ProcessSteps: React.FC<{
     steps: { title: string; description: string }[];
-}> = ({ steps }) => (
-    <div className="space-y-6">
-        {steps.map((step, i) => (
-            <div key={i} className="flex gap-5">
-                <div className="flex flex-col items-center gap-2">
-                    <div className="w-10 h-10 rounded-xl bg-brand-500 text-white flex items-center justify-center font-bold text-sm font-display shrink-0">
-                        {String(i + 1).padStart(2, "0")}
+}> = ({ steps }) => {
+    const dark = useSectionDark();
+    return (
+        <div className="space-y-6">
+            {steps.map((step, i) => (
+                <div key={i} className="flex gap-5">
+                    <div className="flex flex-col items-center gap-2">
+                        <div className="w-10 h-10 rounded-xl bg-brand-500 text-white flex items-center justify-center font-bold text-sm font-display shrink-0">
+                            {String(i + 1).padStart(2, "0")}
+                        </div>
+                        {i < steps.length - 1 && (
+                            <div className="w-0.5 flex-1 bg-gradient-to-b from-brand-500/40 to-brand-200/20 min-h-[24px]" />
+                        )}
                     </div>
-                    {i < steps.length - 1 && (
-                        <div className="w-0.5 flex-1 bg-gradient-to-b from-brand-500/40 to-brand-200/20 min-h-[24px]" />
-                    )}
+                    <div className="pb-6">
+                        <h4
+                            className={`font-bold text-[15px] mb-1.5 ${
+                                dark ? "text-white" : "text-navy-900"
+                            }`}
+                        >
+                            {step.title}
+                        </h4>
+                        <p
+                            className={`text-base leading-relaxed font-medium ${
+                                dark ? "text-slate-200" : "text-gray-800"
+                            }`}
+                        >
+                            {step.description}
+                        </p>
+                    </div>
                 </div>
-                <div className="pb-6">
-                    <h4 className="font-bold text-navy-900 text-[15px] mb-1.5">
-                        {step.title}
-                    </h4>
-                    <p className="text-gray-800 text-base leading-relaxed font-medium">
-                        {step.description}
-                    </p>
-                </div>
-            </div>
-        ))}
-    </div>
-);
+            ))}
+        </div>
+    );
+};
 
 /* ─── Service Card ─────────────────────────────────────────── */
 export const ServiceCard: React.FC<{
@@ -183,7 +243,7 @@ export const StatStrip: React.FC<{
                 <div className="text-3xl font-extrabold text-white font-display mb-1">
                     {s.value}
                 </div>
-                <div className="text-sm text-gray-300 font-bold uppercase tracking-wider">
+                <div className="text-sm text-slate-200 font-bold uppercase tracking-wider">
                     {s.label}
                 </div>
             </div>
@@ -291,6 +351,7 @@ export const SplitSection: React.FC<{
     /** 'cover' crops to fill; 'contain' shows the full picture */
     imageFit?: "cover" | "contain";
 }> = ({ imageSrc, imageAlt, imageRight = false, label, dark, children, minImageHeight = "min-h-[280px] lg:min-h-[380px]", imageFit = "cover" }) => (
+    <SectionDarkContext.Provider value={!!dark}>
     <div className={`rounded-2xl overflow-hidden border ${dark ? "bg-navy-900 border-navy-800" : "bg-slate-50 border-gray-100"}`}>
         <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className={`relative overflow-hidden ${minImageHeight} group ${imageRight ? "lg:order-2" : "lg:order-1"} ${imageFit === "contain" ? "bg-navy-950" : ""}`}>
@@ -313,6 +374,7 @@ export const SplitSection: React.FC<{
             </div>
         </div>
     </div>
+    </SectionDarkContext.Provider>
 );
 
 /* ─── Section (alternating bg) ────────────────────────────── */
@@ -328,7 +390,7 @@ export const Section: React.FC<{
                 : "bg-slate-50 border border-gray-100"
         } ${className}`}
     >
-        {children}
+        <SectionDarkContext.Provider value={!!dark}>{children}</SectionDarkContext.Provider>
     </section>
 );
 
