@@ -15,7 +15,7 @@ services:
       context: ./front-end
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "3000:80"
     depends_on:
       - api
 
