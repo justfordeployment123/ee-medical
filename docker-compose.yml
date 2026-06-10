@@ -1,0 +1,24 @@
+services:
+  api:
+    build:
+      context: ./rag-api
+    restart: unless-stopped
+    env_file: ./rag-api/.env
+    volumes:
+      - api_uploads:/app/uploads
+      - api_db:/app/content.db
+    expose:
+      - "4000"
+
+  frontend:
+    build:
+      context: ./front-end
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
+volumes:
+  api_uploads:
+  api_db:

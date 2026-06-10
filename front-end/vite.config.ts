@@ -40,6 +40,17 @@ const routes = [
   '/ai-design-controls',
   '/fda-defense',
   '/share-your-project',
+  // Pillar pages
+  '/fda-510k-submission-guide',
+  '/medical-device-fda-approval-process',
+  '/iso-13485-guide',
+  '/fda-qms-requirements',
+  '/medical-device-regulatory-strategy',
+  '/samd-fda-regulations',
+  // Service pages
+  '/fda-510k-consulting',
+  '/fda-compliance-consulting',
+  '/fda-audit-preparation',
 ]
 
 // https://vite.dev/config/
@@ -48,7 +59,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     sitemap({
-      hostname: 'http://b0sk8w488oos44wwko008wsw.72.60.29.89.sslip.io',
+      hostname: 'https://eemedicals.com',
       dynamicRoutes: routes,
     }),
   ],
