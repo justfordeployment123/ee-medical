@@ -5,11 +5,14 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Ensure uploads directory exists
-export const uploadsDir = path.join(__dirname, '..', 'uploads');
+// Persistent data directory — override via DATA_DIR env var (set in docker-compose)
+const dataDir = process.env.DATA_DIR || path.join(__dirname, '..');
+if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+
+export const uploadsDir = path.join(dataDir, 'uploads');
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
 
-const dbPath = path.join(__dirname, '..', 'content.db');
+const dbPath = path.join(dataDir, 'content.db');
 export const db = new Database(dbPath);
 db.pragma('journal_mode = WAL');
 

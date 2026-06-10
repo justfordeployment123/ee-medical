@@ -4,9 +4,10 @@ services:
       context: ./rag-api
     restart: unless-stopped
     env_file: ./rag-api/.env
+    environment:
+      - DATA_DIR=/app/data
     volumes:
-      - api_uploads:/app/uploads
-      - api_db:/app/content.db
+      - api_data:/app/data
     expose:
       - "4000"
 
@@ -20,5 +21,4 @@ services:
       - api
 
 volumes:
-  api_uploads:
-  api_db:
+  api_data:
