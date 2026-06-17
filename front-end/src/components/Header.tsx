@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import EandELogo from "../assets/EandE-logo.png";
 import { useContent } from "../hooks/useContent";
@@ -8,8 +8,6 @@ import {
     MapPin,
     Search,
     ChevronDown,
-    ChevronLeft,
-    ChevronRight,
     X,
     Handshake,
     Lightbulb,
@@ -29,8 +27,6 @@ import {
     BookOpen,
 } from "lucide-react";
 
-const NAV_SCROLL_PX = 220;
-
 export const Header: React.FC = () => {
     const globalContent = useContent('global');
     const contact = globalContent?.contact;
@@ -39,11 +35,9 @@ export const Header: React.FC = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeMobileDropdown, setActiveMobileDropdown] = useState<string | null>(null);
     const [scrolled, setScrolled] = useState(false);
-    const [canScrollLeft, setCanScrollLeft] = useState(false);
-    const [canScrollRight, setCanScrollRight] = useState(false);
     const [openDesktopDropdown, setOpenDesktopDropdown] = useState<"ai" | "wellness" | "media" | null>(null);
     const [dropdownLeft, setDropdownLeft] = useState(0);
-    const navScrollRef = useRef<HTMLUListElement>(null);
+    const [dropdownTop, setDropdownTop] = useState(0);
     const aiTriggerRef = useRef<HTMLButtonElement>(null);
     const wellnessTriggerRef = useRef<HTMLButtonElement>(null);
     const mediaTriggerRef = useRef<HTMLButtonElement>(null);
@@ -68,6 +62,7 @@ export const Header: React.FC = () => {
         if (el) {
             const rect = el.getBoundingClientRect();
             setDropdownLeft(Math.min(rect.left, typeof window !== "undefined" ? window.innerWidth - 336 : rect.left));
+            setDropdownTop(rect.bottom);
         }
         setOpenDesktopDropdown("ai");
     };
@@ -77,6 +72,7 @@ export const Header: React.FC = () => {
         if (el) {
             const rect = el.getBoundingClientRect();
             setDropdownLeft(Math.min(rect.left, typeof window !== "undefined" ? window.innerWidth - 356 : rect.left));
+            setDropdownTop(rect.bottom);
         }
         setOpenDesktopDropdown("wellness");
     };
@@ -86,22 +82,10 @@ export const Header: React.FC = () => {
         if (el) {
             const rect = el.getBoundingClientRect();
             setDropdownLeft(Math.min(rect.left, typeof window !== "undefined" ? window.innerWidth - 236 : rect.left));
+            setDropdownTop(rect.bottom);
         }
         setOpenDesktopDropdown("media");
     };
-
-    const updateNavScrollState = useCallback(() => {
-        const el = navScrollRef.current;
-        if (!el) return;
-        setCanScrollLeft(el.scrollLeft > 0);
-        setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 1);
-    }, []);
-
-    useEffect(() => {
-        updateNavScrollState();
-        window.addEventListener("resize", updateNavScrollState);
-        return () => window.removeEventListener("resize", updateNavScrollState);
-    }, [updateNavScrollState]);
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 20);
@@ -118,13 +102,6 @@ export const Header: React.FC = () => {
         setActiveMobileDropdown(null);
         setOpenDesktopDropdown(null);
     }, [location.pathname]);
-
-    const scrollNav = (direction: "left" | "right") => {
-        const el = navScrollRef.current;
-        if (!el) return;
-        el.scrollBy({ left: direction === "left" ? -NAV_SCROLL_PX : NAV_SCROLL_PX, behavior: "smooth" });
-        setTimeout(updateNavScrollState, 300);
-    };
 
     const toggleMobileDropdown = (menu: string) => {
         setActiveMobileDropdown(activeMobileDropdown === menu ? null : menu);
@@ -162,7 +139,7 @@ export const Header: React.FC = () => {
 
                 {/* Main Nav */}
                 <nav className={`w-full bg-white/95 backdrop-blur-md text-gray-800 transition-all duration-300 ${scrolled ? "shadow-md shadow-navy-950/5" : "border-b border-gray-100"}`}>
-                    <div className="pl-3 pr-3 md:pl-6 md:pr-6 flex items-center max-w-[1400px] mx-auto relative h-16 lg:h-20 min-w-0">
+                    <div className="pl-3 pr-3 md:pl-6 md:pr-6 flex items-center max-w-[1400px] mx-auto relative min-w-0 py-2">
                         <Link
                             to="/"
                             className="shrink-0 mr-4 lg:mr-8 flex items-center h-12 lg:h-16 w-[220px] lg:w-[260px] overflow-hidden"
@@ -174,260 +151,248 @@ export const Header: React.FC = () => {
                                 style={{ transform: "scale(1.4)", transformOrigin: "left center" }}
                             />
                         </Link>
-                        {/* Desktop Menu – one line, scrollable when needed */}
-                        <div className="hidden lg:flex flex-1 min-w-0 items-center relative">
-                            <button
-                                type="button"
-                                aria-label="Scroll nav left"
-                                onClick={() => scrollNav("left")}
-                                className={`absolute left-0 z-10 h-8 w-8 flex items-center justify-center rounded-full bg-white/95 text-navy-800 shadow-md border border-gray-200 hover:bg-gray-50 transition-all ${canScrollLeft ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-                            >
-                                <ChevronLeft size={18} strokeWidth={2.5} />
-                            </button>
-                            <ul
-                                ref={navScrollRef}
-                                onScroll={updateNavScrollState}
-                                className="flex items-center gap-0.5 flex-1 min-w-0 flex-nowrap overflow-x-auto scrollbar-hide pl-9 pr-9"
-                            >
-                            {[
-                                { to: "/", label: "Home" },
-                                { to: "/about", label: "About Us" },
-                                { to: "/careers", label: "Careers" },
-                            ].map(({ to, label }) => (
-                                <li key={to}>
-                                    <Link to={to} className={navLinkClass(location.pathname === to)}>
-                                        {label}
-                                    </Link>
-                                </li>
-                            ))}
-
-                            {/* Mega Menu: Quality & Compliance */}
-                            <li className="static group">
-                                <button className={`${navLinkClass(false)} cursor-pointer`}>
-                                    Quality & Compliance
-                                    <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
-                                </button>
-                                <div className="absolute left-0 w-full top-full bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500">
-                                    <div className="max-w-[1200px] mx-auto py-6 px-6 grid grid-cols-3 gap-6">
-                                        <MegaColumn title="Healthcare" items={[
-                                            { to: "/reliability", icon: Handshake, label: "Reliability" },
-                                            { to: "/six-sigma-healthcare", icon: Lightbulb, label: "Six Sigma - Healthcare" },
-                                        ]} />
-                                        <MegaColumn title="Quality Assurance" items={[
-                                            { to: "/medical-devices-quality-assurance", icon: Briefcase, label: "Medical Devices" },
-                                            { to: "/quality-assurance-audits", icon: ClipboardCheck, label: "Audits" },
-                                            { to: "/fda-compliance-consulting", icon: ShieldCheck, label: "FDA Compliance Consulting" },
-                                            { to: "/fda-audit-preparation", icon: ClipboardCheck, label: "FDA Audit Preparation" },
-                                            { to: "/quality-system-regulation-qsr", icon: Cpu, label: "Quality Management System Regulation" },
-                                            { to: "/quality-management-system-implementation", icon: ShieldCheck, label: "QMS Implementation" },
-                                        ]} />
-                                        <MegaColumn title="ISO Standards" items={[
-                                            { to: "/iso-13485-medical-quality-system-registration", icon: CheckCircle, label: "ISO 13485 Quality System" },
-                                            { to: "/iso-14971-medical-device-risk-management-for-medical-devices", icon: ShieldAlert, label: "ISO 14971 Risk Management" },
-                                            { to: "/quality-management-system-implementation", icon: Heart, label: "ISO 9001 Quality Management" },
-                                            { to: "/free-iso-13485-2016-gap-analysis-tool", icon: Target, label: "Free ISO 13485 Gap Analysis" },
-                                            { to: "#", icon: History, label: "Free ISO 9001:2015 Gap Analysis" },
-                                            { to: "/iso-13485-guide", icon: BookOpen, label: "ISO 13485 Complete Guide" },
-                                            { to: "/fda-qms-requirements", icon: Settings, label: "FDA QMS Requirements Guide" },
-                                        ]} />
-                                    </div>
-                                </div>
-                            </li>
-
-                            {/* Mega Menu: Regulatory Operations */}
-                            <li className="static group">
-                                <button className={`${navLinkClass(false)} cursor-pointer`}>
-                                    Regulatory Operations
-                                    <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
-                                </button>
-                                <div className="absolute left-0 w-full top-full bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500">
-                                    <div className="max-w-[1200px] mx-auto py-6 px-6 grid grid-cols-3 gap-6">
-                                        <MegaColumn title="Mark Approval & Compliance" items={[
-                                            { to: "/ccc-mark-approval", icon: Globe, label: "CCC Mark Approval" },
-                                            { to: "/ce-mark-approval", icon: Globe, label: "CE Mark Approval" },
-                                            { to: "/ce-mark-approval", icon: FileText, label: "EU MDR/IVDR Technical Docs" },
-                                            { to: "/clinical-data-and-postmarket-compliance-under-the-mdr", icon: ShieldCheck, label: "Post-market Compliance" },
-                                            { to: "/fda-483-observations-warning-letters-recalls-remediation", icon: ShieldAlert, label: "FDA 483 / Warning Letters" },
-                                        ]} />
-                                        <MegaColumn title="Medical Device & Diagnostics" items={[
-                                            { to: "/pre-ide-process", icon: Settings, label: "Investigational Device Exemption (IDE)" },
-                                            { to: "/fda-510k-application", icon: Heart, label: "510(k), De Novo, PMA" },
-                                            { to: "/fda-510k-consulting", icon: Briefcase, label: "FDA 510(k) Consulting" },
-                                            { to: "/fda-510k-submission-guide", icon: FileText, label: "510(k) Submission Guide" },
-                                            { to: "/medical-device-fda-approval-process", icon: Target, label: "FDA Approval Process Guide" },
-                                            { to: "/medical-device-regulatory-strategy", icon: Lightbulb, label: "Regulatory Strategy Guide" },
-                                            { to: "/fda-establishment-registration", icon: Building2, label: "Establishment Registration" },
-                                            { to: "/fda-usa-agents-for-foreign-establishments", icon: MapPin, label: "US Agent for Foreign Establishments" },
-                                        ]} />
-                                        <MegaColumn title="Drugs / Biologics / Pharmacovigilance" items={[
-                                            { to: "/investigational-new-drug-ind-application", icon: Target, label: "IND Application" },
-                                            { to: "/new-drug-application-overview", icon: Target, label: "New Drug Application (NDA)" },
-                                            { to: "/abbreviated-new-drug-application-anda-submissions-overview", icon: Target, label: "ANDA Submissions" },
-                                            { to: "/biologics-license-application-bla-overview", icon: Target, label: "Biologics License (BLA)" },
-                                            { to: "/dmf", icon: Target, label: "Drug Master File (DMF)" },
-                                            { to: "/cmc", icon: Target, label: "CMC Services" },
-                                        ]} />
-                                    </div>
-                                </div>
-                            </li>
-
-                            {/* AI-Enabled Regulatory – fixed-position dropdown so it's not clipped by nav scroll */}
-                            <li className="relative group">
-                                <button
-                                    ref={aiTriggerRef}
-                                    onMouseEnter={openAiDropdown}
-                                    onMouseLeave={scheduleClose}
-                                    className={`${navLinkClass(false)} cursor-pointer`}
-                                >
-                                    AI-Enabled Regulatory
-                                    <ChevronDown size={12} className={`ml-0.5 opacity-50 transition-transform duration-200 ${openDesktopDropdown === "ai" ? "rotate-180" : ""}`} />
-                                </button>
-                                <div
-                                    onMouseEnter={openAiDropdown}
-                                    onMouseLeave={scheduleClose}
-                                    style={{ position: "fixed", top: "4.25rem", left: dropdownLeft, zIndex: 9999 }}
-                                    className={`w-[320px] bg-white shadow-2xl shadow-black/8 border-t-2 border-brand-500 rounded-b-xl overflow-hidden transition-opacity duration-200 ${openDesktopDropdown === "ai" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
-                                >
-                                    <ul className="py-1.5">
-                                        {[
-                                            { to: "/ai-regulatory-strategy", label: "AI Regulatory Strategy" },
-                                            { to: "/ai-samd-pathway", label: "AI SaMD Regulatory Pathway" },
-                                            { to: "/ai-fda-readiness", label: "AI FDA Readiness & Risk Audit" },
-                                            { to: "/pccp-authoring", label: "PCCP Authoring" },
-                                            { to: "/ai-design-controls", label: "AI Design Controls & QMSR" },
-                                            { to: "/fda-defense", label: "FDA Interaction & Defense" },
-                                            { to: "/samd-fda-regulations", label: "SaMD FDA Regulations Guide" },
-                                        ].map(({ to, label }) => (
-                                            <li key={to}>
-                                                <Link to={to} className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200">
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
-                                                    {label}
-                                                </Link>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </li>
-
-                            {/* Digital Health */}
-                            <li>
-                                <Link to="/software" className={navLinkClass(location.pathname === "/software")}>
-                                    Digital Health
-                                </Link>
-                            </li>
-
-                            {/* our platforms – fixed-position dropdown so it's not clipped */}
-                            <li className="relative group">
-                                <button
-                                    ref={wellnessTriggerRef}
-                                    onMouseEnter={openWellnessDropdown}
-                                    onMouseLeave={scheduleClose}
-                                    className={`${navLinkClass(false)} cursor-pointer bg-navy-900 text-white hover:bg-navy-800 hover:text-white`}
-                                >
-                                    Our Platforms
-                                    <ChevronDown size={12} className={`ml-0.5 opacity-50 transition-transform duration-200 ${openDesktopDropdown === "wellness" ? "rotate-180" : ""}`} />
-                                </button>
-                                <div
-                                    onMouseEnter={openWellnessDropdown}
-                                    onMouseLeave={scheduleClose}
-                                    style={{ position: "fixed", top: "4.25rem", left: dropdownLeft, zIndex: 9999 }}
-                                    className={`w-[340px] bg-white shadow-2xl shadow-black/8 border-t-2 border-brand-500 rounded-b-xl overflow-hidden transition-opacity duration-200 ${openDesktopDropdown === "wellness" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
-                                >
-                                    <ul className="py-1.5">
-                                        <li>
-                                            <a
-                                                href="https://www.figma.com/design/QqGRXig7sOuLtFD6OaNBWH/Ai-wellness-app?node-id=1-1977&t=HfrvsM1Vm4Zm9wIb-0"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
-                                            >
-                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
-                                                eeMeds app platform
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="https://ee-telehealth-connect.onrender.com/login"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
-                                            >
-                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
-                                                eeTelehealth app platform
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            {/* Medical supply */}
-                            <li>
-                                <a
-                                    href="https://eemedicalsupply.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={`${navLinkClass(false)} cursor-pointer bg-navy-900 text-white hover:bg-navy-800 hover:text-white`}
-                                >
-                                    Medical supply
-                                </a>
-                            </li>
-
-                            {/* Media – fixed-position dropdown (nav ul has overflow-x-auto; absolute menus are clipped) */}
-                            <li className="relative shrink-0">
-                                <button
-                                    type="button"
-                                    ref={mediaTriggerRef}
-                                    onMouseEnter={openMediaDropdown}
-                                    onMouseLeave={scheduleClose}
-                                    className={`${navLinkClass(
-                                        location.pathname === "/media" ||
-                                            location.pathname.startsWith("/media/") ||
-                                            location.pathname === "/blog"
-                                    )} cursor-pointer`}
-                                >
-                                    Media
-                                    <ChevronDown
-                                        size={12}
-                                        className={`ml-0.5 opacity-50 transition-transform duration-200 ${openDesktopDropdown === "media" ? "rotate-180" : ""}`}
-                                    />
-                                </button>
-                                <div
-                                    onMouseEnter={openMediaDropdown}
-                                    onMouseLeave={scheduleClose}
-                                    style={{ position: "fixed", top: "4.25rem", left: dropdownLeft, zIndex: 9999 }}
-                                    className={`w-[220px] bg-white shadow-2xl shadow-black/8 border-t-2 border-brand-500 rounded-b-xl overflow-hidden transition-opacity duration-200 ${openDesktopDropdown === "media" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
-                                >
-                                    <ul className="py-1.5">
-                                        <li>
-                                            <Link
-                                                to="/media"
-                                                className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
-                                            >
-                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
-                                                Media & news
+                        {/* Desktop Menu – two rows */}
+                        <div className="hidden lg:flex flex-col flex-1 min-w-0">
+                            {/* Row 1: Home, About Us, Careers, Quality & Compliance, Regulatory Operations */}
+                            <div className="relative w-full">
+                                <ul className="flex items-center gap-0.5 flex-wrap pb-1 border-b border-gray-100">
+                                    {[
+                                        { to: "/", label: "Home" },
+                                        { to: "/about", label: "About Us" },
+                                        { to: "/careers", label: "Careers" },
+                                    ].map(({ to, label }) => (
+                                        <li key={to}>
+                                            <Link to={to} className={navLinkClass(location.pathname === to)}>
+                                                {label}
                                             </Link>
                                         </li>
-                                        <li>
-                                            <Link
-                                                to="/blog"
-                                                className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
-                                            >
-                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
-                                                Blog
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                            <button
-                                type="button"
-                                aria-label="Scroll nav right"
-                                onClick={() => scrollNav("right")}
-                                className={`absolute right-0 z-10 h-8 w-8 flex items-center justify-center rounded-full bg-white/95 text-navy-800 shadow-md border border-gray-200 hover:bg-gray-50 transition-all ${canScrollRight ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-                            >
-                                <ChevronRight size={18} strokeWidth={2.5} />
-                            </button>
+                                    ))}
+
+                                    {/* Mega Menu: Quality & Compliance */}
+                                    <li className="static group">
+                                        <button className={`${navLinkClass(false)} cursor-pointer`}>
+                                            Quality & Compliance
+                                            <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
+                                        </button>
+                                        <div className="absolute left-0 w-full top-full bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500">
+                                            <div className="max-w-[1200px] mx-auto py-6 px-6 grid grid-cols-3 gap-6">
+                                                <MegaColumn title="Healthcare" items={[
+                                                    { to: "/reliability", icon: Handshake, label: "Reliability" },
+                                                    { to: "/six-sigma-healthcare", icon: Lightbulb, label: "Six Sigma - Healthcare" },
+                                                ]} />
+                                                <MegaColumn title="Quality Assurance" items={[
+                                                    { to: "/medical-devices-quality-assurance", icon: Briefcase, label: "Medical Devices" },
+                                                    { to: "/quality-assurance-audits", icon: ClipboardCheck, label: "Audits" },
+                                                    { to: "/fda-compliance-consulting", icon: ShieldCheck, label: "FDA Compliance Consulting" },
+                                                    { to: "/fda-audit-preparation", icon: ClipboardCheck, label: "FDA Audit Preparation" },
+                                                    { to: "/quality-system-regulation-qsr", icon: Cpu, label: "Quality Management System Regulation" },
+                                                    { to: "/quality-management-system-implementation", icon: ShieldCheck, label: "QMS Implementation" },
+                                                ]} />
+                                                <MegaColumn title="ISO Standards" items={[
+                                                    { to: "/iso-13485-medical-quality-system-registration", icon: CheckCircle, label: "ISO 13485 Quality System" },
+                                                    { to: "/iso-14971-medical-device-risk-management-for-medical-devices", icon: ShieldAlert, label: "ISO 14971 Risk Management" },
+                                                    { to: "/quality-management-system-implementation", icon: Heart, label: "ISO 9001 Quality Management" },
+                                                    { to: "/free-iso-13485-2016-gap-analysis-tool", icon: Target, label: "Free ISO 13485 Gap Analysis" },
+                                                    { to: "#", icon: History, label: "Free ISO 9001:2015 Gap Analysis" },
+                                                    { to: "/iso-13485-guide", icon: BookOpen, label: "ISO 13485 Complete Guide" },
+                                                    { to: "/fda-qms-requirements", icon: Settings, label: "FDA QMS Requirements Guide" },
+                                                ]} />
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    {/* Mega Menu: Regulatory Operations */}
+                                    <li className="static group">
+                                        <button className={`${navLinkClass(false)} cursor-pointer`}>
+                                            Regulatory Operations
+                                            <ChevronDown size={12} className="ml-0.5 opacity-50 transition-transform duration-200 group-hover:rotate-180" />
+                                        </button>
+                                        <div className="absolute left-0 w-full top-full bg-white shadow-2xl shadow-black/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border-t-2 border-brand-500">
+                                            <div className="max-w-[1200px] mx-auto py-6 px-6 grid grid-cols-3 gap-6">
+                                                <MegaColumn title="Mark Approval & Compliance" items={[
+                                                    { to: "/ccc-mark-approval", icon: Globe, label: "CCC Mark Approval" },
+                                                    { to: "/ce-mark-approval", icon: Globe, label: "CE Mark Approval" },
+                                                    { to: "/ce-mark-approval", icon: FileText, label: "EU MDR/IVDR Technical Docs" },
+                                                    { to: "/clinical-data-and-postmarket-compliance-under-the-mdr", icon: ShieldCheck, label: "Post-market Compliance" },
+                                                    { to: "/fda-483-observations-warning-letters-recalls-remediation", icon: ShieldAlert, label: "FDA 483 / Warning Letters" },
+                                                ]} />
+                                                <MegaColumn title="Medical Device & Diagnostics" items={[
+                                                    { to: "/pre-ide-process", icon: Settings, label: "Investigational Device Exemption (IDE)" },
+                                                    { to: "/fda-510k-application", icon: Heart, label: "510(k), De Novo, PMA" },
+                                                    { to: "/fda-510k-consulting", icon: Briefcase, label: "FDA 510(k) Consulting" },
+                                                    { to: "/fda-510k-submission-guide", icon: FileText, label: "510(k) Submission Guide" },
+                                                    { to: "/medical-device-fda-approval-process", icon: Target, label: "FDA Approval Process Guide" },
+                                                    { to: "/medical-device-regulatory-strategy", icon: Lightbulb, label: "Regulatory Strategy Guide" },
+                                                    { to: "/fda-establishment-registration", icon: Building2, label: "Establishment Registration" },
+                                                    { to: "/fda-usa-agents-for-foreign-establishments", icon: MapPin, label: "US Agent for Foreign Establishments" },
+                                                ]} />
+                                                <MegaColumn title="Drugs / Biologics / Pharmacovigilance" items={[
+                                                    { to: "/investigational-new-drug-ind-application", icon: Target, label: "IND Application" },
+                                                    { to: "/new-drug-application-overview", icon: Target, label: "New Drug Application (NDA)" },
+                                                    { to: "/abbreviated-new-drug-application-anda-submissions-overview", icon: Target, label: "ANDA Submissions" },
+                                                    { to: "/biologics-license-application-bla-overview", icon: Target, label: "Biologics License (BLA)" },
+                                                    { to: "/dmf", icon: Target, label: "Drug Master File (DMF)" },
+                                                    { to: "/cmc", icon: Target, label: "CMC Services" },
+                                                ]} />
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            {/* Row 2: AI-Enabled Regulatory, Digital Health, Our Platforms, Medical Supply, Media */}
+                            <div className="w-full">
+                                <ul className="flex items-center gap-0.5 flex-wrap pt-1">
+                                    {/* AI-Enabled Regulatory */}
+                                    <li className="relative group">
+                                        <button
+                                            ref={aiTriggerRef}
+                                            onMouseEnter={openAiDropdown}
+                                            onMouseLeave={scheduleClose}
+                                            className={`${navLinkClass(false)} cursor-pointer`}
+                                        >
+                                            AI-Enabled Regulatory
+                                            <ChevronDown size={12} className={`ml-0.5 opacity-50 transition-transform duration-200 ${openDesktopDropdown === "ai" ? "rotate-180" : ""}`} />
+                                        </button>
+                                        <div
+                                            onMouseEnter={openAiDropdown}
+                                            onMouseLeave={scheduleClose}
+                                            style={{ position: "fixed", top: dropdownTop, left: dropdownLeft, zIndex: 9999 }}
+                                            className={`w-[320px] bg-white shadow-2xl shadow-black/8 border-t-2 border-brand-500 rounded-b-xl overflow-hidden transition-opacity duration-200 ${openDesktopDropdown === "ai" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
+                                        >
+                                            <ul className="py-1.5">
+                                                {[
+                                                    { to: "/ai-regulatory-strategy", label: "AI Regulatory Strategy" },
+                                                    { to: "/ai-samd-pathway", label: "AI SaMD Regulatory Pathway" },
+                                                    { to: "/ai-fda-readiness", label: "AI FDA Readiness & Risk Audit" },
+                                                    { to: "/pccp-authoring", label: "PCCP Authoring" },
+                                                    { to: "/ai-design-controls", label: "AI Design Controls & QMSR" },
+                                                    { to: "/fda-defense", label: "FDA Interaction & Defense" },
+                                                    { to: "/samd-fda-regulations", label: "SaMD FDA Regulations Guide" },
+                                                ].map(({ to, label }) => (
+                                                    <li key={to}>
+                                                        <Link to={to} className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200">
+                                                            <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
+                                                            {label}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                    {/* Digital Health */}
+                                    <li>
+                                        <Link to="/software" className={navLinkClass(location.pathname === "/software")}>
+                                            Digital Health
+                                        </Link>
+                                    </li>
+
+                                    {/* Our Platforms */}
+                                    <li className="relative group">
+                                        <button
+                                            ref={wellnessTriggerRef}
+                                            onMouseEnter={openWellnessDropdown}
+                                            onMouseLeave={scheduleClose}
+                                            className={`${navLinkClass(false)} cursor-pointer bg-navy-900 text-white hover:bg-navy-800 hover:text-white`}
+                                        >
+                                            Our Platforms
+                                            <ChevronDown size={12} className={`ml-0.5 opacity-50 transition-transform duration-200 ${openDesktopDropdown === "wellness" ? "rotate-180" : ""}`} />
+                                        </button>
+                                        <div
+                                            onMouseEnter={openWellnessDropdown}
+                                            onMouseLeave={scheduleClose}
+                                            style={{ position: "fixed", top: dropdownTop, left: dropdownLeft, zIndex: 9999 }}
+                                            className={`w-[340px] bg-white shadow-2xl shadow-black/8 border-t-2 border-brand-500 rounded-b-xl overflow-hidden transition-opacity duration-200 ${openDesktopDropdown === "wellness" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
+                                        >
+                                            <ul className="py-1.5">
+                                                <li>
+                                                    <a
+                                                        href="https://eemeds.com/eemeds"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
+                                                    >
+                                                        <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
+                                                        eeMeds app platform
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        href="https://eemeds.com/telehealth"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
+                                                    >
+                                                        <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
+                                                        eeTelehealth app platform
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                    {/* Medical supply */}
+                                    <li>
+                                        <a
+                                            href="https://eemedicalsupply.com/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className={`${navLinkClass(false)} cursor-pointer bg-navy-900 text-white hover:bg-navy-800 hover:text-white`}
+                                        >
+                                            Medical supply
+                                        </a>
+                                    </li>
+
+                                    {/* Media */}
+                                    <li className="relative shrink-0">
+                                        <button
+                                            type="button"
+                                            ref={mediaTriggerRef}
+                                            onMouseEnter={openMediaDropdown}
+                                            onMouseLeave={scheduleClose}
+                                            className={`${navLinkClass(
+                                                location.pathname === "/media" ||
+                                                    location.pathname.startsWith("/media/") ||
+                                                    location.pathname === "/blog"
+                                            )} cursor-pointer`}
+                                        >
+                                            Media
+                                            <ChevronDown
+                                                size={12}
+                                                className={`ml-0.5 opacity-50 transition-transform duration-200 ${openDesktopDropdown === "media" ? "rotate-180" : ""}`}
+                                            />
+                                        </button>
+                                        <div
+                                            onMouseEnter={openMediaDropdown}
+                                            onMouseLeave={scheduleClose}
+                                            style={{ position: "fixed", top: dropdownTop, left: dropdownLeft, zIndex: 9999 }}
+                                            className={`w-[220px] bg-white shadow-2xl shadow-black/8 border-t-2 border-brand-500 rounded-b-xl overflow-hidden transition-opacity duration-200 ${openDesktopDropdown === "media" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
+                                        >
+                                            <ul className="py-1.5">
+                                                <li>
+                                                    <Link
+                                                        to="/media"
+                                                        className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
+                                                    >
+                                                        <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
+                                                        Media & news
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link
+                                                        to="/blog"
+                                                        className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-800 hover:text-brand-600 hover:bg-brand-50 font-semibold transition-all duration-200"
+                                                    >
+                                                        <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
+                                                        Blog
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
 
                         {/* Right side: Search – always visible */}
@@ -542,12 +507,12 @@ export const Header: React.FC = () => {
 
                     <MobileLink to="/software" label="Digital Health" onClick={() => setIsMobileMenuOpen(false)} highlight />
                     <MobileAccordionExternal
-                        label="our platforms"
+                        label="Our Platforms"
                         isOpen={activeMobileDropdown === "wellness"}
                         onToggle={() => toggleMobileDropdown("wellness")}
                         items={[
-                            { href: "https://www.figma.com/design/QqGRXig7sOuLtFD6OaNBWH/Ai-wellness-app?node-id=1-1977&t=HfrvsM1Vm4Zm9wIb-0", label: "eeMeds app platform" },
-                            { href: "https://ee-telehealth-connect.onrender.com/login", label: "eeTelehealth app platform" },
+                            { href: "https://eemeds.com/eemeds", label: "eeMeds app platform" },
+                            { href: "https://eemeds.com/telehealth", label: "eeTelehealth app platform" },
                         ]}
                         onClose={() => setIsMobileMenuOpen(false)}
                     />
