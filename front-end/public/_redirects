@@ -1,0 +1,61 @@
+# ── 301 Redirects: old /service/... slugs → current pages ──────────────────
+/service/iso-13485-medical-quality-system-registration-for-medical-devices    /iso-13485-medical-quality-system-registration    301
+/service/iso-13485-medical-quality-system-registration-for-medical-devices/   /iso-13485-medical-quality-system-registration    301
+/service/how-to-start-eu-mdr-technical-documentation                          /ce-mark-approval                                  301
+/service/how-to-start-eu-mdr-technical-documentation/                         /ce-mark-approval                                  301
+/service/fda-establishment-medical-device-an-overview                         /fda-establishment-registration                    301
+/service/fda-establishment-medical-device-an-overview/                        /fda-establishment-registration                    301
+/service/new-drug-application-overview                                         /new-drug-application-overview                     301
+/service/new-drug-application-overview/                                        /new-drug-application-overview                     301
+/service/other-mark-approval                                                   /ce-mark-approval                                  301
+/service/other-mark-approval/                                                  /ce-mark-approval                                  301
+/service/pre-ide-process                                                        /pre-ide-process                                   301
+/service/pre-ide-process/                                                       /pre-ide-process                                   301
+/service/quality-assurance-audits                                              /quality-assurance-audits                          301
+/service/quality-assurance-audits/                                             /quality-assurance-audits                          301
+/service/chemistry-manufacturing-and-control                                   /cmc                                               301
+/service/chemistry-manufacturing-and-control/                                  /cmc                                               301
+/service/iso-9001-quality-management-system-implementation                    /quality-management-system-implementation           301
+/service/iso-9001-quality-management-system-implementation/                   /quality-management-system-implementation           301
+/service/medical-devices-quality-assurance                                     /medical-devices-quality-assurance                 301
+/service/medical-devices-quality-assurance/                                    /medical-devices-quality-assurance                 301
+/service/quality-system-regulation-qsr                                         /quality-system-regulation-qsr                     301
+/service/quality-system-regulation-qsr/                                        /quality-system-regulation-qsr                     301
+/service/iso-14971-medical-device-risk-management-for-medical-devices         /iso-14971-medical-device-risk-management-for-medical-devices    301
+/service/iso-14971-medical-device-risk-management-for-medical-devices/        /iso-14971-medical-device-risk-management-for-medical-devices    301
+/service/fda-interaction-defense-support                                       /fda-defense                                       301
+/service/fda-interaction-defense-support/                                      /fda-defense                                       301
+/service/fda-united-states-agent-for-foreign-establishments                   /fda-usa-agents-for-foreign-establishments          301
+/service/fda-united-states-agent-for-foreign-establishments/                  /fda-usa-agents-for-foreign-establishments          301
+/service/how-to-get-fda-approval-and-clearance-to-fda-510k-pma-de-novo-for-medical-devices    /fda-510k-application    301
+/service/how-to-get-fda-approval-and-clearance-to-fda-510k-pma-de-novo-for-medical-devices/   /fda-510k-application    301
+/service/investigational-new-drug-ind-application                             /investigational-new-drug-ind-application           301
+/service/investigational-new-drug-ind-application/                            /investigational-new-drug-ind-application           301
+/service/best-ce-mark-approval-for-medical-devices-consultants-an-overviews   /ce-mark-approval                                  301
+/service/best-ce-mark-approval-for-medical-devices-consultants-an-overviews/  /ce-mark-approval                                  301
+/service/six-sigma-healthcare                                                  /six-sigma-healthcare                              301
+/service/six-sigma-healthcare/                                                 /six-sigma-healthcare                              301
+/fda-continues-to-take-steps-to-fulfill-its-commitment-to-strengthen-and-modernize-the-510k-medical-device-program    /fda-510k-submission-guide    301
+/fda-continues-to-take-steps-to-fulfill-its-commitment-to-strengthen-and-modernize-the-510k-medical-device-program/   /fda-510k-submission-guide    301
+
+# ── 410 Gone: permanently deleted pages with no replacement ─────────────────
+/privacy-policy                   /gone   410
+/privacy-policy/                  /gone   410
+/terms-of-use                     /gone   410
+/terms-of-use/                    /gone   410
+/regulatory-intelligence          /gone   410
+/regulatory-intelligence/         /gone   410
+/adverse-event-reporting-for-medical-devices-under-emergency-use-authorization-eua-or-discussed-in-covid-19-related-guidance-documents    /gone    410
+/adverse-event-reporting-for-medical-devices-under-emergency-use-authorization-eua-or-discussed-in-covid-19-related-guidance-documents/   /gone    410
+/cart                             /gone   410
+/cart/                            /gone   410
+/search-the-releasable-510k-database    /gone   410
+/search-the-releasable-510k-database/   /gone   410
+/best-portable-oxygen-concentrators-to-buy-2020    /gone   410
+/best-portable-oxygen-concentrators-to-buy-2020/   /gone   410
+/wp-content/*                     /gone   410
+/service-category/forms           /gone   410
+/service-category/forms/          /gone   410
+
+# ── SPA fallback (must be last) ──────────────────────────────────────────────
+/*    /index.html    200

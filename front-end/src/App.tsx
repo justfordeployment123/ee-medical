@@ -1,5 +1,5 @@
 // import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { Reliability } from "./pages/Reliability";
@@ -52,6 +52,7 @@ import { AiAssistantWidget } from "./components/AiAssistantWidget";
 // Placeholder components for future pages
 // const Software = () => <div className="p-20 text-center text-2xl">Software Page Coming Soon</div>;
 const NotFound = () => <div className="p-20 text-center text-2xl text-red-600">404 - Page Not Found</div>;
+const Gone410 = () => <div className="p-20 text-center text-2xl text-gray-500">410 - This page has been permanently removed.</div>;
 
 function App() {
     return (
@@ -121,6 +122,65 @@ function App() {
                     <Route path="/fda-510k-consulting" element={<Fda510kConsulting />} />
                     <Route path="/fda-compliance-consulting" element={<FdaComplianceConsulting />} />
                     <Route path="/fda-audit-preparation" element={<FdaAuditPreparation />} />
+
+                    {/* ── 301 Redirects: old /service/... slugs → current pages ── */}
+                    <Route path="/service/iso-13485-medical-quality-system-registration-for-medical-devices" element={<Navigate replace to="/iso-13485-medical-quality-system-registration" />} />
+                    <Route path="/service/iso-13485-medical-quality-system-registration-for-medical-devices/" element={<Navigate replace to="/iso-13485-medical-quality-system-registration" />} />
+                    <Route path="/service/how-to-start-eu-mdr-technical-documentation" element={<Navigate replace to="/ce-mark-approval" />} />
+                    <Route path="/service/how-to-start-eu-mdr-technical-documentation/" element={<Navigate replace to="/ce-mark-approval" />} />
+                    <Route path="/service/fda-establishment-medical-device-an-overview" element={<Navigate replace to="/fda-establishment-registration" />} />
+                    <Route path="/service/fda-establishment-medical-device-an-overview/" element={<Navigate replace to="/fda-establishment-registration" />} />
+                    <Route path="/service/new-drug-application-overview" element={<Navigate replace to="/new-drug-application-overview" />} />
+                    <Route path="/service/new-drug-application-overview/" element={<Navigate replace to="/new-drug-application-overview" />} />
+                    <Route path="/service/other-mark-approval" element={<Navigate replace to="/ce-mark-approval" />} />
+                    <Route path="/service/other-mark-approval/" element={<Navigate replace to="/ce-mark-approval" />} />
+                    <Route path="/service/pre-ide-process" element={<Navigate replace to="/pre-ide-process" />} />
+                    <Route path="/service/pre-ide-process/" element={<Navigate replace to="/pre-ide-process" />} />
+                    <Route path="/service/quality-assurance-audits" element={<Navigate replace to="/quality-assurance-audits" />} />
+                    <Route path="/service/quality-assurance-audits/" element={<Navigate replace to="/quality-assurance-audits" />} />
+                    <Route path="/service/chemistry-manufacturing-and-control" element={<Navigate replace to="/cmc" />} />
+                    <Route path="/service/chemistry-manufacturing-and-control/" element={<Navigate replace to="/cmc" />} />
+                    <Route path="/service/iso-9001-quality-management-system-implementation" element={<Navigate replace to="/quality-management-system-implementation" />} />
+                    <Route path="/service/iso-9001-quality-management-system-implementation/" element={<Navigate replace to="/quality-management-system-implementation" />} />
+                    <Route path="/service/medical-devices-quality-assurance" element={<Navigate replace to="/medical-devices-quality-assurance" />} />
+                    <Route path="/service/medical-devices-quality-assurance/" element={<Navigate replace to="/medical-devices-quality-assurance" />} />
+                    <Route path="/service/quality-system-regulation-qsr" element={<Navigate replace to="/quality-system-regulation-qsr" />} />
+                    <Route path="/service/quality-system-regulation-qsr/" element={<Navigate replace to="/quality-system-regulation-qsr" />} />
+                    <Route path="/service/iso-14971-medical-device-risk-management-for-medical-devices" element={<Navigate replace to="/iso-14971-medical-device-risk-management-for-medical-devices" />} />
+                    <Route path="/service/iso-14971-medical-device-risk-management-for-medical-devices/" element={<Navigate replace to="/iso-14971-medical-device-risk-management-for-medical-devices" />} />
+                    <Route path="/service/fda-interaction-defense-support" element={<Navigate replace to="/fda-defense" />} />
+                    <Route path="/service/fda-interaction-defense-support/" element={<Navigate replace to="/fda-defense" />} />
+                    <Route path="/service/fda-united-states-agent-for-foreign-establishments" element={<Navigate replace to="/fda-usa-agents-for-foreign-establishments" />} />
+                    <Route path="/service/fda-united-states-agent-for-foreign-establishments/" element={<Navigate replace to="/fda-usa-agents-for-foreign-establishments" />} />
+                    <Route path="/service/how-to-get-fda-approval-and-clearance-to-fda-510k-pma-de-novo-for-medical-devices" element={<Navigate replace to="/fda-510k-application" />} />
+                    <Route path="/service/how-to-get-fda-approval-and-clearance-to-fda-510k-pma-de-novo-for-medical-devices/" element={<Navigate replace to="/fda-510k-application" />} />
+                    <Route path="/service/investigational-new-drug-ind-application" element={<Navigate replace to="/investigational-new-drug-ind-application" />} />
+                    <Route path="/service/investigational-new-drug-ind-application/" element={<Navigate replace to="/investigational-new-drug-ind-application" />} />
+                    <Route path="/service/best-ce-mark-approval-for-medical-devices-consultants-an-overviews" element={<Navigate replace to="/ce-mark-approval" />} />
+                    <Route path="/service/best-ce-mark-approval-for-medical-devices-consultants-an-overviews/" element={<Navigate replace to="/ce-mark-approval" />} />
+                    <Route path="/service/six-sigma-healthcare" element={<Navigate replace to="/six-sigma-healthcare" />} />
+                    <Route path="/service/six-sigma-healthcare/" element={<Navigate replace to="/six-sigma-healthcare" />} />
+                    <Route path="/fda-continues-to-take-steps-to-fulfill-its-commitment-to-strengthen-and-modernize-the-510k-medical-device-program" element={<Navigate replace to="/fda-510k-submission-guide" />} />
+                    <Route path="/fda-continues-to-take-steps-to-fulfill-its-commitment-to-strengthen-and-modernize-the-510k-medical-device-program/" element={<Navigate replace to="/fda-510k-submission-guide" />} />
+
+                    {/* ── 410 Gone: deleted pages with no equivalent ── */}
+                    <Route path="/privacy-policy" element={<Gone410 />} />
+                    <Route path="/privacy-policy/" element={<Gone410 />} />
+                    <Route path="/terms-of-use" element={<Gone410 />} />
+                    <Route path="/terms-of-use/" element={<Gone410 />} />
+                    <Route path="/regulatory-intelligence" element={<Gone410 />} />
+                    <Route path="/regulatory-intelligence/" element={<Gone410 />} />
+                    <Route path="/adverse-event-reporting-for-medical-devices-under-emergency-use-authorization-eua-or-discussed-in-covid-19-related-guidance-documents" element={<Gone410 />} />
+                    <Route path="/adverse-event-reporting-for-medical-devices-under-emergency-use-authorization-eua-or-discussed-in-covid-19-related-guidance-documents/" element={<Gone410 />} />
+                    <Route path="/cart" element={<Gone410 />} />
+                    <Route path="/cart/" element={<Gone410 />} />
+                    <Route path="/search-the-releasable-510k-database" element={<Gone410 />} />
+                    <Route path="/search-the-releasable-510k-database/" element={<Gone410 />} />
+                    <Route path="/best-portable-oxygen-concentrators-to-buy-2020" element={<Gone410 />} />
+                    <Route path="/best-portable-oxygen-concentrators-to-buy-2020/" element={<Gone410 />} />
+                    <Route path="/wp-content/*" element={<Gone410 />} />
+                    <Route path="/service-category/forms" element={<Gone410 />} />
+                    <Route path="/service-category/forms/" element={<Gone410 />} />
 
                     <Route path="*" element={<NotFound />} />
                 </Routes>
