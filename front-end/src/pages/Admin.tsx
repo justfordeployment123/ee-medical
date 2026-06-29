@@ -32,10 +32,16 @@ interface AdminData {
   images: ImageField[];
 }
 
+interface SectionConfig {
+  key: string;
+  label: string;
+  defaultImages?: Omit<ImageField, 'id'>[];
+}
+
 interface PageConfig {
   key: string;
   label: string;
-  sections: { key: string; label: string }[];
+  sections: SectionConfig[];
 }
 
 interface AdminNavItem {
@@ -62,7 +68,16 @@ const PAGE_CONFIGS: PageConfig[] = [
       { key: 'faq',     label: 'FAQ' },
       { key: 'reviews', label: 'Customer Reviews' },
       { key: 'cta',     label: 'CTA Banner' },
-      { key: 'team',    label: 'Team Photo' },
+      {
+        key: 'team',
+        label: 'Team Photo',
+        defaultImages: [{
+          page: 'home', section: 'team', field_key: 'team_photo',
+          label: 'Team Photo', filename: null, url: null,
+          required_width: 1400, required_height: 600,
+          alt: 'E&E Medicals team photo',
+        }],
+      },
     ],
   },
   {
@@ -71,7 +86,16 @@ const PAGE_CONFIGS: PageConfig[] = [
     sections: [
       { key: 'main',    label: 'Main Content & Photo' },
       { key: 'mission', label: 'Mission, Vision & Values' },
-      { key: 'team',    label: 'Team Photo' },
+      {
+        key: 'team',
+        label: 'Team Photo',
+        defaultImages: [{
+          page: 'about', section: 'team', field_key: 'team_photo',
+          label: 'Team Photo', filename: null, url: null,
+          required_width: 1400, required_height: 600,
+          alt: 'E&E Medicals team photo',
+        }],
+      },
     ],
   },
   {
@@ -790,9 +814,26 @@ function ImageSlot({ img, onUploaded }: { img: ImageField; onUploaded: (key: str
 }
 
 // ─── Section Editor ───────────────────────────────────────────────────────────
-function SectionEditor({ sectionKey, data }: { sectionKey: string; data: AdminData }) {
+function SectionEditor({
+  sectionKey,
+  data,
+  defaultImages: configDefaults = [],
+}: {
+  sectionKey: string;
+  data: AdminData;
+  defaultImages?: Omit<ImageField, 'id'>[];
+}) {
   const sectionFields = data.fields.filter((f) => f.section === sectionKey);
-  const sectionImages = data.images.filter((img) => img.section === sectionKey);
+  const apiImages = data.images.filter((img) => img.section === sectionKey);
+
+  // Merge API images with hardcoded defaults; API records always win on field_key collisions.
+  // This means the "Change Image" button appears even before the backend seeds the DB record.
+  const sectionImages: ImageField[] = [
+    ...apiImages,
+    ...configDefaults
+      .filter((d) => !apiImages.some((a) => a.field_key === d.field_key))
+      .map((d, i) => ({ ...d, id: -(i + 1) })),
+  ];
 
   const [values, setValues] = useState<Record<string, string>>(() => {
     const init: Record<string, string> = {};
@@ -842,7 +883,7 @@ function SectionEditor({ sectionKey, data }: { sectionKey: string; data: AdminDa
   }
 
   if (sectionFields.length === 0 && sectionImages.length === 0) {
-    return <p className="text-gray-400 text-sm">No editable fields in this section.</p>;
+    return <p className="text-gray-400 text-sm italic">No editable fields in this section.</p>;
   }
 
   return (
@@ -1176,7 +1217,12 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
               )}
 
               {!loading && !fetchErr && data && (
-                <SectionEditor key={`${activePage}-${activeSection}`} sectionKey={activeSection} data={data} />
+                <SectionEditor
+                  key={`${activePage}-${activeSection}`}
+                  sectionKey={activeSection}
+                  data={data}
+                  defaultImages={currentPageConfig.sections.find((s) => s.key === activeSection)?.defaultImages}
+                />
               )}
             </div>
           </div>
