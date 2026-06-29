@@ -62,6 +62,7 @@ const PAGE_CONFIGS: PageConfig[] = [
       { key: 'faq',     label: 'FAQ' },
       { key: 'reviews', label: 'Customer Reviews' },
       { key: 'cta',     label: 'CTA Banner' },
+      { key: 'team',    label: 'Team Photo' },
     ],
   },
   {
@@ -70,6 +71,7 @@ const PAGE_CONFIGS: PageConfig[] = [
     sections: [
       { key: 'main',    label: 'Main Content & Photo' },
       { key: 'mission', label: 'Mission, Vision & Values' },
+      { key: 'team',    label: 'Team Photo' },
     ],
   },
   {

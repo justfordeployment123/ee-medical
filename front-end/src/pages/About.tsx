@@ -5,6 +5,7 @@ import { Footer } from '../components/Footer';
 import { PageHeader } from '../components/shared/PageHeader';
 import { AboutContent } from '../components/about/AboutContent';
 import { AboutDetails } from '../components/about/AboutDetails';
+import { TeamPhoto } from '../components/shared/TeamPhoto';
 import { useContent } from '../hooks/useContent';
 
 export const About: React.FC = () => {
@@ -54,6 +55,9 @@ export const About: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Team Photo Section */}
+        <TeamPhoto content={content?.team} />
 
         {/* Details Section */}
         <AboutDetails />

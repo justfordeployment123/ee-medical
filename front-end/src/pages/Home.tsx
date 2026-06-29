@@ -11,6 +11,7 @@ import { FAQ } from '../components/home/FAQ';
 import { PastReviews } from '../components/home/PastReviews';
 import { CTABanner } from '../components/home/CTABanner';
 import { Contact } from '../components/home/Contact';
+import { TeamPhoto } from '../components/shared/TeamPhoto';
 import { useContent } from '../hooks/useContent';
 
 export const Home: React.FC = () => {
@@ -30,6 +31,7 @@ export const Home: React.FC = () => {
         <Stats content={content?.stats} />
         <Industries />
         <FAQ content={content?.faq} />
+        <TeamPhoto content={content?.team} />
         <PastReviews content={content?.reviews} />
         <CTABanner content={content?.cta} />
         <Contact />
