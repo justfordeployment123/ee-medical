@@ -246,6 +246,9 @@ f('home','cta','t3_role',        'Testimonial 3 Role',      'text',     'Chief C
 f('home','cta','t3_company',     'Testimonial 3 Company',   'text',     'European MedTech Company', 8);
 img('home','cta','bg_image','CTA Background Image','https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2000&auto=format&fit=crop',1920,1080,'CTA background');
 
+// Home – Team Photo section
+img('home','team','team_photo','Team Photo',null,1400,600,'E&E Medicals team photo');
+
 // ─── ABOUT PAGE SEED ─────────────────────────────────────────────────────────
 
 // About – Main Content
@@ -276,6 +279,9 @@ f('about','mission','vision_title',  'Vision Title',   'text',     'Our Vision',
 f('about','mission','vision_text',   'Vision Text',    'textarea', 'To be the most trusted global partner for regulatory affairs, quality systems, and market access in the medical device and pharmaceutical industries.', 40);
 f('about','mission','values_title',  'Values Title',   'text',     'Our Values',  5);
 f('about','mission','values_text',   'Values Text',    'textarea', 'Integrity, excellence, and client-centricity drive every engagement. We hold ourselves to the highest standards of ethical practice and scientific rigor.', 40);
+
+// About – Team Photo section
+img('about','team','team_photo','Team Photo',null,1400,600,'E&E Medicals team photo');
 
 // ─── CAREERS PAGE SEED ───────────────────────────────────────────────────────
 
