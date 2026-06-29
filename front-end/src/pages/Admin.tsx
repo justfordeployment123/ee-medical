@@ -74,7 +74,7 @@ const PAGE_CONFIGS: PageConfig[] = [
         defaultImages: [{
           page: 'home', section: 'team', field_key: 'team_photo',
           label: 'Team Photo', filename: null, url: null,
-          required_width: 1400, required_height: 600,
+          required_width: 1400, required_height: 1000,
           alt: 'E&E Medicals team photo',
         }],
       },
@@ -92,7 +92,7 @@ const PAGE_CONFIGS: PageConfig[] = [
         defaultImages: [{
           page: 'about', section: 'team', field_key: 'team_photo',
           label: 'Team Photo', filename: null, url: null,
-          required_width: 1400, required_height: 600,
+          required_width: 1400, required_height: 1000,
           alt: 'E&E Medicals team photo',
         }],
       },

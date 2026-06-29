@@ -247,7 +247,8 @@ f('home','cta','t3_company',     'Testimonial 3 Company',   'text',     'Europea
 img('home','cta','bg_image','CTA Background Image','https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2000&auto=format&fit=crop',1920,1080,'CTA background');
 
 // Home – Team Photo section
-img('home','team','team_photo','Team Photo',null,1400,600,'E&E Medicals team photo');
+img('home','team','team_photo','Team Photo',null,1400,1000,'E&E Medicals team photo');
+db.prepare(`UPDATE images SET required_width=1400, required_height=1000 WHERE page='home' AND section='team' AND field_key='team_photo'`).run();
 
 // ─── ABOUT PAGE SEED ─────────────────────────────────────────────────────────
 
@@ -281,7 +282,8 @@ f('about','mission','values_title',  'Values Title',   'text',     'Our Values',
 f('about','mission','values_text',   'Values Text',    'textarea', 'Integrity, excellence, and client-centricity drive every engagement. We hold ourselves to the highest standards of ethical practice and scientific rigor.', 40);
 
 // About – Team Photo section
-img('about','team','team_photo','Team Photo',null,1400,600,'E&E Medicals team photo');
+img('about','team','team_photo','Team Photo',null,1400,1000,'E&E Medicals team photo');
+db.prepare(`UPDATE images SET required_width=1400, required_height=1000 WHERE page='about' AND section='team' AND field_key='team_photo'`).run();
 
 // ─── CAREERS PAGE SEED ───────────────────────────────────────────────────────
 
