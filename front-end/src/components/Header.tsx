@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import EandELogo from "../assets/EandE-logo.png";
 import { useContent } from "../hooks/useContent";
+import { SearchModal } from "./shared/SearchModal";
 import {
     Phone,
     Mail,
@@ -35,6 +36,7 @@ export const Header: React.FC = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeMobileDropdown, setActiveMobileDropdown] = useState<string | null>(null);
     const [scrolled, setScrolled] = useState(false);
+    const [searchOpen, setSearchOpen] = useState(false);
     const [openDesktopDropdown, setOpenDesktopDropdown] = useState<"ai" | "wellness" | "media" | null>(null);
     const [dropdownLeft, setDropdownLeft] = useState(0);
     const [dropdownTop, setDropdownTop] = useState(0);
@@ -102,6 +104,17 @@ export const Header: React.FC = () => {
         setActiveMobileDropdown(null);
         setOpenDesktopDropdown(null);
     }, [location.pathname]);
+
+    useEffect(() => {
+        const onKey = (e: KeyboardEvent) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+                e.preventDefault();
+                setSearchOpen((v) => !v);
+            }
+        };
+        window.addEventListener("keydown", onKey);
+        return () => window.removeEventListener("keydown", onKey);
+    }, []);
 
     const toggleMobileDropdown = (menu: string) => {
         setActiveMobileDropdown(activeMobileDropdown === menu ? null : menu);
@@ -398,7 +411,11 @@ export const Header: React.FC = () => {
                         {/* Right side: Search – always visible */}
                         <div className="hidden lg:flex items-center gap-2 ml-4 shrink-0">
                             <div className="w-px h-5 bg-gray-200" />
-                            <button className="p-2 rounded-lg text-gray-600 hover:text-brand-600 hover:bg-gray-50 transition-all duration-200">
+                            <button
+                                onClick={() => setSearchOpen(true)}
+                                title="Search (Ctrl+K)"
+                                className="p-2 rounded-lg text-gray-600 hover:text-brand-600 hover:bg-gray-50 transition-all duration-200"
+                            >
                                 <Search size={17} />
                             </button>
                         </div>
@@ -415,6 +432,9 @@ export const Header: React.FC = () => {
                     </div>
                 </nav>
             </header>
+
+            {/* Search Modal */}
+            <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
 
             {/* Mobile Overlay */}
             <div
