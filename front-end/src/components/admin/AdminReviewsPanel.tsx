@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Plus, Pencil, Trash2, Eye, EyeOff, Save, X, Loader, AlertCircle, CheckCircle, LogOut, Star } from 'lucide-react';
+import { Plus, Pencil, Trash2, Eye, EyeOff, Save, Loader, AlertCircle, CheckCircle, LogOut, Star } from 'lucide-react';
 
 interface Review {
   id: number;
