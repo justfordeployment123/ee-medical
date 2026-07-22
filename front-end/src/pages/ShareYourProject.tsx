@@ -35,11 +35,27 @@ export const ShareYourProject: React.FC = () => {
         phone: "",
         message: "",
     });
+    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+    const [errorMsg, setErrorMsg] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // TODO: wire to backend or email service
-        console.log("Enquiry submitted:", formData);
+        setStatus("loading");
+        setErrorMsg("");
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Submission failed.");
+            setStatus("success");
+            setFormData({ firstName: "", lastName: "", email: "", purpose: "", phone: "", message: "" });
+        } catch (err) {
+            setStatus("error");
+            setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -175,14 +191,30 @@ export const ShareYourProject: React.FC = () => {
                                         className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all duration-200 text-base font-medium resize-none"
                                     />
                                 </div>
+                                {status === "error" && (
+                                    <div className="rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm font-medium px-4 py-3">
+                                        {errorMsg || "Something went wrong. Please try again or email info@eemedicals.com."}
+                                    </div>
+                                )}
+
                                 <button
                                     type="submit"
-                                    className="w-full inline-flex items-center justify-center gap-2.5 bg-brand-500 hover:bg-brand-400 text-white font-bold py-4 rounded-xl shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:shadow-xl transition-all duration-300 text-base group"
+                                    disabled={status === "loading"}
+                                    className="w-full inline-flex items-center justify-center gap-2.5 bg-brand-500 hover:bg-brand-400 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:shadow-xl transition-all duration-300 text-base group"
                                 >
-                                    {form?.submit_text || "Submit Enquiry"}
-                                    <Send size={18} className="group-hover:translate-x-0.5 transition-transform" />
+                                    {status === "loading" ? "Sending…" : (form?.submit_text || "Submit Enquiry")}
+                                    {status !== "loading" && <Send size={18} className="group-hover:translate-x-0.5 transition-transform" />}
                                 </button>
                             </form>
+
+                            {status === "success" && (
+                                <div className="mt-6 rounded-xl bg-green-50 border border-green-200 text-green-800 text-sm font-medium px-5 py-4 flex items-start gap-3">
+                                    <span className="text-green-500 text-lg leading-none">✓</span>
+                                    <span>
+                                        <strong>Enquiry received.</strong> Thank you for reaching out. Our team will respond within 24 hours. You'll also receive a confirmation email at the address you provided.
+                                    </span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

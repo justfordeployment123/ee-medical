@@ -4,7 +4,7 @@ import { createHash, randomUUID } from 'crypto';
 import path from 'path';
 import fs from 'fs';
 import sizeOf from 'image-size';
-import { uploadsDir, getAdminPageContent, updateField, updateImageRecord, getImageMeta, listAllBlogPostsAdmin, getBlogPostByIdAdmin, createBlogPost, updateBlogPost, deleteBlogPost } from './db.js';
+import { uploadsDir, getAdminPageContent, updateField, updateImageRecord, getImageMeta, listAllBlogPostsAdmin, getBlogPostByIdAdmin, createBlogPost, updateBlogPost, deleteBlogPost, listAllReviewsAdmin, createReview, updateReview, deleteReview } from './db.js';
 
 const router = Router();
 
@@ -198,6 +198,37 @@ router.delete('/blog/:id', auth, (req, res) => {
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
+});
+
+// ─── Reviews (admin CRUD) ─────────────────────────────────────────────────────
+router.get('/reviews', auth, (_req, res) => {
+  try { res.json({ reviews: listAllReviewsAdmin() }); }
+  catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+router.post('/reviews', auth, (req, res) => {
+  try {
+    const r = createReview(req.body || {});
+    res.json(r);
+  } catch (err) { res.status(400).json({ error: err.message }); }
+});
+
+router.put('/reviews/:id', auth, (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    if (!Number.isFinite(id)) return res.status(400).json({ error: 'Invalid id' });
+    const r = updateReview(id, req.body || {});
+    res.json(r);
+  } catch (err) { res.status(400).json({ error: err.message }); }
+});
+
+router.delete('/reviews/:id', auth, (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    if (!Number.isFinite(id)) return res.status(400).json({ error: 'Invalid id' });
+    deleteReview(id);
+    res.json({ ok: true });
+  } catch (err) { res.status(400).json({ error: err.message }); }
 });
 
 export default router;

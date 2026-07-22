@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 import path from "path";
 import { fileURLToPath } from "url";
 import { loadKnowledgeBase } from "./knowledgeBase.js";
-import { getPageContent, uploadsDir, listPublishedBlogSummaries, getPublishedBlogWithNav, listRelatedPublishedSummaries } from "./db.js";
+import { getPageContent, uploadsDir, listPublishedBlogSummaries, getPublishedBlogWithNav, listRelatedPublishedSummaries, listPublishedReviews } from "./db.js";
 import adminRoutes from "./adminRoutes.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -649,6 +649,83 @@ app.post("/api/lead", async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Failed to capture lead." });
   }
+});
+
+// POST /api/contact — enquiry form submission
+app.post("/api/contact", async (req, res) => {
+  try {
+    const { firstName, lastName, email, phone, purpose, message } = req.body || {};
+    if (!firstName || !lastName || !email) {
+      return res.status(400).json({ error: "Missing required fields (firstName, lastName, email)." });
+    }
+
+    const teamEmail = process.env.EMAIL_TO || "info@eemedicals.com, eyong.ebot@eemedicals.com";
+
+    console.log("[CONTACT]", { firstName, lastName, email, phone, purpose, message });
+
+    if (emailEnabled) {
+      const transporter = nodemailer.createTransport({
+        host: smtpHost,
+        port: Number(smtpPort),
+        secure: String(smtpPort) === "465",
+        auth: { user: smtpUser, pass: smtpPass },
+      });
+
+      // Notify the team
+      await transporter.sendMail({
+        from: emailFrom,
+        to: teamEmail,
+        replyTo: email.trim(),
+        subject: `New Enquiry: ${purpose || "General"} — ${firstName} ${lastName}`,
+        text: [
+          "New enquiry submitted via eemedicals.com",
+          "",
+          `Name:    ${firstName} ${lastName}`,
+          `Email:   ${email}`,
+          `Phone:   ${phone || "—"}`,
+          `Purpose: ${purpose || "—"}`,
+          "",
+          "Message:",
+          message || "(no message)",
+        ].join("\n"),
+      });
+
+      // Auto-confirm to the sender
+      await transporter.sendMail({
+        from: emailFrom,
+        to: email.trim(),
+        subject: "We received your enquiry — E&E Medicals",
+        text: [
+          `Dear ${firstName},`,
+          "",
+          "Thank you for reaching out to E&E Medicals. We have received your enquiry and our team will get back to you within 24 hours.",
+          "",
+          `Purpose: ${purpose || "—"}`,
+          `Message: ${message || "—"}`,
+          "",
+          "For urgent matters, contact us directly at info@eemedicals.com.",
+          "",
+          "—",
+          "E&E Medicals Regulatory Consulting",
+          "info@eemedicals.com",
+        ].join("\n"),
+      });
+
+      console.log("[CONTACT] Emails sent — team:", teamEmail, "sender:", email);
+    } else {
+      console.log("[CONTACT] SMTP not configured — enquiry logged only. Set SMTP_HOST, SMTP_USER, SMTP_PASS, EMAIL_TO in .env");
+    }
+
+    res.json({ ok: true });
+  } catch (err) {
+    console.error("[CONTACT]", err);
+    res.status(500).json({ error: "Failed to send enquiry. Please try again or email info@eemedicals.com directly." });
+  }
+});
+
+app.get("/api/reviews", (_req, res) => {
+  try { res.json({ reviews: listPublishedReviews() }); }
+  catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 app.get("/api/health", (_req, res) => {

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { LogOut, Save, Upload, Image as ImageIcon, ChevronRight, CheckCircle, AlertCircle, Loader, Globe, Search, X } from 'lucide-react';
 import { AdminBlogPanel } from '../components/admin/AdminBlogPanel';
+import { AdminReviewsPanel } from '../components/admin/AdminReviewsPanel';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Field {
@@ -515,6 +516,7 @@ const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
       { label: 'Media / Blog', pageKey: 'media' },
       { label: 'Blog landing page', pageKey: 'blog' },
       { label: 'Blog articles', pageKey: '__blog__' },
+      { label: 'Customer Reviews', pageKey: '__reviews__' },
       { label: 'Healthcare Software Development', pageKey: 'software' },
       { label: 'Share Your Project', pageKey: 'share_project' },
       { label: 'Global Settings', pageKey: 'global' },
@@ -964,12 +966,12 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   const [pageSearch, setPageSearch] = useState('');
 
   const currentPageConfig =
-    activePage === '__blog__'
-      ? { key: '__blog__', label: 'Blog articles', sections: [{ key: '_', label: '' }] }
+    activePage === '__blog__' || activePage === '__reviews__'
+      ? { key: activePage, label: activePage === '__blog__' ? 'Blog articles' : 'Customer Reviews', sections: [{ key: '_', label: '' }] }
       : (PAGE_CONFIGS.find((p) => p.key === activePage) ?? PAGE_CONFIGS[0]);
 
   const fetchData = useCallback(async (page: string) => {
-    if (page === '__blog__') {
+    if (page === '__blog__' || page === '__reviews__') {
       setLoading(false);
       return;
     }
@@ -995,12 +997,12 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   }, [onLogout]);
 
   useEffect(() => {
-    if (activePage !== '__blog__') fetchData(activePage);
+    if (activePage !== '__blog__' && activePage !== '__reviews__') fetchData(activePage);
   }, [activePage, fetchData]);
 
   function handlePageChange(pageKey: string) {
-    if (pageKey === '__blog__') {
-      setActivePage('__blog__');
+    if (pageKey === '__blog__' || pageKey === '__reviews__') {
+      setActivePage(pageKey);
       setPageSearch('');
       return;
     }
@@ -1016,6 +1018,18 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   if (activePage === '__blog__') {
     return (
       <AdminBlogPanel
+        onLogout={onLogout}
+        onBackToCms={() => {
+          setActivePage('home');
+          setActiveSection('hero');
+        }}
+      />
+    );
+  }
+
+  if (activePage === '__reviews__') {
+    return (
+      <AdminReviewsPanel
         onLogout={onLogout}
         onBackToCms={() => {
           setActivePage('home');

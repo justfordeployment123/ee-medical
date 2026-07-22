@@ -63,6 +63,18 @@ db.exec(`
     updated_at        TEXT    NOT NULL DEFAULT (datetime('now'))
   );
   CREATE INDEX IF NOT EXISTS idx_blog_posts_pub ON blog_posts(published, sort_order, id);
+
+  CREATE TABLE IF NOT EXISTS reviews (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    name       TEXT    NOT NULL DEFAULT '',
+    title      TEXT    NOT NULL DEFAULT '',
+    quote      TEXT    NOT NULL DEFAULT '',
+    rating     INTEGER NOT NULL DEFAULT 5,
+    published  INTEGER NOT NULL DEFAULT 1,
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT    NOT NULL DEFAULT (datetime('now'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_reviews_pub ON reviews(published, sort_order, id);
 `);
 
 function seedBlogPostsIfEmpty() {
@@ -1266,6 +1278,84 @@ export function updateBlogPost(id, input) {
 export function deleteBlogPost(id) {
   const r = db.prepare('DELETE FROM blog_posts WHERE id = ?').run(id);
   if (r.changes === 0) throw new Error('Post not found');
+  return { ok: true };
+}
+
+// ─── REVIEWS ──────────────────────────────────────────────────────────────────
+
+const SEED_REVIEWS = [
+  { name: "Maria Abba",       title: "Happy customer",                   quote: "Very knowledgeable and professional with excellent customer service. I would do business with them again." },
+  { name: "IT SPECIALIST",    title: "Super & Superb",                   quote: "They were very knowledgeable about the equipment they supply. They answered all my questions on the care and maintenance. I am enjoying the machine I bought from them. This is an excellent company compared to the one my wife was using before." },
+  { name: "Ebini Mbi",        title: "Astounding Service.",              quote: "I am really happy with the service of E&E MEDICALS. To me, E&E MEDICALS was above any other medical supply companies I have dealt with. Dr. Eyong was very helpful and professional. E&E MEDICALS is a place to call and visit for all your medical supplies. Their products are amazing with excellent and superb service. They truely care about helping other. I strongly recommend E&E MEDICALS to everyone." },
+  { name: "Cynthia T.",       title: "Speedy FDA 510k Submission Service", quote: "After working with more than 30 consultants in the medical industry, I discovered that the consultants of E&E Medicals are more experience in FDA regulatory and medical device development. They understand not only the regulatory side of your submission but also the marketing aspects of medical devices. Our 510k submission was speedy, and clearance was achieved within 59 days. They are the best!" },
+  { name: "Anthony Nkokwoh",  title: "Great customer services",          quote: "You have excellent customer service and high quality products. I enjoyed the way your staff treated me through out the whole process. I will definitely come back for more products." },
+  { name: "Edwin Ray",        title: "Exceptional Regulatory Expertise", quote: "E&E Medicals demonstrated exceptional regulatory expertise throughout our FDA 510(k) project. Their attention to detail, responsiveness, and strategic guidance made the entire process significantly smoother. Highly recommended." },
+  { name: "Steve Basen",      title: "FDA & ISO 13485 Compliance",       quote: "Our organization benefited tremendously from E&E Medicals' knowledge of FDA regulations and ISO 13485 requirements. Their professionalism and commitment to quality exceeded our expectations." },
+  { name: "Arielle Aden",     title: "Outstanding Regulatory Strategy",  quote: "The regulatory strategy provided by E&E Medicals helped us better understand our submission pathway and prepare comprehensive documentation. Their team was knowledgeable, organized, and easy to work with." },
+  { name: "Sabi Martins",     title: "Quality System Assessment",        quote: "E&E Medicals provided outstanding support during our quality system assessment. Their recommendations were practical, well-structured, and aligned with current regulatory expectations." },
+  { name: "Baley Iden",       title: "Design Controls & Risk Management", quote: "We appreciated the clear communication and technical expertise E&E Medicals brought to our project. Their guidance on design controls and risk management added tremendous value." },
+  { name: "Florian Nabal",    title: "Professional Regulatory Consulting", quote: "From project planning to regulatory documentation, E&E Medicals consistently demonstrated professionalism and deep industry knowledge. We look forward to working with them again." },
+  { name: "Nadia Njalus",     title: "International Standards Expertise", quote: "Their understanding of FDA regulations and international quality standards gave our team confidence throughout the development process. Excellent consulting experience." },
+  { name: "Maria Satiniti",   title: "Compliance Strategy Partner",      quote: "E&E Medicals helped us identify regulatory gaps early, allowing us to strengthen our documentation and improve our overall compliance strategy." },
+  { name: "Naris Comins",     title: "Technical Excellence",             quote: "We were impressed by the team's responsiveness, technical expertise, and ability to explain complex regulatory requirements in a practical way." },
+  { name: "Gilian Halini",    title: "Device Regulatory Strategy",       quote: "E&E Medicals provided valuable insight into medical device regulatory strategy and quality systems. Their recommendations helped improve our project planning and documentation." },
+  { name: "Domitian Ranslini",title: "Trusted Regulatory Advisor",       quote: "The level of professionalism, organization, and regulatory knowledge was outstanding. E&E Medicals became a trusted advisor throughout our project." },
+];
+
+function seedReviewsIfEmpty() {
+  const n = db.prepare('SELECT COUNT(*) AS c FROM reviews').get().c;
+  if (n > 0) return;
+  const ins = db.prepare('INSERT INTO reviews (name, title, quote, rating, published, sort_order) VALUES (?, ?, ?, 5, 1, ?)');
+  const tx = db.transaction((rows) => {
+    rows.forEach((r, i) => ins.run(r.name, r.title, r.quote, i));
+  });
+  tx(SEED_REVIEWS);
+}
+seedReviewsIfEmpty();
+
+export function listPublishedReviews() {
+  return db.prepare('SELECT id, name, title, quote, rating FROM reviews WHERE published = 1 ORDER BY sort_order ASC, id ASC').all();
+}
+
+export function listAllReviewsAdmin() {
+  return db.prepare('SELECT * FROM reviews ORDER BY sort_order ASC, id ASC').all();
+}
+
+export function createReview(input) {
+  const maxOrder = db.prepare('SELECT COALESCE(MAX(sort_order), -1) AS m FROM reviews').get().m;
+  const r = db.prepare(
+    'INSERT INTO reviews (name, title, quote, rating, published, sort_order) VALUES (?, ?, ?, ?, ?, ?)'
+  ).run(
+    String(input.name ?? '').trim(),
+    String(input.title ?? '').trim(),
+    String(input.quote ?? '').trim(),
+    Number(input.rating ?? 5),
+    input.published !== false ? 1 : 0,
+    maxOrder + 1,
+  );
+  return db.prepare('SELECT * FROM reviews WHERE id = ?').get(r.lastInsertRowid);
+}
+
+export function updateReview(id, input) {
+  const row = db.prepare('SELECT * FROM reviews WHERE id = ?').get(id);
+  if (!row) throw new Error('Review not found');
+  db.prepare(
+    'UPDATE reviews SET name=?, title=?, quote=?, rating=?, published=?, sort_order=? WHERE id=?'
+  ).run(
+    input.name      !== undefined ? String(input.name).trim()  : row.name,
+    input.title     !== undefined ? String(input.title).trim() : row.title,
+    input.quote     !== undefined ? String(input.quote).trim() : row.quote,
+    input.rating    !== undefined ? Number(input.rating)       : row.rating,
+    input.published !== undefined ? (input.published ? 1 : 0)  : row.published,
+    input.sort_order!== undefined ? Number(input.sort_order)   : row.sort_order,
+    id,
+  );
+  return db.prepare('SELECT * FROM reviews WHERE id = ?').get(id);
+}
+
+export function deleteReview(id) {
+  const r = db.prepare('DELETE FROM reviews WHERE id = ?').run(id);
+  if (r.changes === 0) throw new Error('Review not found');
   return { ok: true };
 }
 
